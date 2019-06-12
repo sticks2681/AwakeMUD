@@ -824,21 +824,16 @@ enum {
 #define SKILL_BRACERGUN           130
 #define SKILL_BLOWGUN             131
 #define SKILL_PHARMA              132
+#define SKILL_SIGN_LANGUAGE       133
 
-#define MAX_SKILLS		  133
+#define MAX_SKILLS		  134
 
 // Skill type definitions.
 #define SKILL_TYPE_ACTIVE         0
 #define SKILL_TYPE_KNOWLEDGE      1
 
-/* TODO: Not yet implemented.
-#define SKILL_SIGN_LANGUAGE       133
-#define SKILL_IMMORTAL_LANGUAGE   134
-#define MAX_SKILLS		  135
-*/
-
 // Defines the size of the teach_t array. Changing this means you have to change every teacher too.
-#define NUM_TEACHER_SKILLS 20
+#define NUM_TEACHER_SKILLS 21
 
 #define ADEPT_PERCEPTION	1
 #define ADEPT_COMBAT_SENSE	2

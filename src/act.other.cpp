@@ -1288,8 +1288,12 @@ ACMD(do_skills)
       if (!mode_all && *arg && !is_abbrev(arg, skills[i].name))
         continue;
       
+      // Skip languages.
       if (i == SKILL_ENGLISH)
         i = SKILL_ANIMAL_HANDLING;
+      if (i == SKILL_SIGN_LANGUAGE)
+        continue;
+      
       if ((GET_SKILL(ch, i)) > 0) {
         sprintf(buf2, "%-30s %s\r\n", skills[i].name, how_good(GET_SKILL(ch, i)));
         strcat(buf, buf2);

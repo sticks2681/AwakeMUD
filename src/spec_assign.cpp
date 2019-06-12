@@ -76,45 +76,45 @@ teach_t teachers[] = {
   // Imm trainer (Dumbledore)
   { 10010, { SKILL_CONJURING, SKILL_SORCERY, SKILL_SPELLDESIGN,
     /*, SKILL_GETTING_THROWN_OFF_OF_A_TOWER, */
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "After what feels like seven years of magical study, you feel like you've learned something.\r\n", GODLY },
   
   // Newbie magic teacher
   { 60501, { SKILL_CONJURING, SKILL_SORCERY, SKILL_SPELLDESIGN,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "After hours of study and practice, you feel like you've learned something.\r\n", NEWBIE },
   
   { 60502, { SKILL_COMPUTER, SKILL_BR_COMPUTER, SKILL_DATA_BROKERAGE, SKILL_CYBERTERM_DESIGN, SKILL_ELECTRONICS, SKILL_BR_ELECTRONICS,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "After hours of study and practice, you feel like you've learned something.\r\n", NEWBIE },
   
   { 60503, { SKILL_ARABIC, SKILL_CHINESE, SKILL_CROW, SKILL_ENGLISH, SKILL_FRENCH, SKILL_GAELIC, SKILL_GERMAN,
     SKILL_ITALIAN, SKILL_JAPANESE, SKILL_KOREAN, SKILL_LATIN, SKILL_MAKAW, SKILL_NAVAJO, SKILL_ORZET,
-    SKILL_RUSSIAN, SKILL_SALISH, SKILL_SIOUX, SKILL_SPANISH, SKILL_SPERETHIEL, SKILL_UTE },
+    SKILL_RUSSIAN, SKILL_SALISH, SKILL_SIOUX, SKILL_SPANISH, SKILL_SPERETHIEL, SKILL_UTE, SKILL_SIGN_LANGUAGE },
     "Von Richter runs through basic conjugation and sentence structure with you.\r\n", NEWBIE },
   
   { 60504, { SKILL_PILOT_BIKE, SKILL_PILOT_CAR, SKILL_PILOT_TRUCK, SKILL_BR_BIKE,
-    SKILL_BR_DRONE, SKILL_BR_CAR, SKILL_BR_TRUCK, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    SKILL_BR_DRONE, SKILL_BR_CAR, SKILL_BR_TRUCK, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "After hours of study and practice, you feel like you've learned something.\r\n", NEWBIE },
   
   { 60505, { SKILL_CLUBS, SKILL_CYBER_IMPLANTS, SKILL_EDGED_WEAPONS, SKILL_POLE_ARMS, SKILL_UNARMED_COMBAT, SKILL_WHIPS_FLAILS,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "After hours of study and practice, you feel like you've learned something.\r\n", NEWBIE },
   
   { 60506, { SKILL_ASSAULT_RIFLES, SKILL_GUNNERY, SKILL_MACHINE_GUNS, SKILL_PISTOLS, SKILL_RIFLES, SKILL_SHOTGUNS, SKILL_SMG,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "After hours of study and practice, you feel like you've learned something.\r\n", NEWBIE },
   
   { 60532, { SKILL_PROGRAM_COMBAT, SKILL_PROGRAM_CYBERTERM, SKILL_PROGRAM_DEFENSIVE, SKILL_PROGRAM_OPERATIONAL, SKILL_PROGRAM_SPECIAL,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "Deadlock picks up some design plans from his desk and runs through the basic process of setting one up, you feel like you've learned something.\r\n", NEWBIE},
   
   { 60533, { SKILL_CORPORATE_ETIQUETTE, SKILL_ELF_ETIQUETTE, SKILL_MEDIA_ETIQUETTE, SKILL_NEGOTIATION, SKILL_STREET_ETIQUETTE, SKILL_TRIBAL_ETIQUETTE,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "Lucy runs through the proper decorum to use in certain situations, you feel like you've learned something.\r\n", NEWBIE},
   
   { 60534, { SKILL_ATHLETICS, SKILL_BIOTECH, SKILL_POLICE_PROCEDURES, SKILL_STEALTH,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "Steve roughly throws you a text book and tells you to read it, you feel like you've learned something.\r\n", NEWBIE},
   
 /*                     { 30700, { SKILL_ENGLISH, SKILL_JAPANESE, SKILL_CHINESE, SKILL_KOREAN,
@@ -135,11 +135,11 @@ teach_t teachers[] = {
                          "trade and you emerge more skilled than before.\r\n", AMATEUR }, */
   
   { 35502, { SKILL_STREET_ETIQUETTE,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "You spend some time talking to the people in line.\r\n", AMATEUR },
   
   { 17111, { SKILL_CORPORATE_ETIQUETTE, SKILL_NEGOTIATION,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     "You spend some time making small talk with the secretary.\r\n", AMATEUR },
   
 /*                     { 65106, { SKILL_MEDIA_ETIQUETTE, SKILL_STEALTH, 0, 0, 0, 0, 0, 0 }, "You talk to the reporter about current events for"
@@ -151,7 +151,7 @@ teach_t teachers[] = {
                                   SKILL_BR_ELECTRONICS, SKILL_DATA_BROKERAGE, SKILL_PROGRAM_CYBERTERM, SKILL_PROGRAM_SPECIAL },
                          "You read through various technological journals.\r\n", LIBRARY }, */
   
-  { 0, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Report this bug!\r\n", 0 } // this MUST be last
+  { 0, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Report this bug!\r\n", 0 } // this MUST be last
 };
 
 adept_t adepts[] = {

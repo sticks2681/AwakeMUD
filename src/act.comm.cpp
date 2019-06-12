@@ -112,7 +112,7 @@ ACMD(do_say)
         }
       } else {
         success = success_test(GET_SKILL(ch, GET_LANGUAGE(ch)), 4);
-        for (tmp = ch->in_veh->people; tmp; tmp = tmp->next_in_veh)
+        for (tmp = ch->in_veh->people; tmp; tmp = tmp->next_in_veh) {
           if (tmp != ch) {
             if (to) {
               if (to == tmp)
@@ -123,18 +123,33 @@ ACMD(do_say)
             }
             if (success > 0) {
               suc = success_test(GET_SKILL(tmp, GET_LANGUAGE(ch)), 4);
-              if (suc > 0 || IS_NPC(tmp))
-                sprintf(buf, "$z says%s in %s, \"%s^n\"",
-                        (to ? buf2 : ""), skills[GET_LANGUAGE(ch)].name, argument);
-              else
-                sprintf(buf, "$z speaks%s in a language you don't understand.", (to ? buf2 : ""));
-            } else
-              sprintf(buf, "$z mumbles incoherently.");
+              if (suc > 0 || IS_NPC(tmp)) {
+                if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+                  sprintf(buf, "$z signs%s, \"%s^n\"", (to ? buf2 : ""), argument);
+                } else {
+                  sprintf(buf, "$z says%s in %s, \"%s^n\"",
+                          (to ? buf2 : ""), skills[GET_LANGUAGE(ch)].name, argument);
+                }
+              } else {
+                if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+                  sprintf(buf, "$z makes some gestures%s that you don't understand.", (to ? buf2 : ""));
+                } else {
+                  sprintf(buf, "$z speaks%s in a language you don't understand.", (to ? buf2 : ""));
+                }
+              }
+            } else {
+              if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+                sprintf(buf, "$z makes some incomprehensible gestures.");
+              } else {
+                sprintf(buf, "$z mumbles incoherently.");
+              }
+            }
             if (IS_NPC(ch))
               sprintf(buf, "$z says%s, \"%s^n\"", (to ? buf2 : ""), argument);
             // Note: includes act()
             store_message_to_history(tmp->desc, COMM_CHANNEL_SAYS, str_dup(act(buf, FALSE, ch, NULL, tmp, TO_VICT)));
           }
+        }
       }
     } else {
       /** new code by WASHU **/
@@ -149,29 +164,44 @@ ACMD(do_say)
         }
       } else {
         success = success_test(GET_SKILL(ch, GET_LANGUAGE(ch)), 4);
-        for (tmp = world[ch->in_room].people; tmp; tmp = tmp->next_in_room)
+        for (tmp = world[ch->in_room].people; tmp; tmp = tmp->next_in_room) {
           if (tmp != ch && !(IS_ASTRAL(ch) && !CAN_SEE(tmp, ch))) {
             if (to) {
               if (to == tmp)
                 sprintf(buf2, " to you");
               else
                 sprintf(buf2, " to %s", CAN_SEE(tmp, to) ? (found_mem(GET_MEMORY(tmp), to) ? CAP(found_mem(GET_MEMORY(tmp), to)->mem)
-                        : GET_NAME(to)) : "someone");
+                                                            : GET_NAME(to)) : "someone");
             }
             if (success > 0) {
               suc = success_test(GET_SKILL(tmp, GET_LANGUAGE(ch)), 4);
-              if (suc > 0 || IS_NPC(tmp))
-                sprintf(buf, "$z says%s in %s, \"%s^n\"",
-                        (to ? buf2 : ""), skills[GET_LANGUAGE(ch)].name, argument);
-              else
-                sprintf(buf, "$z speaks%s in a language you don't understand.", (to ? buf2 : ""));
-            } else
-              sprintf(buf, "$z mumbles incoherently.");
+              if (suc > 0 || IS_NPC(tmp)) {
+                if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+                  sprintf(buf, "$z signs%s, \"%s^n\"", (to ? buf2 : ""), argument);
+                } else {
+                  sprintf(buf, "$z says%s in %s, \"%s^n\"",
+                          (to ? buf2 : ""), skills[GET_LANGUAGE(ch)].name, argument);
+                }
+              } else {
+                if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+                  sprintf(buf, "$z makes some gestures%s that you don't understand.", (to ? buf2 : ""));
+                } else {
+                  sprintf(buf, "$z speaks%s in a language you don't understand.", (to ? buf2 : ""));
+                }
+              }
+            } else {
+              if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+                sprintf(buf, "$z makes some incomprehensible gestures.");
+              } else {
+                sprintf(buf, "$z mumbles incoherently.");
+              }
+            }
             if (IS_NPC(ch))
               sprintf(buf, "$z says%s, \"%s^n\"", (to ? buf2 : ""), argument);
-            // Invokes act().
+            // Note: includes act()
             store_message_to_history(tmp->desc, COMM_CHANNEL_SAYS, str_dup(act(buf, FALSE, ch, NULL, tmp, TO_VICT)));
           }
+        }
       }
     }
     // Acknowledge transmission of message.
@@ -638,6 +668,11 @@ ACMD(do_broadcast)
     send_to_char("You aren't allowed to broadcast!\r\n", ch);
     return;
   }
+  
+  if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+    send_to_char("Unfortunately, the audio-centric radio can't transmit sign language.\r\n", ch);
+    return;
+  }
 
   skip_spaces(&argument);
 
@@ -895,6 +930,11 @@ ACMD(do_gen_comm)
     send_to_char("The walls seem to absorb your words.\r\n", ch);
     return;
   }
+  
+  if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE && subcmd == SCMD_SHOUT) {
+    send_to_char("You're going to have a hard time being heard far away when using sign language.\r\n", ch);
+    return;
+  }
 
   /* make sure the char is on the channel */
   if (PRF_FLAGGED(ch, channels[subcmd])) {
@@ -1085,10 +1125,17 @@ ACMD(do_language)
         strcat(buf, "\r\n");
         send_to_char(buf, ch);
       }
+    if ((GET_SKILL(ch, SKILL_SIGN_LANGUAGE)) > 0) {
+      sprintf(buf, "%-20s %-17s", skills[SKILL_SIGN_LANGUAGE].name, how_good(GET_SKILL(ch, SKILL_SIGN_LANGUAGE)));
+      if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE)
+        strcat(buf, " ^Y(Speaking)^n");
+      strcat(buf, "\r\n");
+      send_to_char(buf, ch);
+    }
     return;
   }
 
-  if ((lannum = find_skill_num(arg)) && (lannum >= SKILL_ENGLISH && lannum <= SKILL_FRENCH))
+  if ((lannum = find_skill_num(arg)) && ((lannum >= SKILL_ENGLISH && lannum <= SKILL_FRENCH) || lannum == SKILL_SIGN_LANGUAGE))
     if (GET_SKILL(ch, lannum) > 0) {
       GET_LANGUAGE(ch) = lannum;
       sprintf(buf, "You will now speak %s.\r\n", skills[lannum].name);
@@ -1296,6 +1343,10 @@ ACMD(do_phone)
     }
     if (affected_by_spell(ch, SPELL_STEALTH) || world[ch->in_veh ? ch->in_veh->in_room : ch->in_room].silence[0]) {
       send_to_char("You can't seem to make any noise.\r\n", ch);
+      return;
+    }
+    if (GET_LANGUAGE(ch) == SKILL_SIGN_LANGUAGE) {
+      send_to_char("Unfortunately, your phone can't transmit sign language.\r\n", ch);
       return;
     }
     skip_spaces(&argument);
