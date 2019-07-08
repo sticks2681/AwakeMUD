@@ -21,16 +21,17 @@ Tested on:
 - Cygwin (beta)
 
 ## Installation (Ubuntu commands in parentheses)
-- Install [MySQL 5](https://dev.mysql.com/doc/refman/5.7/en/installing.html), including its development headers (ensure `mysql/mysql.h` exists in your path).
 - Install automake, make, gcc, g++, clang, libtool, autoconf, zlib1g-dev, libcurl4-openssl-dev, and libmysqlclient-dev if they're not already present (`sudo apt-get install automake make gcc g++ clang libtool autoconf zlib1g-dev libcurl4-openssl-dev libmysqlclient-dev`)
-- Install [libsodium](https://github.com/jedisct1/libsodium/releases) per their [installation instructions](https://download.libsodium.org/doc/installation). Version 1.0.16 is known to work, but higher versions should work as well.
+- Install [MySQL 5](https://dev.mysql.com/doc/refman/5.7/en/installing.html), or MariaDB if you prefer that. This is the backend datastore.
+- Install [libsodium](https://github.com/jedisct1/libsodium/releases) per their [installation instructions](https://download.libsodium.org/doc/installation). Version 1.0.16 is known to work, but higher versions should work as well. This is necessary for proper password storage.
+- Install [libwsclient](https://github.com/payden/libwsclient) per the instructions in the readme. This is necessary for Gossip support.
 - Clone this repository to your machine. (`git clone https://github.com/luciensadi/AwakeMUD.git`)
 - Change to the repository's SQL directory (`cd AwakeMUD/SQL`)
 - Run `./gensql.sh` (or do the steps manually if it doesn't support your OS). If you plan on running this with MariaDB, use the `--skip-checks` command-line flag.
 - Change to the repository's SRC directory (`cd ../src`).
-- Edit `Makefile` and uncomment the OS that looks closest to yours by removing the # marks in front of it. Comment out the others by ensuring they have a # in front of their lines. The default is Mac OS X; you'll probably want to switch it to Linux. You probably also want to remove the `-DGITHUB_INTEGRATION` flag from the Makefile at this time.
+- Edit `Makefile` and uncomment the OS that looks closest to yours by removing the # marks in front of it. Comment out the others by ensuring they have a # in front of their lines.
 - From that same src directory, run `make clean && make`.
-- Change to the root directory (`cd ..`) and run the game (raw invocation `bin/awake`, or use a debugger like `gdb bin/awake`, or `lldb bin/awake` on OS X to help troubleshoot issues).
+- Change to the root directory (`cd ..`) and run the game (raw invocation `bin/awake`, or use a debugger like `gdb bin/awake` on Linux/Ubuntu or `lldb bin/awake` on OS X to help troubleshoot issues).
 - Connect to the game with telnet at `127.0.0.1:4000` and enjoy!
 
 ### Cygwin Installation Notes

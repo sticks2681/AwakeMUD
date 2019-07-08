@@ -15,6 +15,7 @@ SHELL = /bin/sh
 #CXX = g++
 CXX = clang
 CC = gcc
+GLOBAL_LIBRARIES = -lz -lm -lsodium -lmysqlclient -lwsclient
 
 PROFILE = -ggdb
 CVS = cvs
@@ -25,16 +26,15 @@ CVS = cvs
 # smooth, the define can be removed.
 
 # OSX? Uncomment these:
-LIBS = -L/usr/local/lib -lmysqlclient -lz -lm -lcurl -lsodium -lstdc++
-MYFLAGS = -DUSE_MEMORY_CANARIES -DDEBUG -DSELFADVANCE -DIDLEDELETE_DRYRUN -DGITHUB_INTEGRATION -Dosx -I /usr/local/include/ -Wall -Wextra -Wno-unused-parameter
+LIBS = -L/usr/local/lib $(GLOBAL_LIBRARIES) -lcurl -lstdc++ 
+MYFLAGS = -DUSE_MEMORY_CANARIES -DDEBUG -DSELFADVANCE -DIDLEDELETE_DRYRUN -Dosx -I /usr/local/include/ -Wall -Wextra -Wno-unused-parameter
 
 # Linux / others? Uncomment these:
-#LIBS = -lcrypt -L/usr/local/lib -lmysqlclient -lz -lm -lnsl -lcurl -lsodium -lstdc++
+#LIBS = -L/usr/local/lib $(GLOBAL_LIBRARIES) -lnsl -lcurl -lstdc++ -lcrypt
 #MYFLAGS = -DDEBUG_CRYPTO -DDEBUG -DSELFADVANCE -DIDLEDELETE_DRYRUN -Dlinux -I /usr/local/include/ -Wall -Wextra -Wno-unused-parameter
-# If you want GitHub integration, add -DGITHUB_INTEGRATION to the above and fill out your basic auth credentials in github_config.cpp.
 
 # Cygwin:
-#LIBS = -L/usr/local/lib -lmysqlclient -lz -lm -lsodium -lcrypt
+#LIBS = -L/usr/local/lib $(GLOBAL_LIBRARIES) -lcrypt
 #MYFLAGS = -DDEBUG -DSELFADVANCE -DIDLEDELETE_DRYRUN -DWIN32 -I /usr/local/include/ -Wall -Wextra -Wno-unused-parameter
 
 CPPFLAGS = $(MYFLAGS) $(PROFILE)
