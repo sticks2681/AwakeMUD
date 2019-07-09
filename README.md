@@ -25,6 +25,7 @@ Tested on:
 - Install [MySQL 5](https://dev.mysql.com/doc/refman/5.7/en/installing.html), or MariaDB if you prefer that. This is the backend datastore.
 - Install [libsodium](https://github.com/jedisct1/libsodium/releases) per their [installation instructions](https://download.libsodium.org/doc/installation). Version 1.0.16 is known to work, but higher versions should work as well. This is necessary for proper password storage.
 - Install [libwsclient](https://github.com/payden/libwsclient) per the instructions in the readme. This is necessary for Gossip support.
+- Install [jansson](https://github.com/akheron/jansson) per the instructions in the readme. This is also necessary for Gossip support.
 - Clone this repository to your machine. (`git clone https://github.com/luciensadi/AwakeMUD.git`)
 - Change to the repository's SQL directory (`cd AwakeMUD/SQL`)
 - Run `./gensql.sh` (or do the steps manually if it doesn't support your OS). If you plan on running this with MariaDB, use the `--skip-checks` command-line flag.

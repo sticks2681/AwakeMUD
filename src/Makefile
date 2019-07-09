@@ -15,7 +15,7 @@ SHELL = /bin/sh
 #CXX = g++
 CXX = clang
 CC = gcc
-GLOBAL_LIBRARIES = -lz -lm -lsodium -lmysqlclient -lwsclient
+GLOBAL_LIBRARIES = -lz -lm -lsodium -lmysqlclient -lwsclient -ljansson
 
 PROFILE = -ggdb
 CVS = cvs
@@ -27,7 +27,7 @@ CVS = cvs
 
 # OSX? Uncomment these:
 LIBS = -L/usr/local/lib $(GLOBAL_LIBRARIES) -lcurl -lstdc++ 
-MYFLAGS = -DUSE_MEMORY_CANARIES -DDEBUG -DSELFADVANCE -DIDLEDELETE_DRYRUN -Dosx -I /usr/local/include/ -Wall -Wextra -Wno-unused-parameter
+MYFLAGS = -DUSE_MEMORY_CANARIES -DDEBUG -DSELFADVANCE -DIDLEDELETE_DRYRUN -Dosx -I /usr/local/include -Wall -Wextra -Wno-unused-parameter
 
 # Linux / others? Uncomment these:
 #LIBS = -L/usr/local/lib $(GLOBAL_LIBRARIES) -lnsl -lcurl -lstdc++ -lcrypt

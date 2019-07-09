@@ -5,6 +5,12 @@
 
 #include <wsclient/wsclient.h>
 
+#include <jansson.h>
+#include "awake.h"
+#include "utils.h"
+#include "structs.h"
+#include "db.h"
+#include "comm.h"
 #include "gossip.h"
 
 /*
@@ -52,43 +58,43 @@ void gossip_send(char * player, char * message) {
 
 void gossip_broadcast(const char * channel, const char * name, const char * game, const char * message) {
   char              buf[ MAX_STRING_LENGTH ];
-  DESCRIPTOR_DATA * d;
+  struct descriptor_data * d;
 
   if(!gossip_ws) {
     return;
   }
 
   if ( !strcmp("gossip", channel) ) {
-    sprintf( buf, "&c%s of %s gossips, '&W%s&c'", capitalize(name), game, message );
+    sprintf( buf, "^c%s of %s gossips, '^W%s^c'", capitalize(name), game, message );
   } else {
     return;
   }
 
   for ( d = descriptor_list; d; d = d->next ) {
-    CHAR_DATA * ch = ( d->original ? d->original : d->character );
+    struct char_data * ch = ( d->original ? d->original : d->character );
 
-    if ( d->connected == CON_PLAYING && !CHECK_BIT( ch->deaf, CHANNEL_GOSSIP ) ) {
-      send_to_char( C_DEFAULT, buf, d->character );
-      send_to_char( C_DEFAULT, "\n\r", d->character );
+    if ( d->connected == CON_PLAYING && !PLR_FLAGGED(ch, PLR_NO_GOSSIP)) {
+      send_to_char( buf, d->character );
+      send_to_char( "\n\r", d->character );
     }
   }
 }
 
 void gossip_heartbeat() {
-  DESCRIPTOR_DATA * d;
+  struct descriptor_data * d;
   char * payload;
   json_t * obj;
   json_t * players = json_array();
 
   for ( d = descriptor_list; d; d = d->next ) {
-    CHAR_DATA  * wch;
+    struct char_data  * wch;
     wch = ( d->original ) ? d->original : d->character;
 
     if ( d->connected != CON_PLAYING ) {
       continue;
     }
 
-    json_array_append_new( players, json_string( wch->name ) );
+    json_array_append_new( players, json_string( GET_CHAR_NAME(wch) ) );
   }
 
   obj = json_pack("{s:s, s:{s:o}}", "event", "heartbeat", "payload", "players", players);
@@ -101,8 +107,7 @@ void gossip_heartbeat() {
 }
 
 int gossip_onclose(wsclient *c) {
-  log_string("Disconnected from Gossip");
-  wiznet( "Disconnected from Gossip", NULL, NULL, WIZ_GENERAL, 0, 0 );
+  mudlog( "Disconnected from Gossip", NULL, LOG_SYSLOG, TRUE );
 
   return 0;
 }
@@ -111,7 +116,7 @@ int gossip_onerror(wsclient *c, wsclient_error *err) {
   char buf[ MAX_STRING_LENGTH ];
 
   sprintf(buf, "Gossip: %s", err->str);
-  bug(buf, 0);
+  mudlog(buf, NULL, LOG_SYSLOG, TRUE);
 
   if(err->extra_code) {
     errno = err->extra_code;
@@ -131,15 +136,14 @@ int gossip_onmessage(wsclient *c, wsclient_message *msg) {
 
   if ( !message ) {
     sprintf( buf, "Gossip: JSON error on line %d: %s", error.line, error.text );
-    log_string(buf);
-    wiznet( buf, NULL, NULL, WIZ_GENERAL, 0, 0 );
+    mudlog( buf, NULL, LOG_SYSLOG, TRUE );
     return 1;
   }
 
   raw = json_object_get( message, "event" );
 
   if ( !json_is_string( raw ) ) {
-    log_string("Gossip: Unable to parse message JSON");
+    log("Gossip: Unable to parse message JSON");
     return 1;
   }
 
@@ -169,7 +173,7 @@ int gossip_onopen(wsclient *c) {
   char * payload;
   json_t * obj;
 
-  log_string("Connected to Gossip");
+  log("Connected to Gossip");
 
   obj = json_pack("{s:s, s:{s:s, s:s, s:[s], s:[s], s:s, s:s}}",
                     "event", "authenticate",
