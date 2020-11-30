@@ -34,7 +34,6 @@ extern struct skill_data skills[];
 extern void respond(struct char_data *ch, struct char_data *mob, char *str);
 extern bool can_send_act_to_target(struct char_data *ch, bool hide_invisible, struct obj_data * obj, void *vict_obj, struct char_data *to, int type);
 extern char *how_good(int skill, int percent);
-extern char *colorize(struct descriptor_data *d, const char *str, bool skip_check = FALSE);
 int find_skill_num(char *name);
 
 
@@ -237,14 +236,14 @@ ACMD(do_exclaim)
 void perform_tell(struct char_data *ch, struct char_data *vict, char *arg)
 {
   sprintf(buf, "^r$n tells you, '%s^r'^n", arg);
-  store_message_to_history(vict->desc, COMM_CHANNEL_TELLS, str_dup(act(buf, FALSE, ch, 0, vict, TO_VICT)));
+  store_message_to_history(vict->desc, COMM_CHANNEL_TELLS, str_dup(act(buf, FALSE, ch, 0, vict, TO_VICT | TO_SLEEP)));
 
   if (PRF_FLAGGED(ch, PRF_NOREPEAT))
     send_to_char(OK, ch);
   else
   {
-    sprintf(buf, "^rYou tell $n, '%s'^n", arg);
-    store_message_to_history(ch->desc, COMM_CHANNEL_TELLS, str_dup(act(buf, FALSE, vict, 0, ch, TO_VICT)));
+    sprintf(buf, "^rYou tell $N, '%s'^n", arg);
+    store_message_to_history(ch->desc, COMM_CHANNEL_TELLS, str_dup(act(buf, FALSE, ch, 0, vict, TO_CHAR | TO_SLEEP)));
   }
 
   if (!IS_NPC(ch))
@@ -597,7 +596,7 @@ ACMD(do_broadcast)
   int i, j, frequency, to_room, crypt, decrypt, success, suc;
   char buf3[MAX_STRING_LENGTH], buf4[MAX_STRING_LENGTH], voice[16] = "$v"; 
   bool cyberware = FALSE, vehicle = FALSE;
-  if (PLR_FLAGGED(ch, PLR_AUTH)) {
+  if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
     send_to_char("You must be Authorized to do that.\r\n", ch);
     return;
   }
@@ -878,7 +877,7 @@ ACMD(do_gen_comm)
   if (!ch->desc && !MOB_FLAGGED(ch, MOB_SPEC))
     return;
 
-  if(PLR_FLAGGED(ch, PLR_AUTH) && subcmd != SCMD_NEWBIE) {
+  if(PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED) && subcmd != SCMD_NEWBIE) {
     send_to_char(ch, "You must be Authorized to use that command.\r\n");
     return;
   }
@@ -945,27 +944,27 @@ ACMD(do_gen_comm)
         if (success > 0) {
           int suc = success_test(GET_SKILL(tmp, GET_LANGUAGE(ch)), 4);
           if (suc > 0 || IS_NPC(tmp))
-            sprintf(buf, "%s$z shouts in %s, \"%s^n\"", com_msgs[subcmd][3], skills[GET_LANGUAGE(ch)].name, argument);
+            sprintf(buf, "%s$z shouts in %s, \"%s%s\"^n", com_msgs[subcmd][3], skills[GET_LANGUAGE(ch)].name, argument, com_msgs[subcmd][3]);
           else
             sprintf(buf, "%s$z shouts in a language you don't understand.", com_msgs[subcmd][3]);
         } else
           sprintf(buf, "$z shouts incoherently.");
         if (IS_NPC(ch))
-          sprintf(buf, "%s$z shouts, \"%s^n\"", com_msgs[subcmd][3], argument);
+          sprintf(buf, "%s$z shouts, \"%s%s\"^n", com_msgs[subcmd][3], argument, com_msgs[subcmd][3]);
         
         // Note that this line invokes act().
         store_message_to_history(tmp->desc, COMM_CHANNEL_SHOUTS, str_dup(act(buf, FALSE, ch, NULL, tmp, TO_VICT)));
       }
 
-    sprintf(buf1, "%sYou shout, \"%s^n\"", com_msgs[subcmd][3], argument);
+    sprintf(buf1, "%sYou shout, \"%s%s\"^n", com_msgs[subcmd][3], argument, com_msgs[subcmd][3]);
     // Note that this line invokes act().
     store_message_to_history(ch->desc, COMM_CHANNEL_SHOUTS, str_dup(act(buf1, FALSE, ch, 0, 0, TO_CHAR)));
 
     was_in = ch->in_room;
     if (ch->in_veh) {
       ch->in_room = get_ch_in_room(ch);
-      sprintf(buf1, "%sFrom inside %s, $z %sshouts, '%s^n'", com_msgs[subcmd][3], GET_VEH_NAME(ch->in_veh),
-              com_msgs[subcmd][3], argument);
+      sprintf(buf1, "%sFrom inside %s, $z %sshouts, \"%s%s\"^n", com_msgs[subcmd][3], GET_VEH_NAME(ch->in_veh),
+              com_msgs[subcmd][3], argument, com_msgs[subcmd][3]);
       for (tmp = ch->in_room->people; tmp; tmp = tmp->next_in_room) {
         // Replicate act() in a way that lets us capture the message.
         if (can_send_act_to_target(ch, FALSE, NULL, NULL, tmp, TO_ROOM)) {
@@ -995,13 +994,13 @@ ACMD(do_gen_comm)
             if (success > 0) {
               int suc = success_test(GET_SKILL(tmp, GET_LANGUAGE(ch)), 4);
               if (suc > 0 || IS_NPC(tmp))
-                sprintf(buf, "%s$z shouts in %s, \"%s^n\"", com_msgs[subcmd][3], skills[GET_LANGUAGE(ch)].name, argument);
+                sprintf(buf, "%s$z shouts in %s, \"%s%s\"^n", com_msgs[subcmd][3], skills[GET_LANGUAGE(ch)].name, argument, com_msgs[subcmd][3]);
               else
                 sprintf(buf, "%s$z shouts in a language you don't understand.", com_msgs[subcmd][3]);
             } else
               sprintf(buf, "$z shouts incoherently.");
             if (IS_NPC(ch))
-              sprintf(buf, "%s$z shouts, \"%s^n\"", com_msgs[subcmd][3], argument);
+              sprintf(buf, "%s$z shouts, \"%s%s\"^n", com_msgs[subcmd][3], argument, com_msgs[subcmd][3]);
             
             // If it sent successfully, store to their history.
             store_message_to_history(tmp->desc, COMM_CHANNEL_SHOUTS, str_dup(act(buf, FALSE, ch, NULL, tmp, TO_VICT)));
@@ -1020,7 +1019,7 @@ ACMD(do_gen_comm)
     for ( d = descriptor_list; d != NULL; d = d->next ) {
       if ( !d->character || ( d->connected != CON_PLAYING && !PRF_FLAGGED(d->character, PRF_MENUGAG)) ||
            PLR_FLAGGED( d->character, PLR_WRITING) ||
-           PRF_FLAGGED( d->character, PRF_NOOOC) || PLR_FLAGGED(d->character, PLR_AUTH) || found_mem(GET_IGNORE(d->character), ch))
+           PRF_FLAGGED( d->character, PRF_NOOOC) || PLR_FLAGGED(d->character, PLR_NOT_YET_AUTHED) || found_mem(GET_IGNORE(d->character), ch))
         continue;
 
       if (!access_level(d->character, GET_INCOG_LEV(ch)))
@@ -1571,7 +1570,8 @@ void send_message_history_to_descriptor(struct descriptor_data *d, int channel, 
       continue;
     
     sprintf(buf, "  %s", currnode->data);
-    write_to_output(colorize(d, buf, TRUE), d);
+    int size = strlen(buf);
+    write_to_output(ProtocolOutput(d, buf, &size), d);
   }
 }
 

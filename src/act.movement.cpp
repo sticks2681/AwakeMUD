@@ -37,11 +37,14 @@ extern bool memory(struct char_data *ch, struct char_data *vict);
 extern bool is_escortee(struct char_data *mob);
 extern bool hunting_escortee(struct char_data *ch, struct char_data *vict);
 extern void death_penalty(struct char_data *ch);
-extern int modify_veh(struct veh_data *veh);
+extern int get_vehicle_modifier(struct veh_data *veh);
 
 extern sh_int mortal_start_room;
 extern sh_int frozen_start_room;
 extern vnum_t newbie_start_room;
+
+extern int num_elevators;
+extern struct elevator_data *elevator;
 
 /* can_move determines if a character can move in the given direction, and
    generates the appropriate message if not */
@@ -200,10 +203,14 @@ int do_simple_move(struct char_data *ch, int dir, int extra, struct char_data *v
     for (tch = ch->in_room->people; tch; tch = tch->next_in_room)
       if (tch != ch && !PRF_FLAGGED(tch, PRF_MOVEGAG))
         act(buf2, TRUE, ch, 0, tch, TO_VICT);
-    for (tveh = ch->in_room->vehicles; tveh; tveh = tveh->next_veh)
+    for (tveh = ch->in_room->vehicles; tveh; tveh = tveh->next_veh) {
       for (tch = tveh->people; tch; tch = tch->next_in_veh)
         if (tveh->cspeed <= SPEED_IDLE || success_test(GET_INT(tch), 4))
           act(buf2, TRUE, ch, 0, tch, TO_VICT);
+          
+      if (tveh->rigger && (tveh->cspeed <= SPEED_IDLE || success_test(GET_INT(tveh->rigger), 4)))
+        act(buf2, TRUE, ch, 0, tch, TO_VICT & TO_SLEEP);
+    }
     if (ch->in_room->watching)
       for (struct char_data *tch = ch->in_room->watching; tch; tch = tch->next_watching)
           act(buf2, TRUE, ch, 0, tch, TO_VICT);
@@ -561,7 +568,7 @@ void move_vehicle(struct char_data *ch, int dir)
   char empty_argument = '\0';
 
   RIG_VEH(ch, veh);
-  if (!veh || veh->damage >= 10)
+  if (!veh || veh->damage >= VEH_DAM_THRESHOLD_DESTROYED)
     return;
   if (ch && !(AFF_FLAGGED(ch, AFF_PILOT) || PLR_FLAGGED(ch, PLR_REMOTE)) && !veh->dest)
   {
@@ -666,8 +673,8 @@ void move_vehicle(struct char_data *ch, int dir)
     }
     int target = get_speed(v->follower) - get_speed(veh), target2 = 0;
     target = (int)(target / 20);
-    target2 = target + veh->handling + modify_veh(veh) + modify_target(ch);
-    target = -target + v->follower->handling + modify_veh(v->follower) + modify_target(pilot);
+    target2 = target + veh->handling + get_vehicle_modifier(veh) + modify_target(ch);
+    target = -target + v->follower->handling + get_vehicle_modifier(v->follower) + modify_target(pilot);
     int success = resisted_test(veh_skill(pilot, v->follower), target, veh_skill(ch, veh), target2);
     if (success > 0) {
       send_to_char(pilot, "You gain ground.\r\n");
@@ -780,7 +787,11 @@ int perform_move(struct char_data *ch, int dir, int extra, struct char_data *vic
       if (IS_ASTRAL(ch)) {
         send_to_char("As you approach, the cobalt flash of an astral barrier warns you back.\r\n", ch);
       } else if (EXIT(ch, dir)->keyword) {
-        send_to_char(ch, "The %s seems to be closed.\r\n", fname(EXIT(ch, dir)->keyword));
+        bool plural = false;
+        if (!strcmp(EXIT(ch, dir)->keyword, "doors")) {
+          plural = true;
+        }
+        send_to_char(ch, "The %s seem%s to be closed.\r\n", fname(EXIT(ch, dir)->keyword), plural ? "" : "s");
       } else {
         send_to_char("It seems to be closed.\r\n", ch);
       }
@@ -791,6 +802,46 @@ int perform_move(struct char_data *ch, int dir, int extra, struct char_data *vic
   if (ROOM_FLAGGED(EXIT(ch, dir)->to_room, ROOM_STAFF_ONLY) && GET_REAL_LEVEL(ch) < LVL_BUILDER) {
     send_to_char("Sorry, that area is for game administration only.\r\n", ch);
     return 0;
+  }
+  
+  if (EXIT(ch, dir)->to_room->staff_level_lock > GET_REAL_LEVEL(ch)) {
+    if (GET_REAL_LEVEL(ch) == 0) {
+      send_to_char("NPCs aren't allowed in there.\r\n", ch);
+    } else if (GET_REAL_LEVEL(ch) == 1) {
+      send_to_char("Sorry, that area is for game administration only.\r\n", ch);
+    } else {
+      send_to_char(ch, "Sorry, you need to be a level-%d immortal to go there.", EXIT(ch, dir)->to_room->staff_level_lock);
+    }
+    return 0;
+  }
+  
+  // Don't let people move past elevator cars.
+  if (ROOM_FLAGGED(EXIT(ch, dir)->to_room, ROOM_ELEVATOR_SHAFT)) {
+    bool to_room_found = FALSE, in_room_found = FALSE;
+    for (int index = 0; !(to_room_found && in_room_found) && index < num_elevators; index++) {
+      int car_rating = world[real_room(elevator[index].room)].rating;
+      // Check to see if they're leaving a moving elevator car's room.
+      if (!in_room_found && elevator[index].floor[car_rating].shaft_vnum == ch->in_room->number) {
+        if (elevator[index].is_moving) {
+          send_to_char("All you can do is cling to the shaft and hope for the best!\r\n", ch); // giggity
+          return 0;
+        } else {
+          // We found the shaft room and it's okay.
+          in_room_found = TRUE;
+        }
+      } 
+      // Check to see if they're moving into a moving elevator car's room.
+      if (!to_room_found && elevator[index].floor[car_rating].shaft_vnum == EXIT(ch, dir)->to_room->number) {
+        // Check for the car being at this floor.
+        if (elevator[index].is_moving) {
+          send_to_char("Are you crazy? There's a moving elevator car there!\r\n", ch);
+          return 0;
+        } else {
+          // We found the shaft room and it's okay.
+          to_room_found = TRUE;
+        }
+      }
+    }
   }
 
   int total = 0;
@@ -1022,7 +1073,12 @@ int ok_pick(struct char_data *ch, int keynum, int pickproof, int scmd, int lock_
   if (scmd == SCMD_PICK)
   {
     if (keynum <= 0) {
-      send_to_char("Odd - you can't seem to find an electronic lock.\r\n", ch);
+      if (access_level(ch, LVL_BUILDER)) {
+        sprintf(buf, "That door can't be bypassed since its key vnum is %d. Give it a key vnum to make it bypassable.\r\n", keynum);
+        send_to_char(buf, ch);
+      } else {
+        send_to_char("Odd - you can't seem to find an electronic lock.\r\n", ch);
+      }
       return 0;
     } else {
       WAIT_STATE(ch, PULSE_VIOLENCE);
@@ -1176,7 +1232,7 @@ void enter_veh(struct char_data *ch, struct veh_data *found_veh, const char *arg
     front = FALSE;
   
   // Too damaged? Can't (unless admin).
-  if (found_veh->damage >= 10) {
+  if (found_veh->damage >= VEH_DAM_THRESHOLD_DESTROYED) {
     if (access_level(ch, LVL_ADMIN)) {
       send_to_char("You use your staff powers to enter the destroyed vehicle.\r\n", ch);
     } else {
@@ -1277,9 +1333,12 @@ void enter_veh(struct char_data *ch, struct veh_data *found_veh, const char *arg
     next = k->next;
     if ((door && door == k->follower->in_room) && (GET_POS(k->follower) >= POS_STANDING)) {
       act("You follow $N.\r\n", FALSE, k->follower, 0, ch, TO_CHAR);
-      if (!found_veh->seating[front])
-        argument = "rear";
-      enter_veh(k->follower, found_veh, argument, FALSE);
+      if (!found_veh->seating[front]) {
+        strcpy(buf3, "rear");
+      } else {
+        strcpy(buf3, argument);
+      }
+      enter_veh(k->follower, found_veh, buf3, FALSE);
     }
   }
 }
@@ -1455,7 +1514,7 @@ void leave_veh(struct char_data *ch)
     if (access_level(ch, LVL_ADMIN)) {
       send_to_char("You use your staff powers to exit the moving vehicle safely.\r\n", ch);
     } else {
-      send_to_char("That would just be crazy.\r\n", ch);
+      send_to_char("Your vehicle's moving! That would just be crazy.\r\n", ch);
       return;
     }
   }
@@ -1709,7 +1768,7 @@ ACMD(do_lay)
 ACMD(do_sleep)
 {
   if (AFF_FLAGGED(ch, AFF_PILOT)) {
-    send_to_char("ARE YOU CRAZY!?\r\n", ch);
+    send_to_char("Sleeping while driving? ARE YOU CRAZY!?\r\n", ch);
     return;
   }
   if (ch->in_room && IS_WATER(ch->in_room)) {

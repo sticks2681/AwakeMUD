@@ -44,7 +44,6 @@ extern int skill_web(struct char_data *, int);
 extern int return_general(int skill_num);
 extern int can_wield_both(struct char_data *, struct obj_data *, struct obj_data *);
 extern int max_ability(int i);
-extern void weight_change_object(struct obj_data * obj, float weight);
 
 struct obj_data *find_obj(struct char_data *ch, char *name, int num);
 
@@ -1413,19 +1412,23 @@ void obj_from_bioware(struct obj_data *bio)
 /* take an object from a char */
 void obj_from_char(struct obj_data * object)
 {
-  struct obj_data *temp;
+  struct obj_data *temp = NULL;
   
   if (object == NULL)
   {
-    log("SYSLOG: NULL object passed to obj_from_char");
+    mudlog("ERROR: NULL object passed to obj_from_char", NULL, LOG_SYSLOG, TRUE);
+    return;
+  }
+  if (object->carried_by == NULL) {
+    mudlog("ERROR: obj_from_char() called on obj that had no carried_by!", NULL, LOG_SYSLOG, TRUE);
     return;
   }
   if (object->in_obj)
   {
-    sprintf(buf, "%s removed from char (%s), also in obj (%s). Removing.", object->text.name,
+    sprintf(buf, "DEBUG: %s removed from char (%s), also in obj (%s). Removing.", object->text.name,
             GET_CHAR_NAME(object->carried_by) ? GET_CHAR_NAME(object->carried_by) :
             GET_NAME(object->carried_by), object->in_obj->text.name);
-    mudlog(buf, object->carried_by, LOG_WIZLOG, TRUE);
+    mudlog(buf, object->carried_by, LOG_SYSLOG, TRUE);
     obj_from_obj(object);
   }
   REMOVE_FROM_LIST(object, object->carried_by->carrying, next_content);
@@ -1773,7 +1776,7 @@ void obj_from_room(struct obj_data * object)
 /* put an object in an object (quaint)  */
 void obj_to_obj(struct obj_data * obj, struct obj_data * obj_to)
 {
-  struct obj_data *tmp_obj;
+  struct obj_data *tmp_obj = NULL;
   struct obj_data *i = NULL, *op = NULL;
   
   // Check our object-related preconditions. All error logging is done there.
@@ -1792,34 +1795,47 @@ void obj_to_obj(struct obj_data * obj, struct obj_data * obj_to)
     return;
   }
   
+  // Scan through the contents for something that matches this item. If we find it, that's where we can nest this item.
   for (i = obj_to->contains; i; i = i->next_content)
   {
     if (i->item_number == obj->item_number &&
         !strcmp(i->text.room_desc, obj->text.room_desc) &&
         IS_INVIS(i) == IS_INVIS(obj))
       break;
+    // op points to the last thing we saw-- if a match is found, op is the thing immediately before it. Otherwise, op is the last thing in the list.
     op=i;
   }
   
   if (i)
   {
+    // i points to a similar object to obj.
     obj->next_content = i;
+    
+    // with i existing, op must point to the object immediately before i in the list.
     if (op)
       op->next_content = obj;
+    
+    // op will be null if the very first object in the list was a match for obj.
     else
       obj_to->contains = obj;
   } else
   {
+    // No matches, so stick it at the top of the list.
     obj->next_content = obj_to->contains;
     obj_to->contains = obj;
   }
   
   obj->in_obj = obj_to;
   
+  // Cascade the weight change all the way up to the second-highest containing object (handles bag-in-bag-in-bag situations).
   for (tmp_obj = obj->in_obj; tmp_obj->in_obj; tmp_obj = tmp_obj->in_obj)
-    weight_change_object(tmp_obj, GET_OBJ_WEIGHT(obj));
+    GET_OBJ_WEIGHT(tmp_obj) += GET_OBJ_WEIGHT(obj);
+  
+  // Update the highest container's weight as well.
   if (GET_OBJ_TYPE(tmp_obj) != ITEM_CYBERDECK || GET_OBJ_TYPE(tmp_obj) != ITEM_CUSTOM_DECK || GET_OBJ_TYPE(tmp_obj) != ITEM_DECK_ACCESSORY)
-    weight_change_object(tmp_obj, GET_OBJ_WEIGHT(obj));
+    GET_OBJ_WEIGHT(tmp_obj) += GET_OBJ_WEIGHT(obj);
+  
+  // If someone's carrying or wearing the highest container, increment their carry weight by the weight of the obj we just put in.
   if (tmp_obj->carried_by)
     IS_CARRYING_W(tmp_obj->carried_by) += GET_OBJ_WEIGHT(obj);
   if (tmp_obj->worn_by)
@@ -1839,21 +1855,28 @@ void obj_from_obj(struct obj_data * obj)
   }
   obj_from = obj->in_obj;
   REMOVE_FROM_LIST(obj, obj_from->contains, next_content);
+  
+  // Unready the holster it's in.
   if (GET_OBJ_TYPE(obj_from) == ITEM_HOLSTER && GET_OBJ_VAL(obj_from, 3))
     GET_OBJ_VAL(obj_from, 3) = 0;
-  /* Subtract weight from containers container */
   
+  // Remove weight from whatever's containing this (and its container, and its container...)
+  // temp->in_obj as the check is required here, we keep processing after this!
   for (temp = obj->in_obj; temp->in_obj; temp = temp->in_obj)
-    weight_change_object(temp, -GET_OBJ_WEIGHT(obj));
+    GET_OBJ_WEIGHT(temp) -= GET_OBJ_WEIGHT(obj);
+    
+  // Decks don't get their weight deducted from.
   if (GET_OBJ_TYPE(temp) != ITEM_CYBERDECK || GET_OBJ_TYPE(temp) != ITEM_DECK_ACCESSORY || GET_OBJ_TYPE(temp) != ITEM_CUSTOM_DECK)
-    weight_change_object(temp, -GET_OBJ_WEIGHT(obj));
+    GET_OBJ_WEIGHT(temp) -= GET_OBJ_WEIGHT(obj);
+  
+  obj->in_obj = NULL;
+  obj->next_content = NULL;
+  
+  // Recalculate the bearer's weight.
   if (temp->carried_by)
     IS_CARRYING_W(temp->carried_by) -= GET_OBJ_WEIGHT(obj);
   if (temp->worn_by)
     IS_CARRYING_W(temp->worn_by) -= GET_OBJ_WEIGHT(obj);
-  
-  obj->in_obj = NULL;
-  obj->next_content = NULL;
 }
 
 void extract_icon(struct matrix_icon * icon)
@@ -1936,6 +1959,27 @@ void extract_veh(struct veh_data * veh)
       mudlog(buf, NULL, LOG_SYSLOG, TRUE);
     }
   }
+  
+  // Find the online owner of the vehicle for future modifications and notifications.
+  
+  
+  if (veh->prev_sub) {
+    // If there is a prior entry in the subscriber doubly-linked list, just strip us out.
+    veh->prev_sub->next_sub = veh->next_sub;
+  } else {
+    // Veh is the list head. Look for an online owner– they need their list's head updated to point to our next_sub value.
+    for (struct char_data *owner = character_list; owner; owner = owner->next) {
+      if (owner->char_specials.subscribe == veh) {
+        owner->char_specials.subscribe = veh->next_sub;
+        break;
+      }
+    }
+  }
+  
+  // If there's a vehicle after us in the list, make sure its prev reflects our prev.
+  if (veh->next_sub)
+    veh->next_sub->prev_sub = veh->prev_sub;
+  
   // If any vehicles are inside, drop them where the vehicle is.
   struct veh_data *temp = NULL;
   while ((temp = veh->carriedvehs)) {
@@ -2765,5 +2809,3 @@ int veh_skill(struct char_data *ch, struct veh_data *veh)
   
   return skill;
 }
-
-

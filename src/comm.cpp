@@ -1084,7 +1084,7 @@ void make_prompt(struct descriptor_data * d)
       prompt = colorize(d, prompt);
       write_to_descriptor(d->descriptor, prompt);
     } else {
-      char temp[MAX_INPUT_LENGTH], str[11], *final_str;
+      char temp[MAX_INPUT_LENGTH], str[11];
       int i = 0, j, physical;
       
       for (; *prompt; prompt++) {
@@ -1306,7 +1306,8 @@ void make_prompt(struct descriptor_data * d)
         }
       }
       temp[i] = '\0';
-      final_str = colorize(d, temp);
+      int size = strlen(temp);
+      const char *final_str = ProtocolOutput(d, temp, &size);
       write_to_descriptor(d->descriptor, final_str);
     }
   }
@@ -1531,7 +1532,8 @@ int new_descriptor(int s)
   // Once the descriptor has been fully created and added to any lists, it's time to negotiate:
   ProtocolNegotiate(newd);
   
-  SEND_TO_Q(colorize(newd, GREETINGS, TRUE), newd);
+  int size = strlen(GREETINGS);
+  SEND_TO_Q(ProtocolOutput(newd, GREETINGS, &size), newd);
   return 0;
 }
   
@@ -2763,11 +2765,18 @@ const char *act(const char *str, int hide_invisible, struct char_data * ch,
   }
   if (type == TO_VICT)
   {
-    if ((to = (struct char_data *) vict_obj) && SENDOK(to) &&
-        !((PLR_FLAGGED(to, PLR_REMOTE) || PLR_FLAGGED(to, PLR_MATRIX)) && !sleep) &&
-        !(hide_invisible && ch && !CAN_SEE(to, ch)))
-      return perform_act(str, ch, obj, vict_obj, to);
-    return NULL;
+    to = (struct char_data *) vict_obj;
+    
+    if (!to || !SENDOK(to))
+      return NULL;
+    
+    if ((PLR_FLAGGED(to, PLR_REMOTE) || PLR_FLAGGED(to, PLR_MATRIX)) && !sleep)
+      return NULL;
+      
+    if (hide_invisible && ch && !CAN_SEE(to, ch))
+      return NULL;
+    
+    return perform_act(str, ch, obj, vict_obj, to);
   }
   if (type == TO_DECK)
   {
@@ -2836,6 +2845,15 @@ const char *act(const char *str, int hide_invisible, struct char_data * ch,
       next = to->next_in_veh;
     else
       next = to->next_in_room;
+    if (to == next) {
+      sprintf(buf, "SYSERR: Encountered to=next infinite loop while looping over act string ''%s' for %s. Debug info: %s, type %d",
+              str, 
+              GET_CHAR_NAME(ch), 
+              to->in_veh ? "in veh" : "in room",
+              type);
+      mudlog(buf, ch, LOG_SYSLOG, TRUE);
+      return NULL;
+    }
     if (can_send_act_to_target(ch, hide_invisible, obj, vict_obj, to, type))
       perform_act(str, ch, obj, vict_obj, to);
   }

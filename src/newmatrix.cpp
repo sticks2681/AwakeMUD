@@ -949,14 +949,14 @@ ACMD(do_locate)
         matrix[PERSONA->in_host].found--;
         success--;
         i++;
-        struct obj_data *obj = read_object(106, VIRTUAL);
-        GET_OBJ_VAL(obj, 0) = 0;
-        GET_OBJ_VAL(obj, 1) = time(0);
-        GET_OBJ_VAL(obj, 2) = (number(1, 6) + number(1, 6)) * MAX(5, (20 - (5 * matrix[PERSONA->in_host].colour)));
-        GET_OBJ_VAL(obj, 3) = matrix[PERSONA->in_host].vnum;
-        GET_OBJ_VAL(obj, 4) = matrix[PERSONA->in_host].colour;
-        GET_OBJ_VAL(obj, 7) = PERSONA->idnum;
-        sprintf(buf, "Paydata %s - %dMp", matrix[PERSONA->in_host].name, GET_OBJ_VAL(obj, 2));
+        struct obj_data *obj = read_object(OBJ_BLANK_OPTICAL_CHIP, VIRTUAL);
+        GET_DECK_ACCESSORY_TYPE(obj) = TYPE_FILE;
+        GET_DECK_ACCESSORY_FILE_CREATION_TIME(obj) = time(0);
+        GET_DECK_ACCESSORY_FILE_SIZE(obj) = (number(1, 6) + number(1, 6)) * MAX(5, (20 - (5 * matrix[PERSONA->in_host].colour)));
+        GET_DECK_ACCESSORY_FILE_HOST_VNUM(obj) = matrix[PERSONA->in_host].vnum;
+        GET_DECK_ACCESSORY_FILE_HOST_COLOR(obj) = matrix[PERSONA->in_host].colour;
+        GET_DECK_ACCESSORY_FILE_FOUND_BY(obj) = PERSONA->idnum;
+        sprintf(buf, "Paydata %s - %dMp", matrix[PERSONA->in_host].name, GET_DECK_ACCESSORY_FILE_SIZE(obj));
         obj->restring = str_dup(buf);
         int defense[5][6] = {{ 0, 0, 0, 1, 1, 1 },
                              { 0, 0, 1, 1, 2, 2 },
@@ -989,23 +989,24 @@ ACMD(do_locate)
             rate[3] = 12;
           }
           if (matrix[PERSONA->in_host].security < 5)
-            GET_OBJ_VAL(obj, 6) = rate[0];
+            GET_DECK_ACCESSORY_FILE_RATING(obj) = rate[0];
           else if (matrix[PERSONA->in_host].security < 8)
-            GET_OBJ_VAL(obj, 6) = rate[1];
+            GET_DECK_ACCESSORY_FILE_RATING(obj) = rate[1];
           else if (matrix[PERSONA->in_host].security < 11)
-            GET_OBJ_VAL(obj, 6) = rate[2];
+            GET_DECK_ACCESSORY_FILE_RATING(obj) = rate[2];
           else
-            GET_OBJ_VAL(obj, 6) = rate[3];
+            GET_DECK_ACCESSORY_FILE_RATING(obj) = rate[3];
           switch (def) {
           case 1:
-            GET_OBJ_VAL(obj, 5) = 1;
+            GET_DECK_ACCESSORY_FILE_PROTECTION(obj) = FILE_PROTECTION_SCRAMBLED;
             break;
           case 2:
           case 3:
+            // Bomb rating.
             if (number(1, 6) > 4)
-              GET_OBJ_VAL(obj, 5) = 4;
+              GET_DECK_ACCESSORY_FILE_PROTECTION(obj) = 4;
             else
-              GET_OBJ_VAL(obj, 5) = 2;
+              GET_DECK_ACCESSORY_FILE_PROTECTION(obj) = 2;
             break;
           }
         }
@@ -1320,7 +1321,7 @@ ACMD(do_connect)
   struct obj_data *cyber, *cyberdeck = NULL, *jack = NULL;
   rnum_t host;
 
-  if ((!ch->in_room->matrix || (host = real_host(ch->in_room->matrix)) < 1)) {
+  if (!ch->in_room || !ch->in_room->matrix || (host = real_host(ch->in_room->matrix)) < 1) {
     send_to_char("You cannot connect to the matrix from here.\r\n", ch);
     return;
   }
@@ -1409,7 +1410,7 @@ ACMD(do_connect)
   }
   PERSONA = icon;
   DECKER = new deck_info;
-  if (GET_OBJ_VNUM(cyberdeck) == 113) {
+  if (GET_OBJ_VNUM(cyberdeck) == OBJ_CUSTOM_CYBERDECK_SHELL) {
     struct obj_data *parts = cyberdeck->contains;
     for (; parts; parts = parts->next_content)
       if (GET_OBJ_TYPE(parts) == ITEM_PART && (GET_OBJ_VAL(parts, 0) == PART_ASIST_HOT || GET_OBJ_VAL(parts, 0) == PART_ASIST_COLD))
@@ -1454,7 +1455,7 @@ ACMD(do_connect)
   else
     DECKER->io = MIN(ch->in_room->io, GET_OBJ_VAL(cyberdeck, 4));
   DECKER->io = (int)(DECKER->io / 10);
-  if (GET_OBJ_VNUM(cyberdeck) != 113) {
+  if (GET_OBJ_VNUM(cyberdeck) != OBJ_CUSTOM_CYBERDECK_SHELL) {
     DECKER->asist[1] = 0;
     DECKER->asist[0] = 0;
     GET_MAX_HACKING(ch) = 0;
@@ -1463,7 +1464,7 @@ ACMD(do_connect)
   for (struct obj_data *soft = cyberdeck->contains; soft; soft = soft->next_content)
     if (GET_OBJ_TYPE(soft) == ITEM_PROGRAM) {
       GET_OBJ_VAL(soft, 8) = GET_OBJ_VAL(soft, 9) = 0;
-      if (GET_OBJ_VNUM(soft) != 108) {
+      if (GET_OBJ_VNUM(soft) != OBJ_BLANK_PROGRAM) {
         switch (GET_OBJ_VAL(soft, 0)) {
         case SOFT_BOD:
           DECKER->bod = GET_OBJ_VAL(soft, 1);
@@ -1594,11 +1595,12 @@ ACMD(do_load)
           if (subcmd == SCMD_UPLOAD)
             success = system_test(PERSONA->in_host, ch, TEST_FILES, SOFT_READ, 0);
           if (success > 0) {
-            GET_OBJ_VAL(soft, 9) = GET_OBJ_VAL(soft, 2);
+            // TODO: This is accurately transcribed, but feels like a bug.
+            GET_OBJ_VAL(soft, 9) = GET_DECK_ACCESSORY_FILE_SIZE(soft);
             if (subcmd == SCMD_UPLOAD)
               GET_OBJ_VAL(soft, 8) = 1;
             else
-              DECKER->active -= GET_OBJ_VAL(soft, 2);
+              DECKER->active -= GET_DECK_ACCESSORY_FILE_SIZE(soft);
             send_to_icon(PERSONA, "You begin to upload %s to %s.\r\n", GET_OBJ_NAME(soft), (subcmd ? "the host" : "your icon"));
           } else
             send_to_icon(PERSONA, "Your commands fail to execute.\r\n");
@@ -1652,8 +1654,9 @@ ACMD(do_download)
   }
   struct obj_data *soft = NULL;
   skip_spaces(&argument);
-  if ((soft = get_obj_in_list_vis(ch, argument, matrix[PERSONA->in_host].file)) && GET_OBJ_VAL(soft, 7) == PERSONA->idnum) {
-    if (GET_OBJ_VAL(DECKER->deck, 3) - GET_OBJ_VAL(DECKER->deck, 5) < GET_OBJ_VAL(soft, 2)) {
+  // TODO: This might cause conflicts if multiple deckers have paydata on the host.
+  if ((soft = get_obj_in_list_vis(ch, argument, matrix[PERSONA->in_host].file)) && GET_DECK_ACCESSORY_FILE_FOUND_BY(soft) == PERSONA->idnum) {
+    if (GET_OBJ_VAL(DECKER->deck, 3) - GET_OBJ_VAL(DECKER->deck, 5) < GET_DECK_ACCESSORY_FILE_SIZE(soft)) {
       send_to_icon(PERSONA, "You don't have enough storage memory to download that file.\r\n");
       return;
     } else {
@@ -1661,10 +1664,12 @@ ACMD(do_download)
       if (GET_OBJ_VAL(soft, 5) == 4)
         success -= GET_OBJ_VAL(soft, 6);
       if (success > 0) {
-        if (GET_OBJ_VAL(soft, 5) == 1 && GET_OBJ_TYPE(soft) != ITEM_PROGRAM) {
+        if (GET_DECK_ACCESSORY_FILE_PROTECTION(soft) == FILE_PROTECTION_SCRAMBLED
+            && GET_OBJ_TYPE(soft) != ITEM_PROGRAM) {
           send_to_icon(PERSONA, "A Scramble IC blocks your attempts to download the file.\r\n");
-        } else if (GET_OBJ_VAL(soft, 5) > 1 && GET_OBJ_TYPE(soft) != ITEM_PROGRAM) {
-          int power = GET_OBJ_VAL(soft, 6);
+        } else if (GET_OBJ_VAL(soft, 5) > FILE_PROTECTION_SCRAMBLED // file bomb
+          && GET_OBJ_TYPE(soft) != ITEM_PROGRAM) {
+          int power = GET_DECK_ACCESSORY_FILE_RATING(soft);
           for (struct obj_data *prog = DECKER->software; prog; prog = prog->next_content)
             if (GET_OBJ_VAL(prog, 0) == SOFT_ARMOUR) {
               power -= GET_OBJ_VAL(prog, 1);
@@ -1683,16 +1688,16 @@ ACMD(do_download)
             } else
               send_to_icon(PERSONA, "The %s explodes, damaging your icon.\r\n", GET_OBJ_VAL(soft, 5) == 2 ? "Data Bomb" : "Pavlov");
           }
-          if (GET_OBJ_VAL(soft, 5) == 2) {
-            GET_OBJ_VAL(soft, 5) = 0;
+          if (GET_DECK_ACCESSORY_FILE_PROTECTION(soft) == 2) { // TODO magic number
+            GET_DECK_ACCESSORY_FILE_PROTECTION(soft) = 0;
             if (PERSONA) {
-              DECKER->tally += GET_OBJ_VAL(soft, 6);
+              DECKER->tally += GET_DECK_ACCESSORY_FILE_RATING(soft);
               check_trigger(PERSONA->in_host, ch);
             }
           }
         } else {
-          GET_OBJ_VAL(soft, 9) = GET_OBJ_VAL(soft, 2);
-          GET_OBJ_VAL(soft, 8) = PERSONA->idnum;
+          GET_DECK_ACCESSORY_FILE_REMAINING(soft) = GET_DECK_ACCESSORY_FILE_SIZE(soft);
+          GET_DECK_ACCESSORY_FILE_WORKER_IDNUM(soft) = PERSONA->idnum;
           send_to_icon(PERSONA, "You begin to download %s.\r\n", GET_OBJ_NAME(soft));
         }
       } else
@@ -1952,7 +1957,7 @@ ACMD(do_software)
     
     int bod = 0, sensor = 0, masking = 0, evasion = 0;
     for (struct obj_data *soft = cyberdeck->contains; soft; soft = soft->next_content)
-      if (GET_OBJ_TYPE(soft) == ITEM_PROGRAM && GET_OBJ_VNUM(soft) != 108) {
+      if (GET_OBJ_TYPE(soft) == ITEM_PROGRAM && GET_OBJ_VNUM(soft) != OBJ_BLANK_PROGRAM) {
         switch (GET_OBJ_VAL(soft, 0)) {
         case SOFT_BOD:
           bod = GET_OBJ_VAL(soft, 1);
@@ -2163,19 +2168,28 @@ void matrix_update()
       struct obj_data *next;
       for (struct obj_data *file = host.file; file; file = next) {
         next = file->next_content;
-        if (GET_OBJ_VAL(file, 9)) {
-          struct matrix_icon *persona = find_icon_by_id(GET_OBJ_VAL(file, 8));
+        if (GET_DECK_ACCESSORY_FILE_REMAINING(file)) {
+          struct matrix_icon *persona = find_icon_by_id(GET_DECK_ACCESSORY_FILE_WORKER_IDNUM(file));
           if (!persona || persona->in_host != rnum)
-            GET_OBJ_VAL(file, 8) = 0;
+            GET_DECK_ACCESSORY_FILE_WORKER_IDNUM(file) = 0;
           else {
-            GET_OBJ_VAL(file, 9) -= persona->decker->io;
-            if (GET_OBJ_VAL(file, 9) <= 0 && GET_OBJ_VAL(persona->decker->deck, 3) - GET_OBJ_VAL(persona->decker->deck, 5) > GET_OBJ_VAL(file, 2)) {
+            GET_DECK_ACCESSORY_FILE_REMAINING(file) -= persona->decker->io;
+            // TODO BUG: What if you're out of space? It silently fails to download and just eternally decrements? Might even hit 0 and have 8 still set.
+            if (GET_DECK_ACCESSORY_FILE_REMAINING(file) <= 0) {
+              // Out of space? Inform them, reset the file, bail.
+              if (GET_OBJ_VAL(persona->decker->deck, 3) - GET_OBJ_VAL(persona->decker->deck, 5) < GET_DECK_ACCESSORY_FILE_SIZE(file)) {
+                send_to_icon(persona, "%s failed to download-- your deck is out of space.\r\n", CAP(GET_OBJ_NAME(file)));
+                GET_DECK_ACCESSORY_FILE_REMAINING(file) = 0;
+                GET_DECK_ACCESSORY_FILE_WORKER_IDNUM(file) = 0;
+                return;
+              }
+              
               struct obj_data *temp;
               REMOVE_FROM_LIST(file, host.file, next_content);
               obj_to_obj(file, persona->decker->deck);
               send_to_icon(persona, "%s has finished downloading to your deck.\r\n", CAP(GET_OBJ_NAME(file)));
-              GET_OBJ_VAL(persona->decker->deck, 5) += GET_OBJ_VAL(file, 2);
-              GET_OBJ_VAL(file, 7) = 0;
+              GET_OBJ_VAL(persona->decker->deck, 5) += GET_DECK_ACCESSORY_FILE_SIZE(file);
+              GET_DECK_ACCESSORY_FILE_FOUND_BY(file) = 0;
             }
           }
         }
@@ -2701,7 +2715,10 @@ ACMD(do_create)
   else if (is_abbrev(buf1, "ammo") || is_abbrev(buf1, "ammunition"))
     create_ammo(ch);
   else if (is_abbrev(buf1, "spell")) {
-    struct obj_data *library = ch->in_room->contents;
+    if (!(GET_SKILL(ch, SKILL_SPELLDESIGN) || GET_SKILL(ch, SKILL_SORCERY)))
+      send_to_char("You must learn Spell Design or Sorcery to create a spell.\r\n", ch);
+      
+    struct obj_data *library = ch->in_room ? ch->in_room->contents : ch->in_veh->contents;
     for (;library; library = library->next_content)
       if (GET_OBJ_TYPE(library) == ITEM_MAGIC_TOOL &&
           ((GET_TRADITION(ch) == TRAD_SHAMANIC
@@ -2710,8 +2727,6 @@ ACMD(do_create)
         break;
     if (!library)
       send_to_char("You don't have the right tools here to create a spell.\r\n", ch);
-    else if (!(GET_SKILL(ch, SKILL_SPELLDESIGN) || GET_SKILL(ch, SKILL_SORCERY)))
-      send_to_char("You must learn Spell Design or Sorcery to create a spell.\r\n", ch);
     else {
       ch->desc->edit_number2 = GET_OBJ_VAL(library, 1);
       create_spell(ch);

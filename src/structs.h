@@ -200,6 +200,9 @@ struct room_data
   byte shadow[2];
   byte silence[2];
   SPECIAL(*func);
+  
+  int staff_level_lock;
+  int elevator_number;
 
   struct obj_data *contents;   /* List of items in room              */
   struct char_data *people;    /* List of NPC / PC in room           */
@@ -215,8 +218,8 @@ struct room_data
   room_data() :
       name(NULL), description(NULL), night_desc(NULL), ex_description(NULL),
       matrix(0), access(0), io(0), trace(0),
-      bandwidth(0), jacknumber(0), address(NULL), peaceful(0), func(NULL), contents(NULL),
-      people(NULL), vehicles(NULL), watching(NULL)
+      bandwidth(0), jacknumber(0), address(NULL), peaceful(0), func(NULL),
+      staff_level_lock(0), contents(NULL), people(NULL), vehicles(NULL), watching(NULL)
   {
     for (int i = 0; i < NUM_OF_DIRS; i++) {
       dir_option[i] = NULL;
@@ -659,6 +662,7 @@ struct veh_data
   struct veh_data *fight_veh;
   struct veh_data *next_veh;
   struct veh_data *next_sub;
+  struct veh_data *prev_sub;
   struct veh_data *carriedvehs;
   struct veh_data *in_veh;
   struct veh_data *towing;
@@ -674,7 +678,7 @@ struct veh_data
       followers(NULL), following(NULL), followch(NULL), mount(NULL),
       idnum(0), owner(0), spare(0), spare2(0), dest(NULL),
       contents(NULL), people(NULL), rigger(NULL), fighting(NULL), fight_veh(NULL), next_veh(NULL),
-      next_sub(NULL), carriedvehs(NULL), in_veh(NULL), towing(NULL), grid(NULL), 
+      next_sub(NULL), prev_sub(NULL), carriedvehs(NULL), in_veh(NULL), towing(NULL), grid(NULL), 
       leave(NULL), arrive(NULL), next(NULL)
   {
     for (int i = 0; i < NUM_MODS; i++)
@@ -727,6 +731,9 @@ struct char_data
   Pgroup_data *pgroup;                   /* Data concerning the player group this char is part of. */
   Pgroup_invitation *pgroup_invitations; /* The list of open group invitations associated with this player. */
   
+  /* Named after 'magic bullet pants', the 'technology' in FPS games that allows you to never have to worry about which mag has how much ammo in it. */
+  // int bullet_pants[END_OF_AMMO_USING_WEAPONS - START_OF_AMMO_USING_WEAPONS][NUM_AMMOTYPES];
+  
   /* Adding a field here? If it's a pointer, add it to utils.cpp's copy_over_necessary_info() to avoid breaking mdelete etc. */
 
   char_data() :
@@ -737,6 +744,13 @@ struct char_data
   {
     for (int i = 0; i < NUM_WEARS; i++)
       equipment[i] = NULL;
+    
+    /*  
+    // Initialize our bullet pants. Note that we index from 0 here.
+    for (int wp = 0; wp < END_OF_AMMO_USING_WEAPONS - START_OF_AMMO_USING_WEAPONS; wp++)
+      for (int am = 0; am < NUM_AMMOTYPES; am++)
+        bullet_pants[wp][am] = 0;
+    */
   }
 };
 /* ====================================================================== */
@@ -1066,7 +1080,7 @@ struct ammo_data
 struct combat_data
 {
   // Generic combat data.
-  char modifiers[NUM_COMBAT_MODIFIERS];
+  int modifiers[NUM_COMBAT_MODIFIERS];
   bool too_tall;
   int skill;
   int tn;
@@ -1086,15 +1100,15 @@ struct combat_data
   int recoil_comp;
   
   // Cyberware data.
-  unsigned char climbingclaws;
-  unsigned char fins;
-  unsigned char handblades;
-  unsigned char handrazors;
-  unsigned char improved_handrazors;
-  unsigned char handspurs;
-  unsigned char footanchors;
-  unsigned char bone_lacing_power;
-  unsigned char num_cyberweapons;
+  int climbingclaws;
+  int fins;
+  int handblades;
+  int handrazors;
+  int improved_handrazors;
+  int handspurs;
+  int footanchors;
+  int bone_lacing_power;
+  int num_cyberweapons;
   
   // Pointers.
   struct char_data *ch;
@@ -1109,7 +1123,8 @@ struct combat_data
     handblades(0), handrazors(0), improved_handrazors(0), handspurs(0), footanchors(0), bone_lacing_power(0), num_cyberweapons(0),
     ch(NULL), veh(NULL), weapon(NULL), magazine(NULL), gyro(NULL)
   {
-    memset(modifiers, 0, sizeof(modifiers));
+    for (int i = 0; i < NUM_COMBAT_MODIFIERS; i++)
+      modifiers[i] = 0;
     
     ch = character;
     weapon = weap;
@@ -1137,4 +1152,11 @@ struct help_data {
     original_title = title_to_keep_for_sql;
   }
 };
+
+struct preference_bit_struct {
+  const char *name; // the name of the bit (ex: "PACIFY")
+  bool staff_only;  // only displays to level > 1?
+  bool on_off;      // true for ONOFF, false for YESNO
+};
+
 #endif

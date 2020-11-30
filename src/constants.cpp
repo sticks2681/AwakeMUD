@@ -475,6 +475,7 @@ const char *player_bits[] =
     "INIT",
     "DRIVEBY",
     "RPE",
+    "NOIDLEOUT",
     "\n"
   };
 
@@ -516,6 +517,63 @@ const char *action_bits[] =
     "INANIMATE",
     "\n"
   };
+  
+/* PRF_x v2 */
+
+struct preference_bit_struct preference_bits_v2[] = { 
+  // TODO: Add an 'inverted' flag for things like !OOC.
+  // TODO: Is there a better way to name these? Or sort by channel / log / etc?
+  { "Pacify"      , TRUE , TRUE  },
+  { "Compact"     , FALSE, TRUE  },
+  { "Auto Exits"  , FALSE, TRUE  },
+  { "Fight Gag"   , FALSE, TRUE  },
+  { "Move Gag"    , FALSE, TRUE  },
+  { "Deaf"        , FALSE, TRUE  },
+  { "No Tells"    , FALSE, TRUE  },
+  { "No Radio"    , FALSE, TRUE  },
+  { "No Newbie"   , FALSE, TRUE  },
+  { "No Repeat"   , FALSE, TRUE  },
+  { "Hardcore"    , FALSE, TRUE  },
+  { "PKer"        , FALSE, FALSE },
+  { "On Quest"    , FALSE, FALSE },
+  { "AFK"         , FALSE, TRUE  },
+  { "UNUSED-14"   , FALSE, TRUE  },
+  { "UNUSED-15"   , FALSE, TRUE  },
+  { "No Hassle"   , TRUE , TRUE  },
+  { "Roomflags"   , TRUE , TRUE  },
+  { "Holylight"   , TRUE , TRUE  },
+  { "Connlog"     , TRUE , TRUE  },
+  { "Deathlog"    , TRUE , TRUE  },
+  { "Misclog"     , TRUE , TRUE  },
+  { "Wizlog"      , TRUE , TRUE  },
+  { "Syslog"      , TRUE , TRUE  },
+  { "Zonelog"     , TRUE , TRUE  },
+  { "Long Exits"  , FALSE, TRUE  },
+  { "Rolls"       , TRUE , TRUE  },
+  { "No OOC"      , FALSE, TRUE  },
+  { "Auto Invis"  , TRUE , TRUE  },
+  { "Cheatlog"    , TRUE , TRUE  },
+  { "Assist"      , FALSE, TRUE  },
+  { "Banlog"      , TRUE , TRUE  },
+  { "No RPE"      , FALSE, TRUE  },
+  { "No Hired"    , FALSE, TRUE  },
+  { "Gridlog"     , TRUE , TRUE  },
+  { "Wrecklog"    , TRUE , TRUE  },
+  { "Questor"     , FALSE, TRUE  },
+  { "NewbieHelper", FALSE, TRUE  },
+  { "Menu Gag"    , FALSE, TRUE  },
+  { "Longweapon"  , FALSE, FALSE },
+  { "PGrouplog"   , TRUE , TRUE  },
+  { "ShowGroupTag", TRUE , FALSE },
+  { "Keepalive"   , FALSE, TRUE  },
+  { "Screenreader", FALSE, FALSE },
+  { "No Color"    , FALSE, TRUE  },
+  { "No Prompt"   , FALSE, TRUE  },
+  { "Helplog"     , TRUE , TRUE  },
+  { "Purgelog"    , TRUE , TRUE  },
+  { "Autokill"    , FALSE, TRUE  },
+  { "\n"          , 0    , 0     }
+};
 
 /* PRF_x */
 const char *preference_bits[] =
@@ -534,8 +592,8 @@ const char *preference_bits[] =
     "PKER",
     "QUEST",
     "AFK",
-    "C1",
-    "C2",
+    "UNUSED-14",
+    "UNUSED-15",
     "NOHASSLE",
     "ROOMFLAGS",
     "HOLYLIGHT",
@@ -563,8 +621,12 @@ const char *preference_bits[] =
     "PGROUPLOG",
     "SHOWGROUPTAG",
     "KEEPALIVE",
+    "SCREENREADER",
+    "!COLOR",
+    "!PROMPT",
     "HELPLOG",
     "PURGELOG",
+    "AUTOKILL",
     "\n"
   };
 
@@ -888,6 +950,7 @@ const char *extra_bits[] =
     "NERPS",
     "BLOCKS_ARMOR",
     "HARDENED_ARMOR",
+    "DONT_TOUCH",
     "\n"
   };
 
@@ -2342,4 +2405,22 @@ int acceptable_weapon_attachment_affects[] = {
   AFF_LOW_LIGHT,
   AFF_DETECT_INVIS,
   -1
+};
+
+const char *aspect_names[] = {
+  "Full Mage",
+  "Conjurer",
+  "Shamanist",
+  "Sorcerer",
+  "Earth Elementalist",
+  "Air Elementalist",
+  "Fire Elementalist",
+  "Water Elementalist"
+};
+
+const char *tradition_names[] = {
+  "Hermetic",
+  "Shamanic",
+  "Mundane",
+  "Adept"
 };

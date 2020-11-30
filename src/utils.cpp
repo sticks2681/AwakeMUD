@@ -51,8 +51,7 @@ extern const char *log_types[];
 extern long beginning_of_time;
 extern int ability_cost(int abil, int level);
 extern void weight_change_object(struct obj_data * obj, float weight);
-
-extern char *colorize(struct descriptor_data *d, const char *str, bool skip_check = FALSE);
+extern void calc_weight(struct char_data *ch);
 
 /* creates a random number in interval [from;to] */
 int number(int from, int to)
@@ -206,31 +205,35 @@ int damage_modifier(struct char_data *ch, char *rbuf)
     physical += ch->points.resistpain * 100;
     mental += ch->points.resistpain * 100;
   }
-  if (GET_TRADITION(ch) == TRAD_ADEPT
-      && GET_POWER(ch, ADEPT_PAIN_RESISTANCE) > 0)
-  {
-    physical += GET_POWER(ch, ADEPT_PAIN_RESISTANCE) * 100;
-    mental += GET_POWER(ch, ADEPT_PAIN_RESISTANCE) * 100;
-  }
-  if (GET_DRUG_STAGE(ch) == 1)
-    switch (GET_DRUG_AFFECT(ch)) {
-      case DRUG_NITRO:
-        physical += 600;
-        mental += 600;
-        break;
-      case DRUG_NOVACOKE:
-        physical += 100;
-        mental += 100;
-        break;
-      case DRUG_BLISS:
-        physical += 300;
-        mental += 300;
-        break;
-      case DRUG_KAMIKAZE:
-        physical += 400;
-        mental += 400;
-        break;
+  if (!IS_NPC(ch)) {
+    if (GET_TRADITION(ch) == TRAD_ADEPT
+        && GET_POWER(ch, ADEPT_PAIN_RESISTANCE) > 0)
+    {
+      physical += GET_POWER(ch, ADEPT_PAIN_RESISTANCE) * 100;
+      mental += GET_POWER(ch, ADEPT_PAIN_RESISTANCE) * 100;
     }
+    
+    if (GET_DRUG_STAGE(ch) == 1)
+      switch (GET_DRUG_AFFECT(ch)) {
+        case DRUG_NITRO:
+          physical += 600;
+          mental += 600;
+          break;
+        case DRUG_NOVACOKE:
+          physical += 100;
+          mental += 100;
+          break;
+        case DRUG_BLISS:
+          physical += 300;
+          mental += 300;
+          break;
+        case DRUG_KAMIKAZE:
+          physical += 400;
+          mental += 400;
+          break;
+      }
+  }
+  
   // first apply physical damage modifiers
   if (physical <= 400)
   {
@@ -855,7 +858,7 @@ void sprinttype(int type, const char *names[], char *result)
   sprintf(result, "%s", names[type]);
   
   if (str_cmp(result, "(null)") == 0) {
-    sprintf(result, "UNDEFINED");
+    strcpy(result, "UNDEFINED");
   }
 }
 
@@ -1975,9 +1978,10 @@ bool char_can_make_noise(struct char_data *ch, const char *message) {
 }
 
 struct char_data *get_driver(struct veh_data *veh) {
-  struct char_data *i;
+  if (veh->rigger)
+    return veh->rigger;
     
-  for (i = veh->people; i; i = i->next_in_veh)
+  for (struct char_data *i = veh->people; i; i = i->next_in_veh)
     if (AFF_FLAGGED(i, AFF_PILOT))
       return i;
   
@@ -2474,7 +2478,7 @@ void set_character_skill(struct char_data *ch, int skill_num, int new_value, boo
     return;
   }
   
-  if (skill_num < SKILL_ATHLETICS || skill_num >= MAX_SKILLS) {
+  if (skill_num < MIN_SKILLS || skill_num >= MAX_SKILLS) {
     sprintf(msgbuf, "SYSERR: Invalid skill number %d passed to set_character_skill.", skill_num);
     mudlog(msgbuf, ch, LOG_SYSLOG, TRUE);
     return;
@@ -2808,4 +2812,109 @@ char *replace_substring(char *source, char *dest, const char *replace_target, co
   
   // Return the dest they gave us.
   return dest;
+}
+
+// Adds the amount to the ammobox, then processes its weight etc. 
+void update_ammobox_ammo_quantity(struct obj_data *ammobox, int amount) {
+  if (!ammobox || amount == 0) {
+    mudlog("SYSERR: Illegal values passed to update_ammobox_ammo_quantity.", ammobox->carried_by, LOG_SYSLOG, TRUE);
+    return;
+  }
+  
+  if (GET_OBJ_TYPE(ammobox) != ITEM_GUN_AMMO) {
+    mudlog("SYSERR: Non-ammobox passed to update_ammobox_ammo_quantity.", ammobox->carried_by, LOG_SYSLOG, TRUE);
+  }
+  
+  // Calculate what the new amount of ammo will be.
+  GET_AMMOBOX_QUANTITY(ammobox) = GET_AMMOBOX_QUANTITY(ammobox) + amount;
+  
+  if (GET_AMMOBOX_QUANTITY(ammobox) < 0) {
+    mudlog("SYSERR: Updated ammobox to have negative ammo count! Restoring...", NULL, LOG_SYSLOG, TRUE);
+    GET_AMMOBOX_QUANTITY(ammobox) = 0;
+  }
+  
+  // Calculate weight as (count / 10) * multiplier (multiplier is per 10 rounds).
+  GET_OBJ_WEIGHT(ammobox) = (((float) GET_AMMOBOX_QUANTITY(ammobox)) / 10) * ammo_type[GET_AMMOBOX_TYPE(ammobox)].weight;
+  
+  // Calculate cost as count * multiplier (multiplier is per round)
+  GET_OBJ_COST(ammobox) = GET_AMMOBOX_QUANTITY(ammobox) * ammo_type[GET_AMMOBOX_TYPE(ammobox)].cost;
+  
+  // Update the carrier's carry weight.
+  if (ammobox->carried_by) {
+    calc_weight(ammobox->carried_by);
+  }  
+}
+
+
+bool combine_ammo_boxes(struct char_data *ch, struct obj_data *from, struct obj_data *into, bool print_messages) {
+  if (!ch || !from || !into) {
+    mudlog("SYSERR: combine_ammo_boxes received a null value.", ch, LOG_SYSLOG, TRUE);
+    return FALSE;
+  }
+  
+  if (GET_AMMOBOX_CREATOR(from) || GET_AMMOBOX_CREATOR(into)) {
+    mudlog("SYSERR: combine_ammo_boxes received a box that was not yet completed.", ch, LOG_SYSLOG, TRUE);
+    return FALSE;
+  }
+  
+  // If the weapons don't match, no good.
+  if (GET_AMMOBOX_WEAPON(from) != GET_AMMOBOX_WEAPON(into)) {
+    mudlog("SYSERR: combine_ammo_boxes received boxes with non-matching weapon types.", ch, LOG_SYSLOG, TRUE);
+    return FALSE;
+  }
+  
+  // If the ammo types don't match, no good.
+  if (GET_AMMOBOX_TYPE(from) != GET_AMMOBOX_TYPE(into)) {
+    mudlog("SYSERR: combine_ammo_boxes received boxes with non-matching ammo types.", ch, LOG_SYSLOG, TRUE);
+    return FALSE;
+  }
+  
+  update_ammobox_ammo_quantity(into, GET_AMMOBOX_QUANTITY(from));
+  update_ammobox_ammo_quantity(from, -GET_AMMOBOX_QUANTITY(from));
+  
+  // Notify the owner, then destroy the empty.
+  if (!from->restring) {
+    if (print_messages) {
+      send_to_char(ch, "You dump the ammo into %s and throw away the now-empty '%s'.\r\n",
+        GET_OBJ_NAME(into),
+        GET_OBJ_NAME(from)
+      );
+    }
+    
+    extract_obj(from);
+  } else {
+    if (print_messages) {
+      send_to_char(ch, "You dump the ammo from %s into %s, but hang on to the customized empty container.\r\n",
+        GET_OBJ_NAME(from),
+        GET_OBJ_NAME(into)
+      );
+    }
+  }
+  
+  // Restring it, as long as it's not already restrung.
+  if (!into->restring) {
+    char new_name_buf[500];
+    char notification_string_buf[500];
+    
+    // Compose the new name.
+    sprintf(new_name_buf, "a box of %s %s ammunition", 
+      ammo_type[GET_AMMOBOX_TYPE(into)].name,
+      weapon_type[GET_AMMOBOX_WEAPON(into)]
+    );
+    
+    // Compose the notification string.
+    sprintf(notification_string_buf, "The name '%s' probably doesn't fit anymore, so we'll call it '%s'.\r\n",
+      GET_OBJ_NAME(into),
+      new_name_buf
+    );
+    
+    // Commit the change and notify the player.
+    into->restring = str_dup(new_name_buf);
+    
+    if (print_messages)
+      send_to_char(notification_string_buf, ch);
+  }
+  
+  // Everything succeeded.
+  return TRUE;
 }

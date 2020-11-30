@@ -269,7 +269,7 @@ enum {
 #define PLR_NOSNOOP             29 /* Player is not snoopable                */
 #define PLR_WANTED              30 /* Player wanted by the law      */
 #define PLR_NOOOC               31 /* Player is muted from the OOC channel   */
-#define PLR_AUTH                32 /* Player needs Auth */
+#define PLR_NOT_YET_AUTHED      32 /* Player needs Auth */
 #define PLR_EDCON               33
 #define PLR_REMOTE              34
 #define PLR_INITIATE		        35
@@ -334,6 +334,8 @@ enum {
 #define PRF_PKER                11 /* is able to pk/be pked        */
 #define PRF_QUEST               12 /* On quest        */
 #define PRF_AFK                 13 /* Afk   */
+#define PRF_UNUSED1_PLS_REPLACE 14 /* EMPTY SPACE, FILL ME! */
+#define PRF_UNUSED2_PLS_REPLACE 15 /* EMPTY SPACE, FILL ME!        15 */
 #define PRF_NOHASSLE            16 /* Aggr mobs won't attack  */
 #define PRF_ROOMFLAGS           17 /* Can see room flags (ROOM_x) */
 #define PRF_HOLYLIGHT           18 /* Can see in dark   */
@@ -366,7 +368,8 @@ enum {
 #define PRF_NOPROMPT            45
 #define PRF_HELPLOG             46
 #define PRF_PURGELOG            47
-#define PRF_MAX   		          48
+#define PRF_AUTOKILL            48
+#define PRF_MAX   		          49
 
 /* log watch */
 
@@ -391,6 +394,17 @@ enum {
 #define COND_DRUNK        0
 #define COND_FULL         1
 #define COND_THIRST       2
+
+
+#define COND_IS_DISABLED  -1
+
+#define MIN_FULLNESS      0
+#define MIN_QUENCHED      0  // Note that 'quenched' is the inversion of thirst.
+#define MIN_DRUNK         0
+
+#define MAX_FULLNESS      20
+#define MAX_QUENCHED      20
+#define MAX_DRUNK         10
 
 /* affect bits: used in char_data.char_specials.saved.affected_by */
 /* WARNING: In the world files, NEVER set the bits marked "R" ("Reserved") */
@@ -710,6 +724,7 @@ enum {
 #define TYPE_UNDEFINED               -1
 
 
+#define MIN_SKILLS                   1
 #define SKILL_ATHLETICS              1
 #define SKILL_ARMED_COMBAT           2
 #define SKILL_EDGED_WEAPONS          3
@@ -987,6 +1002,10 @@ enum {
 #define WEAP_REVOLVER       22
 #define MAX_WEAP            23
 
+// Defines our weapon ranges for bullet pants. Holdout -> revolver.
+#define START_OF_AMMO_USING_WEAPONS 5
+#define END_OF_AMMO_USING_WEAPONS   22
+
 /* all those attack types can be used plus these for damage types to
 * objects */
 
@@ -1103,7 +1122,8 @@ enum {
 #define ITEM_NERPS          23    /* Item does not actually have any coded effect. */
 #define ITEM_BLOCKS_ARMOR   24    // Can't wear other armors with this.
 #define ITEM_HARDENED_ARMOR 25    // Applies hardened armor rules (deflect attacks with power <= armor rating) CC p51
-#define ITEM_EXTRA_MAX      26
+#define ITEM_DONT_TOUCH     26    // Warns strenuously on editing.
+#define ITEM_EXTRA_MAX      27
 
 /* Ammo types */ 
 #define AMMO_NORMAL     0
@@ -1112,6 +1132,7 @@ enum {
 #define AMMO_EX         3
 #define AMMO_FLECHETTE  4
 #define AMMO_GEL        5
+#define NUM_AMMOTYPES   6
 
 /* material type for item */
 #define ITEM_NONE                  0
@@ -1903,15 +1924,19 @@ enum {
 #define DB_BOOT_IC      8
 /* Defines for sending text */
 
-#define TO_ROOM         1
-#define TO_VICT         2
-#define TO_NOTVICT      3
-#define TO_CHAR         4
-#define TO_ROLLS        5
-#define TO_VEH		      6
-#define TO_DECK		      7
-#define TO_VEH_ROOM     8
-#define TO_SLEEP        128     /* to char, even if sleeping */
+#define TO_ROOM                1
+#define TO_VICT                2
+#define TO_NOTVICT             3
+#define TO_CHAR                4
+#define TO_ROLLS               5
+#define TO_VEH		             6
+#define TO_DECK		             7
+#define TO_VEH_ROOM            8
+#define TO_CHAR_INCLUDE_RIGGER 9
+#define TO_CHAR_FORCE          10
+#define TO_VICT_INCLUDE_RIGGER 11
+#define TO_VICT_FORCE          12
+#define TO_SLEEP               128     /* to char, even if sleeping */
 
 /* Boards */
 
@@ -2045,10 +2070,18 @@ enum {
 #define RM_DANTES_GARAGE            35693
 #define RM_DANTES_GARAGE_RANDOM     (35693 + number(0,4))
 #define RM_DANTES_DESCENT           35502
+#ifdef USE_PRIVATE_CE_WORLD
+#define RM_TEMPORARY_DOCWAGON       10097
+#define RM_SEATTLE_DOCWAGON         RM_TEMPORARY_DOCWAGON
+#define RM_PORTLAND_DOCWAGON        RM_TEMPORARY_DOCWAGON
+#define RM_CARIB_DOCWAGON           RM_TEMPORARY_DOCWAGON
+#define RM_OCEAN_DOCWAGON           RM_TEMPORARY_DOCWAGON
+#else
 #define RM_SEATTLE_DOCWAGON         RM_ENTRANCE_TO_DANTES
 #define RM_PORTLAND_DOCWAGON        RM_ENTRANCE_TO_DANTES
 #define RM_CARIB_DOCWAGON           RM_ENTRANCE_TO_DANTES
 #define RM_OCEAN_DOCWAGON           RM_ENTRANCE_TO_DANTES
+#endif
 #define RM_SEATTLE_PARKING_GARAGE   RM_DANTES_GARAGE
 #define RM_CARIB_PARKING_GARAGE     RM_DANTES_GARAGE
 #define RM_OCEAN_PARKING_GARAGE     RM_DANTES_GARAGE
@@ -2075,16 +2108,30 @@ enum {
 #define RM_JUNKYARD_BIKES           70508
 
 // Objects, to remove the magic numbers from the code.
-#define OBJ_NEWBIE_RADIO           60531
-#define OBJ_MULTNOMAH_VISA         1
-#define OBJ_MAP_OF_SEATTLE         2041
-#define OBJ_ELEVATOR_SHAFT_KEY     998
-#define OBJ_BLANK_PHOTO            109
-#define OBJ_BLANK_PART_DESIGN      112
-#define OBJ_CUSTOM_CYBERDECK_SHELL 113
-#define OBJ_DOCWAGON_BASIC_MOD     601
-#define OBJ_SEATTLE_TAXI_SIGN      600
-#define OBJ_PORTLAND_TAXI_SIGN     699
+#define OBJ_NEWBIE_RADIO            60531
+#define OBJ_MULTNOMAH_VISA          1
+#define OBJ_MAP_OF_SEATTLE          2041
+#define OBJ_ELEVATOR_SHAFT_KEY      998
+#define OBJ_DOCWAGON_BASIC_MOD      16206
+#define OBJ_SEATTLE_TAXI_SIGN       600
+#define OBJ_PORTLAND_TAXI_SIGN      699
+
+#define OBJ_BLANK_OPTICAL_CHIP      106
+#define OBJ_BLANK_PROGRAM_DESIGN    107
+#define OBJ_BLANK_PROGRAM           108
+#define OBJ_BLANK_PHOTO             109
+#define OBJ_ROLL_OF_NUYEN           110
+#define OBJ_PIECE_OF_MAIL           111
+#define OBJ_BLANK_PART_DESIGN       112
+#define OBJ_CUSTOM_CYBERDECK_SHELL  113
+#define OBJ_SHAMANIC_LODGE          114
+#define OBJ_HERMETIC_CIRCLE         115
+#define OBJ_CONJURING_MATERIALS     116
+#define OBJ_BLANK_SPELL_FORMULA     117
+#define OBJ_POCKET_SECRETARY_FOLDER 118
+#define OBJ_NEOPHYTE_SUBSIDY_CARD   119
+#define OBJ_GRAFFITI                120
+#define OBJ_BLANK_AMMOBOX           121
 
 /* ban struct */
 struct ban_list_element
@@ -2204,4 +2251,9 @@ struct ban_list_element
 #define PERMANENT_BACKGROUND_COUNT 2
 #define PERMANENT_BACKGROUND_TYPE  3
 
+#define VEH_DAM_THRESHOLD_LIGHT     1
+#define VEH_DAM_THRESHOLD_MODERATE  3
+#define VEH_DAM_THRESHOLD_SEVERE    6
+#define VEH_DAM_THRESHOLD_DESTROYED 10
+#define VEH_DAMAGE_NEEDS_WORKSHOP   7
 #endif

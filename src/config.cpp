@@ -13,11 +13,12 @@ const char *DEFAULT_POOFIN_STRING = "$n appears out of nowhere.";
 const char *DEFAULT_POOFOUT_STRING = "$n disappears in a flash of light.";
 const char *KILLER_FLAG_MESSAGE = "Your actions have earned you the KILLER flag, which makes you fair game to all player characters.\r\n";
 const char *CANNOT_GO_THAT_WAY = "You cannot go that way...\r\n";
+const char *CHARACTER_DELETED_NAME_FOR_SQL = "deleted";
 long newbie_start_room = 60500;
-//long mortal_start_room = 30700;
-long mortal_start_room = 35500;
-long immort_start_room = 1000;
-long frozen_start_room = 1050;
+long mortal_start_room = 30700;
+//long mortal_start_room = 35500;
+long immort_start_room = 10000;
+long frozen_start_room = 10045;
 vnum_t donation_room_1 = 60570;
 vnum_t donation_room_2 = 60571;
 vnum_t donation_room_3 = 60572;
@@ -28,6 +29,7 @@ int max_filesize = 50000;
 int max_bad_pws = 3;
 int nameserver_is_slow = FALSE;
 int ELEVATOR_SHAFT_FALL_RATING = 6;
+int max_things_you_can_purchase_at_once = 50;
 
 bool DISPLAY_HELPFUL_STRINGS_FOR_MOB_FUNCS = TRUE;
 

@@ -20,6 +20,7 @@
 #include "handler.h"
 #include "constants.h"
 #include "act.drive.h"
+#include "transport.h"
 
 /* external structs */
 extern void resist_drain(struct char_data *ch, int power, int drain_add, int wound);
@@ -39,9 +40,19 @@ extern bool hunting_escortee(struct char_data *ch, struct char_data *vict);
 
 extern bool ranged_response(struct char_data *ch, struct char_data *vict);
 
+extern struct obj_data * find_magazine(struct obj_data *gun, struct obj_data *i);
+
+SPECIAL(elevator_spec);
+SPECIAL(call_elevator);
+extern int num_elevators;
+extern struct elevator_data *elevator;
+extern int process_elevator(struct room_data *room, struct char_data *ch, int cmd, char *argument);
+
 bool memory(struct char_data *ch, struct char_data *vict);
 int violates_zsp(int security, struct char_data *ch, int pos, struct char_data *mob);
 bool attempt_reload(struct char_data *mob, int pos);
+bool vehicle_is_valid_mob_target(struct veh_data *veh, bool alarmed);
+void switch_weapons(struct char_data *mob, int pos);
 
 #define MOB_AGGR_TO_RACE MOB_AGGR_ELF, MOB_AGGR_DWARF, MOB_AGGR_HUMAN, MOB_AGGR_ORK, MOB_AGGR_TROLL
 
@@ -56,9 +67,10 @@ void mobact_change_firemode(struct char_data *ch) {
   int prev_value = GET_OBJ_VAL(weapon, 11);
   int mode_count = 0;
   
-  // Reload the weapon if possible.
-  if (!weapon->contains)
-    attempt_reload(ch, WEAR_WIELD);
+  // Reload the weapon if possible. If not, swap weapons.
+  if (!weapon->contains && GET_WEAPON_MAX_AMMO(weapon) > 0 && !attempt_reload(ch, WEAR_WIELD)) {
+    switch_weapons(ch, WEAR_WIELD);
+  }
   
   // Lowest-priority mode is single-shot.
   if (IS_SET(GET_OBJ_VAL(weapon, 10), 1 << MODE_SS)) {
@@ -141,8 +153,8 @@ bool mobact_process_in_vehicle_guard(struct char_data *ch) {
       if (tveh == ch->in_veh)
         continue;
       
-      // TODO: Only attack player-owned vehicles and vehicles that have player occupants or drivers.
-      if (tveh->damage < 10 && tveh->owner > 0) {
+      // Check for our usual conditions.
+      if (vehicle_is_valid_mob_target(tveh, GET_MOBALERT(ch) == MALERT_ALARM)) {
         // Found a target, stop processing vehicles.
         break;
       }
@@ -215,7 +227,10 @@ bool mobact_process_in_vehicle_aggro(struct char_data *ch) {
   
   // Target selection. We disallow targeting of unowned vehicles so our guards don't Thunderdome each other before players even show up.
   for (tveh = ch->in_veh->in_room->vehicles; tveh; tveh = tveh->next_veh) {
-    if (tveh != ch->in_veh && tveh->damage < 10 && tveh->owner > 0) {
+    if (tveh == ch->in_veh)
+      continue;
+      
+    if (vehicle_is_valid_mob_target(tveh, TRUE)) {
       // Found a valid target, stop looking.
       break;
     }
@@ -303,10 +318,11 @@ bool mobact_process_aggro(struct char_data *ch, struct room_data *room) {
     // If I am not astral, am in the same room, and am willing to attack a vehicle this round (coin flip), pick a fight with a vehicle.
     if (ch->in_room->number == room->number && !IS_ASTRAL(ch) && number(0, 1)) {
       for (veh = room->vehicles; veh; veh = veh->next_veh) {
-        if (veh->damage < 10) {
+        // Aggros don't care about road/garage status, so they act as if always alarmed.
+        if (vehicle_is_valid_mob_target(veh, TRUE)) {
           stop_fighting(ch);
           set_fighting(ch, veh);
-          return true;
+          return TRUE;
         }
       }
     }
@@ -424,6 +440,34 @@ bool mobact_process_helper(struct char_data *ch) {
   return false;
 }
 
+bool vehicle_is_valid_mob_target(struct veh_data *veh, bool alarmed) {
+  struct room_data *room = veh->in_room;
+  
+  // Vehicle's not in a room? Skip.
+  if (!room)
+    return FALSE;
+  
+  // We don't attack vehicles in their proper places-- unless we're alarmed.
+  if (!alarmed && (ROOM_FLAGGED(room, ROOM_ROAD) || ROOM_FLAGGED(room, ROOM_GARAGE)))
+    return FALSE;
+    
+  // We don't attack destroyed vehicles.
+  if (veh->damage >= VEH_DAM_THRESHOLD_DESTROYED)
+    return FALSE;
+    
+  // We attack player-owned vehicles.
+  if (veh->owner > 0)
+    return TRUE;
+    
+  // We attack player-occupied vehicles.
+  for (struct char_data *vict = veh->people; vict; vict = vict->next_in_veh)
+    if (!IS_NPC(vict)) 
+      return TRUE;
+  
+  // Otherwise, no good.
+  return FALSE;
+}
+
 bool mobact_process_guard(struct char_data *ch, struct room_data *room) {
   struct char_data *vict = NULL;
   struct veh_data *veh = NULL;
@@ -440,14 +484,10 @@ bool mobact_process_guard(struct char_data *ch, struct room_data *room) {
     if (ch->in_room == room) {
       for (veh = room->vehicles; veh; veh = veh->next_veh) {
         // If the room we're in is neither a road nor a garage, attack any vehicles we see.
-        // NOTE: Previous logic required that the vehicle be damaged to be a valid attack target.
-        if (!(ROOM_FLAGGED(room, ROOM_ROAD) || ROOM_FLAGGED(room, ROOM_GARAGE))) {
-          // TODO: Only attack player-owned vehicles and vehicles that have player occupants or drivers.
-          if (veh->damage < 10 && veh->owner > 0) {
-            stop_fighting(ch);
-            set_fighting(ch, veh);
-            return true;
-          }
+        if (vehicle_is_valid_mob_target(veh, GET_MOBALERT(ch) == MALERT_ALARM)) {
+          stop_fighting(ch);
+          set_fighting(ch, veh);
+          return TRUE;
         }
       }
     }
@@ -550,6 +590,22 @@ bool mobact_process_scavenger(struct char_data *ch) {
   return false;
 }
 
+// Find where the 'push' command is in the command index. This is SUCH a hack.
+int global_push_command_index = -1;
+int get_push_command_index() {
+  if (global_push_command_index != -1)
+    return global_push_command_index;
+  
+  for (int i = 0; *cmd_info[i].command != '\n'; i++)
+    if (!strncmp(cmd_info[i].command, "push", 4)) {
+      global_push_command_index = i;
+      return global_push_command_index;
+    }
+  
+  mudlog("FATAL ERROR: Unable to find index of PUSH command. Put it back.", NULL, LOG_SYSLOG, TRUE);
+  exit(1);
+}
+
 bool mobact_process_movement(struct char_data *ch) {
   int door;
   
@@ -593,6 +649,54 @@ bool mobact_process_movement(struct char_data *ch) {
     // Skip NOWHERE-located NPCs since they'll break things.
     if (!ch->in_room)
       return FALSE;
+      
+    // NPC standing outside an elevator? Maybe they want to call it.
+    if (ch->in_room->func == call_elevator && number(0, 6) == 0) {
+      char argument[500];
+      strcpy(argument, "button");
+      ch->in_room->func(ch, ch->in_room, find_command("push"), argument);
+      return TRUE;
+    }
+      
+    // NPC in an elevator? Maybe they feel like pressing buttons.
+    if (ch->in_room->func == elevator_spec && number(0, 6) == 0) {
+      // Yeah, they do. Push that thang.
+      int num;
+      for (num = 0; num < num_elevators; num++) {
+        if (ch->in_room->number == elevator[num].room)
+          break;
+      }
+      if (num == num_elevators) {
+        mudlog("ERROR: Failed to find the elevator an NPC was standing in.", ch, LOG_SYSLOG, TRUE);
+        return FALSE;
+      }
+      
+      // If the elevator's not moving...
+      if (elevator[num].dir != UP && elevator[num].dir != DOWN) {
+        // Select the floor. Make sure it's not the current floor.
+        int target_floor = -31337; // yes, it's a magic number, hush.
+        for (int loop_limit = 10; loop_limit > 0; loop_limit--) {
+          target_floor = number(elevator[num].start_floor, elevator[num].start_floor + elevator[num].num_floors);
+          if (target_floor != ch->in_room->rating)
+            break;
+          target_floor = -31337;
+        }
+        
+        if (target_floor != -31337) {
+          // We found a valid button to push. Push it.
+          char push_arg[10];
+          if (target_floor == 0)
+            strcpy(push_arg, "g");
+          else if (target_floor < 0)
+            sprintf(push_arg, "b%d", -target_floor);
+          else
+            sprintf(push_arg, "%d", target_floor);
+          
+          process_elevator(ch->in_room, ch, get_push_command_index(), push_arg);
+          return TRUE;
+        }
+      }
+    }
     
     for (int tries = 0; tries < 5; tries++) {
       // Select an exit, and bail out if they can't move that way.
@@ -878,32 +982,63 @@ bool attempt_reload(struct char_data *mob, int pos)
   // I would call the reload routine for players, but this is slightly faster
   struct obj_data *magazine, *gun = NULL;
   bool found = FALSE;
-
-  if (!(gun = GET_EQ(mob, pos)) || GET_OBJ_TYPE(GET_EQ(mob, pos)) != ITEM_WEAPON)
+  
+  if (!(gun = GET_EQ(mob, pos))) {
+    sprintf(buf, "SYSERR: attempt_reload received invalid wield position %d for %s.", pos, GET_CHAR_NAME(mob));
+    mudlog(buf, mob, LOG_SYSLOG, TRUE);
     return FALSE;
-
-  for (magazine = mob->carrying; magazine; magazine = magazine->next_content)
-  {
-    if (GET_OBJ_TYPE(magazine) == ITEM_GUN_MAGAZINE &&
-        !GET_OBJ_VAL(magazine, 0)) {
-      GET_OBJ_VAL(magazine, 9) = GET_OBJ_VAL(magazine, 0) = GET_OBJ_VAL(gun, 5);
-      GET_OBJ_VAL(magazine, 1) = GET_OBJ_VAL(gun, 3);
-      sprintf(buf, "a %d-round %s magazine", GET_OBJ_VAL(magazine, 0), weapon_type[GET_OBJ_VAL(magazine, 1)]);
-      DELETE_ARRAY_IF_EXTANT(magazine->restring);
-      magazine->restring = strdup(buf);
-      found = TRUE;
-      break;      
-    } else if (GET_OBJ_TYPE(magazine) == ITEM_GUN_MAGAZINE &&
-        GET_OBJ_VAL(magazine, 0) == GET_OBJ_VAL(gun, 5) &&
-        GET_OBJ_VAL(magazine, 1) == (GET_OBJ_VAL(gun, 3))) {
-      found = TRUE;
-      break;
-    } 
-
   }
 
-  if (!found)
+  if (GET_OBJ_TYPE(gun) != ITEM_WEAPON) {
+    act("$n can't reload weapon- $o is not a weapon.", TRUE, mob, gun, NULL, TO_ROLLS);
     return FALSE;
+  }
+  
+  // Unlimited ammo weapons don't need reloads.
+  if (GET_WEAPON_MAX_AMMO(gun) == -1) {
+    return TRUE;
+  }
+  
+  // With the coming ammo rework, I can't be assed to give all NPCs blank mags in resets. -- LS
+  magazine = read_object(127, VIRTUAL);
+  GET_MAGAZINE_AMMO_COUNT(magazine) = GET_MAGAZINE_BONDED_MAXAMMO(magazine) = GET_WEAPON_MAX_AMMO(gun);
+  GET_MAGAZINE_BONDED_ATTACKTYPE(magazine) = GET_WEAPON_ATTACK_TYPE(gun);
+  sprintf(buf, "a %d-round %s magazine", GET_MAGAZINE_BONDED_MAXAMMO(magazine), weapon_type[GET_MAGAZINE_BONDED_ATTACKTYPE(magazine)]);
+  DELETE_ARRAY_IF_EXTANT(magazine->restring);
+  magazine->restring = strdup(buf);
+  found = TRUE;
+
+/*
+  for (magazine = mob->carrying; magazine && !found; magazine = magazine->next_content)
+  {
+    // Found a magazine. Does it work for us?
+    if (GET_OBJ_TYPE(magazine) == ITEM_GUN_MAGAZINE) {
+      // Carrying an unbonded mag? Sweet, adapt it to this gun and load it up.
+      if (!GET_MAGAZINE_BONDED_MAXAMMO(magazine)) {
+        GET_MAGAZINE_AMMO_COUNT(magazine) = GET_MAGAZINE_BONDED_MAXAMMO(magazine) = GET_WEAPON_MAX_AMMO(gun);
+        GET_MAGAZINE_BONDED_ATTACKTYPE(magazine) = GET_WEAPON_ATTACK_TYPE(gun);
+        sprintf(buf, "a %d-round %s magazine", GET_MAGAZINE_BONDED_MAXAMMO(magazine), weapon_type[GET_MAGAZINE_BONDED_ATTACKTYPE(magazine)]);
+        DELETE_ARRAY_IF_EXTANT(magazine->restring);
+        magazine->restring = strdup(buf);
+        found = TRUE;
+        break;
+      } 
+      
+      // Carrying a bonded mag? Use it if it matches our loadout already.
+      else if (GET_MAGAZINE_BONDED_MAXAMMO(magazine) == GET_WEAPON_MAX_AMMO(gun) 
+               && GET_MAGAZINE_BONDED_ATTACKTYPE(magazine) == (GET_WEAPON_ATTACK_TYPE(gun))) {
+        found = TRUE;
+        break;
+      }
+    } 
+  }
+  
+
+  if (!found) {
+    act("$n can't reload weapon- no magazines available for $o.", TRUE, mob, gun, NULL, TO_ROLLS);
+    return FALSE;
+  }
+  */
 
   if (gun->contains)
   {
@@ -911,9 +1046,9 @@ bool attempt_reload(struct char_data *mob, int pos)
     obj_from_obj(tempobj);
     obj_to_room(tempobj, mob->in_room);
   }
-  obj_from_char(magazine);
+  // obj_from_char(magazine);
   obj_to_obj(magazine, gun);
-  GET_OBJ_VAL(gun, 6) = GET_OBJ_VAL(magazine, 9);
+  // GET_OBJ_VAL(gun, 6) = GET_OBJ_VAL(magazine, 9);
 
   act("$n reloads $p.", TRUE, mob, gun, 0, TO_ROOM);
   act("You reload $p.", FALSE, mob, gun, 0, TO_CHAR);
@@ -922,13 +1057,21 @@ bool attempt_reload(struct char_data *mob, int pos)
 
 void switch_weapons(struct char_data *mob, int pos)
 {
-  struct obj_data *i, *temp = NULL, *temp2 = NULL;
+  struct obj_data *i, *unlimited_ammo_weapon = NULL, *limited_ammo_weapon = NULL, *melee_weapon = NULL;
 
-  if (!GET_EQ(mob, pos) || GET_OBJ_TYPE(GET_EQ(mob, pos)) != ITEM_WEAPON)
+  if (!GET_EQ(mob, pos)) {
+    act("$n won't switch weapons- not equipped.", TRUE, mob, NULL, NULL, TO_ROLLS);
     return;
+  }
+  
+  if (GET_OBJ_TYPE(GET_EQ(mob, pos)) != ITEM_WEAPON) {
+    act("$n won't switch weapons- currently-equipped $o is not a weapon.", TRUE, mob, GET_EQ(mob, pos), NULL, TO_ROLLS);
+    return;
+  }
 
-  for (i = mob->carrying; i && !temp; i = i->next_content)
+  for (i = mob->carrying; i; i = i->next_content)
   {
+    /* No idea what these used to be, but now they're max ammo and reach.
     // search for a new gun
     if (GET_OBJ_TYPE(i) == ITEM_WEAPON)
       if (GET_OBJ_VAL(i, 6) > 0)
@@ -936,13 +1079,45 @@ void switch_weapons(struct char_data *mob, int pos)
     if (GET_OBJ_TYPE(i) == ITEM_WEAPON)
       if (GET_OBJ_VAL(i, 5) == -1)
         temp2 = i;
+    */
+    
+    
+    // We like using weapons that have unlimited ammo.
+    if (GET_OBJ_TYPE(i) == ITEM_WEAPON) {
+      if (IS_GUN(GET_WEAPON_ATTACK_TYPE(i))) {
+        // Check for an unlimited-ammo weapon.
+        if (GET_WEAPON_MAX_AMMO(i) == -1) {
+          // TODO: Check if it's a better weapon.
+          unlimited_ammo_weapon = i;
+          continue;
+        }
+        
+        // It's a limited-ammo weapon. Check to see if we have ammo for it.
+        if ((i->contains && GET_MAGAZINE_AMMO_COUNT(i->contains) > 0)
+            || find_magazine(i, mob->carrying)) {
+              // TODO: Check if it's a better weapon.
+              limited_ammo_weapon = i;
+              break;
+            }
+        
+      } else {
+        // It's a melee weapon (or a bow, grenade, etc that we don't support).
+        // TODO: Check for a better weapon.
+        melee_weapon = i;
+        continue;
+      }
+    }
   }
 
   perform_remove(mob, pos);
 
-  if (temp)
-    perform_wear(mob, temp, pos);
-  else if (temp2)
-    perform_wear(mob, temp2, pos);
+  // We want to wield limited-ammo weapons first to burn those ammo counts down.
+  if (limited_ammo_weapon)
+    perform_wear(mob, limited_ammo_weapon, pos);
+  else if (unlimited_ammo_weapon)
+    perform_wear(mob, unlimited_ammo_weapon, pos);
+  else if (melee_weapon)
+    perform_wear(mob, melee_weapon, pos);
+  else
+    act("$n won't wield a new weapon- no alternative weapon found.", TRUE, mob, GET_EQ(mob, pos), NULL, TO_ROLLS);
 }
-

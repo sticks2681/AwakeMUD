@@ -1649,7 +1649,7 @@ void circle_build(struct char_data *ch, char *type, int force)
     return;
   }
   if (ch->in_veh) {
-    send_to_char("You can't build a lodge in a vehicle.\r\n", ch);
+    send_to_char("You can't build a circle in a vehicle.\r\n", ch);
      return;
   }
   if (GET_NUYEN(ch) < force * force)
@@ -1929,6 +1929,7 @@ ACMD(do_bond)
   int karma = 0, spirit = 0;
   struct spell_data *spell = GET_SPELLS(ch);
 
+  // Find the object in their inventory or equipment.
   for (obj = ch->carrying; obj; obj = obj->next_content)
     if (isname(buf1, obj->text.keywords) || isname(buf2, GET_OBJ_NAME(obj)))
       break;
@@ -1936,10 +1937,13 @@ ACMD(do_bond)
     for (int i = 0; i < NUM_WEARS && !obj; i++)
       if (GET_EQ(ch, i) && (isname(buf1, GET_EQ(ch, i)->text.keywords) || isname(buf1, GET_OBJ_NAME(GET_EQ(ch, i)))))
         obj = GET_EQ(ch, i);
+        
+  // No object-- failure case.
   if (!obj) {
     send_to_char("You don't have that item.\r\n", ch);
     return;
   }
+  
   if (GET_OBJ_TYPE(obj) == ITEM_DOCWAGON) {
     if (GET_DOCWAGON_BONDED_IDNUM(obj)) {
       if (GET_DOCWAGON_BONDED_IDNUM(obj) == GET_IDNUM(ch))
@@ -1958,9 +1962,24 @@ ACMD(do_bond)
     // Define aliases used for code readability; nobody likes juggling 'i' and 'obj'.
     struct obj_data *magazine = obj, *weapon = NULL;
     
-    // Fallthrough: If they selected a pre-bonded magazine, we can abort now.
+    // Convenience: If they selected a pre-bonded magazine, just keep rolling through.
     if (GET_OBJ_VAL(magazine, 0)) {
-      send_to_char("That magazine's already been bonded to something else.\r\n", ch);
+      for (obj = obj->next_content; obj; obj = obj->next_content) {
+        if (isname(buf1, obj->text.keywords) || isname(buf2, GET_OBJ_NAME(obj))) {
+          // We found something that matches the keywords-- but is it already bonded?
+          if (GET_OBJ_VAL(magazine, 0))
+            continue;
+          
+          // Good to go.
+          magazine = obj;
+          break;
+        }
+      }
+    }
+    
+    // If we found no valid magazines, terminate.
+    if (!magazine || GET_OBJ_VAL(magazine, 0)) {
+      send_to_char("All of your magazines have already been bonded to something else.\r\n", ch);
       return;
     }
     
@@ -1977,9 +1996,9 @@ ACMD(do_bond)
     }
     
     // Assign the magazine's values to the correct values supplied by the weapon.
-    GET_OBJ_VAL(magazine, 0) = GET_OBJ_VAL(weapon, 5);
-    GET_OBJ_VAL(magazine, 1) = GET_OBJ_VAL(weapon, 3);
-    sprintf(buf, "a %d-round %s magazine", GET_OBJ_VAL(magazine, 0), weapon_type[GET_OBJ_VAL(magazine, 1)]);
+    GET_MAGAZINE_BONDED_MAXAMMO(magazine) = GET_WEAPON_MAX_AMMO(weapon);
+    GET_MAGAZINE_AMMO_TYPE(magazine) = GET_WEAPON_ATTACK_TYPE(weapon);
+    sprintf(buf, "a %d-round %s magazine", GET_MAGAZINE_BONDED_MAXAMMO(magazine), weapon_type[GET_MAGAZINE_AMMO_TYPE(magazine)]);
     if (magazine->restring)
       delete [] magazine->restring;
     magazine->restring = strdup(buf);
@@ -2001,7 +2020,11 @@ ACMD(do_bond)
           return;
         }
       }
-    } else send_to_char("There is no need to bond a magazine to that weapon.\r\n", ch);
+      send_to_char("You can't find any blank magazines to bond to that weapon.\r\n", ch);
+      return;
+    } 
+    else 
+      send_to_char(ch, "%s can't take magazines.\r\n", GET_OBJ_NAME(obj));
     return;
   }
   if (GET_OBJ_TYPE(obj) == ITEM_FOCUS) {
@@ -2084,7 +2107,7 @@ ACMD(do_bond)
           return;
         }
       }
-      if (PLR_FLAGGED(ch, PLR_AUTH)) {
+      if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
         if (GET_FORCE_POINTS(ch) < karma) {
           send_to_char(ch, "You don't have enough force points to bond that (Need %d).\r\n", karma);
           return;
@@ -2277,11 +2300,11 @@ ACMD(do_conjure)
       send_to_char(ch, "You have too many elementals summoned.\r\n");
       return;
     }
-    for (; spirit < NUM_ELEMENTS; spirit++)
+    for (spirit = 0; spirit < NUM_ELEMENTS; spirit++)
       if (is_abbrev(buf1, elements[spirit].name))
         break;
     if (spirit == NUM_ELEMENTS) {
-      send_to_char("What elemental do you wish to conjure?\r\n", ch);
+      send_to_char("You must specify one of Earth, Air, Fire, or Water.\r\n", ch);
       return;
     }
     if ((GET_ASPECT(ch) == ASPECT_ELEMFIRE && spirit != ELEM_FIRE) ||
@@ -2345,11 +2368,18 @@ ACMD(do_conjure)
       send_to_char("You already have summoned a nature spirit.\r\n", ch);
       return;
     }
-    for (; spirit < NUM_SPIRITS; spirit++)
+    for (spirit = 0; spirit < NUM_SPIRITS; spirit++)
       if (is_abbrev(buf1, spirits[spirit].name))
         break;
     if (spirit == NUM_SPIRITS) {
-      send_to_char("Which spirit do you wish to conjure?\r\n", ch);
+      strcpy(buf, "Which spirit do you wish to conjure? In your current domain, you can conjure");
+      bool have_sent_text = FALSE;
+      for (spirit = 0; spirit < NUM_SPIRITS; spirit++)
+        if (GET_DOMAIN(ch) == ((spirit == SPIRIT_MIST || spirit == SPIRIT_STORM || spirit == SPIRIT_WIND) ? SPIRIT_SKY : spirit)) {
+          sprintf(ENDOF(buf), "%s %s", have_sent_text ? "," : "", spirits[spirit].name);
+          have_sent_text = TRUE;
+        }
+      send_to_char(ch, buf);
       return;
     }
     if (GET_DOMAIN(ch) != ((spirit == SPIRIT_MIST || spirit == SPIRIT_STORM || spirit == SPIRIT_WIND) ? SPIRIT_SKY : spirit)) {
@@ -2397,14 +2427,31 @@ ACMD(do_conjure)
 
 ACMD(do_spells)
 {
-  if (GET_ASPECT(ch) == ASPECT_CONJURER || GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MUNDANE || !GET_SKILL(ch, SKILL_SORCERY)) {
-    send_to_char("You don't have the ability to do that.\r\n", ch);
+  // Conjurers cannot cast spells.
+  if (GET_ASPECT(ch) == ASPECT_CONJURER) {
+    send_to_char(ch, "%ss don't have the aptitude for spells.\r\n", aspect_names[GET_ASPECT(ch)]);
     return;
   }
+  
+  // Adepts and Mundanes cannot cast spells.
+  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MUNDANE) {
+    send_to_char(ch, "%ss don't have the aptitude for spells.\r\n", tradition_names[GET_ASPECT(ch)]);
+    return;
+  }
+  
+  // Character is of the right type to cast spells, but doesn't have the skill trained yet.
+  if (!GET_SKILL(ch, SKILL_SORCERY)) {
+    send_to_char(ch, "You need to learn the %s skill first.\r\n", skills[SKILL_SORCERY].name);
+    return;
+  }
+  
+  // Character has no spells known.
   if (!GET_SPELLS(ch)) {
     send_to_char("You don't know any spells.\r\n", ch);
     return;
   }
+  
+  // Character knows spells. List them.
   send_to_char("You know the following spells:\r\n", ch);
   for (struct spell_data *spell = GET_SPELLS(ch); spell; spell = spell->next)
     send_to_char(ch, "%-50s Category: %12s Force: %d\r\n", spell->name, spell_category[spells[spell->type].category], spell->force);
@@ -2412,7 +2459,7 @@ ACMD(do_spells)
 
 ACMD(do_forget)
 {
-  if (!PLR_FLAGGED(ch, PLR_AUTH) || !GET_SPELLS(ch)) {
+  if (!PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED) || !GET_SPELLS(ch)) {
     nonsensical_reply(ch);
     return;
   }
@@ -4163,5 +4210,3 @@ ACMD(do_think)
   act(buf, FALSE, ch, 0, ch->char_specials.mindlink, TO_VICT);
   send_to_char(ch, "You think, \"%s\"\r\n", argument);
 }
-
-

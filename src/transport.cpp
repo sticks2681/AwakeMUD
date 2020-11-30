@@ -50,106 +50,106 @@ static const int NUM_SEATAC_STATIONS = 6;
 
 struct dest_data taxi_destinations[] =
   {
-    { "tacoma", "Tacoma", 2000, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
-    // { "knight", "Knight Center", 1519 },
-    // { "afterlife", "The Afterlife", 2072 },
-    // { "chinatown", "ChinaTown", 2527 },
-    // { "evergreen", "Evergreen Complex", 2201 },
-    // { "twe", "Tacoma Weapons Emporium", 2514 },
-    { "nybbles", "Nybbles and Bytes", 2057, TAXI_DEST_TYPE_SHOPPING, TRUE },
-    // { "biohyde", "Biohyde Complex", 4201 },
-    // { "puyallup", "Central Puyallup", 2457 },
-    // { "park", "Seattle State Park", 4000 },
-    { "seattle", "Seattle", 32679, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
-    // { "cinema", "Le Cinema Vieux", 32588 },
+  { "action", "Action Computers", 32650, TAXI_DEST_TYPE_SHOPPING, TRUE },
+  { "afterlife", "The Afterlife", 2072, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+  { "aztech",  "Aztechnology Pyramid", 30539, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE },
+  { "auburn", "Auburn", 29011, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+  { "biohyde", "Biohyde Complex", 4201, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE },
+  { "wyvern", "The Blue Wyvern", 4909, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+  { "puyallup", "Central Puyallup", 2457, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+  { "chinatown", "ChinaTown", 2527, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
+  { "penumbra", "Club Penumbra", 32587, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+  { "evergreen", "Evergreen Complex", 2201, TAXI_DEST_TYPE_ACCOMMODATIONS, TRUE },
+  { "knight", "Knight Center", 1519, TAXI_DEST_TYPE_CORPORATE_PARK, TRUE },
+  { "charne", "La Charne", 30548, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+  { "cinema", "Le Cinema Vieux", 32588, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE},
+  { "platinum", "Platinum Club", 32685, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+  { "apartment", "Redmond Apartment Block", 14337, TAXI_DEST_TYPE_ACCOMMODATIONS, TRUE },
+  { "nybbles", "Nybbles and Bytes", 2057, TAXI_DEST_TYPE_SHOPPING, TRUE },
+  { "reaper", "The Reaper", 32517, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+  { "redmond", "Redmond", 14310, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+  { "seattle", "Seattle", 32679, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
+  { "park", "Seattle State Park", 4000, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+  { "airport", "Seattle-Tacoma Airport", 19410, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+  { "tarislar", "Tarislar", 4965, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+  { "tacoma", "Tacoma", 2000, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
+  { "twe", "Tacoma Weapons Emporium", 2514, TAXI_DEST_TYPE_SHOPPING, TRUE },
+  // TODO: Stopped alphabetizing by title here.
     // { "vieux", "Le Cinema Vieux", 32588 },
-    // { "charne", "La Charne", 30548 },
-    // { "tarislar", "Tarislar", 4965 },
-    // { "wyvern", "The Blue Wyvern", 4909 },
-    // { "redmond", "Redmond", 14310 },
-    // { "reaper", "The Reaper", 32517 },
-    // { "platinum", "Platinum Club", 32685 },
-    // { "penumbra", "Club Penumbra", 32587 },
-    // { "big", "The Big Rhino", 32635 },
-    // { "epicenter", "The Epicenter", 2418 },
-    // { "yoshi", "Yoshi's Sushi Bar", 32751 },
-    // { "airport", "Seattle-Tacoma Airport", 19410 },
-    // { "aztech",  "Aztechnology Pyramid", 30539 },
-    // { "garage", "Seattle Parking Garage", 32720 },
-    // { "formal", "Seattle Formal Wear", 32746 },
-    // { "sda", "The SDA Plaza", 30610 },
+    { "big", "The Big Rhino", 32635, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "epicenter", "The Epicenter", 2418, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "yoshi", "Yoshi's Sushi Bar", 32751, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "garage", "Seattle Parking Garage", 32720, TAXI_DEST_TYPE_OTHER , TRUE },
+    { "formal", "Seattle Formal Wear", 32746, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "sda", "The SDA Plaza", 30610, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE },
     { "dante", "Dante's Inferno", 32661, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
-    // { "quinns", "Quinn's", 32521 },
-    // { "shintaru", "Shintaru", 32513 },
-    // { "docks", "Seattle Dockyards", 32500 },
-    // { "modern", "Modern Magik", 30514 },
-    // { "methodist", "Seattle First Methodist", 30565 },
-    // { "sculleys", "Sculleys", 30591 },
-    // { "council", "Council Island", 9149 },
-    // { "moonlight", "Moonlight Mall", 14373 },
-    // { "library", "Seattle Public Library", 30600 },
-    // { "kristins", "Kristin's", 30578 },
+    { "quinns", "Quinn's", 32521, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "shintaru", "Shintaru", 32513, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE },
+    { "docks", "Seattle Dockyards", 32500, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+    { "modern", "Modern Magik", 30514, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "methodist", "Seattle First Methodist", 30565, TAXI_DEST_TYPE_OTHER, TRUE },
+    { "sculleys", "Sculleys", 30591, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "council", "Council Island", 9149, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+    { "moonlight", "Moonlight Mall", 14373, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "library", "Seattle Public Library", 30600, TAXI_DEST_TYPE_OTHER, TRUE },
+    { "kristin's", "Kristin's", 30578, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
     { "mitsuhama", "Mitsuhama Towers", 32722, TAXI_DEST_TYPE_CORPORATE_PARK, TRUE },
     { "chiba", "Little Chiba", 32686, TAXI_DEST_TYPE_SHOPPING, TRUE },
-    // { "stop", "The Stop Gap", 32708 },
-    // { "apartment", "Redmond Apartment Block", 14337 },
-    // { "humana", "Humana Hospital", 2536 },
-    // { "hospital", "Council Island Hospital", 9161 },
-    // { "coffin", "Tacoma Coffin Hotel", 2045 },
-    // { "diver", "Easy Diver Coffin Hotel", 32644 },
-    { "action", "Action Computers", 32650, TAXI_DEST_TYPE_SHOPPING, TRUE },
-    // { "auburn", "Auburn", 29011 },
+    { "stop", "The Stop Gap", 32708, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "humana", "Humana Hospital", 2536, TAXI_DEST_TYPE_HOSPITALS, TRUE },
+    { "hospital", "Council Island Hospital", 9161, TAXI_DEST_TYPE_HOSPITALS, TRUE },
+    { "coffin", "Tacoma Coffin Hotel", 2045, TAXI_DEST_TYPE_ACCOMMODATIONS, TRUE },
+    { "diver", "Easy Diver Coffin Hotel", 32644, TAXI_DEST_TYPE_ACCOMMODATIONS, TRUE },
     { "hellhound", "Hellhound Bus Stop",  32501, TAXI_DEST_TYPE_TRANSPORTATION, TRUE },
-    // { "lysleul", "Lysleul Plaza", 30551 },
-    // { "microdeck", "Auburn Microdeck Outlet", 29010 },
+    { "lysleul", "Lysleul Plaza", 30551, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "microdeck", "Auburn Microdeck Outlet", 29010, TAXI_DEST_TYPE_SHOPPING, TRUE },
     { "novatech", "Novatech Seattle", 32541, TAXI_DEST_TYPE_CORPORATE_PARK, TRUE },
-    // { "syberspace", "SyberSpace", 30612 },
-    // { "pooks", "Pook's Place", 1530 },
-    // { "errant", "KE Training Facility", 30127 },
-    // { "italiano", "The Italiano", 30149 },
-    // { "bank", "UCASBank", 30524 },
-    // { "matchsticks", "Matchsticks", 30579 },
-    // { "homewood", "Homewood Suites", 30512 },
+    { "syberspace", "SyberSpace", 30612, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "pooks", "Pook's Place", 1530, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "errant", "KE Training Facility", 30127, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE},
+    { "italiano", "The Italiano", 30149, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "bank", "UCASBank", 30524, TAXI_DEST_TYPE_OTHER, TRUE },
+    { "matchsticks", "Matchsticks", 30579, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "homewood", "Homewood Suites", 30512, TAXI_DEST_TYPE_ACCOMMODATIONS, TRUE },
     { "mall", "Tacoma Mall", 2093, TAXI_DEST_TYPE_SHOPPING, TRUE },
-    // { "racespec", "Racespec Performance", 30573 },
-    // { "smiths", "Smith's Pub", 32566 },
-    // { "marksman", "Marksman Indoor Firing Range", 32682 },
+    { "racespec", "Racespec Performance", 30573, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "smiths", "Smith's Pub", 32566, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "marksman", "Marksman Indoor Firing Range", 32682, TAXI_DEST_TYPE_OTHER, TRUE },
     { "sapphire", "The Star Sapphire", 70301, TAXI_DEST_TYPE_ACCOMMODATIONS, TRUE },
-    // { "everett", "Everett", 39263 },
-    // { "beacon", "Beacon Mall Everett", 39253 },
-    // { "touristville", "Touristville", 25313 },
-    // { "skeleton", "The Skeleton", 25308 },
+    { "everett", "Everett", 39263, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+    { "beacon", "Beacon Mall Everett", 39253, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "touristville", "Touristville", 25313, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
+    { "skeleton", "The Skeleton", 25308, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
     { "junkyard",  "The Tacoma Junkyard", 2070, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
 #ifdef USE_PRIVATE_CE_WORLD
-    { "planetary", "Planetary Corporation", 72503, TAXI_DEST_TYPE_CORPORATE_PARK, TRUE },
+    { "planetary", "Planetary Corporation", 72503, TAXI_DEST_TYPE_CORPORATE_PARK, FALSE },
 #endif
     { "\n", "", 0, 0, 0 } // this MUST be last
   };
 
 struct dest_data port_destinations[] =
   {
-    // { "hellhound", "Hellhound Bus Station", 14624 },
-    // { "postal", "Royal Postal Station", 14629 },
-    // { "trans-oregon", "Trans-Oregon Trucking", 14604 },
-    // { "thompson", "Thompson Autogroup",  14602},
-    // { "hard", "Hard Times", 14608 },
-    // { "bank", "TT-Bank", 14610 },
-    // { "sixth", "Sixth Street Parking", 14680 },
-    // { "satyricon", "The Satyricon", 14611 },
-    // { "rocco", "Rocco's Pizza", 14730 },
-    // { "annabel", "Annabel's Antiquities", 2710 },
-    // { "square", "O'Bryant Square", 2708 },
-    // { "parking", "Portland City Parking", 2703 },
-    // { "mary", "Mary's Bar", 14712 },
-    // { "tower", "TTBank Tower", 14743 },
-    // { "city", "City Center Parking", 14751 },
-    // { "habitat", "Telestrian Habitat", 18800 },
-    // { "hospital", "Royal Hospital", 14707 },
-    // { "toadstool", "The Toadstool", 14671 },
-    // { "powells", "Powell's Technical Books", 14724 },
-    // { "powell's", "Powell's Technical Books", 14724 },
-    // { "davis", "Davis Street Offices", 14667 },
-    // { "max", "Downtown MAX Station", 20800 },
+    { "hellhound", "Hellhound Bus Station", 14624, TAXI_DEST_TYPE_TRANSPORTATION, TRUE  },
+    { "postal", "Royal Postal Station", 14629, TAXI_DEST_TYPE_OTHER, TRUE },
+    { "trans-oregon", "Trans-Oregon Trucking", 14604, TAXI_DEST_TYPE_OTHER, TRUE },
+    { "thompson", "Thompson Autogroup",  14602, TAXI_DEST_TYPE_SHOPPING, TRUE},
+    { "hard", "Hard Times", 14608, TAXI_DEST_TYPE_SHOPPING, TRUE},
+    { "bank", "TT-Bank", 14610, TAXI_DEST_TYPE_OTHER, TRUE},
+    { "sixth", "Sixth Street Parking", 14680, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE},
+    { "satyricon", "The Satyricon", 14611, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "rocco", "Rocco's Pizza", 14730, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "annabel", "Annabel's Antiquities", 2710, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "square", "O'Bryant Square", 2708, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
+    { "parking", "Portland City Parking", 2703, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE},
+    { "mary", "Mary's Bar", 14712, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "tower", "TTBank Tower", 14743, TAXI_DEST_TYPE_OTHER, TRUE },
+    { "city", "City Center Parking", 14751, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE},
+    { "habitat", "Telestrian Habitat", 18800, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "hospital", "Royal Hospital", 14707, TAXI_DEST_TYPE_HOSPITALS, TRUE },
+    { "toadstool", "The Toadstool", 14671, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
+    { "powell's", "Powell's Technical Books", 14724, TAXI_DEST_TYPE_SHOPPING, TRUE },
+    { "davis", "Davis Street Offices", 14667, TAXI_DEST_TYPE_CORPORATE_PARK, TRUE},
+    { "max", "Downtown MAX Station", 20800, TAXI_DEST_TYPE_TRANSPORTATION, TRUE  },
     { "\n", "", 0, 0, 0 } // this MUST be last
  
   };
@@ -162,7 +162,8 @@ struct taxi_dest_type taxi_dest_type_info[] = {
   { "^mRestaurants and Nightclubs", "^M" },
   { "^bShopping", "^B" },
   { "^gAccommodation", "^G" },
-  { "^rHospitals", "^R" }
+  { "^rHospitals", "^R" },
+  { "^WEverything Else", "^W" }
 };
 
 struct transport_type
@@ -194,10 +195,10 @@ static struct transport_type seattle[NUM_SEATTLE_STATION] =
 // ______________________________
 
 SPECIAL(taxi);
-static int process_elevator(struct room_data *room,
-                            struct char_data *ch,
-                            int cmd,
-                            char *argument);
+int process_elevator(struct room_data *room,
+                     struct char_data *ch,
+                     int cmd,
+                     char *argument);
 
 // ____________________________________________________________________________
 //
@@ -392,6 +393,12 @@ ACMD(do_hail)
   int cab, first, last;
   bool found = FALSE, empty = FALSE, portland = FALSE;
   SPECIAL(taxi);
+  
+  if (!ch->in_room) {
+    send_to_char("You can't do that here.\r\n", ch);
+    mudlog("SYSERR: Attempt to hail a vehicle from non-room location.", ch, LOG_SYSLOG, TRUE);
+    return;
+  }
 
   for (int dir = NORTH; dir < UP; dir++)
     if (!ch->in_room->dir_option[dir])
@@ -401,14 +408,22 @@ ACMD(do_hail)
     send_to_char("Magically active cab drivers...now I've heard everything...\n\r",ch);
     return;
   }
+  
+  // Special condition: Hailing from Imm HQ's central room.
+  if (ch->in_room->number == 10000) {
+    if (str_str(argument, "portland")) {
+      portland = TRUE;
+    } else {
+      portland = FALSE;
+    }
+  } else {
+    if (ch->in_room->sector_type != SPIRIT_CITY
+        || !empty 
+        || ROOM_FLAGGED(ch->in_room, ROOM_INDOORS)) {
+      send_to_char("There don't seem to be any cabs in the area.\r\n", ch);
+      return;
+    }
 
-  if (ch->in_room->sector_type != SPIRIT_CITY || !empty ||
-      ROOM_FLAGGED(ch->in_room, ROOM_INDOORS)) {
-    send_to_char("There don't seem to be any cabs in the area.\r\n", ch);
-    return;
-  }
-
-  if (ch->in_room) {
     switch (zone_table[ch->in_room->zone].number) {
     case 13:
     case 15:
@@ -449,16 +464,17 @@ ACMD(do_hail)
       break;
     default:
       /* Cab doesn't service the area */
-      send_to_char("There don't seem to be any cabs in the area.\n\r",ch);
+      send_to_char("There don't seem to be any cabs in the area.\r\n",ch);
       return;
     }
-  }
 
-  if (AFF_FLAGS(ch).AreAnySet(AFF_SPELLINVIS, AFF_INVISIBLE, AFF_SPELLIMPINVIS, AFF_IMP_INVIS, ENDBIT)
-      || GET_INVIS_LEV(ch) > 0)  {
-    send_to_char("A cab almost stops, but guns it at the last second, splashing you...\n\r",ch);
-    return;
-  }
+    if (AFF_FLAGS(ch).AreAnySet(AFF_SPELLINVIS, AFF_INVISIBLE, AFF_SPELLIMPINVIS, AFF_IMP_INVIS, ENDBIT)
+        || GET_INVIS_LEV(ch) > 0)  {
+      send_to_char("A cab almost stops, but guns it at the last second, splashing you...\r\n",ch);
+      send_to_char("(OOC: You can't hail taxis while invisible.)\r\n", ch);
+      return;
+    }
+}
 
   first = real_room(portland ? FIRST_PORTCAB : FIRST_CAB);
   last = real_room(portland ? LAST_PORTCAB : LAST_CAB);
@@ -613,7 +629,7 @@ SPECIAL(taxi)
   if (!IS_NPC(ch) && memory(driver, ch) && (CMD_IS("north") ||
       CMD_IS("east") || CMD_IS("west") || CMD_IS("south") || CMD_IS("ne") ||
       CMD_IS("se") || CMD_IS("sw") || CMD_IS("nw") || CMD_IS("northeast") ||
-      CMD_IS("southeast") || CMD_IS("southwest") || CMD_IS("northwest")) && GET_ACTIVE(driver) != ACT_DRIVING) {
+      CMD_IS("southeast") || CMD_IS("southwest") || CMD_IS("northwest") || CMD_IS("leave")) && GET_ACTIVE(driver) != ACT_DRIVING) {
     forget(driver, ch);
     return FALSE;
   }
@@ -770,13 +786,13 @@ void make_elevator_door(vnum_t rnum_to, vnum_t rnum_from, int direction_from) {
   if (!DOOR->key)
     DOOR->key = OBJ_ELEVATOR_SHAFT_KEY;
   
-  if (!DOOR->key_level)
+  if (!DOOR->key_level || DOOR->key_level < 8)
     DOOR->key_level = 8;
   
-  if (!DOOR->material)
+  if (!DOOR->material || DOOR->material == MATERIAL_BRICK)
     DOOR->material = MATERIAL_METAL;
   
-  if (!DOOR->barrier)
+  if (!DOOR->barrier || DOOR->barrier < 8)
     DOOR->barrier = 8;
   
   // Set up the door's flags.
@@ -873,8 +889,13 @@ static void init_elevators(void)
             make_elevator_door(rnum, shaft_rnum, elevator[i].floor[j].doors);
             make_elevator_door(shaft_rnum, rnum, rev_dir[elevator[i].floor[j].doors]);
             // Flag the shaft appropriately.
-            ROOM_FLAGS(&world[shaft_rnum]).SetBits(ROOM_NOMOB, ROOM_NOBIKE, ROOM_ELEVATOR_SHAFT, ROOM_FALL, ENDBIT);
+            ROOM_FLAGS(&world[shaft_rnum]).SetBits(ROOM_NOMOB, ROOM_INDOORS, ROOM_NOBIKE, ROOM_ELEVATOR_SHAFT, ROOM_FALL, ENDBIT);
             world[shaft_rnum].rating = ELEVATOR_SHAFT_FALL_RATING;
+            
+            // Set up the combat options.
+            world[shaft_rnum].x = MAX(2, world[shaft_rnum].x);
+            world[shaft_rnum].y = MAX(2, world[shaft_rnum].y);
+            world[shaft_rnum].z = MAX(5.0, world[shaft_rnum].z);
           } else {
             sprintf(buf, "Fatal error: Nonexistent elevator shaft vnum %ld.", elevator[i].floor[j].shaft_vnum);
             log(buf);
@@ -887,6 +908,56 @@ static void init_elevators(void)
         }
       }
       
+      // Now make sure the shaft rooms are connected.
+      long last_shaft_vnum = -1;
+      for (j = 0; j < elevator[i].num_floors; j++) {        
+        // No error recovery here- if the shaft is invalid, bail tf out.
+        if (real_room(elevator[i].floor[j].shaft_vnum) == -1) {
+          sprintf(buf, "SYSERR: Shaft vnum %ld for floor %d of elevator %d is invalid.",
+                  elevator[i].floor[j].shaft_vnum, j, i);
+          mudlog(buf, NULL, LOG_SYSLOG, TRUE);
+          break;
+        }
+        
+        // First shaft room? Nothing to do-- we didn't verify the kosherness of the next one yet.
+        if (last_shaft_vnum == -1) {
+          last_shaft_vnum = elevator[i].floor[j].shaft_vnum;
+          continue;
+        }
+        
+#define DOOR(index, dir) world[real_room(elevator[i].floor[index].shaft_vnum)].dir_option[dir]
+        // Does the exit already exist?
+        if (DOOR(j, UP)) {
+          // Purge it.
+          DELETE_ARRAY_IF_EXTANT(DOOR(j, UP)->keyword);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j, UP)->general_description);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j, UP)->go_into_thirdperson);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j, UP)->go_into_secondperson);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j, UP)->come_out_of_thirdperson);
+          DELETE_AND_NULL(DOOR(j, UP));
+        }
+          
+        // Does its mirror already exist?
+        if (DOOR(j - 1, DOWN)) {
+          // Purge it.
+          DELETE_ARRAY_IF_EXTANT(DOOR(j - 1, DOWN)->keyword);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j - 1, DOWN)->general_description);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j - 1, DOWN)->go_into_thirdperson);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j - 1, DOWN)->go_into_secondperson);
+          DELETE_ARRAY_IF_EXTANT(DOOR(j - 1, DOWN)->come_out_of_thirdperson);
+          DELETE_AND_NULL(DOOR(j - 1, DOWN));
+        }
+          
+        // Create the exit in both directions.
+        DOOR(j - 1, DOWN) = new room_direction_data;
+        memset((char *) DOOR(j - 1, DOWN), 0, sizeof(struct room_direction_data));
+        DOOR(j - 1, DOWN)->to_room = &world[real_room(elevator[i].floor[j].shaft_vnum)];
+        
+        DOOR(j, UP) = new room_direction_data;
+        memset((char *) DOOR(j, UP), 0, sizeof(struct room_direction_data));
+        DOOR(j, UP)->to_room = &world[real_room(elevator[i].floor[j - 1].shaft_vnum)];
+#undef DOOR
+      }
       
       // Ensure an exit from car -> landing and vice/versa exists. Store the shaft's exit.
       struct room_data *car = &world[real_room(elevator[i].room)];
@@ -963,9 +1034,9 @@ SPECIAL(call_elevator)
 {
   int i = 0, j, index = -1;
   long rnum;
-  if (!cmd)
+  if (!cmd || !ch || !ch->in_room)
     return FALSE;
-
+    
   for (i = 0; i < num_elevators && index < 0; i++)
     for (j = 0; j < elevator[i].num_floors && index < 0; j++)
       if (elevator[i].floor[j].vnum == ch->in_room->number)
@@ -974,7 +1045,8 @@ SPECIAL(call_elevator)
   if (CMD_IS("push") || CMD_IS("press")) {
     skip_spaces(&argument);
     if (!*argument || !(!strcasecmp("elevator", argument) ||
-                        !strcasecmp("button", argument)))
+                        !strcasecmp("button", argument)   ||
+                        !strcasecmp("call", argument)))
       send_to_char("Press what?\r\n", ch);
     else {
       if (ch->in_veh)
@@ -997,12 +1069,13 @@ SPECIAL(call_elevator)
           return TRUE;
         }
       send_to_char("You press the call button, and the small light turns on.\r\n", ch);
+      act("$n presses the call button.", FALSE, ch, 0, 0, TO_ROOM);
       elevator[index].destination = ch->in_room->number;
     }
     return TRUE;
   }
 
-  if (CMD_IS("look") || CMD_IS("examine")) {
+  if (CMD_IS("look") || CMD_IS("examine") || CMD_IS("read")) {
     one_argument(argument, arg);
     if (!*arg || index < 0 ||
         !(!strn_cmp("panel", arg, strlen(arg)) || !strn_cmp("elevator", arg, strlen(arg))))
@@ -1043,10 +1116,10 @@ SPECIAL(elevator_spec)
 // processing funcs
 // ______________________________
 
-static int process_elevator(struct room_data *room,
-                            struct char_data *ch,
-                            int cmd,
-                            char *argument)
+int process_elevator(struct room_data *room,
+                     struct char_data *ch,
+                     int cmd,
+                     char *argument)
 {
   int num, temp, number, floor = 0, dir;
   int base_target, dice, power, success, dam;
@@ -1195,7 +1268,7 @@ static int process_elevator(struct room_data *room,
         base_target = 6 + modify_target(vict);
         dice = get_skill(vict, SKILL_ATHLETICS, base_target);
         if (success_test(dice, base_target) > 0) {
-          // No message on success (would be spammy)
+          act("$n squeezes $mself against the shaft wall, avoiding the passing car.", TRUE, vict, 0, 0, TO_ROOM);
           continue;
         }
         
@@ -1349,11 +1422,11 @@ static int process_elevator(struct room_data *room,
       send_to_char(ch, "You push the button for %s, and it lights up.\r\n", floorstring);
     }
     return TRUE;
-  } else if (CMD_IS("look") || CMD_IS("examine"))
+  } else if (CMD_IS("look") || CMD_IS("examine") || CMD_IS("read"))
   {
     one_argument(argument, arg);
     if (!*arg || !(!strn_cmp("panel", arg, strlen(arg)) || !strn_cmp("elevator", arg, strlen(arg))
-                   || !strn_cmp("buttons", arg, strlen(arg)) || !strn_cmp("control", arg, strlen(arg))))
+                   || !strn_cmp("buttons", arg, strlen(arg)) || !strn_cmp("controls", arg, strlen(arg))))
       return FALSE;
 
     strcpy(buf, "The elevator panel displays the following buttons:\r\n");
@@ -2321,4 +2394,3 @@ void MonorailProcess(void)
   //process_victoria_ferry();
   //process_sugarloaf_ferry();
 }
-

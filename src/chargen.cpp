@@ -273,6 +273,20 @@ int parse_totem(struct descriptor_data *d, const char *arg)
 int parse_assign(struct descriptor_data *d, const char *arg)
 {
   int i;
+  
+  // Magic is only okay if placed in 0, 1, or l_k_m_s.
+  int lowest_kosher_magic_slot = 4;
+  if (d->ccr.pr[lowest_kosher_magic_slot] == PR_RACE)
+    lowest_kosher_magic_slot--;
+  
+  if (*arg == '2' && (d->ccr.temp > 1 && d->ccr.temp != lowest_kosher_magic_slot)) {
+    char kosher_slot = 'A' + lowest_kosher_magic_slot;
+    sprintf(buf2, "Magic can only fit in slots A, B, or %c for %s characters.", 
+            kosher_slot, 
+            pc_race_types[(int)GET_RACE(d->character)]);
+    SEND_TO_Q(buf2, d);
+    return 0;
+  }
 
   switch (*arg)
   {
@@ -416,7 +430,7 @@ void init_char_sql(struct char_data *ch)
                GET_HEIGHT(ch), GET_WEIGHT(ch), ch->player.host, GET_TRADITION(ch), ch->player.time.birth, "A blank slate.",
                "A nondescript person.\r\n", "A nondescript entity.\r\n", "A nondescript entity.\r\n", time(0));
   mysql_wrapper(mysql, buf);
-  if (PLR_FLAGGED(ch, PLR_AUTH)) {
+  if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
     sprintf(buf, "INSERT INTO pfiles_chargendata (idnum, AttPoints, SkillPoints, ForcePoints) VALUES"\
                "('%ld', '%d', '%d', '%d');", GET_IDNUM(ch), GET_ATT_POINTS(ch), GET_SKILL_POINTS(ch), GET_FORCE_POINTS(ch));
     mysql_wrapper(mysql, buf);
@@ -449,7 +463,7 @@ static void start_game(descriptor_data *d)
   GET_LOADROOM(d->character) = RM_CHARGEN_START_ROOM;
 
   init_char_sql(d->character);
-  if(PLR_FLAGGED(d->character,PLR_AUTH)) {
+  if(PLR_FLAGGED(d->character,PLR_NOT_YET_AUTHED)) {
     sprintf(buf, "%s [%s] new player.",
             GET_CHAR_NAME(d->character), d->host);
     mudlog(buf, d->character, LOG_CONNLOG, TRUE);
@@ -1289,4 +1303,3 @@ void create_parse(struct descriptor_data *d, const char *arg)
     break;
   }
 }
-

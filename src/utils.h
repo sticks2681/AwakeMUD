@@ -91,7 +91,8 @@ struct  char_data *get_obj_possessor(struct obj_data *obj);
 char *  generate_new_loggable_representation(struct obj_data *obj);
 void    purgelog(struct veh_data *veh);
 char *  replace_substring(char *source, char *dest, const char *replace_target, const char *replacement);
-
+bool    combine_ammo_boxes(struct char_data *ch, struct obj_data *from, struct obj_data *into, bool print_messages);
+void    update_ammobox_ammo_quantity(struct obj_data *ammobox, int amount);
 
 // Skill-related.
 char *how_good(int skill, int rank);
@@ -215,15 +216,17 @@ void    update_pos(struct char_data *victim);
  * CircleMUD 4.0 will be...
  */
 #define REMOVE_FROM_LIST(item, head, next)      \
-   if ((item) == (head))                \
-      head = (item)->next;              \
-   else {                               \
-      temp = head;                      \
-      while (temp && (temp->next != (item))) \
-         temp = temp->next;             \
-      if (temp)                         \
-         temp->next = (item)->next;     \
-   }                                    \
+{  if ((item) == (head))                        \
+      head = (item)->next;                      \
+   else {                                       \
+      temp = head;                              \
+      while (temp && (temp->next != (item)))    \
+         temp = temp->next;                     \
+      if (temp)                                 \
+         temp->next = (item)->next;             \
+   }                                            \
+   (item)->next = NULL;                         \
+}
 
 
 /* basic bitvector utils *************************************************/
@@ -531,23 +534,23 @@ extern bool PLR_TOG_CHK(char_data *ch, dword offset);
 #define STOP_WORKING(ch)      {AFF_FLAGS((ch)).RemoveBits(AFF_PROGRAM, AFF_DESIGN, AFF_PART_BUILD, AFF_PART_DESIGN, AFF_BONDING, AFF_CONJURE, AFF_PACKING, AFF_LODGE, AFF_CIRCLE, AFF_SPELLDESIGN, AFF_AMMOBUILD, ENDBIT); \
                                GET_BUILDING((ch)) = NULL;}
 
-#define GET_TOTEM(ch)           (ch->player_specials->saved.totem)
-#define GET_TOTEMSPIRIT(ch)	(ch->player_specials->saved.totemspirit)
+#define GET_TOTEM(ch)            (ch->player_specials->saved.totem)
+#define GET_TOTEMSPIRIT(ch)      (ch->player_specials->saved.totemspirit)
 
-#define GET_DRUG_AFFECT(ch)     (ch->player_specials->drug_affect[0])
-#define GET_DRUG_DURATION(ch)   (ch->player_specials->drug_affect[1])
-#define GET_DRUG_DOSE(ch)       (ch->player_specials->drug_affect[2])
-#define GET_DRUG_STAGE(ch)      (ch->player_specials->drug_affect[3])
-#define GET_DRUG_EDGE(ch, i)    (ch->player_specials->drugs[i][0])
-#define GET_DRUG_ADDICT(ch, i)  (ch->player_specials->drugs[i][1])
-#define GET_DRUG_DOSES(ch, i)   (ch->player_specials->drugs[i][2])
-#define GET_DRUG_LASTFIX(ch, i) (ch->player_specials->drugs[i][3])
-#define GET_DRUG_ADDTIME(ch, i) (ch->player_specials->drugs[i][4])
+#define GET_DRUG_AFFECT(ch)      (ch->player_specials->drug_affect[0])
+#define GET_DRUG_DURATION(ch)    (ch->player_specials->drug_affect[1])
+#define GET_DRUG_DOSE(ch)        (ch->player_specials->drug_affect[2])
+#define GET_DRUG_STAGE(ch)       (ch->player_specials->drug_affect[3])
+#define GET_DRUG_EDGE(ch, i)     (ch->player_specials->drugs[i][0])
+#define GET_DRUG_ADDICT(ch, i)   (ch->player_specials->drugs[i][1])
+#define GET_DRUG_DOSES(ch, i)    (ch->player_specials->drugs[i][2])
+#define GET_DRUG_LASTFIX(ch, i)  (ch->player_specials->drugs[i][3])
+#define GET_DRUG_ADDTIME(ch, i)  (ch->player_specials->drugs[i][4])
 #define GET_DRUG_TOLERANT(ch, i) (ch->player_specials->drugs[i][5])
 #define GET_DRUG_LASTWITH(ch, i) (ch->player_specials->drugs[i][6])
-#define GET_MENTAL_LOSS(ch)	(ch->player_specials->mental_loss)
-#define GET_PHYSICAL_LOSS(ch)	(ch->player_specials->physical_loss)
-#define GET_PERM_BOD_LOSS(ch)	(ch->player_specials->perm_bod)
+#define GET_MENTAL_LOSS(ch)      (ch->player_specials->mental_loss)
+#define GET_PHYSICAL_LOSS(ch)    (ch->player_specials->physical_loss)
+#define GET_PERM_BOD_LOSS(ch)    (ch->player_specials->perm_bod)
 /* descriptor-based utils ************************************************/
 
 #define WAIT_STATE(ch, cycle) { \
@@ -681,11 +684,12 @@ extern bool PLR_TOG_CHK(char_data *ch, dword offset);
 #define LOCK_LEVEL(ch, obj, door) ((obj) ? GET_OBJ_VAL(obj, 4) : \
            get_ch_in_room(ch)->dir_option[door]->key_level)
 
-#define CAN_GO(ch, door)     ( EXIT(ch,door) &&                                                                            \
-                               (EXIT(ch,door)->to_room && EXIT(ch,door)->to_room != &world[0]) &&                                                      \
-                               !(IS_SET(EXIT(ch, door)->exit_info, EX_CLOSED)) &&                                          \
-                               !(IS_ASTRAL(ch) && IS_SET(EXIT(ch, door)->exit_info, EX_ASTRALLY_WARDED)) &&                \
-                               !(ROOM_FLAGGED(EXIT(ch, door)->to_room, ROOM_STAFF_ONLY) && GET_REAL_LEVEL(ch) < LVL_BUILDER)  \
+#define CAN_GO(ch, door)     ( EXIT(ch,door) &&                                                                                 \
+                               (EXIT(ch,door)->to_room && EXIT(ch,door)->to_room != &world[0]) &&                               \
+                               !(IS_SET(EXIT(ch, door)->exit_info, EX_CLOSED)) &&                                               \
+                               !(IS_ASTRAL(ch) && IS_SET(EXIT(ch, door)->exit_info, EX_ASTRALLY_WARDED)) &&                     \
+                               !(ROOM_FLAGGED(EXIT(ch, door)->to_room, ROOM_STAFF_ONLY) && GET_REAL_LEVEL(ch) < LVL_BUILDER) && \
+                               (EXIT(ch, door)->to_room->staff_level_lock <= GET_REAL_LEVEL(ch))    \
                              )
 
 #define OUTSIDE(ch)           (!ROOM_FLAGGED(get_ch_in_room(ch), ROOM_INDOORS))
@@ -848,8 +852,11 @@ extern bool PLR_TOG_CHK(char_data *ch, dword offset);
 // ITEM_PROGRAM convenience defines
 
 // ITEM_GUN_MAGAZINE convenience defines
-#define GET_MAGAZINE_AMMO_TYPE(magazine)       (GET_OBJ_VAL((magazine), 2))
-#define GET_MAGAZINE_AMMO_COUNT(magazine)      (GET_OBJ_VAL((magazine), 9))
+#define GET_MAGAZINE_BONDED_MAXAMMO(magazine)    (GET_OBJ_VAL((magazine), 0))
+#define GET_MAGAZINE_BONDED_ATTACKTYPE(magazine) (GET_OBJ_VAL((magazine), 1))
+#define GET_MAGAZINE_AMMO_TYPE(magazine)         (GET_OBJ_VAL((magazine), 2))
+// #define GET_MAGAZINE_AMMO_MAX(magazine)          (GET_OBJ_VAL((magazine), 5))
+#define GET_MAGAZINE_AMMO_COUNT(magazine)        (GET_OBJ_VAL((magazine), 9))
 
 // ITEM_GUN_ACCESSORY convenience defines
 #define GET_ACCESSORY_ATTACH_LOCATION(accessory) (GET_OBJ_VAL((accessory), 0))
@@ -866,6 +873,18 @@ extern bool PLR_TOG_CHK(char_data *ch, dword offset);
 // ITEM_QUIVER convenience defines
 
 // ITEM_DECK_ACCESSORY convenience defines
+#define GET_DECK_ACCESSORY_TYPE(accessory)               (GET_OBJ_VAL((accessory), 0))
+
+// ITEM_DECK_ACCESSORY TYPE_FILE convenience defines
+#define GET_DECK_ACCESSORY_FILE_CREATION_TIME(accessory) (GET_OBJ_VAL((accessory), 1))
+#define GET_DECK_ACCESSORY_FILE_SIZE(accessory)          (GET_OBJ_VAL((accessory), 2))
+#define GET_DECK_ACCESSORY_FILE_HOST_VNUM(accessory)     (GET_OBJ_VAL((accessory), 3))
+#define GET_DECK_ACCESSORY_FILE_HOST_COLOR(accessory)    (GET_OBJ_VAL((accessory), 4))
+#define GET_DECK_ACCESSORY_FILE_PROTECTION(accessory)    (GET_OBJ_VAL((accessory), 5))
+#define GET_DECK_ACCESSORY_FILE_RATING(accessory)        (GET_OBJ_VAL((accessory), 6))
+#define GET_DECK_ACCESSORY_FILE_FOUND_BY(accessory)      (GET_OBJ_VAL((accessory), 7))
+#define GET_DECK_ACCESSORY_FILE_WORKER_IDNUM(accessory)  (GET_OBJ_VAL((accessory), 8))
+#define GET_DECK_ACCESSORY_FILE_REMAINING(accessory)     (GET_OBJ_VAL((accessory), 9))
 
 // ITEM_RCDECK convenience defines
 
@@ -875,6 +894,7 @@ extern bool PLR_TOG_CHK(char_data *ch, dword offset);
 #define GET_VEHICLE_MOD_TYPE(mod)            (GET_OBJ_VAL((mod), 0))
 
 // ITEM_HOLSTER convenience defines
+#define GET_HOLSTER_READY_STATUS(holster)    (GET_OBJ_VAL((holster), 3))
 
 // ITEM_DESIGN convenience defines
 
@@ -1015,8 +1035,12 @@ char    *crypt(const char *key, const char *salt);
 #define CRYPT(a,b) ((char *) crypt((a),(b)))
 #endif
 
+// A simple error handling define to cut out some of the boilerplate.
+#define FAILURE_CASE(condition, message) { \
+  if ((condition)) {                       \
+    send_to_char(ch, "%s\r\n", (message)); \
+    return;                                \
+  }                                        \
+}                                          \
+
 #endif
-
-
-
-

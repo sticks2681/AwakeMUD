@@ -191,6 +191,8 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
   char buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
   strcpy(buf, GET_CHAR_NAME(ch));
   int bought = 0;
+  bool print_multiples_at_end = TRUE;
+  
   if (sell && sell->type == SELL_STOCK && sell->stock < 1)
   {
     sprintf(ENDOF(buf), " That item isn't currently available.");
@@ -232,6 +234,7 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
         do_say(keeper, buf, cmd_say, SCMD_SAYTO);
         return FALSE;
       }
+      
       int enhancers = 0;
       for (check = ch->cyberware; check != NULL; check = check->next_content) {
         if ((GET_OBJ_VNUM(check) == GET_OBJ_VNUM(obj))) {
@@ -259,10 +262,16 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
         esscost *= 2;
       if (ch->real_abils.esshole < esscost) {
         esscost = esscost - ch->real_abils.esshole;
-        ch->real_abils.esshole = 0;
-        ch->real_abils.ess -= esscost;
-        if (GET_TRADITION(ch) != TRAD_MUNDANE)
+        if (GET_TRADITION(ch) != TRAD_MUNDANE) {
+          if (GET_REAL_MAG(ch) - esscost < 100) {
+            sprintf(ENDOF(buf), " That would take away the last of your magic!");
+            do_say(keeper, buf, cmd_say, SCMD_SAYTO);
+            return FALSE;
+          }
+          ch->real_abils.esshole = 0;
+          ch->real_abils.ess -= esscost;
           magic_loss(ch, esscost, TRUE);
+        }
       } else ch->real_abils.esshole -= esscost;
       obj_to_cyberware(obj, ch);
     } else if (GET_OBJ_TYPE(obj) == ITEM_BIOWARE) {
@@ -272,6 +281,7 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
         do_say(keeper, buf, cmd_say, SCMD_SAYTO);
         return FALSE;
       }
+      
       if ((GET_OBJ_VAL(obj, 0) == BIO_PATHOGENICDEFENSE || GET_OBJ_VAL(obj, 0) == BIO_TOXINEXTRACTOR) && 
           GET_OBJ_VAL(obj, 1) > GET_REAL_BOD(ch) / 2) {
         send_to_char("Your body cannot support pathogenic defense of that level.\r\n", ch);
@@ -294,6 +304,12 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
         if (GET_TRADITION(ch) != TRAD_MUNDANE) {
           int change = GET_INDEX(ch) - ch->real_abils.highestindex;
           change /= 2;
+          if (GET_REAL_MAG(ch) - change < 100) {
+            sprintf(ENDOF(buf), " That would take away the last of your magic!");
+            do_say(keeper, buf, cmd_say, SCMD_SAYTO);
+            GET_INDEX(ch) -= esscost;
+            return FALSE;
+          }
           magic_loss(ch, change, TRUE);
         }
         ch->real_abils.highestindex = GET_INDEX(ch);
@@ -339,7 +355,10 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
       return FALSE;
     }
     if ((GET_OBJ_TYPE(obj) == ITEM_DECK_ACCESSORY && GET_OBJ_VAL(obj, 0) == TYPE_PARTS) ||
-        (GET_OBJ_TYPE(obj) == ITEM_MAGIC_TOOL && GET_OBJ_VAL(obj, 0) == TYPE_SUMMONING)) {
+        (GET_OBJ_TYPE(obj) == ITEM_MAGIC_TOOL && GET_OBJ_VAL(obj, 0) == TYPE_SUMMONING) ||
+        (GET_OBJ_TYPE(obj) == ITEM_GUN_AMMO)) {
+          
+      // Deduct money up to the amount they can afford. Update the object's cost to match.
       while (bought < buynum && (cred ? GET_OBJ_VAL(cred, 0) : GET_NUYEN(ch)) >= price) {
         if (cred)
           GET_OBJ_VAL(cred, 0) -= price;
@@ -348,16 +367,72 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
         bought++;
       }
       GET_OBJ_COST(obj) = GET_OBJ_COST(obj) * bought;
-      struct obj_data *orig = ch->carrying;
-      for (; orig; orig = orig->next_content)
-        if (GET_OBJ_TYPE(obj) == GET_OBJ_TYPE(orig) && GET_OBJ_VAL(obj, 0) == GET_OBJ_VAL(orig, 0) &&
-            GET_OBJ_VAL(obj, 1) == GET_OBJ_VAL(orig, 1))
-          break;
-      if (orig) {
-        GET_OBJ_COST(orig) += GET_OBJ_COST(obj);
-        extract_obj(obj);
-      } else
-        obj_to_char(obj, ch);
+      
+      // Give them the item (it's gun ammo)
+      if (GET_OBJ_TYPE(obj) == ITEM_GUN_AMMO) {
+        print_multiples_at_end = FALSE;
+        
+        // Update its quantity and weight to match the increased ammo load. Cost already done above.
+        GET_AMMOBOX_QUANTITY(obj) *= bought;
+        GET_OBJ_WEIGHT(obj) *= bought;
+        
+        if (IS_CARRYING_W(ch) + GET_OBJ_WEIGHT(obj) > CAN_CARRY_W(ch)) {
+          send_to_char("You start gathering up the ammo you paid for, but realize you can't carry it all! The shopkeeper gives you a /look/, then refunds you in cash.\r\n", ch);
+          GET_NUYEN(ch) += price * bought;
+          extract_obj(obj);
+          return FALSE;
+        }
+        
+        struct obj_data *orig = ch->carrying;
+        for (; orig; orig = orig->next_content) {
+          if (GET_OBJ_TYPE(obj) == GET_OBJ_TYPE(orig) && 
+              !GET_AMMOBOX_CREATOR(obj) &&
+              GET_AMMOBOX_WEAPON(obj) == GET_AMMOBOX_WEAPON(orig) &&
+              GET_AMMOBOX_TYPE(obj) == GET_AMMOBOX_TYPE(orig))
+            break;
+        }
+        if (orig) {
+          // They were carrying one already. Combine them.
+          sprintf(buf2, "You add the purchased %d rounds", GET_AMMOBOX_QUANTITY(obj));
+          combine_ammo_boxes(ch, obj, orig, FALSE);
+          sprintf(ENDOF(buf2), " into %s.", GET_OBJ_NAME(orig));
+        } else {
+          // Just give the purchased thing to them directly. Handle restring if needed.
+          if (bought > 1) {
+            char new_name_buf[500];
+            
+            // Compose the new name.
+            sprintf(new_name_buf, "a box of %s %s ammunition", 
+              ammo_type[GET_AMMOBOX_TYPE(obj)].name,
+              weapon_type[GET_AMMOBOX_WEAPON(obj)]
+            );
+            
+            // Commit the change.
+            obj->restring = str_dup(new_name_buf);
+            
+            sprintf(buf2, "You now have %s (contains %d rounds).", GET_OBJ_NAME(obj), GET_AMMOBOX_QUANTITY(obj));
+          } else {
+            sprintf(buf2, "You now have %s.", GET_OBJ_NAME(obj));
+          }
+          
+          obj_to_char(obj, ch);
+        }
+      } 
+      
+      // Give them the item (it's parts or conjuring materials)
+      else {
+        struct obj_data *orig = ch->carrying;
+        for (; orig; orig = orig->next_content)
+          if (GET_OBJ_TYPE(obj) == GET_OBJ_TYPE(orig) && GET_OBJ_VAL(obj, 0) == GET_OBJ_VAL(orig, 0) &&
+              GET_OBJ_VAL(obj, 1) == GET_OBJ_VAL(orig, 1))
+            break;
+        if (orig) {
+          GET_OBJ_COST(orig) += GET_OBJ_COST(obj);
+          extract_obj(obj);
+        } else {
+          obj_to_char(obj, ch);
+        }
+      }
     } else
       while(obj && (bought < buynum && IS_CARRYING_N(ch) < CAN_CARRY_N(ch) && IS_CARRYING_W(ch) +
                     GET_OBJ_WEIGHT(obj) <= CAN_CARRY_W(ch) && (cred ? GET_OBJ_VAL(cred, 0) : GET_NUYEN(ch)) >= price)) {
@@ -412,7 +487,7 @@ bool shop_receive(struct char_data *ch, struct char_data *keeper, char *arg, int
   // Compose the sayto string for the keeper.
   sprintf(buf, "%s %s", GET_CHAR_NAME(ch), buf3);
   do_say(keeper, buf, cmd_say, SCMD_SAYTO);
-  if (bought > 1)
+  if (bought > 1 && print_multiples_at_end)
     sprintf(ENDOF(buf2), " (x%d)\r\n", bought);
   send_to_char(buf2, ch);
   send_to_char("\r\n", ch);
@@ -430,12 +505,16 @@ void shop_buy(char *arg, struct char_data *ch, struct char_data *keeper, vnum_t 
   struct shop_sell_data *sell;
   int price, buynum;
   bool cash = FALSE;
+  
+  // Prevent negative transactions.
   if ((buynum = transaction_amt(arg)) < 0)
   {
     sprintf(buf, "%s A negative amount?  Try selling me something.", GET_CHAR_NAME(ch));
     do_say(keeper, buf, cmd_say, SCMD_SAYTO);
     return;
   }
+  
+  // Find the item in their list.
   if (!(sell = find_obj_shop(arg, shop_nr, &obj)))
   {
     if (atoi(arg) > 0) {
@@ -450,13 +529,25 @@ void shop_buy(char *arg, struct char_data *ch, struct char_data *keeper, vnum_t 
       return;
     }
   }
+  
   one_argument(arg, buf);
+  
+  // Allow specification of cash purchases in grey shops.
   if (!str_cmp(buf, "cash"))
   {
+    if (shop_table[shop_nr].type == SHOP_LEGAL) {
+      sprintf(buf, "%s No Credstick, No Sale.", GET_CHAR_NAME(ch));
+      do_say(keeper, buf, cmd_say, SCMD_SAYTO);
+      return;
+    }
+    
     arg = any_one_arg(arg, buf);
     skip_spaces(&arg);
     cash = TRUE;
-  } else if (!cred)
+  }
+  
+  // Fallback: You didn't specify cash, and you have no credstick on hand.
+  else if (!cred)
   {
     if (shop_table[shop_nr].type == SHOP_LEGAL) {
       sprintf(buf, "%s No Credstick, No Sale.", GET_CHAR_NAME(ch));
@@ -465,35 +556,55 @@ void shop_buy(char *arg, struct char_data *ch, struct char_data *keeper, vnum_t 
     }
     send_to_char("Lacking an activated credstick, you choose to deal in cash.\r\n", ch );
     cash = TRUE;
-  } else if (shop_table[shop_nr].type == SHOP_BLACK)
+  } 
+  
+  // You have a credstick, but the shopkeeper doesn't want it.
+  else if (shop_table[shop_nr].type == SHOP_BLACK)
   {
     send_to_char("The shopkeeper refuses to deal with credsticks.\r\n", ch);
     cash = TRUE;
   }
+  
+  // You must clarify what you want to buy.
   if (!*arg || !buynum)
   {
     sprintf(buf, "%s What do you want to buy?", GET_CHAR_NAME(ch));
     do_say(keeper, buf, cmd_say, SCMD_SAYTO);
     return;
   }
+  
+  // Calculate the price.
   price = buy_price(obj, shop_nr);
   int bprice = price / 10;
   if (!shop_table[shop_nr].flags.IsSet(SHOP_WONT_NEGO))
     price = negotiate(ch, keeper, 0, price, 0, TRUE);
   if (sell->type == SELL_AVAIL && GET_AVAIL_OFFSET(ch))
     price += bprice * GET_AVAIL_OFFSET(ch);
+  
+  // Attempt to order the item.
   if (sell->type == SELL_AVAIL && GET_OBJ_AVAILTN(obj) > 0)
   {
-    for (int q = 0; q <= SHOP_LAST_IDNUM_LIST_SIZE; q++)
+    // Don't let people re-try repeatedly.
+    for (int q = 0; q < SHOP_LAST_IDNUM_LIST_SIZE; q++) {
       if (sell->lastidnum[q] == GET_IDNUM(ch)) {
         sprintf(buf, "%s Sorry, I couldn't get that in for you.", GET_CHAR_NAME(ch));
         do_say(keeper, buf, cmd_say, SCMD_SAYTO);
         extract_obj(obj);
         return;
       }
+    }
+    
+    // Stop people from buying enormous quantities.
+    extern int max_things_you_can_purchase_at_once;
+    if (buynum > max_things_you_can_purchase_at_once) {
+      sprintf(buf, "%s I can't get that many in at once. Limit is %d.", GET_CHAR_NAME(ch), max_things_you_can_purchase_at_once);
+      do_say(keeper, buf, cmd_say, SCMD_SAYTO);
+    }
+    
+    // Calculate TNs, factoring in settings, powers, and racism.
     int target = GET_OBJ_AVAILTN(obj) - GET_AVAIL_OFFSET(ch);
     target = MAX(0, target - GET_POWER(ch, ADEPT_KINESICS));
-    if (GET_RACE(ch) != GET_RACE(keeper))
+    if (GET_RACE(ch) != GET_RACE(keeper)) {
       switch (GET_RACE(ch)) {
         case RACE_HUMAN:
         case RACE_ELF:
@@ -505,51 +616,71 @@ void shop_buy(char *arg, struct char_data *ch, struct char_data *keeper, vnum_t 
           target += 4;
           break;
       }
+    }
+    
+    // Calculate their skill level, including bioware.
     int skill = get_skill(ch, shop_table[shop_nr].ettiquete, target);
     for (struct obj_data *bio = ch->bioware; bio; bio = bio->next_content)
       if (GET_OBJ_VAL(bio, 0) == BIO_TAILOREDPHEREMONES) {
         skill += GET_OBJ_VAL(bio, 2) ? GET_OBJ_VAL(bio, 1) * 2: GET_OBJ_VAL(bio, 1);
         break;
       }
+    
+    // Roll up the success test.
     int success = success_test(skill, target);
-    if (success < 1 || buynum > 50) {
+    
+    // Failure case.
+    if (success < 1) {
       sprintf(buf, "%s I can't get ahold of that one for a while.", GET_CHAR_NAME(ch));
       do_say(keeper, buf, cmd_say, SCMD_SAYTO);
-      for (int q = SHOP_LAST_IDNUM_LIST_SIZE; q >= 1; q--)
+      
+      // Add them to the forbidden list.
+      for (int q = SHOP_LAST_IDNUM_LIST_SIZE - 1; q >= 1; q--)
         sell->lastidnum[q] = sell->lastidnum[q-1];
       sell->lastidnum[0] = GET_IDNUM(ch);
+      
+      extract_obj(obj);
+      return;
+    } 
+    
+    // Placed order successfully.
+    float totaltime = ((GET_OBJ_AVAILDAY(obj) * buynum) / success) + (2 * GET_AVAIL_OFFSET(ch));
+    if (totaltime < 1) {
+      int hours = MAX(1, (int)(24 * totaltime));
+      sprintf(buf, "%s That will take about %d hour%s to come in.", GET_CHAR_NAME(ch), hours, hours == 1 ? "" : "s");
     } else {
-      float totaltime = ((GET_OBJ_AVAILDAY(obj) * buynum) / success) + (2 * GET_AVAIL_OFFSET(ch));
-      if (totaltime < 1) {
-        int hours = (int)(24 * totaltime);
-        sprintf(buf, "%s That will take about %d %s to come in.", GET_CHAR_NAME(ch), hours, hours == 1 ? "hour" : "hours");
-      } else {
-        sprintf(buf, "%s That will take about %d %s to come in.", GET_CHAR_NAME(ch), (int) totaltime, totaltime == 1 ? "day" : "days");
-      }
-      do_say(keeper, buf, cmd_say, SCMD_SAYTO);
-      struct shop_order_data *order = shop_table[shop_nr].order;
-      for (; order; order = order->next)
-        if (order->player == GET_IDNUM(ch) && order->item == sell->vnum)
-          break;
-      if (order) {
-        if (order->timeavail < time(0))
-          order->timeavail = time(0);
-        order->number += buynum;
-        order->timeavail = order->timeavail + (int)(SECS_PER_MUD_DAY * totaltime);
-      } else {
-        struct shop_order_data *order = new shop_order_data;
-        order->item = sell->vnum;
-        order->player = GET_IDNUM(ch);
-        order->timeavail = time(0) + (int)(SECS_PER_MUD_DAY * totaltime);
-        order->number = buynum;
-        order->price = price;
-        order->next = shop_table[shop_nr].order;
-        shop_table[shop_nr].order = order;
-      }
+      sprintf(buf, "%s That will take about %d day%s to come in.", GET_CHAR_NAME(ch), (int) totaltime, totaltime == 1 ? "" : "s");
     }
+    do_say(keeper, buf, cmd_say, SCMD_SAYTO);
+    
+    // If they have a pre-existing order, just bump up the quantity and update the order time.
+    struct shop_order_data *order = shop_table[shop_nr].order;
+    for (; order; order = order->next)
+      if (order->player == GET_IDNUM(ch) && order->item == sell->vnum)
+        break;
+        
+    if (order) {
+      if (order->timeavail < time(0))
+        order->timeavail = time(0);
+      order->number += buynum;
+      order->timeavail = order->timeavail + (int)(SECS_PER_MUD_DAY * totaltime);
+    } else {
+      // Create a new order.
+      struct shop_order_data *order = new shop_order_data;
+      order->item = sell->vnum;
+      order->player = GET_IDNUM(ch);
+      order->timeavail = time(0) + (int)(SECS_PER_MUD_DAY * totaltime);
+      order->number = buynum;
+      order->price = price;
+      order->next = shop_table[shop_nr].order;
+      shop_table[shop_nr].order = order;
+    }
+    
+    // Clean up.
     extract_obj(obj);
   } else
   {
+    // Give them the thing without fanfare.
     shop_receive(ch, keeper, arg, buynum, cash, sell, obj, shop_table[shop_nr].type == SHOP_BLACK ? NULL : cred, price, shop_nr);
   }
 }
@@ -805,8 +936,14 @@ void shop_list(char *arg, struct char_data *ch, struct char_data *keeper, vnum_t
       obj = read_object(sell->vnum, VIRTUAL);
       if (!obj || GET_OBJ_COST(obj) < 1) {
         i--;
-        if (obj)
+        if (obj) {
+          sprintf(buf2, "Shop %ld ('%s'): Removing %s from sale due to cost of %d.", shop_nr, GET_NAME(keeper), GET_OBJ_NAME(obj), GET_OBJ_COST(obj));
+          mudlog(buf2, ch, LOG_SYSLOG, TRUE);
           extract_obj(obj);
+        } else {
+          sprintf(buf2, "Shop %ld ('%s'): Removing nonexistant item from sale.", shop_nr, GET_NAME(keeper));
+          mudlog(buf2, ch, LOG_SYSLOG, TRUE);
+        }
         continue;
       }
       sprintf(ENDOF(buf), " %2d)  ", i);
@@ -830,8 +967,10 @@ void shop_list(char *arg, struct char_data *ch, struct char_data *keeper, vnum_t
         sprintf(ENDOF(buf), "%-48s^n %6d\r\n", GET_OBJ_NAME(obj),
                   buy_price(obj, shop_nr));
       }
-      if (strlen(buf) >= MAX_STRING_LENGTH - 200)
+      if (strlen(buf) >= MAX_STRING_LENGTH - 200) {
+        sprintf(buf2, "Shop %ld ('%s'): Aborting string composition due to length constraints.", shop_nr, GET_NAME(keeper));
         break;
+      }
       extract_obj(obj);
     }
   }
@@ -900,6 +1039,7 @@ bool shop_probe(char *arg, struct char_data *ch, struct char_data *keeper, vnum_
     return FALSE;
   }
   
+  send_to_char(ch, "^yProbing shopkeeper's %s...^n\r\n", GET_OBJ_NAME(obj));
   do_probe_object(ch, obj);
   return TRUE;
   
@@ -1129,10 +1269,11 @@ void shop_info(char *arg, struct char_data *ch, struct char_data *keeper, vnum_t
       strcat(buf, " huge");
     else
       strcat(buf, " gigantic");
+      
     if (obj->obj_flags.wear_flags.AreAnySet(ITEM_WEAR_BACK, ITEM_WEAR_ABOUT, ENDBIT))
       strcat(buf, " backpack.");
     else
-      strcat(buf, " piece of furniture.");
+      strcat(buf, " container.");
     break;
   case ITEM_DECK_ACCESSORY:
     if (GET_OBJ_VAL(obj, 0) == TYPE_COOKER) {
@@ -2053,4 +2194,3 @@ void shedit_parse(struct descriptor_data *d, const char *arg)
     break;
   }
 }
-

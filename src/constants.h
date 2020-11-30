@@ -13,6 +13,7 @@ extern const char *thrdgenders[];
 extern const char *position_types[];
 extern const char *player_bits[];
 extern const char *action_bits[];
+extern struct preference_bit_struct preference_bits_v2[];
 extern const char *preference_bits[];
 extern const char *affected_bits[];
 extern const char *room_bits[];
@@ -116,4 +117,7 @@ extern const char *deck_accessory_upgrade_types[];
 extern const char *message_history_channels[];
 extern const char *pgroup_settings[];
 extern int acceptable_weapon_attachment_affects[];
+
+extern const char *aspect_names[];
+extern const char *tradition_names[];
 #endif

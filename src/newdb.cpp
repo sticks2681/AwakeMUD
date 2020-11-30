@@ -34,6 +34,8 @@ extern char *cleanup(char *dest, const char *src);
 extern void add_phone_to_list(struct obj_data *);
 extern Playergroup *loaded_playergroups;
 
+void auto_repair_obj(struct obj_data *obj);
+
 // ____________________________________________________________________________
 //
 // global variables
@@ -126,11 +128,11 @@ static void init_char(struct char_data * ch)
   }
 
   if (!access_level(ch, LVL_VICEPRES))
-    for (i = SKILL_ATHLETICS; i < MAX_SKILLS; i++) {
+    for (i = MIN_SKILLS; i < MAX_SKILLS; i++) {
       set_character_skill(ch, i, 0, FALSE);
     }
   else
-    for (i = SKILL_ATHLETICS; i < MAX_SKILLS; i++) {
+    for (i = MIN_SKILLS; i < MAX_SKILLS; i++) {
       set_character_skill(ch, i, MAX_SKILL_LEVEL_FOR_IMMS, FALSE);
     }
 
@@ -293,16 +295,22 @@ void do_start(struct char_data * ch)
   GET_COND(ch, COND_FULL) = FOOD_DRINK_MAX;
   GET_COND(ch, COND_DRUNK) = 0;
   GET_LOADROOM(ch) = RM_NEWBIE_LOADROOM;
-
-  PLR_FLAGS(ch).SetBit(PLR_NEWBIE);
+  
+  // Wipe out their flags, if they have any.
+  AFF_FLAGS(ch).Clear();
+  PLR_FLAGS(ch).Clear();
+  PRF_FLAGS(ch).Clear();
+  
+  // Set the appropriate flags.
+  PLR_FLAGS(ch).SetBits(PLR_NEWBIE, PLR_NOT_YET_AUTHED, ENDBIT);
   PRF_FLAGS(ch).SetBits(PRF_AUTOEXIT, PRF_LONGEXITS, ENDBIT);
-  PRF_FLAGS(ch).RemoveBits(PRF_NOHASSLE, PRF_HOLYLIGHT, PRF_PACIFY, PRF_ROLLS, PRF_QUESTOR, PRF_NEWBIEHELPER, ENDBIT);
-  // PLR_FLAGS(ch).SetBit(PLR_AUTH);
+  
+  // PLR_FLAGS(ch).SetBit(PLR_NOT_YET_AUTHED);
   ch->player.time.played = 0;
   ch->player.time.lastdisc = time(0);
 
   // Clear all their skills except for English.
-  for (int i = SKILL_ATHLETICS; i < MAX_SKILLS; i++) {
+  for (int i = MIN_SKILLS; i < MAX_SKILLS; i++) {
     if (i == SKILL_ENGLISH)
       set_character_skill(ch, i, STARTING_LANGUAGE_SKILL_LEVEL, FALSE);
     else
@@ -342,7 +350,7 @@ void advance_level(struct char_data * ch)
 bool load_char(const char *name, char_data *ch, bool logon)
 {
   init_char(ch);
-  for (int i = SKILL_ATHLETICS; i < MAX_SKILLS; i++)
+  for (int i = MIN_SKILLS; i < MAX_SKILLS; i++)
     ch->char_specials.saved.skills[i][0] = 0;
   ch->char_specials.carry_weight = 0;
   ch->char_specials.carry_items = 0;
@@ -477,7 +485,7 @@ bool load_char(const char *name, char_data *ch, bool logon)
   mysql_free_result(res);
 
 
-  if (PLR_FLAGGED(ch, PLR_AUTH)) {
+  if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
     sprintf(buf, "SELECT * FROM pfiles_chargendata WHERE idnum=%ld;", GET_IDNUM(ch));
     mysql_wrapper(mysql, buf);
     res = mysql_use_result(mysql);
@@ -900,6 +908,16 @@ bool load_char(const char *name, char_data *ch, bool logon)
                                                                                          : MIN(max, GET_OBJ_VAL(chip, 1));
       break;
     }
+    
+  // Self-repair their gear. Don't worry about contents- it's recursive.
+  for (struct obj_data *obj = ch->carrying; obj; obj = obj->next_content) {
+    auto_repair_obj(obj);
+  }
+  
+  for (int i = 0; i < NUM_WEARS; i++) {
+    if (GET_EQ(ch, i))
+      auto_repair_obj(GET_EQ(ch, i));
+  }
 
   affect_total(ch);
 
@@ -1079,7 +1097,7 @@ static bool save_char(char_data *player, DBIndex::vnum_t loadroom)
       equip_char(player, char_eq[i], i);
   }
   affect_total(player);
-  if (PLR_FLAGGED(player, PLR_AUTH)) {
+  if (PLR_FLAGGED(player, PLR_NOT_YET_AUTHED)) {
     sprintf(buf, "UPDATE pfiles_chargendata SET AttPoints=%d, SkillPoints=%d, ForcePoints=%d, RestringPoints=%d WHERE idnum=%ld;",
                  GET_ATT_POINTS(player), GET_SKILL_POINTS(player), GET_FORCE_POINTS(player), GET_RESTRING_POINTS(player),
                  GET_IDNUM(player));
@@ -1089,7 +1107,7 @@ static bool save_char(char_data *player, DBIndex::vnum_t loadroom)
     sprintf(buf, "DELETE FROM pfiles_skills WHERE idnum=%ld", GET_IDNUM(player));
     mysql_wrapper(mysql, buf);
     strcpy(buf, "INSERT INTO pfiles_skills (idnum, skillnum, rank) VALUES (");
-    for (i = SKILL_ATHLETICS; i < MAX_SKILLS; i++)
+    for (i = MIN_SKILLS; i < MAX_SKILLS; i++)
       if (GET_SKILL(player, i)) {
         if (q)
           strcat(buf, "), (");
@@ -1503,12 +1521,12 @@ char_data *CreateChar(char_data *ch)
     GET_TKE(ch) = 0;
     GET_IDNUM(ch) = 1;
 
-    PLR_FLAGS(ch).RemoveBits(PLR_NEWBIE, PLR_AUTH, ENDBIT);
+    PLR_FLAGS(ch).RemoveBits(PLR_NEWBIE, PLR_NOT_YET_AUTHED, ENDBIT);
     PLR_FLAGS(ch).SetBits(PLR_OLC, PLR_NODELETE, ENDBIT);
     PRF_FLAGS(ch).SetBits(PRF_HOLYLIGHT, PRF_CONNLOG, PRF_ROOMFLAGS,
                           PRF_NOHASSLE, PRF_AUTOINVIS, PRF_AUTOEXIT, ENDBIT);
   } else {
-    PLR_FLAGS(ch).SetBit(PLR_AUTH);
+    PLR_FLAGS(ch).SetBit(PLR_NOT_YET_AUTHED);
     GET_IDNUM(ch) = MAX(playerDB.find_open_id(), atol(row[0]) + 1);
   }
   mysql_free_result(res);
@@ -1548,12 +1566,12 @@ char_data *PCIndex::CreateChar(char_data *ch)
     GET_NOT(ch) = 0;
     GET_TKE(ch) = 0;
 
-    PLR_FLAGS(ch).RemoveBits(PLR_NEWBIE, PLR_AUTH, ENDBIT);
+    PLR_FLAGS(ch).RemoveBits(PLR_NEWBIE, PLR_NOT_YET_AUTHED, ENDBIT);
     PLR_FLAGS(ch).SetBits(PLR_OLC, PLR_NODELETE, ENDBIT);
     PRF_FLAGS(ch).SetBits(PRF_HOLYLIGHT, PRF_CONNLOG, PRF_ROOMFLAGS,
                           PRF_NOHASSLE, PRF_AUTOINVIS, PRF_AUTOEXIT, ENDBIT);
   } else {
-    PLR_FLAGS(ch).SetBit(PLR_AUTH);
+    PLR_FLAGS(ch).SetBit(PLR_NOT_YET_AUTHED);
   }
   init_char(ch);
   init_char_strings(ch);
@@ -1770,7 +1788,7 @@ bool does_player_exist(char *name)
 {
   char buf[MAX_STRING_LENGTH];
   char prepare_quotes_buf[250];
-  if (!name || !*name)
+  if (!name || !*name || !str_cmp(name, CHARACTER_DELETED_NAME_FOR_SQL))
     return FALSE;
   sprintf(buf, "SELECT idnum FROM pfiles WHERE Name='%s';", prepare_quotes(prepare_quotes_buf, name, 250));
   if (mysql_wrapper(mysql, buf))
@@ -1788,7 +1806,7 @@ bool does_player_exist(char *name)
 bool does_player_exist(long id)
 {
   char buf[MAX_STRING_LENGTH];
-  sprintf(buf, "SELECT idnum FROM pfiles WHERE idnum=%ld AND name != 'deleted';", id);
+  sprintf(buf, "SELECT idnum FROM pfiles WHERE idnum=%ld AND name != '%s';", id, CHARACTER_DELETED_NAME_FOR_SQL);
   mysql_wrapper(mysql, buf);
   MYSQL_RES *res = mysql_use_result(mysql);
   MYSQL_ROW row = mysql_fetch_row(res);
@@ -1890,7 +1908,7 @@ void DeleteChar(long idx)
   sprintf(buf, "DELETE FROM playergroup_invitations WHERE idnum=%ld", idx);
   mysql_wrapper(mysql, buf);
   
-  sprintf(buf, "UPDATE pfiles SET Name='deleted', Password='', NoDelete=TRUE WHERE idnum=%ld", idx); 
+  sprintf(buf, "UPDATE pfiles SET Name='%s', Password='', NoDelete=TRUE WHERE idnum=%ld", CHARACTER_DELETED_NAME_FOR_SQL, idx); 
 //  sprintf(buf, "DELETE FROM pfiles WHERE idnum=%ld", idx);
   mysql_wrapper(mysql, buf);
 }
@@ -1936,4 +1954,31 @@ void verify_db_password_column_size() {
     exit(1);
   }
   mysql_free_result(res);
+}
+
+void auto_repair_obj(struct obj_data *obj) {
+  // Go through its contents first and rectify them.
+  for (struct obj_data *contents = obj->contains; contents; contents = contents->next_content) {
+    auto_repair_obj(contents);
+  }
+  
+  // Now that any changes have bubbled up, rectify this object too.
+  switch(GET_OBJ_TYPE(obj)) {
+    case ITEM_CYBERDECK:
+      // Rectify the memory.
+      int old_storage = GET_CYBERDECK_USED_STORAGE(obj);
+      GET_CYBERDECK_USED_STORAGE(obj) = 0;
+      for (struct obj_data *installed = obj->contains; installed; installed = installed->next_content) {
+        GET_CYBERDECK_USED_STORAGE(obj) += GET_DECK_ACCESSORY_FILE_SIZE(installed);
+      }
+      if (old_storage != GET_CYBERDECK_USED_STORAGE(obj)) {
+        sprintf(buf, "INFO: System self-healed mismatching cyberdeck used storage for %s (was %d, should have been %d)",
+                GET_OBJ_NAME(obj),
+                old_storage,
+                GET_CYBERDECK_USED_STORAGE(obj)
+        );
+        mudlog(buf, obj->carried_by, LOG_SYSLOG, TRUE);
+      }
+      break;
+  }
 }

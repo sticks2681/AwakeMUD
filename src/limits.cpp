@@ -80,7 +80,7 @@ void mental_gain(struct char_data * ch)
     gain = (int)(gain * 1.5);
   
 #ifdef ENABLE_HUNGER
-  if ((GET_COND(ch, COND_FULL) == 0) || (GET_COND(ch, COND_THIRST) == 0))
+  if ((GET_COND(ch, COND_FULL) == MIN_FULLNESS) || (GET_COND(ch, COND_THIRST) == MIN_QUENCHED))
     gain >>= 1;
 #endif
   
@@ -127,7 +127,7 @@ void physical_gain(struct char_data * ch)
   }
   
 #ifdef ENABLE_HUNGER
-  if ((GET_COND(ch, COND_FULL) == 0) || (GET_COND(ch, COND_THIRST) == 0))
+  if ((GET_COND(ch, COND_FULL) == MIN_FULLNESS) || (GET_COND(ch, COND_THIRST) == MIN_QUENCHED))
     gain >>= 1;
 #endif
   
@@ -265,7 +265,7 @@ void gain_condition(struct char_data * ch, int condition, int value)
   if (GET_COND(ch, condition) == -1)    /* No change */
     return;
   
-  intoxicated = (GET_COND(ch, COND_DRUNK) > 0);
+  intoxicated = (GET_COND(ch, COND_DRUNK) > MIN_DRUNK);
   
   if (value == -1) {
     for (bio = ch->bioware; bio; bio = bio->next_content) {
@@ -303,7 +303,7 @@ void gain_condition(struct char_data * ch, int condition, int value)
     GET_COND(ch, condition) = MIN(FOOD_DRINK_MAX, GET_COND(ch, condition));
   
   if (GET_COND(ch, condition) || PLR_FLAGGED(ch, PLR_CUSTOMIZE) ||
-      PLR_FLAGGED(ch, PLR_WRITING) || PLR_FLAGGED(ch, PLR_MAILING) || PLR_FLAGGED(ch, PLR_AUTH) || PLR_FLAGGED(ch, PLR_MATRIX))
+      PLR_FLAGGED(ch, PLR_WRITING) || PLR_FLAGGED(ch, PLR_MAILING) || PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED) || PLR_FLAGGED(ch, PLR_MATRIX))
     return;
   
   switch (condition)
@@ -691,16 +691,20 @@ void point_update(void)
       }
       GET_ESS(i) -= 100;
       if (GET_ESS(i) <= 0) {
-        send_to_char("As you feel the attachment to your physical body fade you quickly return.\r\n", i);
+        struct char_data *victim = i->desc->original;
+        send_to_char("As you feel the attachment to your physical body fade, you quickly return. The backlash from the fading connection rips through you...\r\n", i);
         PLR_FLAGS(i->desc->original).RemoveBit(PLR_PROJECT);
         i->desc->character = i->desc->original;
         i->desc->original = NULL;
-        GET_PHYSICAL(i->desc->character) = -(GET_BOD(i->desc->character) - 1) * 100;
-        act("$n collapses in a heap.", TRUE, i->desc->character, 0, 0, TO_ROOM);
-        update_pos(i->desc->character);
+        // GET_PHYSICAL(i->desc->character) = -(GET_BOD(i->desc->character) - 1) * 100;
+        // act("$n collapses in a heap.", TRUE, i->desc->character, 0, 0, TO_ROOM);
+        // update_pos(i->desc->character);
         i->desc->character->desc = i->desc;
         i->desc = NULL;
         extract_char(i);
+        
+        // Deal the damage instead of setting it.
+        damage(victim, victim, (GET_BOD(victim) - 1) * 100, TYPE_SUFFERING, TRUE);
       } else if (GET_ESS(i) <= 100)
         send_to_char("You feel memories of your physical body slipping away.\r\n", i);
     }
@@ -778,7 +782,7 @@ void save_vehicles(void)
   int num_veh = 0;
   bool found;
   for (veh = veh_list; veh; veh = veh->next)
-    if ((veh->owner > 0 && (veh->damage < 10 || !veh_is_in_junkyard(veh) || veh->in_veh || ROOM_FLAGGED(veh->in_room, ROOM_GARAGE))) && (does_player_exist(veh->owner)))
+    if ((veh->owner > 0 && (veh->damage < VEH_DAM_THRESHOLD_DESTROYED || !veh_is_in_junkyard(veh) || veh->in_veh || ROOM_FLAGGED(veh->in_room, ROOM_GARAGE))) && (does_player_exist(veh->owner)))
       num_veh++;
   
   if (!(fl = fopen("veh/vfile", "w"))) {
@@ -793,7 +797,7 @@ void save_vehicles(void)
       continue;
     
     bool send_veh_to_junkyard = FALSE;
-    if ((veh->damage >= 10 && !(veh->in_veh || ROOM_FLAGGED(veh->in_room, ROOM_GARAGE)))) {
+    if ((veh->damage >= VEH_DAM_THRESHOLD_DESTROYED && !(veh->in_veh || ROOM_FLAGGED(veh->in_room, ROOM_GARAGE)))) {
       // If the vehicle is wrecked and is in neither a containing vehicle nor a garage...
       if (veh_is_in_junkyard(veh)) {
         // If it's already in the junkyard, we don't save it-- they should have come and fixed it.
@@ -827,6 +831,11 @@ void save_vehicles(void)
               found = TRUE;
           if (!found) {
             veh->next_sub = i->char_specials.subscribe;
+            
+            // Doubly link it into the list.
+            if (i->char_specials.subscribe)
+              i->char_specials.subscribe->prev_sub = veh;
+              
             i->char_specials.subscribe = veh;
           }
           break;

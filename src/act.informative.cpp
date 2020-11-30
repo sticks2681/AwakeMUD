@@ -200,7 +200,19 @@ void show_obj_to_char(struct obj_data * object, struct char_data * ch, int mode)
     strcpy(buf, CCHAR ? CCHAR : "");
     if (object->graffiti)
       strcat(buf, object->graffiti);
-    else strcat(buf, object->text.room_desc);
+    else {
+      // Gun magazines get special consideration.
+      if (GET_OBJ_TYPE(object) == ITEM_GUN_MAGAZINE && GET_MAGAZINE_BONDED_MAXAMMO(object)) {
+        sprintf(buf, "A%s %d-round %s %s magazine has been left here.",
+          GET_MAGAZINE_AMMO_COUNT(object) <= 0 ? "n empty" : "",
+          GET_MAGAZINE_BONDED_MAXAMMO(object),
+          ammo_type[GET_MAGAZINE_AMMO_TYPE(object)].name,
+          weapon_type[GET_MAGAZINE_BONDED_ATTACKTYPE(object)]
+        );
+      } else {
+        strcat(buf, object->text.room_desc);
+      }
+    }
   } else if (GET_OBJ_NAME(object) && mode == 1)
   {
     strcpy(buf, GET_OBJ_NAME(object));
@@ -273,7 +285,7 @@ void show_veh_to_char(struct veh_data * vehicle, struct char_data * ch)
   
   strcpy(buf, CCHAR ? CCHAR : "");
   
-  if (vehicle->damage >= 10)
+  if (vehicle->damage >= VEH_DAM_THRESHOLD_DESTROYED)
   {
     sprintf(ENDOF(buf), "%s lies here wrecked.", GET_VEH_NAME(vehicle));
   } else
@@ -323,6 +335,35 @@ void list_veh_to_char(struct veh_data * list, struct char_data * ch)
 
 #define IS_INVIS(o) IS_OBJ_STAT(o, ITEM_INVISIBLE)
 
+bool items_are_visually_similar(struct obj_data *first, struct obj_data *second) {
+  // Biggest litmus test: Are they even the same thing?
+  if (first->item_number != second->item_number)
+    return FALSE;
+    
+  // If the names don't match, they're not similar.
+  if (strcmp(first->text.name, second->text.name))
+    return FALSE;
+    
+  // If their invis statuses don't match...
+  if (IS_INVIS(first) != IS_INVIS(second))
+    return FALSE;
+    
+  // If their restrings don't match...
+  if ((first->restring && !second->restring) || 
+      (!first->restring && second->restring) ||
+      (first->restring && second->restring && strcmp(first->restring, second->restring)))
+    return FALSE;
+    
+  // If they're magazines, their various bonded stats must match too.
+  if (GET_OBJ_TYPE(first) == ITEM_GUN_MAGAZINE) {
+    if (GET_MAGAZINE_BONDED_MAXAMMO(first) != GET_MAGAZINE_BONDED_MAXAMMO(second) ||
+        GET_MAGAZINE_BONDED_ATTACKTYPE(first) != GET_MAGAZINE_BONDED_ATTACKTYPE(second))
+      return FALSE;
+  }
+  
+  return TRUE;
+}
+
 void
 list_obj_to_char(struct obj_data * list, struct char_data * ch, int mode,
                  bool show, bool corpse)
@@ -337,59 +378,52 @@ list_obj_to_char(struct obj_data * list, struct char_data * ch, int mode,
   {
     if ((i->in_veh && ch->in_veh) && i->vfront != ch->vfront)
       continue;
-    if (ch->in_veh && i->in_room != ch->in_veh->in_room) {
-      if (ch->in_veh->cspeed > SPEED_IDLE) {
-        if (get_speed(ch->in_veh) >= 200) {
-          if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 7))
-            continue;
-          else if (get_speed(ch->in_veh) < 200 && get_speed(ch->in_veh) >= 120) {
-            if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 6))
-              continue;
-            else if (get_speed(ch->in_veh) < 120 && get_speed(ch->in_veh) >= 60) {
-              if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 5))
-                continue;
-              else
-                if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 4))
-                  continue;
-            }
-          }
-        }
-      }
-    }
-    
-    
+      
     if (ch->char_specials.rigging) {
       if (ch->char_specials.rigging->cspeed > SPEED_IDLE) {
+        int success_test_tn;
+        
         if (get_speed(ch->char_specials.rigging) >= 240) {
-          if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 6))
-            continue;
-          else if (get_speed(ch->char_specials.rigging) < 240 && get_speed(ch->char_specials.rigging) >= 180) {
-            if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 5))
-              continue;
-            else if (get_speed(ch->char_specials.rigging) < 180 && get_speed(ch->char_specials.rigging) >= 90) {
-              if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 4))
-                continue;
-              else
-                if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), 3))
-                  continue;
-            }
-          }
+          success_test_tn = 6;
+        } else if (get_speed(ch->char_specials.rigging) < 240 && get_speed(ch->char_specials.rigging) >= 180) {
+          success_test_tn = 5;
+        } else if (get_speed(ch->char_specials.rigging) < 180 && get_speed(ch->char_specials.rigging) >= 90) {
+          success_test_tn = 4;
+        } else {
+          success_test_tn = 3;
         }
+        
+        if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), success_test_tn))
+          continue;
+      }
+    } else if (ch->in_veh && i->in_room && i->in_room == ch->in_veh->in_room) {
+      if (ch->in_veh->cspeed > SPEED_IDLE) {
+        int success_test_tn;
+        
+        if (get_speed(ch->in_veh) >= 200) {
+          success_test_tn = 7;
+        } else if (get_speed(ch->in_veh) >= 120) {
+          success_test_tn = 6;
+        } else if (get_speed(ch->in_veh) >= 60) {
+          success_test_tn = 5;
+        } else {
+          success_test_tn = 4;
+        }
+        
+        if (!success_test(GET_INT(ch) + GET_POWER(ch, ADEPT_IMPROVED_PERCEPT), success_test_tn))
+          continue;
       }
     }
     
     while (i->next_content) {
-      if (i->item_number != i->next_content->item_number ||
-          strcmp(i->text.name, i->next_content->text.name) ||
-          IS_INVIS(i) != IS_INVIS(i->next_content) || (i->restring && !i->next_content->restring) ||
-          (!i->restring && i->next_content->restring) ||(i->restring && i->next_content->restring && strcmp(i->restring, i->next_content->restring)))
+      if (!items_are_visually_similar(i, i->next_content))
         break;
-      if (CAN_SEE_OBJ(ch, i)) {
+        
+      if (CAN_SEE_OBJ(ch, i))
         num++;
-      }
+        
       i = i->next_content;
-    }
-    
+    }    
     
     if (CAN_SEE_OBJ(ch, i)) {
       if (corpse && IS_OBJ_STAT(i, ITEM_CORPSE)) {
@@ -1197,7 +1231,7 @@ void look_at_room(struct char_data * ch, int ignore_brief)
     return;
   }
   
-  if (ch->in_veh && (!ch->in_room || PLR_FLAGGED(ch, PLR_REMOTE))) {
+  if ((ch->in_veh && !ch->in_room) || PLR_FLAGGED(ch, PLR_REMOTE)) {
     look_in_veh(ch);
     return;
   }
@@ -1317,18 +1351,18 @@ void look_at_room(struct char_data * ch, int ignore_brief)
   
   // Is there an elevator car here?
   if (ROOM_FLAGGED(ch->in_room, ROOM_ELEVATOR_SHAFT)) {
-    bool match = FALSE;
     // Iterate through elevators to find one that contains this shaft.
-    for (int index = 0; !match && index < num_elevators; index++) {
-      // Iterate through floors to see if a given floor matches the shaft's vnum.
-      for (int floor = 0; !match && floor < elevator[index].num_floors; floor++) {
-        // Check for a match.
-        if (elevator[index].floor[floor].shaft_vnum == ch->in_room->number) {
-          // Check for the car being at this floor.
-          if (world[real_room(elevator[index].room)].rating == floor)
-            send_to_char("^RThe massive bulk of an elevator car fills the hoistway, squeezing you aside.^n\r\n", ch);
-          match = TRUE;
+    for (int index = 0; index < num_elevators; index++) {
+      int car_rating = world[real_room(elevator[index].room)].rating;
+      if (elevator[index].floor[car_rating].shaft_vnum == ch->in_room->number) {
+        // Check for the car being at this floor.
+        if (IS_ASTRAL(ch)) {
+          send_to_char("^yThe massive bulk of an elevator car fills the hoistway.^n\r\n", ch);
+        } else {
+          send_to_char("^RThe massive bulk of an elevator car fills the hoistway, squeezing you aside.^n\r\n", ch);
         }
+        
+        break;
       }
     }
   }
@@ -2037,7 +2071,7 @@ void do_probe_object(struct char_data * ch, struct obj_data * j) {
       break;
     case ITEM_DECK_ACCESSORY:
       if (GET_OBJ_VAL(j, 0) == TYPE_FILE) {
-        sprintf(ENDOF(buf), "This file requires ^c%d^n units of space.", GET_OBJ_VAL(j, 2));
+        sprintf(ENDOF(buf), "This file requires ^c%d^n units of space.", GET_DECK_ACCESSORY_FILE_SIZE(j));
       } else if (GET_OBJ_VAL(j, 0) == TYPE_UPGRADE) {
         if (GET_OBJ_VAL(j, 1) == 3) {
           sprintf(ENDOF(buf), "This cyberdeck upgrade affects ^c%s^n with a rating of ^c%d^n.",
@@ -2103,21 +2137,29 @@ void do_probe_object(struct char_data * ch, struct obj_data * j) {
       break;
     case ITEM_GUN_AMMO:
       if (GET_OBJ_VAL(j, 3))
-        send_to_char(ch, "It has %d/%d %s round%s of %s ammunition left.\r\n", GET_OBJ_VAL(j, 0), GET_OBJ_VAL(j, 0) +
+        sprintf(ENDOF(buf), "It has %d/%d %s round%s of %s ammunition left.\r\n", GET_OBJ_VAL(j, 0), GET_OBJ_VAL(j, 0) +
                      GET_OBJ_VAL(j, 3), ammo_type[GET_OBJ_VAL(j, 2)].name,GET_OBJ_VAL(j, 0) != 1 ? "s" : "",
                      weapon_type[GET_OBJ_VAL(j, 1)]);
       else
-        send_to_char(ch, "It has %d %s round%s of %s ammunition left.\r\n", GET_OBJ_VAL(j, 0),
+        sprintf(ENDOF(buf), "It has %d %s round%s of %s ammunition left.\r\n", GET_OBJ_VAL(j, 0),
                      ammo_type[GET_OBJ_VAL(j, 2)].name,GET_OBJ_VAL(j, 0) != 1 ? "s" : "",
                      weapon_type[GET_OBJ_VAL(j, 1)]);
       break;
-    case ITEM_GUN_MAGAZINE:
-      // All info about these is displayed when you examine them.
-    case ITEM_QUEST:
     case ITEM_OTHER:
+      if (GET_OBJ_VNUM(j) == OBJ_NEOPHYTE_SUBSIDY_CARD) {
+        sprintf(ENDOF(buf), "It is bonded to %s and has %d nuyen remaining on it.\r\n", 
+                GET_IDNUM(ch) == GET_OBJ_VAL(j, 0) ? "you" : "someone else",
+                GET_OBJ_VAL(j, 1));
+        break;
+      }
+      // fallthrough
+    
+    // All info about these is displayed when you examine them.
+    case ITEM_GUN_MAGAZINE:
+    case ITEM_QUEST:
     case ITEM_CAMERA:
     case ITEM_PHONE:
-      sprintf(ENDOF(buf), "Nothing stands out about this item's OOC values.");
+      sprintf(ENDOF(buf), "Nothing stands out about this item's OOC values. Try EXAMINE it instead.");
       break;
     default:
       strcat(buf, "This item type has no probe string. Contact the staff to request one.");
@@ -2247,7 +2289,7 @@ ACMD(do_examine)
     if (tmp_object) {
       do_probe_object(ch, tmp_object);
     } else {
-      send_to_char("You're not carrying any such object, and there are no vehicles like that here.\r\n", ch);
+      send_to_char("You're not wearing or carrying any such object, and there are no vehicles like that here.\r\n", ch);
     }
     return;
   } else {
@@ -2256,6 +2298,12 @@ ACMD(do_examine)
   }
   
   if (tmp_object) {
+    if (GET_OBJ_VNUM(tmp_object) == OBJ_NEOPHYTE_SUBSIDY_CARD) {
+      send_to_char(ch, "It is bonded to %s and has %d nuyen remaining on it.\r\n", 
+              GET_IDNUM(ch) == GET_OBJ_VAL(tmp_object, 0) ? "you" : "someone else",
+              GET_OBJ_VAL(tmp_object, 1));
+    }
+    
     if (GET_OBJ_TYPE(tmp_object) == ITEM_CONTAINER ||
         (GET_OBJ_TYPE(tmp_object) == ITEM_WORN && tmp_object->contains)) {
       if (!tmp_object->contains)
@@ -3486,7 +3534,7 @@ ACMD(do_who)
         continue;
       if (sort > 0 && GET_LEVEL(tch) != sort)
         continue;
-      if (ooc && (PRF_FLAGGED(tch, PRF_NOOOC) || PLR_FLAGGED(tch, PLR_AUTH)))
+      if (ooc && (PRF_FLAGGED(tch, PRF_NOOOC) || PLR_FLAGGED(tch, PLR_NOT_YET_AUTHED)))
         continue;
       if (newbie && !PLR_FLAGGED(tch, PLR_NEWBIE))
         continue;
@@ -3575,7 +3623,7 @@ ACMD(do_who)
           strcat(buf1, " (editing)");
         if (PRF_FLAGGED(tch, PRF_QUESTOR))
           strcat(buf1, " ^Y(questor)^n");
-        if (PLR_FLAGGED(tch, PLR_AUTH))
+        if (PLR_FLAGGED(tch, PLR_NOT_YET_AUTHED))
           strcat(buf1, " ^G(unauthed)^n");
         if (PLR_FLAGGED(tch, PLR_MATRIX))
           strcat(buf1, " (decking)");
@@ -3932,28 +3980,28 @@ void perform_immort_where(struct char_data * ch, char *arg)
         if (i && CAN_SEE(ch, i) && (i->in_room || i->in_veh)) {
           if (d->original)
             if (d->character->in_veh)
-              sprintf(buf + strlen(buf), "%-20s - [%5ld] %s^n (switched as %s) (in %s)\r\n",
+              sprintf(buf + strlen(buf), "%-20s - [%6ld] %s^n (switched as %s) (in %s)\r\n",
                       GET_CHAR_NAME(i),
                       GET_ROOM_VNUM(get_ch_in_room(d->character)),
                       GET_ROOM_NAME(get_ch_in_room(d->character)),
                       GET_NAME(d->character),
                       GET_VEH_NAME(d->character->in_veh));
             else
-              sprintf(buf + strlen(buf), "%-20s - [%5ld] %s^n (in %s)\r\n",
+              sprintf(buf + strlen(buf), "%-20s - [%6ld] %s^n (in %s)\r\n",
                       GET_CHAR_NAME(i),
                       GET_ROOM_VNUM(get_ch_in_room(d->character)),
                       GET_ROOM_NAME(get_ch_in_room(d->character)),
-                      GET_NAME(d->character));
+                      GET_VEH_NAME(d->character->in_veh));
           
             else
               if (i->in_veh)
-                sprintf(buf + strlen(buf), "%-20s - [%5ld] %s^n (in %s)\r\n",
+                sprintf(buf + strlen(buf), "%-20s - [%6ld] %s^n (in %s)\r\n",
                         GET_CHAR_NAME(i),
                         GET_ROOM_VNUM(get_ch_in_room(i)),
                         GET_ROOM_NAME(get_ch_in_room(i)),
                         GET_VEH_NAME(i->in_veh));
               else
-                sprintf(buf + strlen(buf), "%-20s - [%5ld] %s^n\r\n",
+                sprintf(buf + strlen(buf), "%-20s - [%6ld] %s^n\r\n",
                         GET_CHAR_NAME(i),
                         GET_ROOM_VNUM(get_ch_in_room(i)),
                         GET_ROOM_NAME(get_ch_in_room(i)));

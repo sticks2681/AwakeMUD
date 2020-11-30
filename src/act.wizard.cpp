@@ -44,6 +44,7 @@
 #include "limits.h"
 #include "security.h"
 #include "perfmon.h"
+#include "newmail.h"
 
 #if defined(__CYGWIN__)
 #include <crypt.h>
@@ -83,6 +84,10 @@ extern const char *pgroup_print_privileges(Bitfield privileges);
  * (c) 1996-97 Erwin S. Andreasen <erwin@andreasen.org> */
 
 extern int mother_desc, port;
+
+/* Prototypes. */
+void restore_character(struct char_data *vict, bool reset_staff_stats);
+
 
 #define EXE_FILE "bin/awake" /* maybe use argv[0] but it's not reliable */
 
@@ -161,7 +166,7 @@ ACMD(do_copyover)
         sprintf(buf, "%s's location could not be determined by the current copyover logic. %s will load at Grog's (35500).",
                 GET_CHAR_NAME(och), HSSH(och));
         mudlog(buf, och, LOG_SYSLOG, TRUE);
-        GET_LAST_IN(och) = 35500;
+        GET_LAST_IN(och) = RM_ENTRANCE_TO_DANTES;
       }
       playerDB.SaveChar(och, GET_LOADROOM(och));
       write_to_descriptor(d->descriptor, messages[mesnum]);
@@ -566,13 +571,31 @@ ACMD(do_goto)
   
   half_chop(argument, buf, command);
 
-  if ((location = find_target_room(ch, buf))) {
-    if (location->number == 0 || location->number == 1) {
-      send_to_char("You're not able to GOTO that room. If you need to do something there, use AT.\r\n", ch);
+  // Look for either a target room or someone standing in a room.
+  location = find_target_room(ch, buf);
+  
+  // We found no target in a room-- look for one in a veh.
+  if (!location) {
+    vict = get_char_vis(ch, buf);
+    
+    if (!vict || !vict->in_veh) {
+      // Error message happens in get_char_vis.
       return;
     }
-  } else if (!(vict = get_char_vis(ch, buf)) || !vict->in_veh) {
-    // Error message happens in get_char_vis.
+    
+    // Set location to be the room their vehicle is in.
+    location = get_veh_in_room(vict->in_veh);
+  }
+  
+  // Perform location validity check for room number.
+  if (location->number == 0 || location->number == 1) {
+    send_to_char("You're not able to GOTO that room. If you need to do something there, use AT.\r\n", ch);
+    return;
+  }
+  
+  // Perform location validity check for level lock.
+  if (location->staff_level_lock > GET_REAL_LEVEL(ch)) {
+    send_to_char(ch, "Sorry, you need to be a level-%d immortal to go there.", location->staff_level_lock);
     return;
   }
 
@@ -1120,18 +1143,7 @@ void do_stat_character(struct char_data * ch, struct char_data * k)
   int i, i2, found = 0;
   struct obj_data *j;
   struct follow_type *fol;
-
-  const char *aspects[] =
-    {
-      "Full",
-      "Conjurer",
-      "Shamanist",
-      "Sorcerer",
-      "Elementalist (Earth)",
-      "Elementalist (Air)",
-      "Elementalist (Fire)",
-      "Elementalist (Water)"
-    };
+  
   if (!access_level(ch, LVL_FIXER))
   {
     send_to_char("You're not quite erudite enough to do that!\r\n", ch);
@@ -1177,11 +1189,11 @@ void do_stat_character(struct char_data * ch, struct char_data * k)
     sprintf(ENDOF(buf), "Tradition: Adept, Grade: %d Extra Power: %d/%d", GET_GRADE(k), k->points.extrapp, (int)(GET_REP(k) / 50) + 1);
     break;
   case TRAD_HERMETIC:
-    sprintf(ENDOF(buf), "Tradition: Hermetic, Aspect: %s, Grade: %d", aspects[GET_ASPECT(k)], GET_GRADE(k));
+    sprintf(ENDOF(buf), "Tradition: Hermetic, Aspect: %s, Grade: %d", aspect_names[GET_ASPECT(k)], GET_GRADE(k));
     break;
   case TRAD_SHAMANIC:
     sprinttype(GET_TOTEM(k), totem_types, buf2);
-    sprintf(ENDOF(buf), "Tradition: Shamanic, Aspect: %s, Totem: %s, ", aspects[GET_ASPECT(k)], buf2);
+    sprintf(ENDOF(buf), "Tradition: Shamanic, Aspect: %s, Totem: %s, ", aspect_names[GET_ASPECT(k)], buf2);
     if (GET_TOTEM(k) == TOTEM_GATOR || GET_TOTEM(k) == TOTEM_SNAKE || GET_TOTEM(k) == TOTEM_WOLF)
       sprintf(ENDOF(buf), "Spirit Bonus: %s, ", spirits[GET_TOTEMSPIRIT(k)].name);
     sprintf(ENDOF(buf), "Grade: %d", GET_GRADE(k));
@@ -1700,6 +1712,9 @@ ACMD(do_return)
         char_to_room(ch, GET_WAS_IN(ch));
         GET_WAS_IN(ch) = NULL;
       }
+    } else if (AFF_FLAGGED(ch, AFF_RIG)) {
+      ACMD_DECLARE(do_rig);
+      do_rig(ch, NULL, 0, 0);
     } else {
       send_to_char("But there's nothing for you to return from...\r\n", ch);
     }
@@ -1959,10 +1974,19 @@ ACMD(do_purge)
     }
     
     if ((veh = get_veh_list(buf, ch->in_veh ? ch->in_veh->carriedvehs : ch->in_room->vehicles, ch))) {
+      // Notify the room.
       sprintf(buf1, "$n purges %s.", GET_VEH_NAME(veh));
       act(buf1, FALSE, ch, NULL, 0, TO_ROOM);
       sprintf(buf1, "%s purged %s.", GET_CHAR_NAME(ch), GET_VEH_NAME(veh));
       mudlog(buf1, ch, LOG_WIZLOG, TRUE);
+      
+      // Notify the owner.
+      if (veh->owner > 0) {
+        sprintf(buf2, "^ROOC Alert: Your vehicle '%s' has been deleted by administrator '%s'.^n\r\n", GET_VEH_NAME(veh), GET_CHAR_NAME(ch));
+        store_mail(veh->owner, ch, buf2);
+      }
+      
+      // Log the purge and finalize extraction.
       purgelog(veh);
       extract_veh(veh);
     } else {
@@ -2094,7 +2118,7 @@ void do_advance_with_mode(struct char_data *ch, char *argument, int cmd, int sub
   send_to_char(OK, ch);
   
   if (newlevel < GET_LEVEL(victim)) {
-    send_to_char(victim, "%s has demoted you from %s to %s.\r\n", GET_CHAR_NAME(ch), status_ratings[(int) GET_LEVEL(victim)], status_ratings[newlevel]);
+    send_to_char(victim, "%s has demoted you from %s to %s. Note that this has reset your skills, stats, karma, etc.\r\n", GET_CHAR_NAME(ch), status_ratings[(int) GET_LEVEL(victim)], status_ratings[newlevel]);
     sprintf(buf3, "%s has demoted %s from %s to %s.",
             GET_CHAR_NAME(ch), GET_CHAR_NAME(victim), status_ratings[(int)GET_LEVEL(victim)], status_ratings[newlevel]);
     do_start(victim);
@@ -2114,10 +2138,13 @@ void do_advance_with_mode(struct char_data *ch, char *argument, int cmd, int sub
         "snaps you back to reality.\r\n\r\n"
         "You feel slightly different.", FALSE, ch, 0, victim, TO_VICT);
      */
-    send_to_char(victim, "%s has promoted you from %s to %s.\r\n", GET_CHAR_NAME(ch), status_ratings[(int) GET_LEVEL(victim)], status_ratings[newlevel]);
+    send_to_char(victim, "%s has promoted you from %s to %s. Note that this has reset your skills, stats, chargen data, etc.\r\n", GET_CHAR_NAME(ch), status_ratings[(int) GET_LEVEL(victim)], status_ratings[newlevel]);
     sprintf(buf3, "%s has advanced %s from %s to %s.",
             GET_CHAR_NAME(ch), GET_CHAR_NAME(victim), status_ratings[(int)GET_LEVEL(victim)], status_ratings[newlevel]);
     GET_LEVEL(victim) = newlevel;
+    
+    // Auto-restore them to set their skills, stats, etc.
+    restore_character(victim, TRUE);
   }
   
   if (IS_SENATOR(victim)) {
@@ -2125,7 +2152,7 @@ void do_advance_with_mode(struct char_data *ch, char *argument, int cmd, int sub
       GET_COND(victim, i) = (char) -1;
     if (PLR_FLAGS(victim).IsSet(PLR_NEWBIE)) {
       PLR_FLAGS(victim).RemoveBit(PLR_NEWBIE);
-      PLR_FLAGS(victim).RemoveBit(PLR_AUTH);
+      PLR_FLAGS(victim).RemoveBit(PLR_NOT_YET_AUTHED);
     }
     PRF_FLAGS(victim).SetBit(PRF_HOLYLIGHT);
     PRF_FLAGS(victim).SetBit(PRF_CONNLOG);
@@ -2223,72 +2250,117 @@ ACMD(do_penalize)
   sprintf(buf, "You have been penalized %0.2f karma for %s.\r\n", (float)k*0.01, reason);
   send_to_char(buf, vict);
 
-  sprintf(buf2, "You penalized %0.2f karma to %s for %s.\r\n", (float)k*0.01,
+  sprintf(buf2, "You penalized %0.2f karma from %s for %s.\r\n", (float)k*0.01,
           GET_NAME(vict), reason);
   send_to_char(buf2, ch);
 
-  sprintf(buf2, "%s penalized %0.2f karma to %s for %s (%d to %d).",
+  sprintf(buf2, "%s penalized %0.2f karma from %s for %s (%d to %d).",
           GET_CHAR_NAME(ch), (float)k*0.01,
           GET_CHAR_NAME(vict), reason, GET_KARMA(vict) + k, GET_KARMA(vict));
   mudlog(buf2, ch, LOG_WIZLOG, TRUE);
 }
 
+// Restores a character to peak physical condition.
+void restore_character(struct char_data *vict, bool reset_staff_stats) {  
+  // Restore their physical and mental damage levels.
+  GET_PHYSICAL(vict) = GET_MAX_PHYSICAL(vict);
+  GET_MENTAL(vict) = GET_MAX_MENTAL(vict);
+  
+  // Non-NPCs get further consideration.
+  if (!IS_NPC(vict)) {  
+    // Touch up their hunger, thirst, etc. 
+    for (int i = COND_DRUNK; i <= COND_THIRST; i++)
+      // Staff don't deal with hunger, etc-- disable it for them.
+      if IS_SENATOR(vict) {
+        GET_COND(vict, i) = COND_IS_DISABLED;
+      } 
+      
+      // Mortals get theirs set to full (not drunk, full food/water).
+      else {
+        switch (i) {
+          case COND_DRUNK:
+            GET_COND(vict, i) = MIN_DRUNK;
+            break;
+          case COND_FULL:
+            GET_COND(vict, i) = MAX_FULLNESS;
+            break;
+          case COND_THIRST:
+            GET_COND(vict, i) = MAX_QUENCHED;
+            break;
+          default:
+            sprintf(buf, "ERROR: Unknown condition type %d in restore_character switch statement.", i);
+            mudlog(buf, vict, LOG_SYSLOG, TRUE);
+            return;
+        }
+      }
+      
+      
+    // Staff members get their skills set to max, and also their stats boosted.
+    if (IS_SENATOR(vict) && reset_staff_stats) {
+      // Give them 100 in every skill.
+      for (int i = MIN_SKILLS; i < MAX_SKILLS; i++)
+        set_character_skill(vict, i, 100, FALSE);
+        
+      // Restore their essence to 6.00.
+      vict->real_abils.ess = 600;
+      
+      // Non-executive staff get 15's in stats. Executives get 50s.
+      int stat_level = access_level(vict, LVL_EXECUTIVE) ? 50 : 15;
+        
+      // Set all their stats to the requested level.
+      GET_REAL_INT(vict) = stat_level;
+      GET_REAL_WIL(vict) = stat_level;
+      GET_REAL_QUI(vict) = stat_level;
+      GET_REAL_STR(vict) = stat_level;
+      GET_REAL_BOD(vict) = stat_level;
+      GET_REAL_CHA(vict) = stat_level;
+      vict->real_abils.mag = stat_level * 100;
+
+      // Recalculate their affects.
+      affect_total(vict);
+    }
+  }
+  
+  // Update their position (restores them from death, etc)
+  update_pos(vict);
+}
 
 ACMD(do_restore)
 {
   struct char_data *vict;
-  struct descriptor_data *d;
-  int i;
 
   one_argument(argument, buf);
-  if (!*buf)
+  
+  // We require an argument.
+  if (!*buf) {
     send_to_char("Whom do you wish to restore?\r\n", ch);
-  else if (*buf == '*') {
+    return;
+  }
+  
+  // We require that the argument is either '*' for all PCs, or a specific target.
+  if (*buf != '*' && !(vict = get_char_vis(ch, buf))) {
+    send_to_char(NOPERSON, ch);
+  }
+  
+  // Restore-all mode.
+  if (*buf == '*') {
+    for (struct descriptor_data *d = descriptor_list; d; d = d->next) {
+      restore_character(d->character, FALSE);
+      act("You have been fully healed by $N!", FALSE, vict, 0, ch, TO_CHAR);
+    }
     sprintf(buf2, "%s restored all players.", GET_CHAR_NAME(ch));
     mudlog(buf2, ch, LOG_WIZLOG, TRUE);
-    for (d = descriptor_list; d; d = d->next) {
-      GET_PHYSICAL(d->character) = GET_MAX_PHYSICAL(d->character);
-      GET_MENTAL(d->character) = GET_MAX_MENTAL(d->character);
-    }
-    return;
-  } else if (!(vict = get_char_vis(ch, buf)))
-    send_to_char(NOPERSON, ch);
-  else {
-    GET_PHYSICAL(vict) = GET_MAX_PHYSICAL(vict);
-    GET_MENTAL(vict) = GET_MAX_MENTAL(vict);
-
-    if ((access_level(ch, LVL_DEVELOPER)) &&
-        (IS_SENATOR(vict)) && !IS_NPC(vict)) {
-      for (i = SKILL_ATHLETICS; i < MAX_SKILLS; i++)
-        set_character_skill(vict, i, 100, FALSE);
-
-      if (IS_SENATOR(vict) && !access_level(vict, LVL_EXECUTIVE)) {
-        GET_REAL_INT(vict) = 15;
-        GET_REAL_WIL(vict) = 15;
-        GET_REAL_QUI(vict) = 15;
-        GET_REAL_STR(vict) = 15;
-        GET_REAL_BOD(vict) = 15;
-        GET_REAL_CHA(vict) = 15;
-        vict->real_abils.ess = 600;
-        vict->real_abils.mag = 1500;
-      } else if (IS_SENATOR(vict) && access_level(vict, LVL_EXECUTIVE)) {
-        GET_REAL_INT(vict) = 50;
-        GET_REAL_WIL(vict) = 50;
-        GET_REAL_QUI(vict) = 50;
-        GET_REAL_STR(vict) = 50;
-        GET_REAL_BOD(vict) = 50;
-        GET_REAL_CHA(vict) = 50;
-        vict->real_abils.ess = 600;
-        vict->real_abils.mag = 5000;
-      }
-      affect_total(vict);
-    }
-    update_pos(vict);
     send_to_char(OK, ch);
-    act("You have been fully healed by $N!", FALSE, vict, 0, ch, TO_CHAR);
-    sprintf(buf, "%s restored %s.", GET_CHAR_NAME(ch), GET_CHAR_NAME(vict));
-    mudlog(buf, ch, LOG_WIZLOG, TRUE);
-  }
+    return;
+  } 
+  
+  // Restore-single-target mode.
+  restore_character(vict, TRUE);
+  act("You have been fully healed by $N!", FALSE, vict, 0, ch, TO_CHAR);
+  sprintf(buf, "%s restored %s.", GET_CHAR_NAME(ch), GET_CHAR_NAME(vict));
+  mudlog(buf, ch, LOG_WIZLOG, TRUE);
+  send_to_char(OK, ch);
+  return;
 }
 
 void perform_immort_vis(struct char_data *ch)
@@ -2849,11 +2921,11 @@ ACMD(do_wizutil)
         mudlog(buf, ch, LOG_WIZLOG, TRUE);
         break;
       case SCMD_AUTHORIZE:
-        if (!PLR_FLAGS(vict).IsSet(PLR_AUTH)) {
+        if (!PLR_FLAGS(vict).IsSet(PLR_NOT_YET_AUTHED)) {
           send_to_char("Your victim is already authorized.\r\n", ch);
           return;
         }
-        PLR_FLAGS(vict).RemoveBit(PLR_AUTH);
+        PLR_FLAGS(vict).RemoveBit(PLR_NOT_YET_AUTHED);
         send_to_char("Authorized.\r\n", ch);
         send_to_char("Your character has been authorized!\r\n", vict);
         sprintf(buf, "%s authorized by %s", GET_CHAR_NAME(vict), GET_CHAR_NAME(ch));
@@ -3241,7 +3313,7 @@ ACMD(do_show)
     send_to_char(ch, "%s's skills:", GET_NAME(vict));
     j = 0;
     sprintf(buf, "\r\n");
-    for (i = SKILL_ATHLETICS; i < MAX_SKILLS; i++)
+    for (i = MIN_SKILLS; i < MAX_SKILLS; i++)
       if (GET_SKILL(vict, i) > 0) {
         sprintf(buf, "%s[%-20s%4d]", buf, skills[i].name, GET_SKILL(vict, i));
         j++;
@@ -3538,7 +3610,8 @@ ACMD(do_set)
                { "helper",       LVL_ADMIN, PC, BINARY },
                { "blacklist",       LVL_VICEPRES, PC, BINARY },
                { "noidle", LVL_VICEPRES, PC, BINARY },
-               { "\n", 0, BOTH, MISC } // 70
+               { "tke", LVL_VICEPRES, PC, NUMBER }, //70
+               { "\n", 0, BOTH, MISC }
              };
 
   half_chop(argument, name, buf);
@@ -3973,6 +4046,10 @@ ACMD(do_set)
     GET_SKILL_POINTS(vict) = value;
     break;
   case 47:
+    if (GET_TRADITION(vict) != TRAD_SHAMANIC) {
+      send_to_char("They're not a Shaman.\r\n", ch);
+      return;
+    }
     RANGE(0, 53);
     GET_TOTEM(vict) = value;
     break;
@@ -4009,6 +4086,7 @@ ACMD(do_set)
   case 55:
     RANGE(0, 7);
     GET_TRADITION(vict) = value;
+    send_to_char(ch, "%s is now %s %s.\r\n", GET_CHAR_NAME(vict), AN(aspect_names[value]), tradition_names[value]);
     break;
   case 56: /* nosnoop flag */
     SET_OR_REMOVE(PLR_FLAGS(vict), PLR_NOSNOOP);
@@ -4022,8 +4100,8 @@ ACMD(do_set)
     SET_OR_REMOVE(PLR_FLAGS(vict), PLR_WANTED);
     break;
   case 59:
-    SET_OR_REMOVE(PLR_FLAGS(vict), PLR_AUTH);
-    send_to_char(ch, "%s is now %sauthorized.\r\n", GET_CHAR_NAME(vict), PLR_FLAGS(vict).IsSet(PLR_AUTH) ? "un-" : "");
+    SET_OR_REMOVE(PLR_FLAGS(vict), PLR_NOT_YET_AUTHED);
+    send_to_char(ch, "%s is now %sauthorized.\r\n", GET_CHAR_NAME(vict), PLR_FLAGS(vict).IsSet(PLR_NOT_YET_AUTHED) ? "un-" : "");
     break;
   case 60:
     SET_OR_REMOVE(PLR_FLAGS(vict), PLR_EDCON);
@@ -4044,6 +4122,7 @@ ACMD(do_set)
   case 66:
     RANGE(0, 7);
     GET_ASPECT(vict) = value;
+    send_to_char(ch, "%s is now %s %s.\r\n", GET_CHAR_NAME(vict), AN(aspect_names[value]), aspect_names[value]);
     break;
   case 67:
     SET_OR_REMOVE(PRF_FLAGS(vict), PRF_NEWBIEHELPER);
@@ -4051,9 +4130,13 @@ ACMD(do_set)
   case 68:
     SET_OR_REMOVE(PLR_FLAGS(vict), PLR_BLACKLIST);
     break;
-    case 69:
-      SET_OR_REMOVE(PLR_FLAGS(vict), PLR_NO_IDLE_OUT);
-      break;
+  case 69:
+    SET_OR_REMOVE(PLR_FLAGS(vict), PLR_NO_IDLE_OUT);
+    break;
+  case 70:
+    RANGE(0, 10000);
+    GET_TKE(vict) = value;
+    break;
   default:
     sprintf(buf, "Can't set that!");
     break;
@@ -4439,7 +4522,7 @@ ACMD(do_mlist)
               MOB_VNUM_RNUM(nr), mob_proto[nr].player.physical_text.name);
 
   if (!found)
-    send_to_char("No mobiles where found in those parameters.\r\n", ch);
+    send_to_char("No mobiles were found in those parameters.\r\n", ch);
   else
     page_string(ch->desc, buf, 1);
 }
@@ -4492,7 +4575,7 @@ ACMD(do_ilist)
   }
 
   if (!found)
-    send_to_char("No objects where found in those parameters.\r\n", ch);
+    send_to_char("No objects were found in those parameters.\r\n", ch);
   else
     page_string(ch->desc, buf, 1);
 }
@@ -4535,7 +4618,7 @@ ACMD(do_vlist)
               VEH_VNUM_RNUM(nr), veh_proto[nr].short_description);
 
   if (!found)
-    send_to_char("No vehicles where found in those parameters.\r\n", ch);
+    send_to_char("No vehicles were found in those parameters.\r\n", ch);
   else
     page_string(ch->desc, buf, 1);
 }
@@ -4581,7 +4664,7 @@ ACMD(do_qlist)
               quest_table[nr].johnson);
 
   if (!found)
-    send_to_char("No quests where found in those parameters.\r\n", ch);
+    send_to_char("No quests were found in those parameters.\r\n", ch);
   else
     page_string(ch->desc, buf, 1);
 }
@@ -4639,7 +4722,7 @@ ACMD(do_rlist)
   }
 
   if (!found)
-    send_to_char("No rooms where found in those parameters.\r\n", ch);
+    send_to_char("No rooms were found in those parameters.\r\n", ch);
   else
     page_string(ch->desc, buf, 1);
 }
@@ -4688,7 +4771,7 @@ ACMD(do_hlist)
               matrix[nr].vnum, matrix[nr].name);
 
   if (!found)
-    send_to_char("No hosts where found in those parameters.\r\n", ch);
+    send_to_char("No hosts were found in those parameters.\r\n", ch);
   else
     page_string(ch->desc, buf, 1);
 }
@@ -4737,7 +4820,7 @@ ACMD(do_iclist)
               ic_index[nr].vnum, ic_proto[nr].name, ic_type[ic_proto[nr].ic.type], ic_proto[nr].ic.rating);
 
   if (!found)
-    send_to_char("No IC where found in those parameters.\r\n", ch);
+    send_to_char("No IC were found in those parameters.\r\n", ch);
   else
     page_string(ch->desc, buf, 1);
 }
@@ -4858,7 +4941,7 @@ ACMD(do_settime)
 ACMD(do_tail)
 {
   char arg[MAX_STRING_LENGTH];
-  FILE *out;
+  FILE *out = NULL;
   int lines = 20;
 
   //out = new FILE;
@@ -4954,7 +5037,7 @@ ACMD(do_restring)
     send_to_char("That restring is too long, please shorten it.\r\n", ch);
     return;
   }
-  if (PLR_FLAGGED(ch, PLR_AUTH)) {
+  if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
     if (!GET_RESTRING_POINTS(ch)) {
       send_to_char("You don't have enough restring points left to restring that.\r\n", ch);
       return;

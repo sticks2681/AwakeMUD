@@ -187,7 +187,7 @@ ACMD(do_steal)
   char obj_name[MAX_INPUT_LENGTH];
   int eq_pos;
 
-  if (PLR_FLAGGED(ch, PLR_AUTH)) {
+  if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
     send_to_char(ch, "You cannot steal items until you are authed.\r\n");
     return;
   }
@@ -807,7 +807,7 @@ ACMD(do_gen_write)
   extern int max_filesize;
   time_t ct;
 
-  if(PLR_FLAGGED(ch, PLR_AUTH)) {
+  if(PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
     send_to_char("You must be Authorized to use that command.\r\n", ch);
     return;
   }
@@ -1053,7 +1053,9 @@ const char *tog_messages[][2] = {
                             {"You will now receive ANSI color codes again.\r\n",
                              "You will no longer receive ANSI color codes.\r\n"},
                             {"You will now receive prompts.\r\n",
-                             "You will no longer receive prompts automatically.\r\n"}
+                             "You will no longer receive prompts automatically.\r\n"},
+                            {"You will no longer autokill NPCs, and will instead stop when they're downed.\r\n",
+                             "You will now continue attacking downed NPCs.\r\n"}
                           };
 
 ACMD(do_toggle)
@@ -1067,78 +1069,51 @@ ACMD(do_toggle)
   }
   skip_spaces(&argument);
   if (!*argument) {
-    if (GET_WIMP_LEV(ch) == 0)
-      strcpy(buf2, "OFF");
-    else
-      sprintf(buf2, "%-3d", GET_WIMP_LEV(ch));
-    if (!IS_SENATOR(ch))
-      sprintf(buf,
-              "       Fightgag: %-3s              NoOOC: %-3s              Hired: %-3s\r\n"
-              "        Movegag: %-3s            Compact: %-3s          AutoExits: %-3s\r\n"
-              "     AutoAssist: %-3s            NoShout: %-3s               Echo: %-3s\r\n"
-              "           Pker: %-3s         Long Exits: %-3s         Wimp Level: %-3s\r\n"
-              "        Menugag: %-3s        Long Weapon: %-3s        Show PG Tag: %-3s\r\n"
-              "     Keep-Alive: %-3s       Screenreader: %-3s           No Color: %-3s\r\n"
-              "      No Prompt: %-3s",
-
-              ONOFF(PRF_FLAGGED(ch, PRF_FIGHTGAG)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOOOC)),
-              YESNO(PRF_FLAGGED(ch, PRF_QUEST)),
-              ONOFF(PRF_FLAGGED(ch, PRF_MOVEGAG)),
-              ONOFF(PRF_FLAGGED(ch, PRF_COMPACT)),
-              ONOFF(PRF_FLAGGED(ch, PRF_AUTOEXIT)),
-              ONOFF(PRF_FLAGGED(ch, PRF_ASSIST)),
-              ONOFF(PRF_FLAGGED(ch, PRF_DEAF)),
-              ONOFF(!PRF_FLAGGED(ch, PRF_NOREPEAT)),
-              YESNO(PRF_FLAGGED(ch, PRF_PKER)),
-              ONOFF(PRF_FLAGGED(ch, PRF_LONGEXITS)),
+    // Wipe out our string.
+    strcpy(buf, "");
+    
+      int printed = 0;
+    for (int i = 0; i < PRF_MAX; i++) {
+      // Skip the unused holes in our preferences.
+      if (i == PRF_UNUSED1_PLS_REPLACE || i == PRF_UNUSED2_PLS_REPLACE) {
+        continue;
+      }
+      
+      // Skip the things that morts should not see.
+      if (!IS_SENATOR(ch) && preference_bits_v2[i].staff_only) {
+        continue;
+      }
+      
+      // Select ONOFF or YESNO display type based on field 2.
+      if (preference_bits_v2[i].on_off) {
+        strcpy(buf2, ONOFF(PRF_FLAGGED(ch, i)));
+      } else {
+        strcpy(buf2, YESNO(PRF_FLAGGED(ch, i)));
+      }
+      
+      // Compose and append our line.
+      sprintf(ENDOF(buf), 
+              "%18s: %-3s%s", 
+              preference_bits_v2[i].name, 
               buf2, 
-              ONOFF(PRF_FLAGGED(ch, PRF_MENUGAG)),
-              YESNO(PRF_FLAGGED(ch, PRF_LONGWEAPON)),
-              YESNO(PRF_FLAGGED(ch, PRF_SHOWGROUPTAG)),
-              ONOFF(PRF_FLAGGED(ch, PRF_KEEPALIVE)),
-              YESNO(PRF_FLAGGED(ch, PRF_SCREENREADER)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOCOLOR)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOPROMPT)));
-    else
-      sprintf(buf,
-              "       Fightgag: %-3s              NoOOC: %-3s              Hired: %-3s\r\n"
-              "        Movegag: %-3s            Compact: %-3s          AutoExits: %-3s\r\n"
-              "         NoTell: %-3s            NoShout: %-3s               Echo: %-3s\r\n"
-              "         Newbie: %-3s           Nohassle: %-3s            Menugag: %-3s\r\n"
-              "      Holylight: %-3s          Roomflags: %-3s               Pker: %-3s\r\n"
-              "          Radio: %-3s         Long Exits: %-3s         Wimp Level: %-3s\r\n"
-              "         Pacify: %-3s         AutoAssist: %-3s          Autoinvis: %-3s\r\n"
-              "    Long Weapon: %-3s        Show PG Tag: %-3s         Keep-Alive: %-3s\r\n"
-              "   Screenreader: %-3s           No Color: %-3s          No Prompt: %-3s\r\n",
-              
-              ONOFF(PRF_FLAGGED(ch, PRF_FIGHTGAG)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOOOC)),
-              YESNO(PRF_FLAGGED(ch, PRF_QUEST)),
-              ONOFF(PRF_FLAGGED(ch, PRF_MOVEGAG)),
-              ONOFF(PRF_FLAGGED(ch, PRF_COMPACT)),
-              ONOFF(PRF_FLAGGED(ch, PRF_AUTOEXIT)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOTELL)),
-              ONOFF(PRF_FLAGGED(ch, PRF_DEAF)),
-              ONOFF(!PRF_FLAGGED(ch, PRF_NOREPEAT)),
-              ONOFF(!PRF_FLAGGED(ch, PRF_NONEWBIE)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOHASSLE)),
-              ONOFF(PRF_FLAGGED(ch, PRF_MENUGAG)),
-              ONOFF(PRF_FLAGGED(ch, PRF_HOLYLIGHT)),
-              ONOFF(PRF_FLAGGED(ch, PRF_ROOMFLAGS)),
-              YESNO(PRF_FLAGGED(ch, PRF_PKER)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NORADIO)),
-              ONOFF(PRF_FLAGGED(ch, PRF_LONGEXITS)),
-              buf2,
-              ONOFF(PRF_FLAGGED(ch, PRF_ASSIST)),
-              ONOFF(PRF_FLAGGED(ch, PRF_AUTOINVIS)),
-              ONOFF(PRF_FLAGGED(ch, PRF_PACIFY)),
-              YESNO(PRF_FLAGGED(ch, PRF_LONGWEAPON)),
-              YESNO(PRF_FLAGGED(ch, PRF_SHOWGROUPTAG)),
-              ONOFF(PRF_FLAGGED(ch, PRF_KEEPALIVE)),
-              YESNO(PRF_FLAGGED(ch, PRF_SCREENREADER)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOCOLOR)),
-              ONOFF(PRF_FLAGGED(ch, PRF_NOPROMPT)));
+              printed%3 == 2 ? "\r\n" : "");
+      
+      // Increment our spacer.
+      printed++;
+      
+    }
+    
+    // Calculate and add the wimpy level.
+    if (GET_WIMP_LEV(ch) == 0) {
+      strcpy(buf2, "OFF");
+    } else {
+      sprintf(buf2, "%-3d", GET_WIMP_LEV(ch));
+    }
+    sprintf(ENDOF(buf), "%s%18s: %-3s", 
+      printed%3 == 0 ? "\r\n" : "", 
+      "Wimpy", 
+      buf2
+    );
     send_to_char(buf, ch);
   } else {
     if (is_abbrev(argument, "afk"))
@@ -1226,7 +1201,7 @@ ACMD(do_toggle)
       result = PRF_TOG_CHK(ch, PRF_LONGWEAPON);
       mode = 26;
     } else if (is_abbrev(argument, "hardcore")) {
-      if (!PLR_FLAGGED(ch, PLR_AUTH)) {
+      if (!PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
         send_to_char("It's too late for you to toggle Hardcore Mode.\r\n", ch);
         return;
       }
@@ -1263,6 +1238,9 @@ ACMD(do_toggle)
     } else if (is_abbrev(argument, "noprompts") || is_abbrev(argument, "prompts")) {
       result = PRF_TOG_CHK(ch, PRF_NOPROMPT);
       mode = 31;
+    } else if (is_abbrev(argument, "autokill")) {
+      result = PRF_TOG_CHK(ch, PRF_AUTOKILL);
+      mode = 32;
     } else {
       send_to_char("That is not a valid toggle option.\r\n", ch);
       return;
@@ -1303,7 +1281,7 @@ ACMD(do_skills)
   
   if (subcmd == SCMD_SKILLS) {
     // Append skills.
-    for (i = SKILL_ATHLETICS; i < MAX_SKILLS; i++) {
+    for (i = MIN_SKILLS; i < MAX_SKILLS; i++) {
       if (!mode_all && *arg && !is_abbrev(arg, skills[i].name))
         continue;
       
@@ -1321,7 +1299,7 @@ ACMD(do_skills)
     else
       sprintf(ENDOF(buf), "\r\n\r\nYou know the following languages that start with '%s':\r\n", arg);
     
-    for (i = SKILL_ENGLISH; i < SKILL_FRENCH; i++) {
+    for (i = SKILL_ENGLISH; i <= SKILL_FRENCH; i++) {
       if (!mode_all && *arg && !is_abbrev(arg, skills[i].name))
         continue;
       
@@ -1374,7 +1352,8 @@ struct obj_data * find_magazine(struct obj_data *gun, struct obj_data *i)
   for (; i; i = i->next_content)
   {
     if (GET_OBJ_TYPE(i) == ITEM_GUN_MAGAZINE) {
-      if (GET_OBJ_VAL(i, 0) == GET_OBJ_VAL(gun, 5) && GET_OBJ_VAL(i, 1) == GET_OBJ_VAL(gun, 3))
+      if (GET_MAGAZINE_BONDED_MAXAMMO(i) == GET_WEAPON_MAX_AMMO(gun) && 
+          GET_MAGAZINE_BONDED_ATTACKTYPE(i) == GET_WEAPON_ATTACK_TYPE(gun))
         return i;
     }
     if (i->contains && GET_OBJ_TYPE(i) == ITEM_WORN) {
@@ -1397,97 +1376,138 @@ ACMD(do_reload)
 
   two_arguments(argument, buf, buf1);
 
+  // Disqualifying condition: If you're in combat and wielding an assault cannon, you don't get to reload it. (TODO: what stops someone from unwield, reload, wield?)
   if (GET_POS(ch) == POS_FIGHTING && GET_EQ(ch, WEAR_WIELD) && GET_OBJ_VAL(GET_EQ(ch, WEAR_WIELD), 4) == SKILL_ASSAULT_CANNON) {
     send_to_char("You have no free hands to reload with.\r\n", ch);
     return;
   }
+  
+  // In-vehicle mounted-weapon reloading via 'reload mount [x]'
   if (ch->in_veh && is_abbrev(buf, "mount")) {
     veh = ch->in_veh;
     mount = atoi(buf1);
-  } else if ((veh = get_veh_list(buf, ch->in_veh ? ch->in_veh->carriedvehs : ch->in_room->vehicles, ch))) {
+  } 
+  
+  // Mounted weapon reloading via 'reload <vehicle> [x]'
+  else if ((veh = get_veh_list(buf, ch->in_veh ? ch->in_veh->carriedvehs : ch->in_room->vehicles, ch))) {
     if (veh->type != VEH_DRONE) {
       send_to_char("You have to be inside a vehicle to reload the mounts.\r\n", ch);
       return;
     }
     mount = atoi(buf1);
   }
+  
+  // Process mount reloading.
   if (veh && mount >= 0) {
+    // Find the mount, and give an error if it's not there.
     for (m = veh->mount; m; m = m->next_content)
       if (--mount < 0)
         break;
-    if (!m) 
+        
+    if (!m) {
       send_to_char("There aren't that many mounts.\r\n", ch);
-    else {
-      for (struct obj_data *search = m->contains; search; search = search->next_content)
-        if (GET_OBJ_TYPE(search) == ITEM_WEAPON)
-          gun = search;
-        else if (GET_OBJ_TYPE(search) == ITEM_GUN_AMMO)
-          ammo = search;
-        /* Code does not appear to be used.
-        else if (GET_OBJ_TYPE(search) == ITEM_MOD)
-          bin = search; */
-      if (!gun) {
-        send_to_char("There is no weapon attached to that mount.\r\n", ch);
-        return;
-      }
-      for (i = ch->carrying; i; i = i->next_content)
-        if (GET_OBJ_VAL(i, 1) == GET_OBJ_VAL(gun, 3)) {
-          int max = GET_OBJ_VAL(gun, 5) * 2;   
-          if (ammo) {
-            if (GET_OBJ_VAL(i, 1) != GET_OBJ_VAL(ammo, 1) || GET_OBJ_VAL(i, 2) != GET_OBJ_VAL(ammo, 2)) {
-              send_to_char("You cannot mix ammunition types in ammunition bins.\r\n", ch);
-              return;
-            }
-            max -= GET_OBJ_VAL(ammo, 0);
-            if (max < 1) {
-              send_to_char("The ammunition bin on that mount is already full.\r\n", ch);
-              return;
-
-            } else {
-              max = MIN(max, GET_OBJ_VAL(i, 0));
-              GET_OBJ_VAL(ammo, 1) = GET_OBJ_VAL(i, 1);
-              GET_OBJ_VAL(ammo, 2) = GET_OBJ_VAL(i, 2);
-              GET_OBJ_VAL(ammo, 0) += max;
-              GET_OBJ_VAL(i, 0) -= max;
-              send_to_char(ch, "You insert %d rounds of ammunition into %s.\r\n", max, GET_OBJ_NAME(m));
-              return;
-            }            
-          } else {
-            max = MIN(max, GET_OBJ_VAL(i, 0));
-            ammo = read_object(121, VIRTUAL);
-            obj_to_obj(ammo, m);
-            GET_OBJ_VAL(ammo, 1) = GET_OBJ_VAL(i, 1);
-            GET_OBJ_VAL(ammo, 2) = GET_OBJ_VAL(i, 2);
-            GET_OBJ_VAL(ammo, 0) += max;
-            GET_OBJ_VAL(i, 0) -= max;
-            send_to_char(ch, "You insert %d rounds of ammunition into %s.\r\n", max, GET_OBJ_NAME(m));
+      return;
+    }
+      
+    // Iterate over the mount and look for its weapon and ammo box.
+    for (struct obj_data *search = m->contains; search; search = search->next_content)
+      if (GET_OBJ_TYPE(search) == ITEM_WEAPON)
+        gun = search;
+      else if (GET_OBJ_TYPE(search) == ITEM_GUN_AMMO)
+        ammo = search;
+      /* Code does not appear to be used.
+      else if (GET_OBJ_TYPE(search) == ITEM_MOD)
+        bin = search; */
+        
+    if (!gun) {
+      send_to_char("There is no weapon attached to that mount.\r\n", ch);
+      return;
+    }
+    
+    for (i = ch->carrying; i; i = i->next_content)
+      if (GET_OBJ_TYPE(i) == ITEM_GUN_AMMO &&
+          GET_AMMOBOX_WEAPON(i) == GET_WEAPON_ATTACK_TYPE(gun)) {
+        int max = GET_WEAPON_MAX_AMMO(gun) * 2;   
+        
+        // Reload an ammo box directly.
+        if (ammo) {
+          if (GET_AMMOBOX_WEAPON(i) != GET_AMMOBOX_WEAPON(ammo) || 
+              GET_AMMOBOX_TYPE(i) != GET_AMMOBOX_TYPE(ammo)) {
+            send_to_char("You cannot mix ammunition types in ammunition bins.\r\n", ch);
             return;
           }
-        }
+          max -= GET_AMMOBOX_QUANTITY(ammo);
+          if (max < 1) {
+            send_to_char("The ammunition bin on that mount is already full.\r\n", ch);
+            return;
 
-    }   
+          } else {
+            max = MIN(max, GET_AMMOBOX_QUANTITY(i));
+            update_ammobox_ammo_quantity(ammo, max);
+            update_ammobox_ammo_quantity(i, -max);
+            send_to_char(ch, "You insert %d rounds of ammunition into %s.\r\n", max, GET_OBJ_NAME(m));
+            return;
+          }            
+        } 
+        
+        // No ammo box-- reload the gun itself.
+        else {
+          max = MIN(max, GET_AMMOBOX_QUANTITY(i));
+          ammo = read_object(OBJ_BLANK_AMMOBOX, VIRTUAL);
+          obj_to_obj(ammo, m);
+          GET_AMMOBOX_WEAPON(ammo) = GET_AMMOBOX_WEAPON(i);
+          GET_AMMOBOX_TYPE(ammo) = GET_AMMOBOX_TYPE(i);
+          update_ammobox_ammo_quantity(ammo, max);
+          update_ammobox_ammo_quantity(i, -max);
+          send_to_char(ch, "You insert %d rounds of ammunition into %s.\r\n", max, GET_OBJ_NAME(m));
+          return;
+        }
+      }
+
     send_to_char("You don't have the right ammunition for that mount.\r\n", ch); 
     return;
-  }
+  } /* End of mount evaluation. */
+  
+  // Are they wielding a reloadable gun?
+  /*
+  if (GET_EQ(ch, WEAR_WIELD)
+      && GET_OBJ_TYPE(GET_EQ(ch, WEAR_WIELD)) == ITEM_WEAPON
+      && IS_GUN(GET_OBJ_VAL(GET_EQ(ch, WEAR_WIELD), 3))
+      && GET_OBJ_VAL(GET_EQ(ch, WEAR_WIELD), 5) >= 1) {
+        // Is it magless or loaded with an empty mag?
+        if (!GET_EQ(ch, WEAR_WIELD)->contains
+            || (GET_MAGAZINE_AMMO_COUNT(GET_EQ(ch, WEAR_WIELD)->contains) <= 0)) {
+          // TODO: Prioritize reloading the weapon.
+        }
+      }
+  */
+  
   for (gun = ch->carrying; gun; gun = gun->next_content)
-   if (GET_OBJ_TYPE(gun) == ITEM_GUN_AMMO && GET_OBJ_VAL(gun, 0) > 0) {
+    /* TODO: Sanity design:
+      - If your weapon is empty, and if you have a loaded magazine, reload your weapon.
+      - If you have specified your weapon as a keyword (reload predator), reload your weapon.
+      - Otherwise, reload a magazine from a box.
+    */
+  
+   if (GET_OBJ_TYPE(gun) == ITEM_GUN_AMMO && GET_OBJ_VAL(gun, 0) > 0) {     
      if (CH_IN_COMBAT(ch)) {
        send_to_char("You are too busy fighting!\r\n", ch);
        return;    
      }
+     
      for (i = ch->carrying; i; i = i->next_content)
-       if (GET_OBJ_TYPE(i) == ITEM_GUN_MAGAZINE && !GET_OBJ_VAL(gun, 9) &&
-           (GET_OBJ_VAL(i, 1) == GET_OBJ_VAL(gun, 1) || (GET_OBJ_VAL(gun, 1) == WEAP_LIGHT_PISTOL &&
+       if (GET_OBJ_TYPE(i) == ITEM_GUN_MAGAZINE && !GET_AMMOBOX_CREATOR(gun) &&
+           (GET_OBJ_VAL(i, 1) == GET_AMMOBOX_WEAPON(gun) || (GET_AMMOBOX_WEAPON(gun) == WEAP_LIGHT_PISTOL &&
            GET_OBJ_VAL(i, 1) == WEAP_MACHINE_PISTOL))
            && GET_OBJ_VAL(i, 9) < GET_OBJ_VAL(i, 0)) {
-         if (GET_OBJ_VAL(gun, 2) != GET_OBJ_VAL(i, 2) && GET_OBJ_VAL(i, 9) > 0) {
+         if (GET_AMMOBOX_TYPE(gun) != GET_OBJ_VAL(i, 2) && GET_OBJ_VAL(i, 9) > 0) {
            send_to_char("You cannot mix ammunition types in magazines.\r\n", ch);
            return;
          }
-         n = MIN((GET_OBJ_VAL(i, 0) - GET_OBJ_VAL(i, 9)), GET_OBJ_VAL(gun, 0));
+         n = MIN((GET_OBJ_VAL(i, 0) - GET_OBJ_VAL(i, 9)), GET_AMMOBOX_QUANTITY(gun));
          GET_OBJ_VAL(i, 9) += n;
-         GET_OBJ_VAL(gun, 0) -= n;
-         GET_OBJ_VAL(i, 2) = GET_OBJ_VAL(gun, 2);
+         update_ammobox_ammo_quantity(gun, -n);
+         GET_OBJ_VAL(i, 2) = GET_AMMOBOX_TYPE(gun);
          sprintf(buf, "You reload %d rounds into $p.", n);
          act("$n inserts some rounds into $p.", FALSE, ch, i, NULL, TO_ROOM);
          act(buf, FALSE, ch, i, NULL, TO_CHAR);
@@ -1569,6 +1589,7 @@ ACMD(do_reload)
     return;
   }
 
+  bool printed_something = FALSE;
   if (gun->contains) {
     struct obj_data *old = gun->contains;
     obj_from_obj(old);
@@ -1577,8 +1598,9 @@ ACMD(do_reload)
       old->vfront = ch->vfront;
     } else
       obj_to_room(old, ch->in_room);
-    act("$n ejects a magazine from $p.", FALSE, ch, gun, NULL, TO_ROOM);
+    act("$n reloads $p, discarding the old magazine.", FALSE, ch, gun, NULL, TO_ROOM);
     act("You eject a magazine from $p.", FALSE, ch, gun, NULL, TO_CHAR);
+    printed_something = TRUE;
   }
   if (i->carried_by)
     obj_from_char(i);
@@ -1595,6 +1617,9 @@ ACMD(do_reload)
     act("Reloaded $p.", FALSE, ch, gun, 0, TO_CHAR);
   else
     send_to_char("Reloaded.\r\n", ch);
+    
+  if (!printed_something)
+    act("$n reloads $p.", FALSE, ch, gun, NULL, TO_ROOM);
   return;
 }
 
@@ -1734,7 +1759,7 @@ ACMD(do_unattach)
       send_to_char("There aren't that many mounts.\r\n", ch);
     else if (item->worn_by)
       send_to_char(ch, "Someone is manning that mount.\r\n");
-    else if (!(gun = get_mount_weapon(item)))
+    else if (!((gun = get_mount_weapon(item)) || (gun = item->contains)))
       send_to_char("There isn't anything mounted on it.\r\n", ch);
     else {
       if (can_take_obj(ch, gun)) {
@@ -1743,6 +1768,7 @@ ACMD(do_unattach)
         sprintf(buf, "You remove %s from %s.\r\n", GET_OBJ_NAME(gun), GET_OBJ_NAME(item));
         send_to_char(buf, ch);
         act("$n removes $p from $P.", FALSE, ch, gun, item, TO_ROOM);
+        // TODO: Will this cause the vehicle load to go negative in the case of a gun ammo box?
         veh->usedload -= GET_OBJ_WEIGHT(gun);
       } else
         send_to_char(ch, "You can't seem to hold it.\r\n");
@@ -1925,7 +1951,7 @@ ACMD(do_astral)
   }
 
   if (AFF_FLAGGED(ch, AFF_PILOT)) {
-    send_to_char("That would be a nice trick!\r\n", ch);
+    send_to_char("While driving? That would be a nice trick!\r\n", ch);
     return;
   }
   if (subcmd == SCMD_PERCEIVE) {
@@ -2719,7 +2745,7 @@ ACMD(do_photo)
     for (struct veh_data *vehicle = ch->in_room->vehicles; vehicle; vehicle = vehicle->next_veh) {
       if (ch->in_veh != vehicle) {
         strcat(buf, "^y");
-        if (vehicle->damage >= 10) {
+        if (vehicle->damage >= VEH_DAM_THRESHOLD_DESTROYED) {
           strcat(buf, GET_VEH_NAME(vehicle));
           strcat(buf, " lies here wrecked.\r\n");
         } else {
@@ -3873,7 +3899,7 @@ ACMD(do_watch)
 ACMD(do_trade)
 {
   skip_spaces(&argument);
-  if (PLR_FLAGGED(ch, PLR_NEWBIE) || PLR_FLAGGED(ch, PLR_AUTH))
+  if (PLR_FLAGGED(ch, PLR_NEWBIE) || PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED))
     send_to_char("You are not ready to use this command.\r\n", ch);
   else if (is_abbrev(argument, "karma")) {
     if (GET_KARMA(ch) < 100)
@@ -3929,7 +3955,6 @@ ACMD(do_tridlog)
   }
 }
 
-/* Spray spec-proc not available.
 ACMD(do_spray)
 {
   skip_spaces(&argument);
@@ -3957,7 +3982,7 @@ ACMD(do_spray)
 
 
   send_to_char("You don't have anything to spray with.\r\n", ch);
-} */
+}
 
 ACMD(do_costtime)
 {

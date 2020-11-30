@@ -286,7 +286,7 @@ ACMD_DECLARE(do_snoop);
 ACMD_DECLARE(do_spec_comm);
 ACMD_DECLARE(do_spells);
 ACMD_DECLARE(do_spellset);
-//ACMD_DECLARE(do_spray);
+ACMD_DECLARE(do_spray);
 ACMD_DECLARE(do_spool);
 ACMD_DECLARE(do_stand);
 ACMD_DECLARE(do_stat);
@@ -575,6 +575,7 @@ struct command_info cmd_info[] =
     { "invitations", POS_LYING , do_invitations, 0, 0 },
 
     { "jack"     , POS_SITTING , do_jack     , 0, 0 },
+    { "jobs"     , POS_DEAD    , do_recap    , 0, 0 },
     { "junk"     , POS_RESTING , do_drop     , 0, SCMD_JUNK },
 
     { "kil"      , POS_FIGHTING, do_kil      , 0, 0 },
@@ -608,10 +609,10 @@ struct command_info cmd_info[] =
     { "mute"     , POS_DEAD    , do_wizutil  , LVL_EXECUTIVE, SCMD_SQUELCH },
     { "muteooc"  , POS_DEAD    , do_wizutil  , LVL_EXECUTIVE, SCMD_SQUELCHOOC },
     { "murder"   , POS_FIGHTING, do_hit      , 0, SCMD_MURDER },
-
-    { "news"     , POS_SLEEPING, do_gen_ps   , 0, SCMD_NEWS },
+    
     { "newbie"   , POS_DEAD    , do_gen_comm , 0, SCMD_NEWBIE },
     { "newbies"  , POS_DEAD    , do_switched_message_history, 0, COMM_CHANNEL_NEWBIE },
+    { "news"     , POS_SLEEPING, do_gen_ps   , 0, SCMD_NEWS },
     { "nervestrike", POS_DEAD  , do_nervestrike, 0, 0 },
     { "notitle"  , POS_DEAD    , do_wizutil  , LVL_EXECUTIVE, SCMD_NOTITLE },
 
@@ -623,6 +624,7 @@ struct command_info cmd_info[] =
     { "open"     , POS_SITTING , do_gen_door , 0, SCMD_OPEN },
     { "osay"     , POS_LYING   , do_say      , 0, SCMD_OSAY },
     { "osays"    , POS_DEAD    , do_switched_message_history, 0, COMM_CHANNEL_OSAYS },
+    { "out"      , POS_SITTING , do_leave    , 0, 0 },
     { "."        , POS_LYING   , do_say      , 0, SCMD_OSAY },
 
     { "put"      , POS_RESTING , do_put      , 0, 0 },
@@ -659,6 +661,7 @@ struct command_info cmd_info[] =
     { "push"     , POS_SITTING , do_push     , 0, 0 },
     { "purge"    , POS_DEAD    , do_purge    , LVL_ARCHITECT, 0 },
 
+    { "quests"   , POS_DEAD    , do_recap    , 0, 0 },
     { "qui"      , POS_DEAD    , do_quit     , 0, 0 },
     { "quit"     , POS_SLEEPING, do_quit     , 0, SCMD_QUIT },
     { "qlist"    , POS_DEAD    , do_qlist    , LVL_FIXER, 0 },
@@ -728,7 +731,7 @@ struct command_info cmd_info[] =
     { "spells"   , POS_SLEEPING, do_spells   , 0, 0 },
     { "spellset" , POS_SLEEPING, do_spellset , LVL_DEVELOPER, 0 },
     { "spirits"  , POS_LYING   , do_elemental, 0, 0 },
-//    { "spray"    , POS_STANDING, do_spray    , 0, 0 },
+    { "spray"    , POS_STANDING, do_spray    , 0, 0 },
     { "stand"    , POS_LYING   , do_stand    , 0, 0 },
     { "stat"     , POS_DEAD    , do_stat     , LVL_BUILDER, 0 },
     { "status"   , POS_LYING   , do_status   , 0, 0 },
@@ -835,12 +838,12 @@ struct command_info cmd_info[] =
     { "buy"      , POS_SITTING , do_not_here , 0, 0 },
     { "check"    , POS_RESTING , do_not_here , 0, 0 },
     { "collect"  , POS_RESTING , do_not_here , 0, 0 },
-    //  { "blastoff" , POS_RESTING , do_not_here , 0, 0 },
+    { "blastoff" , POS_RESTING , do_not_here , 0, 0 },
     { "cancel"   , POS_RESTING , do_not_here , 0, 0 },
     { "climb"    , POS_STANDING, do_not_here , 0, 0 },
     { "deposit"  , POS_STANDING, do_not_here , 1, 0 },
     { "hours"    , POS_LYING   , do_not_here , 0, 0 },
-    //  { "land"     , POS_RESTING , do_not_here , 0, 0 },
+    { "land"     , POS_RESTING , do_not_here , 0, 0 },
     { "lease"    , POS_RESTING , do_not_here , 1, 0 },
     { "light"    , POS_STANDING, do_not_here , 0, 0 },
     { "list"     , POS_RESTING, do_not_here , 0, 0 },
@@ -1269,7 +1272,7 @@ const char *reserved[] =
     "something",
     "new",
     "guest",
-    "deleted",
+    CHARACTER_DELETED_NAME_FOR_SQL,
     "admin", // Added here since this is the one random bots like to try.
     "\n"
   };
@@ -2463,7 +2466,7 @@ void nanny(struct descriptor_data * d, char *arg)
       else
         SEND_TO_Q(motd, d);
 
-      if(PLR_FLAGGED(d->character,PLR_AUTH))
+      if(PLR_FLAGGED(d->character,PLR_NOT_YET_AUTHED))
         sprintf(buf, "%s [%s] has connected (UNAUTHORIZED).",
                 GET_CHAR_NAME(d->character), d->host);
       else
@@ -2530,7 +2533,7 @@ void nanny(struct descriptor_data * d, char *arg)
       if (STATE(d) != CON_CHPWD_VRFY)
         d->character = playerDB.LoadChar(GET_CHAR_NAME(d->character), TRUE);
       SEND_TO_Q("\r\nDone.\r\n", d);
-      if (PLR_FLAGGED(d->character,PLR_AUTH)) {
+      if (PLR_FLAGGED(d->character,PLR_NOT_YET_AUTHED)) {
         playerDB.SaveChar(d->character);
         SEND_TO_Q(MENU, d);
         STATE(d) = CON_MENU;
@@ -2619,7 +2622,7 @@ void nanny(struct descriptor_data * d, char *arg)
       if (ROOM_FLAGGED(&world[load_room], ROOM_HOUSE) && !House_can_enter(d->character, world[load_room].number))
         load_room = real_room(mortal_start_room);
       /* If char was saved with NOWHERE, or real_room above failed... */
-      if (PLR_FLAGGED(d->character, PLR_AUTH))
+      if (PLR_FLAGGED(d->character, PLR_NOT_YET_AUTHED))
         load_room = real_room(newbie_start_room);
 
       if (load_room == NOWHERE) {
@@ -2642,7 +2645,7 @@ void nanny(struct descriptor_data * d, char *arg)
       }
       if (d->character->player_specials->saved.last_veh) {
         for (struct veh_data *veh = veh_list; veh; veh = veh->next)
-          if (veh->idnum == d->character->player_specials->saved.last_veh && veh->damage < 10) {
+          if (veh->idnum == d->character->player_specials->saved.last_veh && veh->damage < VEH_DAM_THRESHOLD_DESTROYED) {
             if (!veh->seating[CH->vfront])
               CH->vfront = !CH->vfront;
             char_to_veh(veh, d->character);
