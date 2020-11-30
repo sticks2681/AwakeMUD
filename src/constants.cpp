@@ -1980,7 +1980,7 @@ const char *room_types[] =
     "Indoors (House)"
   };
 
-const char *cyber_grades[4] =
+const char *cyber_grades[5] =
 {
   "Standard",
   "Alpha",
@@ -2016,7 +2016,7 @@ const char *eyemods[] = {
   "\n"
 };
 
-const char *decap_cyber_grades[4] =
+const char *decap_cyber_grades[5] =
 {
   "standard",
   "alpha",
