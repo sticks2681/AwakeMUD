@@ -2153,7 +2153,7 @@ void iedit_parse(struct descriptor_data * d, const char *arg)
           }
           break;
         case ITEM_CYBERWARE:
-          if (number < GRADE_STANDARD || number > GRADE_DELTA) {
+          if (number < GRADE_STANDARD || number > GRADE_OMEGA) {
             send_to_char("Please select grade from list.\r\nGrade: ", CH);
             return;
           }

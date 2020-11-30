@@ -1922,7 +1922,8 @@ const char *cyber_grades[4] =
   "Standard",
   "Alpha",
   "Beta",
-  "Delta"
+  "Delta",
+  "Omega"
 };
 
 const char *eyemods[] = {
@@ -1957,7 +1958,8 @@ const char *decap_cyber_grades[4] =
   "standard",
   "alpha",
   "beta",
-  "delta"
+  "delta",
+  "omega"
 };
 
 const char *bone_lacing[5] =
