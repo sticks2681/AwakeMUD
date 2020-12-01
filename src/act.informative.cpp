@@ -469,8 +469,7 @@ void diag_char_to_char(struct char_data * i, struct char_data * ch)
   make_desc(ch, i, buf, TRUE, FALSE);
   CAP(buf);
   
-  if (phys >= 100 || ((GET_TRADITION(i) == TRAD_ADEPT && phys >= 0 &&
-                      ((100 - phys) / 10) <= GET_POWER(i, ADEPT_PAIN_RESISTANCE)) || (GET_TRADITION(i) == TRAD_MYSTIC && phys >= 0 &&
+  if (phys >= 100 || ((GET_TRADITION(i) == TRAD_ADEPT || GET_TRADITION(i) == TRAD_MYSTIC) && phys >= 0 &&
                       ((100 - phys) / 10) <= GET_POWER(i, ADEPT_PAIN_RESISTANCE)))
     strcat(buf, " is in excellent physical condition");
   else if (phys >= 90)
@@ -490,9 +489,7 @@ void diag_char_to_char(struct char_data * i, struct char_data * ch)
   
   if (phys <= 0)
     strcat(buf, " and is unconscious.\r\n");
-  else if (ment >= 100 || ((GET_TRADITION(i) == TRAD_ADEPT && ment >= 0 &&
-                           ((100 - ment) / 10) <= (GET_POWER(i, ADEPT_PAIN_RESISTANCE) -
-                                                   (int)((GET_MAX_PHYSICAL(i) - GET_PHYSICAL(i)) / 100))) || (GET_TRADITION(i) == TRAD_MYSTIC && ment >= 0 &&
+  else if (ment >= 100 || ((GET_TRADITION(i) == TRAD_ADEPT || GET_TRADITION(i) == TRAD_MYSTIC) && ment >= 0 &&
                            ((100 - ment) / 10) <= (GET_POWER(i, ADEPT_PAIN_RESISTANCE) -
                                                    (int)((GET_MAX_PHYSICAL(i) - GET_PHYSICAL(i)) / 100))))
     strcat(buf, " and is alert.\r\n");
@@ -778,7 +775,7 @@ void list_one_char(struct char_data * i, struct char_data * ch)
         }
         if (mob_index[GET_MOB_RNUM(i)].func == adept_trainer) {
           // Adepts can't see adept trainers' abilities.
-          if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC)
+          if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_ADEPT)
             sprintf(ENDOF(buf), "^y...%s looks willing to help you train your powers.^n\r\n", HSSH(i));
         }
         if (mob_index[GET_MOB_RNUM(i)].func == spell_trainer) {
