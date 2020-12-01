@@ -675,7 +675,7 @@ void create_parse(struct descriptor_data *d, const char *arg)
     break;
   case CCR_PO_MAGIC:
     i--;
-    if (i > 3 || i < 0)
+    if (i > 4 || i < 0)
       send_to_char(CH, "Invalid number. Enter desired magic level (^c%d^n available): ", d->ccr.points);
     else if (magic_cost[i] > d->ccr.points)
       send_to_char(CH, "You do not have enough points for that. Enter desired magic level(^c%d^n available):", d->ccr.points);
@@ -717,7 +717,7 @@ void create_parse(struct descriptor_data *d, const char *arg)
       case '4':
         d->ccr.points += magic_cost[d->ccr.pr[PO_MAGIC]];
         sprintf(buf, " ");
-        for (int x = 0; x < 4; x++)
+        for (int x = 0; x < 5; x++)
           sprintf(ENDOF(buf), " %d) %18s (%2d points)\r\n ", x+1, magic_table[x], magic_cost[x]);
         SEND_TO_Q(buf, d);
         send_to_char(CH, "Enter desired magic level (^c%d^n available): ", d->ccr.points);
