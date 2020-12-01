@@ -3795,7 +3795,7 @@ ACMD(do_heal)
 
 ACMD(do_relieve)
 {
-  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_PAINRELIEF)) {
+  if ((GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_PAINRELIEF)) {
     send_to_char("You don't have the ability to do that.\r\n", ch);
     return;
   }
