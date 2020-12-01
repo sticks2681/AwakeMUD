@@ -3444,7 +3444,7 @@ void deactivate_power(struct char_data *ch, int power)
 
 ACMD(do_powerdown)
 {
-  if (GET_TRADITION(ch) != TRAD_ADEPT) || (GET_TRADITION(ch) != TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) {
     nonsensical_reply(ch);
     return;
   }
@@ -3485,7 +3485,7 @@ ACMD(do_deactivate)
         return;
       }
   }
-  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) {
     char name[120], tokens[MAX_STRING_LENGTH], *s;
     extern int ability_cost(int abil, int level);
     strcpy(tokens, argument);
@@ -3745,7 +3745,7 @@ ACMD(do_dispell)
 
 ACMD(do_heal)
 {
-  if ((GET_TRADITION(ch) != TRAD_ADEPT || (GET_TRADITION(ch) != TRAD_MYSTIC)) || !GET_POWER(ch, ADEPT_EMPATHICHEAL)) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_EMPATHICHEAL)) {
     send_to_char("You don't have the ability to do that.\r\n", ch);
     return;
   }
@@ -3795,7 +3795,7 @@ ACMD(do_heal)
 
 ACMD(do_relieve)
 {
-  if ((GET_TRADITION(ch) != TRAD_ADEPT || (GET_TRADITION(ch) != TRAD_MYSTIC)) || !GET_POWER(ch, ADEPT_PAINRELIEF)) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_PAINRELIEF)) {
     send_to_char("You don't have the ability to do that.\r\n", ch);
     return;
   }
@@ -3837,7 +3837,7 @@ ACMD(do_relieve)
 
 ACMD(do_nervestrike)
 {
-  if ((GET_TRADITION(ch) != TRAD_ADEPT || (GET_TRADITION(ch) != TRAD_MYSTIC)) || !GET_POWER(ch, ADEPT_NERVE_STRIKE)) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_NERVE_STRIKE)) {
     send_to_char("You don't have the ability to do that.\r\n", ch);
     return;
   }
@@ -3864,7 +3864,7 @@ void disp_init_menu(struct descriptor_data *d)
 
 bool can_metamagic(struct char_data *ch, int i) 
 {
-  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) {
     if (i != META_CENTERING && i != META_MASKING)
       return FALSE;
     if (i == META_CENTERING && GET_METAMAGIC(ch, i) == 2)
@@ -3942,7 +3942,7 @@ ACMD(do_subpoint)
   skip_spaces(&argument);
   if (!(vict = get_char_vis(ch, argument)))
     send_to_char(NOPERSON, ch);
-  else if (GET_TRADITION(vict) != TRAD_ADEPT) || (GET_TRADITION(vict) != TRAD_MYSTIC)
+  else if (GET_TRADITION(vict) != TRAD_ADEPT || GET_TRADITION(vict) != TRAD_MYSTIC)
     send_to_char("You can only use this command on Adepts.\r\n", ch);
   else if (GET_PP(vict) <= 0)
     send_to_char("They do not have any power points remaining.\r\n", ch);
@@ -3961,7 +3961,7 @@ ACMD(do_initiate)
     PLR_FLAGS(ch).SetBit(PLR_INITIATE);  
     disp_init_menu(ch->desc);
   } else if (subcmd == SCMD_POWERPOINT) {
-    if (GET_TRADITION(ch) != TRAD_ADEPT) || (GET_TRADITION(vict) != TRAD_MYSTIC)
+    if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(vict) != TRAD_MYSTIC)
       nonsensical_reply(ch);
     else if (GET_KARMA(ch) < 2000 || ch->points.extrapp > (int)(GET_REP(ch) / 50))
       send_to_char("You do not have enough karma to purchase a powerpoint.\r\n", ch);
@@ -3991,7 +3991,7 @@ void init_parse(struct descriptor_data *d, char *arg)
           GET_SIG(CH)++;
           GET_GRADE(CH)++;
           GET_REAL_MAG(CH) += 100;
-          if (GET_TRADITION(CH) == TRAD_ADEPT) || (GET_TRADITION(CH) == TRAD_MYSTIC)
+          if (GET_TRADITION(CH) == TRAD_ADEPT || GET_TRADITION(CH) == TRAD_MYSTIC)
             GET_PP(CH) += 100;
           send_to_char("You feel your astral reflection shift and mold itself closer to the astral plane.\r\n", CH);
           STATE(d) = CON_PLAYING;
@@ -4031,7 +4031,7 @@ void init_parse(struct descriptor_data *d, char *arg)
         GET_GRADE(CH)++;
         GET_REAL_MAG(CH) += 100;
         GET_OBJ_VAL(obj, 9) = 0;
-        if (GET_TRADITION(CH) == TRAD_ADEPT) || (GET_TRADITION(CH) == TRAD_MYSTIC)
+        if (GET_TRADITION(CH) == TRAD_ADEPT || GET_TRADITION(CH) == TRAD_MYSTIC)
           GET_PP(CH) += 100;
         send_to_char(CH, "You feel your magic return from that object, once again binding to your spirit.\r\n", CH);
         STATE(d) = CON_PLAYING;
@@ -4052,7 +4052,7 @@ void init_parse(struct descriptor_data *d, char *arg)
         GET_METAMAGIC(CH, number)++;
         GET_GRADE(CH)++;
         GET_REAL_MAG(CH) += 100;
-        if (GET_TRADITION(CH) == TRAD_ADEPT) || (GET_TRADITION(CH) == TRAD_MYSTIC)
+        if (GET_TRADITION(CH) == TRAD_ADEPT || GET_TRADITION(CH) == TRAD_MYSTIC)
           GET_PP(CH) += 100;
         send_to_char(CH, "You feel yourself grow closer to the astral plane as you become ready to learn %s.\r\n", metamagic[number]);
         STATE(d) = CON_PLAYING;
