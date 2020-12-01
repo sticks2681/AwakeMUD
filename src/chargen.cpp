@@ -763,7 +763,7 @@ void create_parse(struct descriptor_data *d, const char *arg)
             GET_TRADITION(CH) = TRAD_MYSTIC;
             GET_PP(CH) = 600;
             GET_FORCE_POINTS(CH) = 35;
-            ccr_aspect_menu(d);
+            start_game(d);
           } else {
             d->ccr.mode = CCR_TRADITION;
             SEND_TO_Q("\r\nFollow [h]ermetic, [s]hamanic tradition? ", d);
