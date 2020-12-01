@@ -4440,13 +4440,13 @@ SPECIAL(chargen_career_archetype_paths)
     return FALSE;
   
   // Block non-mages from going east.
-  if ((CMD_IS("east") || CMD_IS("e")) && (GET_TRADITION(ch) != TRAD_HERMETIC && GET_TRADITION(ch) != TRAD_SHAMANIC)) {
+  if ((CMD_IS("east") || CMD_IS("e")) && (GET_TRADITION(ch) != TRAD_HERMETIC && GET_TRADITION(ch) != TRAD_SHAMANIC && GET_TRADITION(ch) != TRAD_MYSTIC)) {
     send_to_char("You don't have the aptitude to choose the Path of the Magician.\r\n", ch);
     return TRUE;
   }
   
   // Block non-adepts from going south.
-  if ((CMD_IS("s") || CMD_IS("south")) && (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC)) {
+  if ((CMD_IS("s") || CMD_IS("south")) && (GET_TRADITION(ch) != TRAD_ADEPT && GET_TRADITION(ch) != TRAD_MYSTIC)) {
     send_to_char("You don't have the aptitude to choose the Path of the Adept.\r\n", ch);
     return TRUE;
   }
