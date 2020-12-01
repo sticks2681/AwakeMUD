@@ -3837,7 +3837,7 @@ ACMD(do_relieve)
 
 ACMD(do_nervestrike)
 {
-  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_NERVE_STRIKE)) {
+  if ((GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_NERVE_STRIKE)) {
     send_to_char("You don't have the ability to do that.\r\n", ch);
     return;
   }
