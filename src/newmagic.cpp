@@ -62,7 +62,7 @@ void end_sustained_spell(struct char_data *ch, struct sustain_data *sust)
       if (sust->caster != vsust->caster && vsust->other == ch && vsust->idnum == sust->idnum)
       {
         if (vsust->spirit) {
-          if (GET_TRADITION(vsust->spirit) == TRAD_ADEPT) || (GET_TRADITION(vsust->spirit) == TRAD_MYSTIC)
+          if (GET_TRADITION(vsust->spirit) == TRAD_ADEPT || GET_TRADITION(vsust->spirit) == TRAD_MYSTIC)
             adept_release_spell(vsust->spirit);
           else {  
             GET_SUSTAINED_FOCI(sust->other)--;
@@ -2500,7 +2500,7 @@ ACMD(do_learn)
     send_to_char("That spell design isn't complete.\r\n", ch); 
     return;
   }
-  if ((GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_OBJ_VAL(obj, 2)) || (GET_TRADITION(ch) == TRAD_SHAMANIC && !GET_OBJ_VAL(obj, 2))) {
+  if (((GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_OBJ_VAL(obj, 2)) || (GET_TRADITION(ch) == TRAD_SHAMANIC && !GET_OBJ_VAL(obj, 2))) {
     send_to_char("You don't understand this formula.\r\n", ch);
     return;
   }
@@ -3745,7 +3745,7 @@ ACMD(do_dispell)
 
 ACMD(do_heal)
 {
-  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_EMPATHICHEAL)) {
+  if ((GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) || !GET_POWER(ch, ADEPT_EMPATHICHEAL)) {
     send_to_char("You don't have the ability to do that.\r\n", ch);
     return;
   }
