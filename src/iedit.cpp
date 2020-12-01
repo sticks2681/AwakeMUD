@@ -544,7 +544,7 @@ void iedit_disp_val3_menu(struct descriptor_data * d)
       iedit_disp_drinktype_menu(d);
       break;
     case ITEM_CYBERWARE:
-      for (int x = 0; x < 4; x++)
+      for (int x = 0; x < 5; x++)
         send_to_char(CH, "  %d) %s\r\n", x, cyber_grades[x]);
       send_to_char("Enter Cyberware Grade: ", CH);
       break;
