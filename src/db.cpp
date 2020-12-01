@@ -5364,10 +5364,10 @@ void price_cyber(struct obj_data *obj)
       GET_OBJ_AVAILDAY(obj) *= 3;
       break;
     case GRADE_OMEGA:
-      GET_OBJ_COST(obj) *= 16;
+      GET_OBJ_COST(obj) *= 1;
       GET_CYBERWARE_ESSENCE_COST(obj) = (int) round(GET_CYBERWARE_ESSENCE_COST(obj) * .1);
-      GET_OBJ_AVAILTN(obj) += 18;
-      GET_OBJ_AVAILDAY(obj) *= 12;
+      GET_OBJ_AVAILTN(obj) += 1;
+      GET_OBJ_AVAILDAY(obj) *= 1;
       break;
   }
 
