@@ -1,5 +1,5 @@
 #1000000
-Keywords:	single-slot single slot chipjack 1 one
+Keywords:	single-slot single slot chipjack 1 one omega
 Name:	a chipjack (1 slot) - omega
 RoomDesc:$
 An uninstalled chipjack is lying here.~
@@ -28,7 +28,7 @@ Material:	electronics
 SourceBook:	SR3 p298, MM p21-22
 BREAK
 #1000001
-Keywords:	dual-slot dual slot chipjack 2 two
+Keywords:	dual-slot dual slot chipjack 2 two omega
 Name:	a chipjack (2 slot) - omega
 RoomDesc:$
 An uninstalled chipjack is lying here.~
@@ -57,7 +57,7 @@ Material:	electronics
 SourceBook:	SR3 p298, MM p21-22
 BREAK
 #1000002
-Keywords:	tri-slot triple slot chipjack 3 three
+Keywords:	tri-slot triple slot chipjack 3 three omega
 Name:	a chipjack (3 slot) - omega
 RoomDesc:$
 An uninstalled chipjack is lying here.~
@@ -86,7 +86,7 @@ Material:	electronics
 SourceBook:	SR3 p298, MM p21-22
 BREAK
 #1000003
-Keywords:	quad-slot quad slot chipjack 4 four
+Keywords:	quad-slot quad slot chipjack 4 four omega
 Name:	a chipjack (4 slot) - omega
 RoomDesc:$
 An uninstalled chipjack is lying here.~
@@ -115,7 +115,7 @@ Material:	electronics
 SourceBook:	SR3 p298, MM p21-22
 BREAK
 #1000004
-Keywords:	chipjack expert driver i 1
+Keywords:	chipjack expert driver i 1 omega
 Name:	a chipjack expert driver I - omega
 RoomDesc:$
 An uninstalled chipjack expert driver is lying here.~
@@ -150,7 +150,7 @@ Material:	paper
 SourceBook:	MM p19
 BREAK
 #1000005
-Keywords:	chipjack expert driver ii 2
+Keywords:	chipjack expert driver ii 2 omega
 Name:	a chipjack expert driver II - omega
 RoomDesc:$
 An uninstalled chipjack expert driver is lying here.~
@@ -185,7 +185,7 @@ Material:	paper
 SourceBook:	MM p19
 BREAK
 #1000006
-Keywords:	chipjack expert driver iii 3
+Keywords:	chipjack expert driver iii 3 omega
 Name:	a chipjack expert driver III - omega
 RoomDesc:$
 An uninstalled chipjack expert driver is lying here.~
@@ -220,7 +220,7 @@ Material:	paper
 SourceBook:	MM p19
 BREAK
 #1000007
-Keywords:	data compactor I
+Keywords:	data compactor I omega
 Name:	a data compactor I - omega
 RoomDesc:$
 An uninstalled data compactor is lying here.~
@@ -252,7 +252,7 @@ Material:	paper
 SourceBook:	MM p20
 BREAK
 #1000008
-Keywords:	data compactor II
+Keywords:	data compactor II omega
 Name:	a data compactor II - omega
 RoomDesc:$
 An uninstalled data compactor is lying here.~
@@ -284,7 +284,7 @@ Material:	paper
 SourceBook:	MM p20
 BREAK
 #1000009
-Keywords:	data compactor III
+Keywords:	data compactor III omega
 Name:	a data compactor III - omega
 RoomDesc:$
 An uninstalled data compactor is lying here.~
@@ -316,7 +316,7 @@ Material:	paper
 SourceBook:	MM p20
 BREAK
 #1000010
-Keywords:	data compactor IV
+Keywords:	data compactor IV omega
 Name:	a data compactor IV - omega
 RoomDesc:$
 An uninstalled data compactor is lying here.~
@@ -348,7 +348,7 @@ Material:	paper
 SourceBook:	MM p20
 BREAK
 #1000011
-Keywords:	data lock nerp
+Keywords:	data lock nerp omega
 Name:	a data lock - omega
 RoomDesc:$
 An uninstalled data lock is lying here.~
@@ -378,7 +378,7 @@ Material:	paper
 SourceBook:	SR3 p298
 BREAK
 #1000012
-Keywords:	datajack
+Keywords:	datajack omega
 Name:	a datajack - omega
 RoomDesc:$
 An uninstalled datajack is lying here.~
@@ -422,7 +422,7 @@ Material:	electronics
 SourceBook:	SR3 p298
 BREAK
 #1000013
-Keywords:	encephalon i 1
+Keywords:	encephalon i 1 omega
 Name:	an encephalon I - omega
 RoomDesc:$
 An uninstalled encephalon is lying here.~
@@ -476,7 +476,7 @@ Material:	paper
 SourceBook:	MM p20-21
 BREAK
 #1000014
-Keywords:	encephalon ii 2
+Keywords:	encephalon ii 2 omega
 Name:	an encephalon II - omega
 RoomDesc:$
 An uninstalled encephalon is lying here.~
@@ -530,7 +530,7 @@ Material:	paper
 SourceBook:	MM p20-21
 BREAK
 #1000015
-Keywords:	datajack induction
+Keywords:	datajack induction omega
 Name:	an induction datajack - omega
 RoomDesc:$
 An uninstalled induction datajack is lying here.~
@@ -561,7 +561,7 @@ Material:	paper
 SourceBook:	MM p21
 BREAK
 #1000016
-Keywords:	knowsoft link nerp
+Keywords:	knowsoft link nerp omega
 Name:	a knowsoft link - omega
 RoomDesc:$
 An uninstalled knowsoft link is lying here.~
@@ -589,7 +589,7 @@ Material:	paper
 SourceBook:	SR3 p298
 BREAK
 #1000017
-Keywords:	maths spu i 1
+Keywords:	maths spu i 1 omega
 Name:	a math SPU I - omega
 RoomDesc:$
 An uninstalled math SPU is lying here.~
@@ -627,7 +627,7 @@ Material:	paper
 SourceBook:	MM p21
 BREAK
 #1000018
-Keywords:	maths spu ii 2
+Keywords:	maths spu ii 2 omega
 Name:	a math SPU II - omega
 RoomDesc:$
 An uninstalled math SPU is lying here.~
@@ -665,7 +665,7 @@ Material:	paper
 SourceBook:	MM p21
 BREAK
 #1000019
-Keywords:	maths spu iii 3
+Keywords:	maths spu iii 3 omega
 Name:	a math SPU III - omega
 RoomDesc:$
 An uninstalled math SPU is lying here.~
@@ -703,7 +703,7 @@ Material:	paper
 SourceBook:	MM p21
 BREAK
 #1000020
-Keywords:	memory headware
+Keywords:	memory headware omega
 Name:	memory (75 Mp) - omega
 RoomDesc:$
 An uninstalled headware memory module is lying here.~
@@ -736,7 +736,7 @@ Material:	paper
 SourceBook:	SR3 p298
 BREAK
 #1000021
-Keywords:	memory headware
+Keywords:	memory headware omega
 Name:	memory (150 Mp) - omega
 RoomDesc:$
 An uninstalled headware memory module is lying here.~
@@ -769,7 +769,7 @@ Material:	paper
 SourceBook:	SR3 p298
 BREAK
 #1000022
-Keywords:	memory headware
+Keywords:	memory headware omega
 Name:	memory (300 Mp) - omega
 RoomDesc:$
 An uninstalled headware memory module is lying here.~
@@ -802,7 +802,7 @@ Material:	paper
 SourceBook:	SR3 p298
 BREAK
 #1000023
-Keywords:	radio headware internal
+Keywords:	radio headware internal omega
 Name:	a headware radio - omega
 RoomDesc:$
 A headware radio can transmit or receive on any frequency, though it can only 
@@ -839,7 +839,7 @@ Material:	electronics
 SourceBook:	SR3 p297-298
 BREAK
 #1000024
-Keywords:	phone headware telephone internal
+Keywords:	phone headware telephone internal omega
 Name:	a headware telephone - omega
 RoomDesc:$
 An uninstalled headware phone is lying here.~
@@ -870,7 +870,7 @@ Material:	electronics
 SourceBook:	SR3 p298
 BREAK
 #1000025
-Keywords:	ASIST converter
+Keywords:	ASIST converter omega
 Name:	an ASIST converter - omega
 RoomDesc:$
 An uninstalled ASIST converter is lying here.~
@@ -902,7 +902,7 @@ Material:	paper
 SourceBook:	MM p19
 BREAK
 #1000026
-Keywords:	cranial cyberdeck allegiance sigma nerp
+Keywords:	cranial cyberdeck allegiance sigma nerp omega
 Name:	a cranial-implant Allegiance Sigma cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -938,7 +938,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000027
-Keywords:	cranial cyberdeck sony ct-360-d 360 nerp
+Keywords:	cranial cyberdeck sony ct-360-d 360 nerp omega
 Name:	a cranial-implant Sony CT-360-D cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -974,7 +974,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000028
-Keywords:	cranial cyberdeck novadeck hyperdeck 6 nerp
+Keywords:	cranial cyberdeck novadeck hyperdeck 6 nerp omega
 Name:	a cranial-implant Novadeck Hyperdeck-6 cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -1010,7 +1010,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000029
-Keywords:	cranial cyberdeck cmt avatar nerp needs_proper_deck
+Keywords:	cranial cyberdeck cmt avatar nerp needs_proper_deck omega
 Name:	a cranial-implant CMT Avatar cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -1046,7 +1046,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000030
-Keywords:	cranial cyberdeck renraku kraftwork-8 nerp
+Keywords:	cranial cyberdeck renraku kraftwork-8 nerp omega
 Name:	a cranial-implant Renraku Kraftwork-8 cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -1082,7 +1082,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000031
-Keywords:	cranial cyberdeck transys highlander nerp
+Keywords:	cranial cyberdeck transys highlander nerp omega
 Name:	a cranial-implant Transys Highlander cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -1118,7 +1118,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000032
-Keywords:	cranial cyberdeck novatech slimcase-10 nerp needs_proper_deck
+Keywords:	cranial cyberdeck novatech slimcase-10 nerp needs_proper_deck omega
 Name:	a cranial-implant Novatech Slimcase-10 cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -1154,7 +1154,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000033
-Keywords:	cranial cyberdeck fairlight excalibur nerp
+Keywords:	cranial cyberdeck fairlight excalibur nerp omega
 Name:	a cranial-implant Fairlight Excalibur cyberdeck - omega
 RoomDesc:$
 An uninstalled cranial cyberdeck is lying here.~
@@ -1190,7 +1190,7 @@ Material:	paper
 SourceBook:	MM p19-20
 BREAK
 #1000034
-Keywords:	rig vehicle control i
+Keywords:	rig vehicle control i omega
 Name:	a vehicle control rig I - omega
 RoomDesc:$
 An uninstalled vehicle control rig is lying here.~
@@ -1222,7 +1222,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000035
-Keywords:	rig vehicle control ii
+Keywords:	rig vehicle control ii omega
 Name:	a vehicle control rig II - omega
 RoomDesc:$
 An uninstalled vehicle control rig is lying here.~
@@ -1254,7 +1254,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000036
-Keywords:	rig vehicle control iii
+Keywords:	rig vehicle control iii omega
 Name:	a vehicle control rig III - omega
 RoomDesc:$
 An uninstalled vehicle control rig is lying here.~
@@ -1286,7 +1286,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000037
-Keywords:	oral dart nerp
+Keywords:	oral dart nerp omega
 Name:	an oral dart - omega
 RoomDesc:$
 An uninstalled oral dart is lying here.~
@@ -1315,7 +1315,7 @@ Material:	paper
 SourceBook:	MM p17
 BREAK
 #1000038
-Keywords:	oral gun nerp
+Keywords:	oral gun nerp omega
 Name:	an oral gun - omega
 RoomDesc:$
 An uninstalled oral gun is lying here.~
@@ -1344,7 +1344,7 @@ Material:	paper
 SourceBook:	MM p17
 BREAK
 #1000039
-Keywords:	tooth compartment breakable
+Keywords:	tooth compartment breakable omega
 Name:	a tooth compartment (breakable) - omega
 RoomDesc:$
 An uninstalled tooth compartment is lying here.~
@@ -1371,7 +1371,7 @@ Material:	paper
 SourceBook:	SR3 p298-299
 BREAK
 #1000040
-Keywords:	tooth compartment storage
+Keywords:	tooth compartment storage omega
 Name:	a tooth compartment (storage) - omega
 RoomDesc:$
 An uninstalled tooth compartment is lying here.~
@@ -1398,7 +1398,7 @@ Material:	paper
 SourceBook:	SR3 p298-299
 BREAK
 #1000041
-Keywords:	balance augmenter
+Keywords:	balance augmenter omega
 Name:	a balance augmenter - omega
 RoomDesc:$
 An uninstalled balance augmenter is lying here.~
@@ -1432,7 +1432,7 @@ Material:	paper
 SourceBook:	MM p13-14
 BREAK
 #1000042
-Keywords:	eye camera
+Keywords:	eye camera omega
 Name:	a camera - omega
 RoomDesc:$
 An uninstalled eye camera is lying here.~
@@ -1464,7 +1464,7 @@ Material:	paper
 SourceBook:	SR3 p299-300
 BREAK
 #1000043
-Keywords:	display link nerp
+Keywords:	display link nerp omega
 Name:	a display link - omega
 RoomDesc:$
 An uninstalled display link is lying here.~
@@ -1494,7 +1494,7 @@ Material:	paper
 SourceBook:	SR3 p299-300
 BREAK
 #1000044
-Keywords:	eye dart nerp
+Keywords:	eye dart nerp omega
 Name:	an eye dart - omega
 RoomDesc:$
 An uninstalled eye dart is lying here.~
@@ -1526,7 +1526,7 @@ Material:	paper
 SourceBook:	MM p16-17
 BREAK
 #1000045
-Keywords:	eye datajack
+Keywords:	eye datajack omega
 Name:	an eye datajack - omega
 RoomDesc:$
 An uninstalled eye datajack here.~
@@ -1558,7 +1558,7 @@ Material:	paper
 SourceBook:	MM p13-14
 BREAK
 #1000046
-Keywords:	eye gun nerp
+Keywords:	eye gun nerp omega
 Name:	an eye gun - omega
 RoomDesc:$
 An uninstalled eye gun is lying here.~
@@ -1590,7 +1590,7 @@ Material:	paper
 SourceBook:	MM p16-17
 BREAK
 #1000047
-Keywords:	eye light nerp
+Keywords:	eye light nerp omega
 Name:	an eye light - omega
 RoomDesc:$
 An uninstalled eye light is lying here.~
@@ -1623,7 +1623,7 @@ Material:	paper
 SourceBook:	MM p15
 BREAK
 #1000048
-Keywords:	flare compensation cybereyes nerp
+Keywords:	flare compensation cybereyes nerp omega
 Name:	a flare compensation module - omega
 RoomDesc:$
 An uninstalled flare compensation module is lying here.~
@@ -1654,7 +1654,7 @@ Material:	paper
 SourceBook:	SR3 p299
 BREAK
 #1000049
-Keywords:	image link
+Keywords:	image link omega
 Name:	an image link - omega
 RoomDesc:$
 An uninstalled image link is lying here.~
@@ -1684,7 +1684,7 @@ Material:	paper
 SourceBook:	SR3 p299-300
 BREAK
 #1000050
-Keywords:	low-light low light vision modification needs_affect_check
+Keywords:	low-light low light vision modification needs_affect_check omega
 Name:	a low-light vision modification - omega
 RoomDesc:$
 An uninstalled low-light vision module is lying here.~
@@ -1714,7 +1714,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000051
-Keywords:	protective eye covers nerp
+Keywords:	protective eye covers nerp omega
 Name:	protective eye covers - omega
 RoomDesc:$
 An uninstalled set of protective eye covers is lying here.~
@@ -1742,7 +1742,7 @@ Material:	paper
 SourceBook:	SR3 p300
 BREAK
 #1000052
-Keywords:	retinal clock
+Keywords:	retinal clock omega
 Name:	a retinal clock - omega
 RoomDesc:$
 An uninstalled retinal clock module is lying here.~
@@ -1772,7 +1772,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000053
-Keywords:	thermographic vision modification needs_affect_check
+Keywords:	thermographic vision modification needs_affect_check omega
 Name:	a thermographic vision modification - omega
 RoomDesc:$
 An uninstalled thermographic vision module is lying here.~
@@ -1802,7 +1802,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000054
-Keywords:	eyes ultrasound modification
+Keywords:	eyes ultrasound modification omega
 Name:	an ultrasound vision modification - omega
 RoomDesc:$
 An uninstalled ultrasound vision module is lying here.~
@@ -1832,7 +1832,7 @@ Material:	paper
 SourceBook:	MM p18
 BREAK
 #1000055
-Keywords:	optical magnification
+Keywords:	optical magnification omega
 Name:	an optical magnification I - omega
 RoomDesc:$
 An uninstalled optical magnification module is lying here.~
@@ -1863,7 +1863,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000056
-Keywords:	optical magnification
+Keywords:	optical magnification omega
 Name:	an optical magnification II - omega
 RoomDesc:$
 An uninstalled optical magnification module is lying here.~
@@ -1894,7 +1894,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000057
-Keywords:	optical magnification
+Keywords:	optical magnification omega
 Name:	an optical magnification III - omega
 RoomDesc:$
 An uninstalled optical magnification module is lying here.~
@@ -1925,7 +1925,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000058
-Keywords:	electronic magnification
+Keywords:	electronic magnification omega
 Name:	an electronic magnification I - omega
 RoomDesc:$
 An uninstalled electronic magnification module is lying here.~
@@ -1956,7 +1956,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000059
-Keywords:	electronic magnification
+Keywords:	electronic magnification omega
 Name:	an electronic magnification II - omega
 RoomDesc:$
 An uninstalled electronic magnification module is lying here.~
@@ -1987,7 +1987,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000060
-Keywords:	electronic magnification
+Keywords:	electronic magnification omega
 Name:	an electronic magnification III - omega
 RoomDesc:$
 An uninstalled electronic magnification module is lying here.~
@@ -2018,7 +2018,7 @@ Material:	electronics
 SourceBook:	SR3 p300
 BREAK
 #1000061
-Keywords:	balance tail
+Keywords:	balance tail omega
 Name:	a balance tail - omega
 RoomDesc:$
 An uninstalled balance tail is lying here.~
@@ -2048,7 +2048,7 @@ Material:	paper
 SourceBook:	MM p25
 BREAK
 #1000062
-Keywords:	body compartment
+Keywords:	body compartment omega
 Name:	a body compartment - omega
 RoomDesc:$
 An uninstalled body compartment is lying here.~
@@ -2075,7 +2075,7 @@ Material:	paper
 SourceBook:	MM p26-27
 BREAK
 #1000063
-Keywords:	plastic bone lacing pool needs_weight_adding
+Keywords:	plastic bone lacing pool needs_weight_adding omega
 Name:	some bone lacing (plastic) - omega
 RoomDesc:$
 Some uninstalled plastic bone lacing is lying here.~
@@ -2110,7 +2110,7 @@ Material:	metal
 SourceBook:	SR3 p300,302
 BREAK
 #1000064
-Keywords:	lacing kevlar bone cyberware needs_weight_adding
+Keywords:	lacing kevlar bone cyberware needs_weight_adding omega
 Name:	some bone lacing (kevlar) - omega
 RoomDesc:$
 Some uninstalled kevlar bone lacing is lying here.~
@@ -2149,7 +2149,7 @@ Material:	metal
 SourceBook:	MM p27
 BREAK
 #1000065
-Keywords:	lacing bone aluminum pool cyberware needs_weight_adding
+Keywords:	lacing bone aluminum pool cyberware needs_weight_adding omega
 Name:	some bone lacing (aluminum) - omega
 RoomDesc:$
 Some uninstalled aluminum bone lacing is lying here.~
@@ -2189,7 +2189,7 @@ Material:	electronics
 SourceBook:	SR3 p300,302
 BREAK
 #1000066
-Keywords:	lacing ceramic bone cyberware needs_weight_adding
+Keywords:	lacing ceramic bone cyberware needs_weight_adding omega
 Name:	some bone lacing (ceramic) - omega
 RoomDesc:$
 Some uninstalled ceramic bone lacing is lying here.~
@@ -2229,7 +2229,7 @@ Material:	metal
 SourceBook:	MM p27
 BREAK
 #1000067
-Keywords:	lacing titanium bone pool cyberware needs_weight_adding
+Keywords:	lacing titanium bone pool cyberware needs_weight_adding omega
 Name:	some bone lacing (titanium) - omega
 RoomDesc:$
 Some uninstalled titanium bone lacing is lying here.~
@@ -2272,7 +2272,7 @@ Material:	metal
 SourceBook:	SR3 p300,302
 BREAK
 #1000068
-Keywords:	boosted reflexes 1 i
+Keywords:	boosted reflexes 1 i omega
 Name:	a boosted reflexes I - omega
 RoomDesc:$
 A treatment of boosted reflexes lies here.~
@@ -2307,7 +2307,7 @@ Material:	electronics
 SourceBook:	SR3 p300,302
 BREAK
 #1000069
-Keywords:	boosted reflexes 2 ii
+Keywords:	boosted reflexes 2 ii omega
 Name:	a boosted reflexes II - omega
 RoomDesc:$
 A treatment of boosted reflexes lies here.~
@@ -2345,7 +2345,7 @@ Material:	electronics
 SourceBook:	SR3 p300,302
 BREAK
 #1000070
-Keywords:	boosted reflexes 3 iii
+Keywords:	boosted reflexes 3 iii omega
 Name:	a boosted reflexes III - omega
 RoomDesc:$
 A treatment of boosted reflexes lies here.~
@@ -2383,7 +2383,7 @@ Material:	electronics
 SourceBook:	SR3 p300,302
 BREAK
 #1000071
-Keywords:	cyberfin cyber fin
+Keywords:	cyberfin cyber fin omega
 Name:	a set of cyberfins - omega
 RoomDesc:$
 Some uninstalled cyberfins are lying here.~
@@ -2411,7 +2411,7 @@ Material:	paper
 SourceBook:	MM p27-28
 BREAK
 #1000072
-Keywords:	dermal plating i 1
+Keywords:	dermal plating i 1 omega
 Name:	a dermal plating I - omega
 RoomDesc:$
 An uninstalled set of dermal plating is lying here.~
@@ -2444,7 +2444,7 @@ Material:	adv. plastics
 SourceBook:	SR3 p300,302
 BREAK
 #1000073
-Keywords:	dermal plating ii 2
+Keywords:	dermal plating ii 2 omega
 Name:	a dermal plating II - omega
 RoomDesc:$
 An uninstalled set of dermal plating is lying here.~
@@ -2477,7 +2477,7 @@ Material:	adv. plastics
 SourceBook:	SR3 p300,302
 BREAK
 #1000074
-Keywords:	dermal plating iii 3
+Keywords:	dermal plating iii 3 omega
 Name:	a dermal plating III - omega
 RoomDesc:$
 An uninstalled set of dermal plating is lying here.~
@@ -2510,7 +2510,7 @@ Material:	adv. plastics
 SourceBook:	SR3 p300,302
 BREAK
 #1000075
-Keywords:	dermal sheathing
+Keywords:	dermal sheathing omega
 Name:	a dermal sheathing I - omega
 RoomDesc:$
 An uninstalled set of dermal sheathing is lying here.~
@@ -2547,7 +2547,7 @@ Material:	adv. plastics
 SourceBook:	MM p28
 BREAK
 #1000076
-Keywords:	dermal sheathing
+Keywords:	dermal sheathing omega
 Name:	a dermal sheathing II - omega
 RoomDesc:$
 An uninstalled set of dermal sheathing is lying here.~
@@ -2584,7 +2584,7 @@ Material:	adv. plastics
 SourceBook:	MM p28
 BREAK
 #1000077
-Keywords:	dermal sheathing
+Keywords:	dermal sheathing omega
 Name:	a dermal sheathing III - omega
 RoomDesc:$
 An uninstalled set of dermal sheathing is lying here.~
@@ -2621,7 +2621,7 @@ Material:	adv. plastics
 SourceBook:	MM p28
 BREAK
 #1000078
-Keywords:	ruthenium dermal sheathing i 1
+Keywords:	ruthenium dermal sheathing i 1 omega
 Name:	a ruthenium dermal sheathing I - omega
 RoomDesc:$
 An uninstalled set of ruthenium dermal sheathing is lying here.~
@@ -2666,7 +2666,7 @@ Material:	adv. plastics
 SourceBook:	MM p28
 BREAK
 #1000079
-Keywords:	ruthenium dermal sheathing ii 2
+Keywords:	ruthenium dermal sheathing ii 2 omega
 Name:	a ruthenium dermal sheathing II - omega
 RoomDesc:$
 An uninstalled set of ruthenium dermal sheathing is lying here.~
@@ -2711,7 +2711,7 @@ Material:	adv. plastics
 SourceBook:	MM p28
 BREAK
 #1000080
-Keywords:	ruthenium dermal sheathing iii 3
+Keywords:	ruthenium dermal sheathing iii 3 omega
 Name:	a ruthenium dermal sheathing III - omega
 RoomDesc:$
 An uninstalled set of ruthenium dermal sheathing is lying here.~
@@ -2756,7 +2756,7 @@ Material:	adv. plastics
 SourceBook:	MM p28
 BREAK
 #1000081
-Keywords:	air filter i 1 nerp
+Keywords:	air filter i 1 nerp omega
 Name:	a filter (air) I - omega
 RoomDesc:$
 An uninstalled air filter is lying here.~
@@ -2785,7 +2785,7 @@ Material:	paper
 SourceBook:	SR3 p300-302
 BREAK
 #1000082
-Keywords:	blood filter i 1 nerp
+Keywords:	blood filter i 1 nerp omega
 Name:	a filter (blood) I - omega
 RoomDesc:$
 An uninstalled blood filter is lying here.~
@@ -2816,7 +2816,7 @@ Material:	paper
 SourceBook:	SR3 p300-302
 BREAK
 #1000083
-Keywords:	ingested toxin filter i 1 nerp
+Keywords:	ingested toxin filter i 1 nerp omega
 Name:	a filter (ingested toxin) I - omega
 RoomDesc:$
 An uninstalled ingested toxin filter is lying here.~
@@ -2846,7 +2846,7 @@ Material:	paper
 SourceBook:	SR3 p300-302
 BREAK
 #1000084
-Keywords:	fingertip compartment
+Keywords:	fingertip compartment omega
 Name:	a fingertip compartment - omega
 RoomDesc:$
 An unfinished object is lying here.~
@@ -2875,7 +2875,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000085
-Keywords:	foot anchor
+Keywords:	foot anchor omega
 Name:	a foot anchor - omega
 RoomDesc:$
 An uninstalled foot anchor is lying here.~
@@ -2902,7 +2902,7 @@ Material:	paper
 SourceBook:	MM p29
 BREAK
 #1000086
-Keywords:	handblade hand blade
+Keywords:	handblade hand blade omega
 Name:	a hand blade - omega
 RoomDesc:$
 An uninstalled hand blade is lying here.~
@@ -2930,7 +2930,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000087
-Keywords:	retractable handblade hand blade
+Keywords:	retractable handblade hand blade omega
 Name:	a hand blade (retractable) - omega
 RoomDesc:$
 An uninstalled retractable hand blade is lying here.~
@@ -2959,7 +2959,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000088
-Keywords:	razors hand handrazors
+Keywords:	razors hand handrazors omega
 Name:	a set of hand razors - omega
 RoomDesc:$
 An uninstalled set of hand razors is lying here.~
@@ -2990,7 +2990,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000089
-Keywords:	razors hand handrazors improved
+Keywords:	razors hand handrazors improved omega
 Name:	a set of hand razors (improved) - omega
 RoomDesc:$
 An uninstalled set of hand razors is lying here.~
@@ -3022,7 +3022,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000090
-Keywords:	razors hand handrazors retractable
+Keywords:	razors hand handrazors retractable omega
 Name:	a set of hand razors (retractable) - omega
 RoomDesc:$
 An uninstalled set of hand razors is lying here.~
@@ -3054,7 +3054,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000091
-Keywords:	razors hand handrazors improved retractable
+Keywords:	razors hand handrazors improved retractable omega
 Name:	a set of hand razors (improved retractable) - omega
 RoomDesc:$
 An uninstalled set of hand razors is lying here.~
@@ -3086,7 +3086,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000092
-Keywords:	spurs spur hand
+Keywords:	spurs spur hand omega
 Name:	a set of hand spurs - omega
 RoomDesc:$
 An uninstalled set of hand spurs is lying here.~
@@ -3116,7 +3116,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000093
-Keywords:	spurs spur hand retractable
+Keywords:	spurs spur hand retractable omega
 Name:	a set of hand spurs (retractable) - omega
 RoomDesc:$
 An uninstalled set of hand spurs is lying here.~
@@ -3147,7 +3147,7 @@ Material:	metal
 SourceBook:	SR3 p301-302
 BREAK
 #1000094
-Keywords:	hydraulic jacks i 1
+Keywords:	hydraulic jacks i 1 omega
 Name:	hydraulic jacks I - omega
 RoomDesc:$
 An uninstalled set of hydraulic jacks is lying here.~
@@ -3178,7 +3178,7 @@ Material:	paper
 SourceBook:	MM p29
 BREAK
 #1000095
-Keywords:	hydraulic jacks ii 2
+Keywords:	hydraulic jacks ii 2 omega
 Name:	hydraulic jacks II - omega
 RoomDesc:$
 An uninstalled set of hydraulic jacks is lying here.~
@@ -3209,7 +3209,7 @@ Material:	paper
 SourceBook:	MM p29
 BREAK
 #1000096
-Keywords:	hydraulic jacks iii 3
+Keywords:	hydraulic jacks iii 3 omega
 Name:	hydraulic jacks III - omega
 RoomDesc:$
 An uninstalled set of hydraulic jacks is lying here.~
@@ -3240,7 +3240,7 @@ Material:	paper
 SourceBook:	MM p29
 BREAK
 #1000097
-Keywords:	hydraulic jacks iv 4
+Keywords:	hydraulic jacks iv 4 omega
 Name:	hydraulic jacks IV - omega
 RoomDesc:$
 An uninstalled set of hydraulic jacks is lying here.~
@@ -3271,7 +3271,7 @@ Material:	paper
 SourceBook:	MM p29
 BREAK
 #1000098
-Keywords:	hydraulic jacks v 5
+Keywords:	hydraulic jacks v 5 omega
 Name:	hydraulic jacks V - omega
 RoomDesc:$
 An uninstalled set of hydraulic jacks is lying here.~
@@ -3302,7 +3302,7 @@ Material:	paper
 SourceBook:	MM p29
 BREAK
 #1000099
-Keywords:	move-by-wire mbw move by wire i
+Keywords:	move-by-wire mbw move by wire i omega
 Name:	a move-by-wire system I - omega
 RoomDesc:$
 An uninstalled move-by-wire system is lying here.~
@@ -3335,7 +3335,7 @@ Material:	electronics
 SourceBook:	MM p30-31
 BREAK
 #1000100
-Keywords:	move-by-wire mbw move by wire ii
+Keywords:	move-by-wire mbw move by wire ii omega
 Name:	a move-by-wire system II - omega
 RoomDesc:$
 An uninstalled move-by-wire system is lying here.~
@@ -3368,7 +3368,7 @@ Material:	electronics
 SourceBook:	MM p30-31
 BREAK
 #1000101
-Keywords:	move-by-wire mbw move by wire iii
+Keywords:	move-by-wire mbw move by wire iii omega
 Name:	a move-by-wire system III - omega
 RoomDesc:$
 An uninstalled move-by-wire system is lying here.~
@@ -3401,7 +3401,7 @@ Material:	electronics
 SourceBook:	MM p30-31
 BREAK
 #1000102
-Keywords:	move-by-wire mbw move by wire iv
+Keywords:	move-by-wire mbw move by wire iv omega
 Name:	a move-by-wire system IV - omega
 RoomDesc:$
 An uninstalled move-by-wire system is lying here.~
@@ -3434,7 +3434,7 @@ Material:	electronics
 SourceBook:	MM p30-31
 BREAK
 #1000103
-Keywords:	muscle replacement i
+Keywords:	muscle replacement i omega
 Name:	a muscle replacement I - omega
 RoomDesc:$
 Some vat-grown, synthetic muscles lay here.~
@@ -3471,7 +3471,7 @@ Material:	organic
 SourceBook:	SR3 p301-302
 BREAK
 #1000104
-Keywords:	muscle replacement ii
+Keywords:	muscle replacement ii omega
 Name:	a muscle replacement II - omega
 RoomDesc:$
 Some vat-grown, synthetic muscles lay here.~
@@ -3508,7 +3508,7 @@ Material:	organic
 SourceBook:	SR3 p301-302
 BREAK
 #1000105
-Keywords:	muscle replacement iii
+Keywords:	muscle replacement iii omega
 Name:	a muscle replacement III - omega
 RoomDesc:$
 Some vat-grown, synthetic muscles lay here.~
@@ -3545,7 +3545,7 @@ Material:	organic
 SourceBook:	SR3 p301-302
 BREAK
 #1000106
-Keywords:	muscle replacement iv
+Keywords:	muscle replacement iv omega
 Name:	a muscle replacement IV - omega
 RoomDesc:$
 Some vat-grown, synthetic muscles lay here.~
@@ -3582,7 +3582,7 @@ Material:	organic
 SourceBook:	SR3 p301-302
 BREAK
 #1000107
-Keywords:	reaction enhancer
+Keywords:	reaction enhancer omega
 Name:	a reaction enhancer - omega
 RoomDesc:$
 An uninstalled reaction enhancer is lying here.~
@@ -3616,7 +3616,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000108
-Keywords:	retractable climbing claws
+Keywords:	retractable climbing claws omega
 Name:	a set of retractable climbing claws - omega
 RoomDesc:$
 An uninstalled set of climbing claws is lying here.~
@@ -3643,7 +3643,7 @@ Material:	paper
 SourceBook:	MM p31-32
 BREAK
 #1000109
-Keywords:	skillwires skill wires i
+Keywords:	skillwires skill wires i omega
 Name:	a skillwires I (3 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3678,7 +3678,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000110
-Keywords:	skillwires skill wires ii
+Keywords:	skillwires skill wires ii omega
 Name:	a skillwires II (12 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3713,7 +3713,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000111
-Keywords:	skillwires skill wires iii
+Keywords:	skillwires skill wires iii omega
 Name:	a skillwires III (27 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3748,7 +3748,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000112
-Keywords:	skillwires skill wires iv
+Keywords:	skillwires skill wires iv omega
 Name:	a skillwires IV (48 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3783,7 +3783,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000113
-Keywords:	skillwires skill wires v
+Keywords:	skillwires skill wires v omega
 Name:	a skillwires V (75 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3818,7 +3818,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000114
-Keywords:	skillwires skill wires vi
+Keywords:	skillwires skill wires vi omega
 Name:	a skillwires VI (108 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3853,7 +3853,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000115
-Keywords:	skillwires skill wires vii
+Keywords:	skillwires skill wires vii omega
 Name:	a skillwires VII (147 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3888,7 +3888,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000116
-Keywords:	skillwires skill wires viii
+Keywords:	skillwires skill wires viii omega
 Name:	a skillwires VIII (192 Mp) - omega
 RoomDesc:$
 An uninstalled skillwires package is lying here.~
@@ -3923,7 +3923,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000117
-Keywords:	smartlink
+Keywords:	smartlink omega
 Name:	a smartlink system - omega
 RoomDesc:$
 An uninstalled smartlink system is here.~
@@ -3955,7 +3955,7 @@ Material:	electronics
 SourceBook:	SR3 p301-302
 BREAK
 #1000118
-Keywords:	smartlink-2 system
+Keywords:	smartlink-2 system omega
 Name:	a smartlink-2 system - omega
 RoomDesc:$
 An uninstalled smartlink-2 system is here.~
@@ -3987,7 +3987,7 @@ Material:	electronics
 SourceBook:	MM p31-32
 BREAK
 #1000119
-Keywords:	voice modulator
+Keywords:	voice modulator omega
 Name:	a voice modulator - omega
 RoomDesc:$
 An uninstalled voice modulator is lying here.~
@@ -4014,7 +4014,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000120
-Keywords:	wired reflexes
+Keywords:	wired reflexes omega
 Name:	a wired reflexes I - omega
 RoomDesc:$
 An uninstalled wired reflexes package is lying here.~
@@ -4043,7 +4043,7 @@ Material:	electronics
 SourceBook:	SR3 p301-302
 BREAK
 #1000121
-Keywords:	wired reflexes
+Keywords:	wired reflexes omega
 Name:	a wired reflexes II - omega
 RoomDesc:$
 An uninstalled wired reflexes package is lying here.~
@@ -4072,7 +4072,7 @@ Material:	electronics
 SourceBook:	SR3 p301-302
 BREAK
 #1000122
-Keywords:	wired reflexes
+Keywords:	wired reflexes omega
 Name:	a wired reflexes III - omega
 RoomDesc:$
 An uninstalled wired reflexes package is lying here.~
@@ -4101,7 +4101,7 @@ Material:	electronics
 SourceBook:	SR3 p301-302
 BREAK
 #1000123
-Keywords:	reflex trigger
+Keywords:	reflex trigger omega
 Name:	a reflex trigger - omega
 RoomDesc:$
 An uninstalled reflex trigger is lying here.~
@@ -4133,7 +4133,7 @@ Material:	paper
 SourceBook:	SR3 p301-302
 BREAK
 #1000124
-Keywords:	reflex trigger
+Keywords:	reflex trigger omega
 Name:	a reflex trigger (stepped) - omega
 RoomDesc:$
 An uninstalled reflex trigger is lying here.~
