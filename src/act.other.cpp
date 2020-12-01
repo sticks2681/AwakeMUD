@@ -1309,7 +1309,7 @@ ACMD(do_skills)
       }
     }
   } else {
-    if ((!IS_NPC(ch) && GET_TRADITION(ch) != TRAD_ADEPT) || (!IS_NPC(ch) && GET_TRADITION(ch) != TRAD_MYSTIC)) {
+    if (!IS_NPC(ch) && (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC)) {
       send_to_char("You do not have any abilities.\r\n", ch);
       return;
     }
