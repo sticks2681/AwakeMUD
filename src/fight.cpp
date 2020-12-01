@@ -4990,7 +4990,7 @@ void order_list(bool first, ...)
     for (one = combat_list; one; one = next) {
       next = one->next_fighting;
       two = one;
-      if ((GET_TRADITION(one) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_POWER(one, ADEPT_QUICK_STRIKE) && GET_PHYSICAL(one) >= 1000 && GET_MENTAL(one) >= 1000) {
+      if ((GET_TRADITION(one) == TRAD_ADEPT || GET_TRADITION(one) == TRAD_MYSTIC) && GET_POWER(one, ADEPT_QUICK_STRIKE) && GET_PHYSICAL(one) >= 1000 && GET_MENTAL(one) >= 1000) {
         REMOVE_FROM_LIST(one, combat_list, next_fighting);
         one->next_fighting = combat_list;
         combat_list = one;
