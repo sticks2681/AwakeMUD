@@ -1006,7 +1006,7 @@ SPECIAL(spell_trainer)
     return TRUE;
   }
   
-  if (GET_TRADITION(ch) != TRAD_SHAMANIC && GET_TRADITION(ch) != TRAD_HERMETIC) {
+  if (GET_TRADITION(ch) != TRAD_SHAMANIC && GET_TRADITION(ch) != TRAD_HERMETIC && GET_TRADITION(ch) != TRAD_MYSTIC) {
     sprintf(arg, "%s You don't have the talent.", GET_CHAR_NAME(ch));
     do_say(trainer, arg, 0, SCMD_SAYTO);
     return TRUE;
