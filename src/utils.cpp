@@ -206,7 +206,7 @@ int damage_modifier(struct char_data *ch, char *rbuf)
     mental += ch->points.resistpain * 100;
   }
   if (!IS_NPC(ch)) {
-    if (GET_TRADITION(ch) == TRAD_ADEPT
+    if ((GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC)
         && GET_POWER(ch, ADEPT_PAIN_RESISTANCE) > 0)
     {
       physical += GET_POWER(ch, ADEPT_PAIN_RESISTANCE) * 100;
@@ -1586,7 +1586,7 @@ void magic_loss(struct char_data *ch, int magic, bool msg)
   }
   if (msg)
     send_to_char(ch, "You feel some of your magic leave your body.\r\n", ch);
-  if (GET_TRADITION(ch) == TRAD_ADEPT) {
+  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC) {
     GET_PP(ch) -= magic;
     reduce_abilities(ch);
   }

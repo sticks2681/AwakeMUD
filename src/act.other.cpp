@@ -1309,7 +1309,7 @@ ACMD(do_skills)
       }
     }
   } else {
-    if (!IS_NPC(ch) && GET_TRADITION(ch) != TRAD_ADEPT) {
+    if (!IS_NPC(ch) && GET_TRADITION(ch) != TRAD_ADEPT) || (!IS_NPC(ch) && GET_TRADITION(ch) != TRAD_MYSTIC) {
       send_to_char("You do not have any abilities.\r\n", ch);
       return;
     }
@@ -1929,7 +1929,7 @@ ACMD(do_astral)
 
   one_argument(argument, arg);
 
-  if (GET_TRADITION(ch) != TRAD_SHAMANIC && GET_TRADITION(ch) != TRAD_HERMETIC &&
+  if (GET_TRADITION(ch) != TRAD_SHAMANIC && GET_TRADITION(ch) != TRAD_HERMETIC && GET_TRADITION(ch) != TRAD_MYSTIC &&
       !access_level(ch, LVL_ADMIN) && !(GET_TRADITION(ch) == TRAD_ADEPT &&
                                         GET_POWER(ch, ADEPT_PERCEPTION) > 0 && subcmd == SCMD_PERCEIVE)) {
     send_to_char("You can't do that!\r\n", ch);
@@ -2800,7 +2800,7 @@ ACMD(do_boost)
 {
   int suc;
   extern void nonsensical_reply(struct char_data *ch);
-  if (GET_TRADITION(ch) != TRAD_ADEPT) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT) || (GET_TRADITION(ch) != TRAD_MYSTIC) {
     nonsensical_reply(ch);
     return;
   }
@@ -2860,7 +2860,7 @@ void process_boost()
   struct char_data *next;
   for (struct char_data *i = character_list; i; i = next) {
     next = i->next;
-    if (GET_TRADITION(i) == TRAD_ADEPT) {
+    if (GET_TRADITION(i) == TRAD_ADEPT) || (GET_TRADITION(i) == TRAD_ADEPT) {
       if (BOOST(i)[0][0] > 0) {
         BOOST(i)[0][0]--;
         if (!BOOST(i)[0][0]) {

@@ -1188,6 +1188,9 @@ void do_stat_character(struct char_data * ch, struct char_data * k)
   case TRAD_ADEPT:
     sprintf(ENDOF(buf), "Tradition: Adept, Grade: %d Extra Power: %d/%d", GET_GRADE(k), k->points.extrapp, (int)(GET_REP(k) / 50) + 1);
     break;
+  case TRAD_MYSTIC:
+    sprintf(ENDOF(buf), "Tradition: Mystic Adept, Aspect: %s, Grade: %d Extra Power: %d/%d", aspect_names[GET_ASPECT(k)], GET_GRADE(k), k->points.extrapp, (int)(GET_REP(k) / 50) + 1);
+    break;
   case TRAD_HERMETIC:
     sprintf(ENDOF(buf), "Tradition: Hermetic, Aspect: %s, Grade: %d", aspect_names[GET_ASPECT(k)], GET_GRADE(k));
     break;

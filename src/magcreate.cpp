@@ -245,7 +245,7 @@ void spell_design(struct char_data *ch, struct obj_data *formula)
       target--;
     if (GET_TRADITION(ch) == TRAD_SHAMANIC)
       totem_bonus(ch, 0, GET_OBJ_VAL(formula, 1), x, skill);
-    else if (GET_TRADITION(ch) == TRAD_HERMETIC && GET_SPIRIT(ch)) {
+    else if ((GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_SPIRIT(ch)) {
       int startskill = skill;
       for (struct spirit_data *spir = GET_SPIRIT(ch); spir && skill == startskill; spir = spir->next)
         if (spir->called) {

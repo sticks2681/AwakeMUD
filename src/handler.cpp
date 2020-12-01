@@ -703,7 +703,7 @@ void affect_total(struct char_data * ch)
   GET_TARGET_MOD(ch) = 0;
   GET_MAX_MENTAL(ch) -= GET_MENTAL_LOSS(ch) * 100;
   GET_MAX_PHYSICAL(ch) -= GET_PHYSICAL_LOSS(ch) * 100;
-  if (GET_TRADITION(ch) == TRAD_ADEPT)
+  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
   {
     if (GET_INIT_DICE(ch) == 0)
       GET_INIT_DICE(ch) += MIN(3, GET_POWER(ch, ADEPT_REFLEXES));
@@ -850,7 +850,7 @@ void affect_total(struct char_data * ch)
     GET_COMBAT(ch) -= (GET_TOTALIMP(ch) - GET_QUI(ch)) / 2;
   if (GET_COMBAT(ch) < 0)
     GET_COMBAT(ch) = 0;
-  if (GET_TRADITION(ch) == TRAD_ADEPT)
+  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
     GET_IMPACT(ch) += GET_POWER(ch, ADEPT_MYSTIC_ARMOUR);
   for (i = 0; i < (NUM_WEARS -1); i++)
     if (GET_EQ(ch, i) && GET_OBJ_TYPE(GET_EQ(ch, i)) == ITEM_GYRO)

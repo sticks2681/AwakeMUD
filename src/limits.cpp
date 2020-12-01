@@ -84,7 +84,7 @@ void mental_gain(struct char_data * ch)
     gain >>= 1;
 #endif
   
-  if (GET_TRADITION(ch) == TRAD_ADEPT)
+  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
     gain *= GET_POWER(ch, ADEPT_HEALING) + 1;
   if (GET_BIOOVER(ch) > 0)
     gain /= GET_BIOOVER(ch);
@@ -155,7 +155,7 @@ void physical_gain(struct char_data * ch)
         break;
       }
   }
-  if (GET_TRADITION(ch) == TRAD_ADEPT)
+  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
     gain *= GET_POWER(ch, ADEPT_HEALING) + 1;
   if (GET_BIOOVER(ch) > 0)
     gain /= GET_BIOOVER(ch);
@@ -338,7 +338,7 @@ void remove_patch(struct char_data *ch)
     case 1:
       act("The effects of $p wear off, leaving you exhausted!", FALSE, ch, patch, 0, TO_CHAR);
       GET_MENTAL(ch) = MAX(0, GET_MENTAL(ch) - (GET_OBJ_VAL(patch, 1) - 1) * 100);
-      if ((GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_SHAMANIC) &&
+      if ((GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_SHAMANIC || GET_TRADITION(ch) == TRAD_MYSTIC) &&
           success_test(GET_MAGIC(ch), GET_OBJ_VAL(patch, 1)) < 0) {
         magic_loss(ch, 100, TRUE);
         affect_total(ch);

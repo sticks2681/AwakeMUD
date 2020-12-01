@@ -1425,7 +1425,7 @@ void damage_door(struct char_data *ch, struct room_data *room, int dir, int powe
   
   half = MAX(1, rating >> 1);
   
-  if (ch && IS_SET(type, DAMOBJ_CRUSH) && GET_TRADITION(ch) == TRAD_ADEPT && GET_POWER(ch, ADEPT_SMASHING_BLOW))
+  if (ch && IS_SET(type, DAMOBJ_CRUSH) && (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_POWER(ch, ADEPT_SMASHING_BLOW))
     power += MAX(0, success_test(GET_SKILL(ch, SKILL_UNARMED_COMBAT), 4));
   if (IS_GUN(type))
     sprintf(buf, "You hear gunshots and the sound of bullets impacting the %s.\r\n", fname(room->dir_option[dir]->keyword));
@@ -4868,7 +4868,7 @@ void perform_violence(void)
           quickness -= GET_TOTALIMP(ch) - GET_QUI(ch);
           
         // Distance Strike (only works unarmed)
-        if (GET_TRADITION(ch) == TRAD_ADEPT 
+        if ((GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) 
             && GET_POWER(ch, ADEPT_DISTANCE_STRIKE) 
             && !(GET_EQ(ch, WEAR_WIELD) 
                  || GET_EQ(ch, WEAR_HOLD)))
@@ -4990,7 +4990,7 @@ void order_list(bool first, ...)
     for (one = combat_list; one; one = next) {
       next = one->next_fighting;
       two = one;
-      if (GET_TRADITION(one) == TRAD_ADEPT && GET_POWER(one, ADEPT_QUICK_STRIKE) && GET_PHYSICAL(one) >= 1000 && GET_MENTAL(one) >= 1000) {
+      if ((GET_TRADITION(one) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_POWER(one, ADEPT_QUICK_STRIKE) && GET_PHYSICAL(one) >= 1000 && GET_MENTAL(one) >= 1000) {
         REMOVE_FROM_LIST(one, combat_list, next_fighting);
         one->next_fighting = combat_list;
         combat_list = one;

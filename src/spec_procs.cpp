@@ -1031,7 +1031,7 @@ SPECIAL(spell_trainer)
           send_to_char(ch, "%-30s Force Max: %d\r\n", spelltrainers[i].name, spelltrainers[i].force);
         }
     if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
-      if (GET_TRADITION(ch) == TRAD_HERMETIC && GET_ASPECT(ch) != ASPECT_SORCERER)
+      if ((GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_ASPECT(ch) != ASPECT_SORCERER)
         send_to_char("Conjuring  Materials          1 Force Point/Level\r\n", ch);
       send_to_char("Extra Force Point             25000 nuyen\r\n", ch);
       send_to_char(ch, "%d Force Point%s Remaining.\r\n", GET_FORCE_POINTS(ch), GET_FORCE_POINTS(ch) > 1 ? "s" : "");
@@ -1058,7 +1058,7 @@ SPECIAL(spell_trainer)
           GET_FORCE_POINTS(ch)++;
         }
         return TRUE;
-      } else if (GET_TRADITION(ch) == TRAD_HERMETIC && GET_ASPECT(ch) != ASPECT_SORCERER &&
+      } else if ((GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_ASPECT(ch) != ASPECT_SORCERER &&
                  !str_cmp(buf, "conjuring")) {
         if (!(i = atoi(buf1)))
           send_to_char("What force of conjuring materials do you wish to buy?\r\n", ch);
@@ -1185,7 +1185,7 @@ SPECIAL(adept_trainer)
     return TRUE;
   }
 
-  if (GET_TRADITION(ch) != TRAD_ADEPT) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT) || (GET_TRADITION(ch) != TRAD_MYSTIC) {
     sprintf(arg, "%s You do not have the talent.", GET_CHAR_NAME(ch));
     do_say(trainer, arg, 0, SCMD_SAYTO);
     return TRUE;
@@ -4446,7 +4446,7 @@ SPECIAL(chargen_career_archetype_paths)
   }
   
   // Block non-adepts from going south.
-  if ((CMD_IS("s") || CMD_IS("south")) && GET_TRADITION(ch) != TRAD_ADEPT) {
+  if ((CMD_IS("s") || CMD_IS("south")) && (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC)) {
     send_to_char("You don't have the aptitude to choose the Path of the Adept.\r\n", ch);
     return TRUE;
   }
@@ -4455,7 +4455,7 @@ SPECIAL(chargen_career_archetype_paths)
   
   // Store the current exit, then overwrite with our custom one.
   temp_to_room = room->dir_option[EAST]->to_room;
-  if (GET_TRADITION(ch) == TRAD_HERMETIC)
+  if (GET_TRADITION(ch) == TRAD_HERMETIC) || (GET_TRADITION(ch) == TRAD_MYSTIC)
     room->dir_option[EAST]->to_room = &world[real_room(RM_CHARGEN_PATH_OF_THE_MAGICIAN_HERMETIC)];
   else
     room->dir_option[EAST]->to_room = &world[real_room(RM_CHARGEN_PATH_OF_THE_MAGICIAN_SHAMANIC)];
@@ -4482,7 +4482,7 @@ SPECIAL(chargen_spirit_combat_west)
   
   // Store the current exit, then overwrite with our custom one.
   temp_to_room = room->dir_option[WEST]->to_room;
-  if (GET_TRADITION(ch) == TRAD_HERMETIC)
+  if (GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC)
     room->dir_option[WEST]->to_room = &world[real_room(RM_CHARGEN_CONJURING_HERMETIC)];
   else
     room->dir_option[WEST]->to_room = &world[real_room(RM_CHARGEN_CONJURING_SHAMANIC)];
