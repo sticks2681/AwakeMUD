@@ -1980,13 +1980,12 @@ const char *room_types[] =
     "Indoors (House)"
   };
 
-const char *cyber_grades[5] =
+const char *cyber_grades[4] =
 {
   "Standard",
   "Alpha",
   "Beta",
-  "Delta",
-  "Omega"
+  "Delta"
 };
 
 const char *eyemods[] = {
@@ -2016,13 +2015,12 @@ const char *eyemods[] = {
   "\n"
 };
 
-const char *decap_cyber_grades[5] =
+const char *decap_cyber_grades[4] =
 {
   "standard",
   "alpha",
   "beta",
-  "delta",
-  "omega"
+  "delta"
 };
 
 const char *bone_lacing[5] =

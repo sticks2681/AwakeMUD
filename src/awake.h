@@ -1252,7 +1252,6 @@ enum {
 #define GRADE_ALPHA	1
 #define GRADE_BETA	2
 #define GRADE_DELTA	3
-#define GRADE_OMEGA 4
 
 #define CYB_CHIPJACK		0
 #define CYB_DATAJACK		1
