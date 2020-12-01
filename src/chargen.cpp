@@ -87,8 +87,8 @@ int skill_vals[5] = { 50, 40, 34, 30, 27 };
 int nuyen_vals[5] = { 1000000, 400000, 90000, 20000, 5000 };
 int force_vals[5] = { 25, 25, 25, 25, 25 };
 int resource_table[2][8] = {{ 500, 5000, 20000, 90000, 200000, 400000, 650000, 1000000 }, { -5, 0, 5, 10, 15, 20, 25, 30 }};
-int magic_cost[4] = { 0, 30, 25, 25 };
-const char *magic_table[4] = { "None", "Full Magician", "Aspected Magician", "Adept" };
+int magic_cost[5] = { 0, 30, 25, 25, 30 };
+const char *magic_table[5] = { "None", "Full Magician", "Aspected Magician", "Adept", "Mystic Adept" };
 
 void set_attributes(struct char_data *ch, int magic)
 {
