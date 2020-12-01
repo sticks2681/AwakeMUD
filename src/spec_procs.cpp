@@ -1185,7 +1185,7 @@ SPECIAL(adept_trainer)
     return TRUE;
   }
 
-  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT && GET_TRADITION(ch) != TRAD_MYSTIC) {
     sprintf(arg, "%s You do not have the talent.", GET_CHAR_NAME(ch));
     do_say(trainer, arg, 0, SCMD_SAYTO);
     return TRUE;
