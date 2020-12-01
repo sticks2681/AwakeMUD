@@ -1,4 +1,4 @@
-#1000000
+#90000
 Keywords:	single-slot single slot chipjack 1 one omega
 Name:	a chipjack (1 slot) - omega
 RoomDesc:$
@@ -27,7 +27,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p298, MM p21-22
 BREAK
-#1000001
+#90001
 Keywords:	dual-slot dual slot chipjack 2 two omega
 Name:	a chipjack (2 slot) - omega
 RoomDesc:$
@@ -56,7 +56,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p298, MM p21-22
 BREAK
-#1000002
+#90002
 Keywords:	tri-slot triple slot chipjack 3 three omega
 Name:	a chipjack (3 slot) - omega
 RoomDesc:$
@@ -85,7 +85,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p298, MM p21-22
 BREAK
-#1000003
+#90003
 Keywords:	quad-slot quad slot chipjack 4 four omega
 Name:	a chipjack (4 slot) - omega
 RoomDesc:$
@@ -114,7 +114,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p298, MM p21-22
 BREAK
-#1000004
+#90004
 Keywords:	chipjack expert driver i 1 omega
 Name:	a chipjack expert driver I - omega
 RoomDesc:$
@@ -149,7 +149,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19
 BREAK
-#1000005
+#90005
 Keywords:	chipjack expert driver ii 2 omega
 Name:	a chipjack expert driver II - omega
 RoomDesc:$
@@ -184,7 +184,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19
 BREAK
-#1000006
+#90006
 Keywords:	chipjack expert driver iii 3 omega
 Name:	a chipjack expert driver III - omega
 RoomDesc:$
@@ -219,7 +219,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19
 BREAK
-#1000007
+#90007
 Keywords:	data compactor I omega
 Name:	a data compactor I - omega
 RoomDesc:$
@@ -251,7 +251,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p20
 BREAK
-#1000008
+#90008
 Keywords:	data compactor II omega
 Name:	a data compactor II - omega
 RoomDesc:$
@@ -283,7 +283,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p20
 BREAK
-#1000009
+#90009
 Keywords:	data compactor III omega
 Name:	a data compactor III - omega
 RoomDesc:$
@@ -315,7 +315,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p20
 BREAK
-#1000010
+#90010
 Keywords:	data compactor IV omega
 Name:	a data compactor IV - omega
 RoomDesc:$
@@ -347,7 +347,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p20
 BREAK
-#1000011
+#90011
 Keywords:	data lock nerp omega
 Name:	a data lock - omega
 RoomDesc:$
@@ -377,7 +377,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p298
 BREAK
-#1000012
+#90012
 Keywords:	datajack omega
 Name:	a datajack - omega
 RoomDesc:$
@@ -421,7 +421,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p298
 BREAK
-#1000013
+#90013
 Keywords:	encephalon i 1 omega
 Name:	an encephalon I - omega
 RoomDesc:$
@@ -475,7 +475,7 @@ Material:	paper
 	Modifier:	1
 SourceBook:	MM p20-21
 BREAK
-#1000014
+#90014
 Keywords:	encephalon ii 2 omega
 Name:	an encephalon II - omega
 RoomDesc:$
@@ -529,7 +529,7 @@ Material:	paper
 	Modifier:	2
 SourceBook:	MM p20-21
 BREAK
-#1000015
+#90015
 Keywords:	datajack induction omega
 Name:	an induction datajack - omega
 RoomDesc:$
@@ -560,7 +560,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p21
 BREAK
-#1000016
+#90016
 Keywords:	knowsoft link nerp omega
 Name:	a knowsoft link - omega
 RoomDesc:$
@@ -588,7 +588,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p298
 BREAK
-#1000017
+#90017
 Keywords:	maths spu i 1 omega
 Name:	a math SPU I - omega
 RoomDesc:$
@@ -626,7 +626,7 @@ Material:	paper
 	Modifier:	1
 SourceBook:	MM p21
 BREAK
-#1000018
+#90018
 Keywords:	maths spu ii 2 omega
 Name:	a math SPU II - omega
 RoomDesc:$
@@ -664,7 +664,7 @@ Material:	paper
 	Modifier:	2
 SourceBook:	MM p21
 BREAK
-#1000019
+#90019
 Keywords:	maths spu iii 3 omega
 Name:	a math SPU III - omega
 RoomDesc:$
@@ -702,7 +702,7 @@ Material:	paper
 	Modifier:	3
 SourceBook:	MM p21
 BREAK
-#1000020
+#90020
 Keywords:	memory headware omega
 Name:	memory (75 Mp) - omega
 RoomDesc:$
@@ -735,7 +735,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p298
 BREAK
-#1000021
+#90021
 Keywords:	memory headware omega
 Name:	memory (150 Mp) - omega
 RoomDesc:$
@@ -768,7 +768,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p298
 BREAK
-#1000022
+#90022
 Keywords:	memory headware omega
 Name:	memory (300 Mp) - omega
 RoomDesc:$
@@ -801,7 +801,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p298
 BREAK
-#1000023
+#90023
 Keywords:	radio headware internal omega
 Name:	a headware radio - omega
 RoomDesc:$
@@ -838,7 +838,7 @@ Material:	electronics
 	Val5:	3
 SourceBook:	SR3 p297-298
 BREAK
-#1000024
+#90024
 Keywords:	phone headware telephone internal omega
 Name:	a headware telephone - omega
 RoomDesc:$
@@ -869,7 +869,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p298
 BREAK
-#1000025
+#90025
 Keywords:	ASIST converter omega
 Name:	an ASIST converter - omega
 RoomDesc:$
@@ -901,7 +901,7 @@ Material:	paper
 	Val2:	4
 SourceBook:	MM p19
 BREAK
-#1000026
+#90026
 Keywords:	cranial cyberdeck allegiance sigma nerp omega
 Name:	a cranial-implant Allegiance Sigma cyberdeck - omega
 RoomDesc:$
@@ -937,7 +937,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000027
+#90027
 Keywords:	cranial cyberdeck sony ct-360-d 360 nerp omega
 Name:	a cranial-implant Sony CT-360-D cyberdeck - omega
 RoomDesc:$
@@ -973,7 +973,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000028
+#90028
 Keywords:	cranial cyberdeck novadeck hyperdeck 6 nerp omega
 Name:	a cranial-implant Novadeck Hyperdeck-6 cyberdeck - omega
 RoomDesc:$
@@ -1009,7 +1009,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000029
+#90029
 Keywords:	cranial cyberdeck cmt avatar nerp needs_proper_deck omega
 Name:	a cranial-implant CMT Avatar cyberdeck - omega
 RoomDesc:$
@@ -1045,7 +1045,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000030
+#90030
 Keywords:	cranial cyberdeck renraku kraftwork-8 nerp omega
 Name:	a cranial-implant Renraku Kraftwork-8 cyberdeck - omega
 RoomDesc:$
@@ -1081,7 +1081,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000031
+#90031
 Keywords:	cranial cyberdeck transys highlander nerp omega
 Name:	a cranial-implant Transys Highlander cyberdeck - omega
 RoomDesc:$
@@ -1117,7 +1117,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000032
+#90032
 Keywords:	cranial cyberdeck novatech slimcase-10 nerp needs_proper_deck omega
 Name:	a cranial-implant Novatech Slimcase-10 cyberdeck - omega
 RoomDesc:$
@@ -1153,7 +1153,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000033
+#90033
 Keywords:	cranial cyberdeck fairlight excalibur nerp omega
 Name:	a cranial-implant Fairlight Excalibur cyberdeck - omega
 RoomDesc:$
@@ -1189,7 +1189,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p19-20
 BREAK
-#1000034
+#90034
 Keywords:	rig vehicle control i omega
 Name:	a vehicle control rig I - omega
 RoomDesc:$
@@ -1221,7 +1221,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000035
+#90035
 Keywords:	rig vehicle control ii omega
 Name:	a vehicle control rig II - omega
 RoomDesc:$
@@ -1253,7 +1253,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000036
+#90036
 Keywords:	rig vehicle control iii omega
 Name:	a vehicle control rig III - omega
 RoomDesc:$
@@ -1285,7 +1285,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000037
+#90037
 Keywords:	oral dart nerp omega
 Name:	an oral dart - omega
 RoomDesc:$
@@ -1314,7 +1314,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p17
 BREAK
-#1000038
+#90038
 Keywords:	oral gun nerp omega
 Name:	an oral gun - omega
 RoomDesc:$
@@ -1343,7 +1343,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p17
 BREAK
-#1000039
+#90039
 Keywords:	tooth compartment breakable omega
 Name:	a tooth compartment (breakable) - omega
 RoomDesc:$
@@ -1370,7 +1370,7 @@ Material:	paper
 	Val3:	1
 SourceBook:	SR3 p298-299
 BREAK
-#1000040
+#90040
 Keywords:	tooth compartment storage omega
 Name:	a tooth compartment (storage) - omega
 RoomDesc:$
@@ -1397,7 +1397,7 @@ Material:	paper
 	Val3:	1
 SourceBook:	SR3 p298-299
 BREAK
-#1000041
+#90041
 Keywords:	balance augmenter omega
 Name:	a balance augmenter - omega
 RoomDesc:$
@@ -1431,7 +1431,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p13-14
 BREAK
-#1000042
+#90042
 Keywords:	eye camera omega
 Name:	a camera - omega
 RoomDesc:$
@@ -1463,7 +1463,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p299-300
 BREAK
-#1000043
+#90043
 Keywords:	display link nerp omega
 Name:	a display link - omega
 RoomDesc:$
@@ -1493,7 +1493,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p299-300
 BREAK
-#1000044
+#90044
 Keywords:	eye dart nerp omega
 Name:	an eye dart - omega
 RoomDesc:$
@@ -1525,7 +1525,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p16-17
 BREAK
-#1000045
+#90045
 Keywords:	eye datajack omega
 Name:	an eye datajack - omega
 RoomDesc:$
@@ -1557,7 +1557,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p13-14
 BREAK
-#1000046
+#90046
 Keywords:	eye gun nerp omega
 Name:	an eye gun - omega
 RoomDesc:$
@@ -1589,7 +1589,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p16-17
 BREAK
-#1000047
+#90047
 Keywords:	eye light nerp omega
 Name:	an eye light - omega
 RoomDesc:$
@@ -1622,7 +1622,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p15
 BREAK
-#1000048
+#90048
 Keywords:	flare compensation cybereyes nerp omega
 Name:	a flare compensation module - omega
 RoomDesc:$
@@ -1653,7 +1653,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p299
 BREAK
-#1000049
+#90049
 Keywords:	image link omega
 Name:	an image link - omega
 RoomDesc:$
@@ -1683,7 +1683,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p299-300
 BREAK
-#1000050
+#90050
 Keywords:	low-light low light vision modification needs_affect_check omega
 Name:	a low-light vision modification - omega
 RoomDesc:$
@@ -1713,7 +1713,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000051
+#90051
 Keywords:	protective eye covers nerp omega
 Name:	protective eye covers - omega
 RoomDesc:$
@@ -1741,7 +1741,7 @@ Material:	paper
 	Val3:	64
 SourceBook:	SR3 p300
 BREAK
-#1000052
+#90052
 Keywords:	retinal clock omega
 Name:	a retinal clock - omega
 RoomDesc:$
@@ -1771,7 +1771,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000053
+#90053
 Keywords:	thermographic vision modification needs_affect_check omega
 Name:	a thermographic vision modification - omega
 RoomDesc:$
@@ -1801,7 +1801,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000054
+#90054
 Keywords:	eyes ultrasound modification omega
 Name:	an ultrasound vision modification - omega
 RoomDesc:$
@@ -1831,7 +1831,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p18
 BREAK
-#1000055
+#90055
 Keywords:	optical magnification omega
 Name:	an optical magnification I - omega
 RoomDesc:$
@@ -1862,7 +1862,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000056
+#90056
 Keywords:	optical magnification omega
 Name:	an optical magnification II - omega
 RoomDesc:$
@@ -1893,7 +1893,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000057
+#90057
 Keywords:	optical magnification omega
 Name:	an optical magnification III - omega
 RoomDesc:$
@@ -1924,7 +1924,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000058
+#90058
 Keywords:	electronic magnification omega
 Name:	an electronic magnification I - omega
 RoomDesc:$
@@ -1955,7 +1955,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000059
+#90059
 Keywords:	electronic magnification omega
 Name:	an electronic magnification II - omega
 RoomDesc:$
@@ -1986,7 +1986,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000060
+#90060
 Keywords:	electronic magnification omega
 Name:	an electronic magnification III - omega
 RoomDesc:$
@@ -2017,7 +2017,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p300
 BREAK
-#1000061
+#90061
 Keywords:	balance tail omega
 Name:	a balance tail - omega
 RoomDesc:$
@@ -2047,7 +2047,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p25
 BREAK
-#1000062
+#90062
 Keywords:	body compartment omega
 Name:	a body compartment - omega
 RoomDesc:$
@@ -2074,7 +2074,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p26-27
 BREAK
-#1000063
+#90063
 Keywords:	plastic bone lacing pool needs_weight_adding omega
 Name:	some bone lacing (plastic) - omega
 RoomDesc:$
@@ -2109,7 +2109,7 @@ Material:	metal
 	Modifier:	1
 SourceBook:	SR3 p300,302
 BREAK
-#1000064
+#90064
 Keywords:	lacing kevlar bone cyberware needs_weight_adding omega
 Name:	some bone lacing (kevlar) - omega
 RoomDesc:$
@@ -2148,7 +2148,7 @@ Material:	metal
 	Modifier:	1
 SourceBook:	MM p27
 BREAK
-#1000065
+#90065
 Keywords:	lacing bone aluminum pool cyberware needs_weight_adding omega
 Name:	some bone lacing (aluminum) - omega
 RoomDesc:$
@@ -2188,7 +2188,7 @@ Material:	electronics
 	Modifier:	1
 SourceBook:	SR3 p300,302
 BREAK
-#1000066
+#90066
 Keywords:	lacing ceramic bone cyberware needs_weight_adding omega
 Name:	some bone lacing (ceramic) - omega
 RoomDesc:$
@@ -2228,7 +2228,7 @@ Material:	metal
 	Modifier:	2
 SourceBook:	MM p27
 BREAK
-#1000067
+#90067
 Keywords:	lacing titanium bone pool cyberware needs_weight_adding omega
 Name:	some bone lacing (titanium) - omega
 RoomDesc:$
@@ -2271,7 +2271,7 @@ Material:	metal
 	Modifier:	1
 SourceBook:	SR3 p300,302
 BREAK
-#1000068
+#90068
 Keywords:	boosted reflexes 1 i omega
 Name:	a boosted reflexes I - omega
 RoomDesc:$
@@ -2306,7 +2306,7 @@ Material:	electronics
 	Modifier:	1
 SourceBook:	SR3 p300,302
 BREAK
-#1000069
+#90069
 Keywords:	boosted reflexes 2 ii omega
 Name:	a boosted reflexes II - omega
 RoomDesc:$
@@ -2344,7 +2344,7 @@ Material:	electronics
 	Modifier:	1
 SourceBook:	SR3 p300,302
 BREAK
-#1000070
+#90070
 Keywords:	boosted reflexes 3 iii omega
 Name:	a boosted reflexes III - omega
 RoomDesc:$
@@ -2382,7 +2382,7 @@ Material:	electronics
 	Modifier:	2
 SourceBook:	SR3 p300,302
 BREAK
-#1000071
+#90071
 Keywords:	cyberfin cyber fin omega
 Name:	a set of cyberfins - omega
 RoomDesc:$
@@ -2410,7 +2410,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p27-28
 BREAK
-#1000072
+#90072
 Keywords:	dermal plating i 1 omega
 Name:	a dermal plating I - omega
 RoomDesc:$
@@ -2443,7 +2443,7 @@ Material:	adv. plastics
 	Modifier:	1
 SourceBook:	SR3 p300,302
 BREAK
-#1000073
+#90073
 Keywords:	dermal plating ii 2 omega
 Name:	a dermal plating II - omega
 RoomDesc:$
@@ -2476,7 +2476,7 @@ Material:	adv. plastics
 	Modifier:	2
 SourceBook:	SR3 p300,302
 BREAK
-#1000074
+#90074
 Keywords:	dermal plating iii 3 omega
 Name:	a dermal plating III - omega
 RoomDesc:$
@@ -2509,7 +2509,7 @@ Material:	adv. plastics
 	Modifier:	3
 SourceBook:	SR3 p300,302
 BREAK
-#1000075
+#90075
 Keywords:	dermal sheathing omega
 Name:	a dermal sheathing I - omega
 RoomDesc:$
@@ -2546,7 +2546,7 @@ Material:	adv. plastics
 	Modifier:	1
 SourceBook:	MM p28
 BREAK
-#1000076
+#90076
 Keywords:	dermal sheathing omega
 Name:	a dermal sheathing II - omega
 RoomDesc:$
@@ -2583,7 +2583,7 @@ Material:	adv. plastics
 	Modifier:	1
 SourceBook:	MM p28
 BREAK
-#1000077
+#90077
 Keywords:	dermal sheathing omega
 Name:	a dermal sheathing III - omega
 RoomDesc:$
@@ -2620,7 +2620,7 @@ Material:	adv. plastics
 	Modifier:	2
 SourceBook:	MM p28
 BREAK
-#1000078
+#90078
 Keywords:	ruthenium dermal sheathing i 1 omega
 Name:	a ruthenium dermal sheathing I - omega
 RoomDesc:$
@@ -2665,7 +2665,7 @@ Material:	adv. plastics
 	Modifier:	1
 SourceBook:	MM p28
 BREAK
-#1000079
+#90079
 Keywords:	ruthenium dermal sheathing ii 2 omega
 Name:	a ruthenium dermal sheathing II - omega
 RoomDesc:$
@@ -2710,7 +2710,7 @@ Material:	adv. plastics
 	Modifier:	1
 SourceBook:	MM p28
 BREAK
-#1000080
+#90080
 Keywords:	ruthenium dermal sheathing iii 3 omega
 Name:	a ruthenium dermal sheathing III - omega
 RoomDesc:$
@@ -2755,7 +2755,7 @@ Material:	adv. plastics
 	Modifier:	2
 SourceBook:	MM p28
 BREAK
-#1000081
+#90081
 Keywords:	air filter i 1 nerp omega
 Name:	a filter (air) I - omega
 RoomDesc:$
@@ -2784,7 +2784,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p300-302
 BREAK
-#1000082
+#90082
 Keywords:	blood filter i 1 nerp omega
 Name:	a filter (blood) I - omega
 RoomDesc:$
@@ -2815,7 +2815,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p300-302
 BREAK
-#1000083
+#90083
 Keywords:	ingested toxin filter i 1 nerp omega
 Name:	a filter (ingested toxin) I - omega
 RoomDesc:$
@@ -2845,7 +2845,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p300-302
 BREAK
-#1000084
+#90084
 Keywords:	fingertip compartment omega
 Name:	a fingertip compartment - omega
 RoomDesc:$
@@ -2874,7 +2874,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000085
+#90085
 Keywords:	foot anchor omega
 Name:	a foot anchor - omega
 RoomDesc:$
@@ -2901,7 +2901,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p29
 BREAK
-#1000086
+#90086
 Keywords:	handblade hand blade omega
 Name:	a hand blade - omega
 RoomDesc:$
@@ -2929,7 +2929,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000087
+#90087
 Keywords:	retractable handblade hand blade omega
 Name:	a hand blade (retractable) - omega
 RoomDesc:$
@@ -2958,7 +2958,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000088
+#90088
 Keywords:	razors hand handrazors omega
 Name:	a set of hand razors - omega
 RoomDesc:$
@@ -2989,7 +2989,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000089
+#90089
 Keywords:	razors hand handrazors improved omega
 Name:	a set of hand razors (improved) - omega
 RoomDesc:$
@@ -3021,7 +3021,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000090
+#90090
 Keywords:	razors hand handrazors retractable omega
 Name:	a set of hand razors (retractable) - omega
 RoomDesc:$
@@ -3053,7 +3053,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000091
+#90091
 Keywords:	razors hand handrazors improved retractable omega
 Name:	a set of hand razors (improved retractable) - omega
 RoomDesc:$
@@ -3085,7 +3085,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000092
+#90092
 Keywords:	spurs spur hand omega
 Name:	a set of hand spurs - omega
 RoomDesc:$
@@ -3115,7 +3115,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000093
+#90093
 Keywords:	spurs spur hand retractable omega
 Name:	a set of hand spurs (retractable) - omega
 RoomDesc:$
@@ -3146,7 +3146,7 @@ Material:	metal
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000094
+#90094
 Keywords:	hydraulic jacks i 1 omega
 Name:	hydraulic jacks I - omega
 RoomDesc:$
@@ -3177,7 +3177,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p29
 BREAK
-#1000095
+#90095
 Keywords:	hydraulic jacks ii 2 omega
 Name:	hydraulic jacks II - omega
 RoomDesc:$
@@ -3208,7 +3208,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p29
 BREAK
-#1000096
+#90096
 Keywords:	hydraulic jacks iii 3 omega
 Name:	hydraulic jacks III - omega
 RoomDesc:$
@@ -3239,7 +3239,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p29
 BREAK
-#1000097
+#90097
 Keywords:	hydraulic jacks iv 4 omega
 Name:	hydraulic jacks IV - omega
 RoomDesc:$
@@ -3270,7 +3270,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p29
 BREAK
-#1000098
+#90098
 Keywords:	hydraulic jacks v 5 omega
 Name:	hydraulic jacks V - omega
 RoomDesc:$
@@ -3301,7 +3301,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p29
 BREAK
-#1000099
+#90099
 Keywords:	move-by-wire mbw move by wire i omega
 Name:	a move-by-wire system I - omega
 RoomDesc:$
@@ -3334,7 +3334,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	MM p30-31
 BREAK
-#1000100
+#90100
 Keywords:	move-by-wire mbw move by wire ii omega
 Name:	a move-by-wire system II - omega
 RoomDesc:$
@@ -3367,7 +3367,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	MM p30-31
 BREAK
-#1000101
+#90101
 Keywords:	move-by-wire mbw move by wire iii omega
 Name:	a move-by-wire system III - omega
 RoomDesc:$
@@ -3400,7 +3400,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	MM p30-31
 BREAK
-#1000102
+#90102
 Keywords:	move-by-wire mbw move by wire iv omega
 Name:	a move-by-wire system IV - omega
 RoomDesc:$
@@ -3433,7 +3433,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	MM p30-31
 BREAK
-#1000103
+#90103
 Keywords:	muscle replacement i omega
 Name:	a muscle replacement I - omega
 RoomDesc:$
@@ -3470,7 +3470,7 @@ Material:	organic
 	Modifier:	1
 SourceBook:	SR3 p301-302
 BREAK
-#1000104
+#90104
 Keywords:	muscle replacement ii omega
 Name:	a muscle replacement II - omega
 RoomDesc:$
@@ -3507,7 +3507,7 @@ Material:	organic
 	Modifier:	2
 SourceBook:	SR3 p301-302
 BREAK
-#1000105
+#90105
 Keywords:	muscle replacement iii omega
 Name:	a muscle replacement III - omega
 RoomDesc:$
@@ -3544,7 +3544,7 @@ Material:	organic
 	Modifier:	3
 SourceBook:	SR3 p301-302
 BREAK
-#1000106
+#90106
 Keywords:	muscle replacement iv omega
 Name:	a muscle replacement IV - omega
 RoomDesc:$
@@ -3581,7 +3581,7 @@ Material:	organic
 	Modifier:	4
 SourceBook:	SR3 p301-302
 BREAK
-#1000107
+#90107
 Keywords:	reaction enhancer omega
 Name:	a reaction enhancer - omega
 RoomDesc:$
@@ -3615,7 +3615,7 @@ Material:	paper
 	Modifier:	1
 SourceBook:	SR3 p301-302
 BREAK
-#1000108
+#90108
 Keywords:	retractable climbing claws omega
 Name:	a set of retractable climbing claws - omega
 RoomDesc:$
@@ -3642,7 +3642,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	MM p31-32
 BREAK
-#1000109
+#90109
 Keywords:	skillwires skill wires i omega
 Name:	a skillwires I (3 Mp) - omega
 RoomDesc:$
@@ -3677,7 +3677,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000110
+#90110
 Keywords:	skillwires skill wires ii omega
 Name:	a skillwires II (12 Mp) - omega
 RoomDesc:$
@@ -3712,7 +3712,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000111
+#90111
 Keywords:	skillwires skill wires iii omega
 Name:	a skillwires III (27 Mp) - omega
 RoomDesc:$
@@ -3747,7 +3747,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000112
+#90112
 Keywords:	skillwires skill wires iv omega
 Name:	a skillwires IV (48 Mp) - omega
 RoomDesc:$
@@ -3782,7 +3782,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000113
+#90113
 Keywords:	skillwires skill wires v omega
 Name:	a skillwires V (75 Mp) - omega
 RoomDesc:$
@@ -3817,7 +3817,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000114
+#90114
 Keywords:	skillwires skill wires vi omega
 Name:	a skillwires VI (108 Mp) - omega
 RoomDesc:$
@@ -3852,7 +3852,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000115
+#90115
 Keywords:	skillwires skill wires vii omega
 Name:	a skillwires VII (147 Mp) - omega
 RoomDesc:$
@@ -3887,7 +3887,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000116
+#90116
 Keywords:	skillwires skill wires viii omega
 Name:	a skillwires VIII (192 Mp) - omega
 RoomDesc:$
@@ -3922,7 +3922,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000117
+#90117
 Keywords:	smartlink omega
 Name:	a smartlink system - omega
 RoomDesc:$
@@ -3954,7 +3954,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000118
+#90118
 Keywords:	smartlink-2 system omega
 Name:	a smartlink-2 system - omega
 RoomDesc:$
@@ -3986,7 +3986,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	MM p31-32
 BREAK
-#1000119
+#90119
 Keywords:	voice modulator omega
 Name:	a voice modulator - omega
 RoomDesc:$
@@ -4013,7 +4013,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000120
+#90120
 Keywords:	wired reflexes omega
 Name:	a wired reflexes I - omega
 RoomDesc:$
@@ -4042,7 +4042,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000121
+#90121
 Keywords:	wired reflexes omega
 Name:	a wired reflexes II - omega
 RoomDesc:$
@@ -4071,7 +4071,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000122
+#90122
 Keywords:	wired reflexes omega
 Name:	a wired reflexes III - omega
 RoomDesc:$
@@ -4100,7 +4100,7 @@ Material:	electronics
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000123
+#90123
 Keywords:	reflex trigger omega
 Name:	a reflex trigger - omega
 RoomDesc:$
@@ -4132,7 +4132,7 @@ Material:	paper
 	Val4:	0
 SourceBook:	SR3 p301-302
 BREAK
-#1000124
+#90124
 Keywords:	reflex trigger omega
 Name:	a reflex trigger (stepped) - omega
 RoomDesc:$
