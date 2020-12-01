@@ -1586,7 +1586,7 @@ void magic_loss(struct char_data *ch, int magic, bool msg)
   }
   if (msg)
     send_to_char(ch, "You feel some of your magic leave your body.\r\n", ch);
-  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) {
     GET_PP(ch) -= magic;
     reduce_abilities(ch);
   }

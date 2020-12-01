@@ -2869,7 +2869,7 @@ ACMD(do_activate)
     return;
   }
 
-  if (GET_TRADITION(ch) == TRAD_ADEPT && !str_str(argument, "Pain editor")) || (GET_TRADITION(ch) == TRAD_MYSTIC && !str_str(argument, "Pain editor")) {
+  if ((GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) && !str_str(argument, "Pain editor")) {
     char name[120], tokens[MAX_STRING_LENGTH], *s;
     extern int ability_cost(int abil, int level);
     int x;

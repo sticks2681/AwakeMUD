@@ -716,7 +716,7 @@ int resist_spell(struct char_data *ch, int spell, int force, int sub)
     else if (GET_TOTEM(ch) == TOTEM_LEOPARD && spells[spell].category == ILLUSION)
       skill--;
   }
-  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
+  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC)
   {
     if (GET_POWER(ch, ADEPT_MAGIC_RESISTANCE))
       skill += GET_POWER(ch, ADEPT_MAGIC_RESISTANCE);

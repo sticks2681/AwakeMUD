@@ -518,7 +518,7 @@ bool load_char(const char *name, char_data *ch, bool logon)
       GET_MASKING(ch) = atoi(row[13]);       
     }
     mysql_free_result(res);
-    if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC) {
+    if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) {
       sprintf(buf, "SELECT * FROM pfiles_adeptpowers WHERE idnum=%ld;", GET_IDNUM(ch));
       mysql_wrapper(mysql, buf);
       res = mysql_use_result(mysql);
@@ -1149,7 +1149,7 @@ static bool save_char(char_data *player, DBIndex::vnum_t loadroom)
                  GET_SDEFENSE(player), GET_DRAIN(player), GET_REFLECT(player), GET_GRADE(player), player->points.extrapp, 
                  GET_PP(player), GET_SIG(player), GET_MASKING(player), GET_IDNUM(player));
     mysql_wrapper(mysql, buf);
-    if (GET_TRADITION(player) == TRAD_ADEPT) || (GET_TRADITION(player) == TRAD_MYSTIC) {
+    if (GET_TRADITION(player) == TRAD_ADEPT || GET_TRADITION(player) == TRAD_MYSTIC) {
       sprintf(buf, "DELETE FROM pfiles_adeptpowers WHERE idnum=%ld", GET_IDNUM(player));
       mysql_wrapper(mysql, buf);
       strcpy(buf, "INSERT INTO pfiles_adeptpowers (idnum, powernum, rank) VALUES (");

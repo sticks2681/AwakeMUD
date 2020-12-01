@@ -84,7 +84,7 @@ void mental_gain(struct char_data * ch)
     gain >>= 1;
 #endif
   
-  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
+  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC)
     gain *= GET_POWER(ch, ADEPT_HEALING) + 1;
   if (GET_BIOOVER(ch) > 0)
     gain /= GET_BIOOVER(ch);
@@ -155,7 +155,7 @@ void physical_gain(struct char_data * ch)
         break;
       }
   }
-  if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
+  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC)
     gain *= GET_POWER(ch, ADEPT_HEALING) + 1;
   if (GET_BIOOVER(ch) > 0)
     gain /= GET_BIOOVER(ch);

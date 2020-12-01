@@ -1185,7 +1185,7 @@ SPECIAL(adept_trainer)
     return TRUE;
   }
 
-  if (GET_TRADITION(ch) != TRAD_ADEPT) || (GET_TRADITION(ch) != TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) {
     sprintf(arg, "%s You do not have the talent.", GET_CHAR_NAME(ch));
     do_say(trainer, arg, 0, SCMD_SAYTO);
     return TRUE;
@@ -4455,7 +4455,7 @@ SPECIAL(chargen_career_archetype_paths)
   
   // Store the current exit, then overwrite with our custom one.
   temp_to_room = room->dir_option[EAST]->to_room;
-  if (GET_TRADITION(ch) == TRAD_HERMETIC) || (GET_TRADITION(ch) == TRAD_MYSTIC)
+  if (GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC)
     room->dir_option[EAST]->to_room = &world[real_room(RM_CHARGEN_PATH_OF_THE_MAGICIAN_HERMETIC)];
   else
     room->dir_option[EAST]->to_room = &world[real_room(RM_CHARGEN_PATH_OF_THE_MAGICIAN_SHAMANIC)];

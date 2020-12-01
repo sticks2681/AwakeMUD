@@ -498,7 +498,7 @@ void perform_fall(struct char_data *ch)
     if (!PRF_FLAGGED(ch, PRF_SCREENREADER))
       look_at_room(ch, 0);
     
-    if (GET_TRADITION(ch) == TRAD_ADEPT) || (GET_TRADITION(ch) == TRAD_MYSTIC)
+    if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC)
       meters -= GET_POWER(ch, ADEPT_FREEFALL) * 2;
     if (meters <= 0) {
       send_to_char(ch, "You manage to land on your feet.\r\n");
