@@ -5359,7 +5359,7 @@ void price_cyber(struct obj_data *obj)
       break;
     case GRADE_DELTA:
       GET_OBJ_COST(obj) *= 8;
-      GET_CYBERWARE_ESSENCE_COST(obj) = (int) round(GET_CYBERWARE_ESSENCE_COST(obj) * .25);
+      GET_CYBERWARE_ESSENCE_COST(obj) = (int) round(GET_CYBERWARE_ESSENCE_COST(obj) * .1);
       GET_OBJ_AVAILTN(obj) += 9;
       GET_OBJ_AVAILDAY(obj) *= 3;
       break;
