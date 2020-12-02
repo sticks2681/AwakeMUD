@@ -5359,7 +5359,7 @@ void price_cyber(struct obj_data *obj)
       break;
     case GRADE_DELTA:
       GET_OBJ_COST(obj) *= 8;
-      GET_CYBERWARE_ESSENCE_COST(obj) = (int) round(GET_CYBERWARE_ESSENCE_COST(obj) * .1);
+      GET_CYBERWARE_ESSENCE_COST(obj) = (int) round(GET_CYBERWARE_ESSENCE_COST(obj) * .05);
       GET_OBJ_AVAILTN(obj) += 9;
       GET_OBJ_AVAILDAY(obj) *= 3;
       break;
@@ -5566,7 +5566,7 @@ void price_bio(struct obj_data *obj)
   // Check for cultured.
   if (GET_OBJ_VAL(obj, 0) < BIO_CEREBRALBOOSTER && GET_OBJ_VAL(obj, 2)) {
     GET_OBJ_COST(obj) *= 4;
-    GET_OBJ_VAL(obj, 4) = (int) round(GET_OBJ_VAL(obj, 4) * .5);
+    GET_OBJ_VAL(obj, 4) = (int) round(GET_OBJ_VAL(obj, 4) * .25);
     GET_OBJ_AVAILTN(obj) += 2;
     GET_OBJ_AVAILDAY(obj) *= 5;
   }
