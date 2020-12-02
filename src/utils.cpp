@@ -2279,14 +2279,14 @@ struct obj_data *unattach_attachment_from_weapon(int location, struct obj_data *
     return NULL;
   }
   
-  if (GET_ACCESSORY_TYPE(attachment) == ACCESS_GASVENT) {
-    if (ch) {
-      send_to_char(ch, "%s is permanently attached to %s and can't be removed.\r\n",
-                   GET_OBJ_NAME(attachment), GET_OBJ_NAME(weapon));
-      return NULL;
-    }
+  // if (GET_ACCESSORY_TYPE(attachment) == ACCESS_GASVENT) {
+    // if (ch) {
+      // send_to_char(ch, "%s is permanently attached to %s and can't be removed.\r\n",
+                   // GET_OBJ_NAME(attachment), GET_OBJ_NAME(weapon));
+      // return NULL;
+    // }
    // We assume the coder knows what they're doing when unattaching a gasvent. They may proceed.
-  }
+  // }
   
   // Remove the first (and only the first) affect of the attachment from the weapon.
   if (attachment->affected[0].modifier != 0) {
