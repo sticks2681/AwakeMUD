@@ -775,7 +775,7 @@ void list_one_char(struct char_data * i, struct char_data * ch)
         }
         if (mob_index[GET_MOB_RNUM(i)].func == adept_trainer) {
           // Adepts can't see adept trainers' abilities.
-          if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_ADEPT)
+          if (GET_TRADITION(ch) == TRAD_ADEPT && GET_TRADITION(ch) == TRAD_MYSTIC)
             sprintf(ENDOF(buf), "^y...%s looks willing to help you train your powers.^n\r\n", HSSH(i));
         }
         if (mob_index[GET_MOB_RNUM(i)].func == spell_trainer) {
