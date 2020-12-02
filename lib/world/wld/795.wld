@@ -1,0 +1,4210 @@
+#79500
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79501
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT down]
+	ToVnum:	79502
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79502
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79501
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79503
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79503
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79502
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79504
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79504
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79503
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79505
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT down]
+	ToVnum:	79506
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79506
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79505
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79507
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79507
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79506
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79508
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79508
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79507
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79509
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT down]
+	ToVnum:	79510
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79510
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79509
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79511
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79511
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79510
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79512
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79512
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79511
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79513
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79513
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79512
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT down]
+	ToVnum:	79514
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79514
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT up]
+	ToVnum:	79513
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#79515
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79516
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79517
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79518
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79519
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79520
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79521
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79522
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79523
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79524
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79525
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79526
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79527
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79528
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79529
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79530
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79531
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79532
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79533
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79534
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79535
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79536
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79537
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79538
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79539
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79540
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79541
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79542
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79543
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79544
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79545
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79546
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79547
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79548
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79549
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79550
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79551
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79552
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79553
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79554
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79555
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79556
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79557
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79558
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79559
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79560
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79561
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79562
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79563
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79564
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79565
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79566
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79567
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79568
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79569
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79570
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79571
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79572
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79573
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79574
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79575
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79576
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79577
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79578
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79579
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79580
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79581
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79582
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79583
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79584
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79585
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79586
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79587
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79588
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79589
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79590
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79591
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79592
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79593
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79594
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79595
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79596
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79597
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79598
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79599
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79600
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79601
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79602
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79603
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79604
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79605
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79606
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79607
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79608
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79609
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79610
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79611
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79612
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79613
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79614
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79615
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79616
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79617
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79618
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79619
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79620
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79621
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79622
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79623
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79624
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79625
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79626
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79627
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79628
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79629
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79630
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79631
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79632
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79633
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79634
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79635
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79636
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79637
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79638
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79639
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79640
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79641
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79642
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79643
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79644
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79645
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79646
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79647
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79648
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79649
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+#79650
+Name:	An Elevator Shaft
+Desc:$
+   It's an elevator shaft. There's not much to say about it-- it's dangerous,
+loud, smelly, and not at all the kind of place you want to be when the
+elevators are running. A ladder grants access to the various floors, but it's
+none to secure, and there's not really a way to avoid the cars if they come
+by. 
+~
+Flags:	0
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	0
+Y:	0
+Z:	0.00
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+BREAK
+END
