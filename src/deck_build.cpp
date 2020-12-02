@@ -136,7 +136,9 @@ void partbuild_main_menu(struct descriptor_data *d) {
                GET_PART_TARGET_MPCP(PART),
                get_chip_cost(GET_PART_TYPE(PART), GET_PART_RATING(PART), GET_PART_TARGET_MPCP(PART)));
   if (GET_PART_TARGET_MPCP(PART) && part_can_have_its_rating_set(PART))
-    send_to_char(CH, "4) Rating: ^c%d^n\r\n", GET_PART_RATING(PART));
+    send_to_char(CH, "4) %s: ^c%d^n\r\n", 
+                GET_OBJ_VAL(d->edit_obj, 0) == PART_STORAGE || GET_OBJ_VAL(d->edit_obj, 0) == PART_ACTIVE ? "Capacity" : "Rating", 
+                GET_PART_RATING(PART));
   send_to_char(CH, "q) Save and Quit\r\n");
   send_to_char(CH, "Enter Option: ");
   d->edit_mode = DEDIT_MAIN;
@@ -191,9 +193,26 @@ void pbuild_parse(struct descriptor_data *d, const char *arg) {
             break;
         case '4':
             if (part_can_have_its_rating_set(PART)) {
-                send_to_char(CH, "Rating of Part: ");
-                d->edit_mode = DEDIT_RATING;
-                break;
+              switch (GET_PART_TYPE(PART)) {
+                case PART_IO:
+                  send_to_char(CH, "I/O rating (max %d): ", GET_PART_TARGET_MPCP(PART) * 100);
+                  break;
+                case PART_STORAGE:
+                  send_to_char(CH, "Storage capacity (max %d): ", GET_PART_TARGET_MPCP(PART) * 600);
+                  break;
+                case PART_ACTIVE:
+                  send_to_char(CH, "Memory capacity (max %d): ", GET_PART_TARGET_MPCP(PART) * 250);
+                  break;
+                case PART_RESPONSE:
+                  send_to_char(CH, "Response increase (max %d): ", MIN(3, (int)(GET_PART_TARGET_MPCP(PART) / 4)));
+                  break;
+                default:
+                  send_to_char(CH, "Rating of part (max %d): ", GET_PART_TARGET_MPCP(PART));
+                  break;
+              }
+              
+              d->edit_mode = DEDIT_RATING;
+              break;
             }
             // Explicit fallthrough-- we only allow option 4 if the part can accept a rating in the first place.
             // fall through
@@ -365,13 +384,13 @@ ACMD(do_cook) {
             if ((chip = get_obj_in_list_vis(ch, argument, comp->contains)))
                 break;
     if (!chip)
-        send_to_char(ch, "You need to install that chip on a computer.\r\n");
+        send_to_char(ch, "You don't see %s installed on any computers here.\r\n", argument);
     else if (GET_OBJ_TYPE(chip) != ITEM_PROGRAM)
-        send_to_char(ch, "You must finish programming it first.\r\n");
+        send_to_char(ch, "You must finish programming %s first.\r\n", GET_OBJ_NAME(chip));
     else if (GET_OBJ_TIMER(chip))
         send_to_char("This chip has already been encoded.\r\n", ch);
     else if (GET_OBJ_VAL(chip, 0) == SOFT_SUITE)
-      send_to_char("You don't need to encode this to an optical chip.\r\n", ch);
+      send_to_char("Programming suites don't need to be cooked-- just leave them installed on the computer to get their benefits.\r\n", ch);
     else {
         for (cooker = ch->in_veh ? ch->in_veh->contents : ch->in_room->contents; cooker; cooker = cooker->next_content)
             if (GET_OBJ_TYPE(cooker) == ITEM_DECK_ACCESSORY && GET_OBJ_VAL(cooker, 0) == TYPE_COOKER && !cooker->contains)
@@ -399,7 +418,7 @@ ACMD(do_cook) {
                     break;
                 }
         if (!paid) {
-            send_to_char(ch, "You don't have a large enough optical chip to encode that onto.\r\n");
+            send_to_char(ch, "You need at least %d nuyen worth of optical chips to encode %s.\r\n", cost, GET_OBJ_NAME(chip));
             return;
         }
         GET_OBJ_VAL(chip->in_obj, 3) -= GET_OBJ_VAL(chip, 2);
@@ -581,14 +600,17 @@ ACMD(do_build) {
         if ((workshop = find_workshop(ch, TYPE_MICROTRONIC)) && GET_OBJ_VAL(workshop, 0) > kit_rating)
             kit_rating = GET_WORKSHOP_TYPE(workshop);
         if (kit_rating < parts[GET_PART_TYPE(obj)].tools) {
-            send_to_char(ch, "You don't have the right tools for that job.\r\n");
+            send_to_char(ch, "You don't have the right tools for that job. You need to %s %s %s.\r\n",
+                         parts[GET_PART_TYPE(obj)].tools == TYPE_WORKSHOP ? "have an unpacked" : "have a",
+                         workshops[TYPE_MICROTRONIC],
+                         kit_workshop_facility[parts[GET_PART_TYPE(obj)].tools]);
             return;
         } else if (parts[GET_OBJ_VAL(obj, 0)].tools == TYPE_KIT) {
-            if (kit_rating == TYPE_SHOP)
+            if (kit_rating == TYPE_WORKSHOP)
                 target--;
             else if (kit_rating == TYPE_FACILITY)
                 target -= 3;
-        } else if (parts[GET_OBJ_VAL(obj, 0)].tools == TYPE_SHOP && kit_rating == TYPE_FACILITY)
+        } else if (parts[GET_OBJ_VAL(obj, 0)].tools == TYPE_WORKSHOP && kit_rating == TYPE_FACILITY)
             target--;
         if (GET_PART_TYPE(obj) == PART_BOD || GET_PART_TYPE(obj) == PART_SENSOR || GET_PART_TYPE(obj) == PART_MASKING || GET_PART_TYPE(obj) == PART_EVASION) {
             int total = GET_PART_RATING(obj);
@@ -625,10 +647,15 @@ ACMD(do_build) {
                 struct obj_data *soft = NULL;
                 if (parts[GET_OBJ_VAL(obj, 0)].software) {
                     for (soft = ch->carrying; soft; soft = soft->next_content)
-                        if (GET_OBJ_VAL(soft, 0) == parts[GET_OBJ_VAL(obj, 0)].software && GET_OBJ_TIMER(soft) == 1 && GET_OBJ_VAL(soft, 1) == GET_OBJ_VAL(obj, 1))
+                        if (GET_OBJ_VAL(soft, 0) == parts[GET_OBJ_VAL(obj, 0)].software 
+                            && GET_OBJ_TIMER(soft) == 1 
+                            && GET_OBJ_VAL(soft, 1) == GET_OBJ_VAL(obj, 1))
                             break;
                     if (!soft) {
-                        send_to_char(ch, "You need to program and cook the required software for that first.\r\n");
+                        send_to_char(ch, 
+                                     "You need to program and cook the required software (rating %d %s) for that first.\r\n",
+                                     GET_OBJ_VAL(obj, 1), 
+                                     programs[parts[GET_OBJ_VAL(obj, 0)].software].name);
                         return;
                     }
                 }
@@ -799,10 +826,16 @@ ACMD(do_progress)
     send_to_char(ch, "The hermetic circle you are working on is about %d%% completed.\r\n", 
                        (int)(((float)((GET_OBJ_VAL(ch->char_specials.programming, 1) * 60) -
                                       GET_OBJ_VAL(ch->char_specials.programming, 9)) / (float)((GET_OBJ_VAL(ch->char_specials.programming, 1) != 0 ? GET_OBJ_VAL(ch->char_specials.programming, 1) : 1) * 60)) * 100));
-  } else if (AFF_FLAGS(ch).IsSet(AFF_LODGE)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_LODGE)) {
     send_to_char(ch, "The lodge you are working on is about %d%% completed.\r\n", (int)(((float)(((GET_OBJ_VAL(ch->char_specials.programming, 1) != 0 ? GET_OBJ_VAL(ch->char_specials.programming, 1) : 1) * 300) -
                      GET_OBJ_VAL(ch->char_specials.programming, 9)) / (float)(GET_OBJ_VAL(ch->char_specials.programming, 1) * 300)) * 100));
-  } else if (AFF_FLAGS(ch).IsSet(AFF_PACKING)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_PACKING)) {
     for (struct obj_data *obj = ch->in_room->contents; obj; obj = obj->next_content)
       if (GET_OBJ_TYPE(obj) == ITEM_WORKSHOP && GET_OBJ_VAL(obj, 3)) {
         send_to_char(ch, "You are about %d%% of the way through%spacking %s.\r\n",
@@ -810,33 +843,61 @@ ACMD(do_progress)
                          GET_OBJ_NAME(obj));
         break;
       } 
-  } else if (AFF_FLAGS(ch).IsSet(AFF_BONDING)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_BONDING)) {
     send_to_char(ch, "There are %d ticks remaining until you finish bonding %s.\r\n", GET_OBJ_VAL(GET_BUILDING(ch), 9), GET_OBJ_NAME(GET_BUILDING(ch)));
 /*                 (int)(((float)(GET_OBJ_VAL(GET_BUILDING(ch), 1) - GET_OBJ_VAL(GET_BUILDING(ch), 9)) / (GET_OBJ_VAL(GET_BUILDING(ch), 1) != 0 ? GET_OBJ_VAL(GET_BUILDING(ch), 1) : 1) * 60)*100),
                  GET_OBJ_NAME(GET_BUILDING(ch))); */
-  } else if (AFF_FLAGS(ch).IsSet(AFF_PROGRAM)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_PROGRAM)) {
     send_to_char(ch, "You are about %d%% of the way through programming %s.\r\n", 
            (int)(((float)(GET_OBJ_TIMER(GET_BUILDING(ch)) - GET_OBJ_VAL(GET_BUILDING(ch), 5)) / 
            GET_OBJ_TIMER(GET_BUILDING(ch))) * 100), GET_OBJ_NAME(GET_BUILDING(ch)));
-  } else if (AFF_FLAGS(ch).IsSet(AFF_PART_BUILD)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_PART_BUILD)) {
     send_to_char(ch, "You are about %d%% of the way through building %s.\r\n",
            (int)(((float)(GET_OBJ_VAL(GET_BUILDING(ch), 10) - GET_OBJ_VAL(GET_BUILDING(ch), 4)) / 
            GET_OBJ_VAL(GET_BUILDING(ch), 10)) * 100), GET_OBJ_NAME(GET_BUILDING(ch)));
-  } else if (AFF_FLAGS(ch).IsSet(AFF_PART_DESIGN)) {
-  } else if (AFF_FLAGS(ch).IsSet(AFF_DESIGN)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_PART_DESIGN)) {
+    send_to_char(ch, "You are about %d%% of the way through designing %s.\r\n",
+           (int)(((float)(GET_OBJ_VAL(GET_BUILDING(ch), 2) * 2 - GET_OBJ_VAL(GET_BUILDING(ch), 3)) / 
+           GET_OBJ_VAL(GET_BUILDING(ch), 2) * 2) * 100), GET_OBJ_NAME(GET_BUILDING(ch)));
+    return;
+  }
+    
+  if (AFF_FLAGS(ch).IsSet(AFF_DESIGN)) {
     send_to_char(ch, "You are about %d%% of the way through designing %s.\r\n", 
                  (int)(((float)(GET_OBJ_TIMER(GET_BUILDING(ch)) - GET_OBJ_VAL(GET_BUILDING(ch), 4)) / (GET_OBJ_TIMER(GET_BUILDING(ch)) != 0 ? GET_OBJ_TIMER(GET_BUILDING(ch)) : 1) * 100)), GET_OBJ_NAME(GET_BUILDING(ch)));
-  } else if (AFF_FLAGS(ch).IsSet(AFF_CONJURE)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_CONJURE)) {
     send_to_char(ch, "You are about %d%% of the way through the conjuring process.\r\n", (int) ((float) (ch->char_specials.conjure[2] / ch->char_specials.conjure[3]) * 100));
-  } else if (AFF_FLAGS(ch).IsSet(AFF_SPELLDESIGN)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_SPELLDESIGN)) {
     int timeleft = GET_OBJ_VAL(ch->char_specials.programming, 6);
     if (GET_OBJ_TIMER(ch->char_specials.programming) == -3)
       timeleft *= 2;
     send_to_char(ch, "You are about %d%% done designing %s.\r\n", (int)(((float)timeleft / (float)GET_OBJ_VAL(ch->char_specials.programming, 7)) *-100 + 100), GET_OBJ_NAME(ch->char_specials.programming));
-  } else if (AFF_FLAGS(ch).IsSet(AFF_AMMOBUILD)) {
+    return;
+  }
+  
+  if (AFF_FLAGS(ch).IsSet(AFF_AMMOBUILD)) {
     send_to_char(ch, "You are about %d%% of the way through making %s.\r\n",
            (int)(((float)(GET_OBJ_VAL(GET_BUILDING(ch), 10) - GET_OBJ_VAL(GET_BUILDING(ch), 4)) / 
            GET_OBJ_VAL(GET_BUILDING(ch), 10)) * 100), GET_OBJ_NAME(GET_BUILDING(ch)));
+    return;
   } else
     send_to_char("You are not working on anything at this time.\r\n", ch);
 }

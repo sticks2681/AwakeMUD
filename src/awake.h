@@ -1403,9 +1403,9 @@ enum {
 #define PART_SIGNAL_AMP		25
 #define NUM_PARTS		26
 
-#define TYPE_KIT		1
-#define TYPE_SHOP		2
-#define TYPE_FACILITY		3
+#define TYPE_KIT        1
+#define TYPE_WORKSHOP   2
+#define TYPE_FACILITY   3
 
 // Kit/Workshop/Facility types.
 #define TYPE_GENERAL		0
@@ -2048,18 +2048,19 @@ enum {
 #define IDENT_LENGTH              8
 
 // New combat modifiers used in the rework of hit().
-#define COMBAT_MOD_RECOIL         0
-#define COMBAT_MOD_MOVEMENT       1
-#define COMBAT_MOD_DUAL_WIELDING  2
-#define COMBAT_MOD_SMARTLINK      3
-#define COMBAT_MOD_DISTANCE       4
-#define COMBAT_MOD_VISIBILITY     5
-#define COMBAT_MOD_POSITION       6
-#define COMBAT_MOD_GYRO           7
-#define COMBAT_MOD_REACH          8
-#define COMBAT_MOD_VEHICLE_DAMAGE 9
+#define COMBAT_MOD_RECOIL          0
+#define COMBAT_MOD_MOVEMENT        1
+#define COMBAT_MOD_DUAL_WIELDING   2
+#define COMBAT_MOD_SMARTLINK       3
+#define COMBAT_MOD_DISTANCE        4
+#define COMBAT_MOD_VISIBILITY      5
+#define COMBAT_MOD_POSITION        6
+#define COMBAT_MOD_GYRO            7
+#define COMBAT_MOD_REACH           8
+#define COMBAT_MOD_VEHICLE_DAMAGE  9
+#define COMBAT_MOD_DEFENDER_MOVING 10
 
-#define NUM_COMBAT_MODIFIERS      10
+#define NUM_COMBAT_MODIFIERS       11
 // End new combat modifiers.
 
 // Locations, to remove the magic numbers from the code.
@@ -2116,6 +2117,7 @@ enum {
 #define OBJ_SEATTLE_TAXI_SIGN       600
 #define OBJ_PORTLAND_TAXI_SIGN      699
 
+#define BOTTOM_OF_TEMPLATE_ITEMS    106
 #define OBJ_BLANK_OPTICAL_CHIP      106
 #define OBJ_BLANK_PROGRAM_DESIGN    107
 #define OBJ_BLANK_PROGRAM           108
@@ -2132,6 +2134,9 @@ enum {
 #define OBJ_NEOPHYTE_SUBSIDY_CARD   119
 #define OBJ_GRAFFITI                120
 #define OBJ_BLANK_AMMOBOX           121
+#define TOP_OF_TEMPLATE_ITEMS       121
+
+#define OBJ_BLANK_MAGAZINE          127
 
 /* ban struct */
 struct ban_list_element
@@ -2256,4 +2261,13 @@ struct ban_list_element
 #define VEH_DAM_THRESHOLD_SEVERE    6
 #define VEH_DAM_THRESHOLD_DESTROYED 10
 #define VEH_DAMAGE_NEEDS_WORKSHOP   7
+
+// How many syspoints should someone spend to restring an item?
+#define SYSP_RESTRING_COST                                        2
+
+// How long should the MUD wait for recovery before killing itself? Note that it
+// considers itself to be stuck during copyover too, so if you have a large world,
+// you should increase this value.
+#define SECONDS_TO_WAIT_FOR_HUNG_MUD_TO_RECOVER_BEFORE_KILLING_IT 20
+
 #endif

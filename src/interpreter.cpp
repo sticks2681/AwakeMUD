@@ -200,6 +200,7 @@ ACMD_DECLARE(do_kick);
 ACMD_DECLARE(do_kil);
 ACMD_DECLARE(do_kill);
 ACMD_DECLARE(do_last);
+ACMD_DECLARE(do_leaderboard);
 ACMD_DECLARE(do_learn);
 ACMD_DECLARE(do_leave);
 ACMD_DECLARE(do_lay);
@@ -295,6 +296,7 @@ ACMD_DECLARE(do_steal);
 ACMD_DECLARE(do_survey);
 ACMD_DECLARE(do_switch);
 ACMD_DECLARE(do_switched_message_history);
+ACMD_DECLARE(do_syspoints);
 ACMD_DECLARE(do_tail);
 ACMD_DECLARE(do_teleport);
 ACMD_DECLARE(do_tell);
@@ -486,7 +488,7 @@ struct command_info cmd_info[] =
 //  { "dennis"     , POS_SITTING, do_move     , 0, SCMD_DOWN },
     { "design"   , POS_RESTING , do_design   , 0, 0 },
     { "destroy"  , POS_STANDING, do_destroy  , 0, 0 },
-    { "destring" , POS_DEAD    , do_destring , 0, 0 },
+//    { "destring" , POS_DEAD    , do_destring , 0, 0 },
     { "diagnose" , POS_RESTING , do_diagnose , 0, 0 },
     { "dice"     , POS_DEAD    , do_dice     , 0, 0 },
     { "die"      , POS_DEAD    , do_die      , 0, 0 },
@@ -587,6 +589,7 @@ struct command_info cmd_info[] =
     { "lay"      , POS_RESTING , do_lay      , 0, 0 },
     { "language" , POS_DEAD    , do_language , 0, 0 },
     { "last"     , POS_DEAD    , do_last     , LVL_BUILDER, 0 },
+    { "leaderboard", POS_DEAD  , do_leaderboard, 1, 0 },
     { "learn"    , POS_RESTING , do_learn    , 0, 0 },
     { "leave"    , POS_SITTING , do_leave    , 0, 0 },
     { "link"     , POS_SLEEPING, do_link     , 0, 0 },
@@ -636,7 +639,7 @@ struct command_info cmd_info[] =
     { "penalize" , POS_DEAD    , do_penalize , LVL_FIXER, 0 },
     { "perceive" , POS_LYING   , do_astral   , 0, SCMD_PERCEIVE },
     { "perfmon"  , POS_DEAD    , do_perfmon  , LVL_ADMIN, 0 },
-    { "pgroup"   , POS_LYING   , do_pgroup   , 0, 0 },
+//    { "pgroup"   , POS_LYING   , do_pgroup   , 0, 0 },
     { "phone"    , POS_LYING   , do_phone    , 0, 0 },
     { "phonelist", POS_DEAD    , do_phonelist, LVL_BUILDER, 0 },
     { "photo"    , POS_RESTING , do_photo    , 0, 0 },
@@ -740,6 +743,7 @@ struct command_info cmd_info[] =
     { "subpoint" , POS_DEAD    , do_subpoint , LVL_ARCHITECT, 0 },
     { "survey"   , POS_LYING   , do_survey   , 0, 0 },
     { "switch"   , POS_SITTING , do_switch   , 0, 0 },
+    { "syspoints", POS_DEAD    , do_syspoints, 1, 0 },
 
     { "talk"     , POS_LYING   , do_phone    , 0, SCMD_TALK },
     { "tell"     , POS_DEAD    , do_tell     , 0, 0 },
@@ -1393,7 +1397,7 @@ void command_interpreter(struct char_data * ch, char *argument, char *tcname)
     else {
       if (ch->persona && ch->persona->decker->hitcher) {
         sprintf(buf, "^y<OUTGOING> %s^n\r\n", argument);
-        send_to_char(ch->persona->decker->hitcher, buf);
+        send_to_char(buf, ch->persona->decker->hitcher);
       }
       if (!special(ch, cmd, line))
         ((*mtx_info[cmd].command_pointer) (ch, line, cmd, mtx_info[cmd].subcmd));

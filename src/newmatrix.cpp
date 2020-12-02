@@ -843,7 +843,7 @@ ACMD(do_locate)
   }
   two_arguments(argument, buf, arg);
   int success, i = 0;
-  if (is_abbrev(buf, "host")) {
+  if (is_abbrev(buf, "hosts")) {
     success = system_test(PERSONA->in_host, ch, TEST_INDEX, SOFT_BROWSE, 0);
     int x = 0;
     char *name = arg;
@@ -867,7 +867,7 @@ ACMD(do_locate)
     if (!success || !i)
       send_to_icon(PERSONA, "You fail to return any data on that search.\r\n");
     return;
-  } else if (is_abbrev(buf, "ic")) {
+  } else if (is_abbrev(buf, "ics")) {
     success = system_test(PERSONA->in_host, ch, TEST_INDEX, SOFT_ANALYZE, 0);
     if (success > 0) {
       for (struct matrix_icon *icon = matrix[PERSONA->in_host].icons; icon; icon = icon->next_in_host)
@@ -883,7 +883,7 @@ ACMD(do_locate)
     else
       send_to_icon(PERSONA, "You notice %d IC in the host.\r\n", i);
     return;
-  } else if (is_abbrev(buf, "file")) {
+  } else if (is_abbrev(buf, "files")) {
     int x = 0;
     char *name = arg;
     while (*name) {
@@ -915,7 +915,7 @@ ACMD(do_locate)
         send_to_icon(PERSONA, "Your search returns %d match%s.\r\n", i, i > 1 ? "es" : "");
     }
     return;
-  } else if (is_abbrev(buf, "decker")) {
+  } else if (is_abbrev(buf, "deckers")) {
     success = system_test(PERSONA->in_host, ch, TEST_INDEX, SOFT_SCANNER, 0);
     if (success > 0) {
       int sensor = 0;
@@ -940,7 +940,7 @@ ACMD(do_locate)
     if (!success || !i)
       send_to_icon(PERSONA, "You don't notice any other deckers in the host.\r\n");
     else
-      send_to_icon(PERSONA, "You notice %d other decker%c in the host.\r\n", i, (i > 1 ? "s":""));
+      send_to_icon(PERSONA, "You notice %d other decker%s in the host.\r\n", i, (i > 1 ? "s":""));
     return;
   } else if (is_abbrev(buf, "paydata")) {
     success = system_test(PERSONA->in_host, ch, TEST_INDEX, SOFT_EVALUATE, 0);
@@ -1020,16 +1020,65 @@ ACMD(do_locate)
       send_to_icon(PERSONA, "You find %d piece%sof paydata.\r\n", i, i > 1 ? "s ": " ");
     return;
   }
-  send_to_icon(PERSONA, "Locate what?\r\n");
+  send_to_icon(PERSONA, "You can locate hosts, ICs, files, deckers, or paydata.\r\n");
 
 }
 
+void show_icon_to_persona(struct matrix_icon *ch, struct matrix_icon *icon) {
+  if (!ch || !icon) {
+    mudlog("SYSERR: Missing ch or icon in show_icon_to_persona!", NULL, LOG_SYSLOG, TRUE);
+    return;
+  }
+  
+  // Start with description.
+  sprintf(buf, "%s\r\n%s is ", icon->long_desc, icon->name);
+  
+  // Generate condition.
+  if (icon->condition < 2) {
+    strcat(buf, "in terrible shape!");
+  } else if (icon->condition < 5) {
+    strcat(buf, "looking pretty beat-up.");
+  } else if (icon->condition < 8) {
+    strcat(buf, "damaged.");
+  } else if (icon->condition < 10) {
+    strcat(buf, "minorly damaged.");
+  } else {
+    strcat(buf, "intact.");
+  }
+  
+  send_to_icon(ch, "%s\r\n", buf);
+}
+
 ACMD(do_matrix_look)
-{
+{      
   if (!PERSONA) {
     send_to_char(ch, "You can't do that while hitching.\r\n");
     return;
   }
+  
+  // Did they supply a target? Look at that instead.
+  if (argument && *argument) {
+    one_argument(argument, arg);
+    
+    // Looking at self? Ezpz.
+    if (!str_cmp(arg, "self") || !str_cmp(arg, "me") || !str_cmp(arg, "myself")) {
+      show_icon_to_persona(PERSONA, PERSONA);
+      return;
+    }
+    
+    // Find the icon they're looking at.
+    for (struct matrix_icon *icon = matrix[PERSONA->in_host].icons; icon; icon = icon->next_in_host) {
+      if (!has_spotted(PERSONA, icon))
+        continue;
+      if (isname(arg, icon->name) || isname(arg, icon->look_desc)) {
+        show_icon_to_persona(PERSONA, icon);
+        return;
+      }
+    }
+    send_to_icon(PERSONA, "You can't see that icon in this host.\r\n");
+    return;
+  }
+  
   if ((PRF_FLAGGED(ch, PRF_ROOMFLAGS) && GET_REAL_LEVEL(ch) >= LVL_BUILDER)) {
     sprintf(buf, "^C[%ld]^n %s^n\r\n%s", matrix[PERSONA->in_host].vnum, matrix[PERSONA->in_host].name, matrix[PERSONA->in_host].desc);
   } else {
@@ -1195,7 +1244,7 @@ ACMD(do_analyze)
       if ((isname(arg, ic->look_desc) || isname(arg, ic->name)) && has_spotted(PERSONA, ic)) {
         int success = system_test(PERSONA->in_host, ch, TEST_CONTROL, SOFT_ANALYZE, 0);
         if (success > 0 ) {
-          send_to_icon(PERSONA, "%s", ic->long_desc);
+          show_icon_to_persona(PERSONA, ic);
           if (ic->number) {
             send_to_icon(PERSONA, "%s is a %s-%d\r\n", CAP(ic->name), ic_type[ic->ic.type],
                          matrix[PERSONA->in_host].shutdown ? ic->ic.rating - 2 : ic->ic.rating);
@@ -1269,7 +1318,7 @@ ACMD(do_logon)
       return;
     }
   }
-  send_to_icon(PERSONA, "That host doesn't seem to be connected to the network.\r\n");
+  send_to_icon(PERSONA, "You haven't located any hosts with that address.\r\n");
 }
 
 ACMD(do_logoff)
@@ -1534,7 +1583,7 @@ ACMD(do_connect)
   icon_list = PERSONA;
   icon_to_host(PERSONA, host);
   if (DECKER->bod + DECKER->sensor + DECKER->evasion + DECKER->masking > DECKER->mpcp * 3) {
-    send_to_char("Your deck overloads on persona programs and crashes.\r\n", ch);
+    send_to_char(ch, "Your deck overloads on persona programs and crashes. You'll have to keep the combined bod, sensor, evasion, and masking rating below %d.\r\n", DECKER->mpcp * 3);
     extract_icon(PERSONA);
     PERSONA = NULL;
     return;
@@ -1932,8 +1981,8 @@ ACMD(do_software)
     }
     
     if (GET_OBJ_TYPE(cyberdeck) == ITEM_CUSTOM_DECK && GET_CYBERDECK_IS_INCOMPLETE(cyberdeck)) {
-      display_cyberdeck_issues(ch, cyberdeck);
-      return;
+      if (!display_cyberdeck_issues(ch, cyberdeck))
+        return;
     }
     
     const char *format_string;
@@ -2644,27 +2693,32 @@ ACMD(do_default)
   for (int i = 0; !cyberdeck && i < NUM_WEARS; i++)
     if (GET_EQ(ch, i) && (GET_OBJ_TYPE(GET_EQ(ch,i )) == ITEM_CYBERDECK || GET_OBJ_TYPE(GET_EQ(ch,i )) == ITEM_CUSTOM_DECK))
       cyberdeck = GET_EQ(ch, i);
-  if (!cyberdeck)
+      
+  if (!cyberdeck) {
     send_to_char(ch, "You have no cyberdeck to check the software on!\r\n");
-  else if (GET_CYBERDECK_MPCP(cyberdeck) == 0 || GET_CYBERDECK_IS_INCOMPLETE(cyberdeck))
-    display_cyberdeck_issues(ch, cyberdeck);
-  else {
-    for (soft = cyberdeck->contains; soft; soft = soft->next_content)
-      if (GET_OBJ_TYPE(soft) == ITEM_PROGRAM && GET_OBJ_VAL(soft, 0) > SOFT_SENSOR && (isname(argument, soft->text.keywords)
-          || isname(argument, GET_OBJ_NAME(soft))))
-        break;
-    if (!soft) {
-      send_to_char(ch, "You don't have that program installed.\r\n");
+    return;
+  }
+  
+  if (GET_CYBERDECK_MPCP(cyberdeck) == 0 || GET_CYBERDECK_IS_INCOMPLETE(cyberdeck)) {
+    // returns TRUE if it fixed it, FALSE otherwise.
+    if (!display_cyberdeck_issues(ch, cyberdeck))
       return;
-    }
-    if (GET_OBJ_VAL(soft, 4)) {
-      GET_OBJ_VAL(soft, 4)--;
-      send_to_char(ch, "%s will no longer load upon connection.\r\n", CAP(GET_OBJ_NAME(soft)));
-    } else {
-      GET_OBJ_VAL(soft, 4)++;
-      send_to_char(ch, "%s will now load upon connection.\r\n", CAP(GET_OBJ_NAME(soft)));
-    }
-
+  }
+  
+  for (soft = cyberdeck->contains; soft; soft = soft->next_content)
+    if (GET_OBJ_TYPE(soft) == ITEM_PROGRAM && GET_OBJ_VAL(soft, 0) > SOFT_SENSOR && (isname(argument, soft->text.keywords)
+        || isname(argument, GET_OBJ_NAME(soft))))
+      break;
+  if (!soft) {
+    send_to_char(ch, "You don't have that program installed.\r\n");
+    return;
+  }
+  if (GET_OBJ_VAL(soft, 4)) {
+    GET_OBJ_VAL(soft, 4)--;
+    send_to_char(ch, "%s will no longer load upon connection.\r\n", CAP(GET_OBJ_NAME(soft)));
+  } else {
+    GET_OBJ_VAL(soft, 4)++;
+    send_to_char(ch, "%s will now load upon connection.\r\n", CAP(GET_OBJ_NAME(soft)));
   }
 }
 
@@ -2726,13 +2780,14 @@ ACMD(do_create)
            (GET_TRADITION(ch) != TRAD_SHAMANIC && GET_OBJ_VAL(library, 0) == TYPE_LIBRARY_SPELL)))
         break;
     if (!library)
-      send_to_char("You don't have the right tools here to create a spell.\r\n", ch);
+      send_to_char(ch, "You don't have the right tools here to create a spell. You'll need to %s.\r\n",
+                   GET_TRADITION(ch) == TRAD_SHAMANIC ? "build a lodge" : "get a library");
     else {
       ch->desc->edit_number2 = GET_OBJ_VAL(library, 1);
       create_spell(ch);
     }
   } else {
-    send_to_char("You can't create that.\r\n", ch);
+    send_to_char("You can only create programs, parts, decks, ammunition, and spells.\r\n", ch);
     return;
   }
 }
@@ -2824,7 +2879,12 @@ ACMD(do_compact)
 }
 
 // Formats and prints a message to the user about why their custom deck won't work.
-void display_cyberdeck_issues(struct char_data *ch, struct obj_data *cyberdeck) {
+bool display_cyberdeck_issues(struct char_data *ch, struct obj_data *cyberdeck) {
+  if (GET_CYBERDECK_MPCP(cyberdeck) == 0) {
+    send_to_char(ch, "The faint smell of burned MPCP tells you that %s is going to need some repairs first.\r\n", GET_OBJ_NAME(cyberdeck));
+    return FALSE;
+  }
+  
   if (GET_OBJ_TYPE(cyberdeck) == ITEM_CUSTOM_DECK && GET_CYBERDECK_IS_INCOMPLETE(cyberdeck)) {
     bool has_mpcp = FALSE, has_active = FALSE, has_bod = FALSE, has_sensor = FALSE, has_io = FALSE, has_interface = FALSE;
     for (struct obj_data *part = cyberdeck->contains; part; part = part->next_content) {
@@ -2864,19 +2924,17 @@ void display_cyberdeck_issues(struct char_data *ch, struct obj_data *cyberdeck) 
     
     // If we get here and haven't sent anything, something is wrong.
     if (first) {
-      sprintf(buf2, "SYSERR: Cyberdeck '%s' held by '%s' identifies itself as being incomplete, but has all necessary parts.",
+      sprintf(buf2, "SYSERR: Cyberdeck '%s' held by '%s' identifies itself as being incomplete, but has all necessary parts. Autofixing.",
               GET_OBJ_NAME(cyberdeck), GET_CHAR_NAME(ch));
       mudlog(buf2, ch, LOG_SYSLOG, TRUE);
-      sprintf(ENDOF(buf), "bugfixing -- please ask a member of the staff for assistance");
+      GET_CYBERDECK_IS_INCOMPLETE(cyberdeck) = 1;
+      send_to_char(ch, "You smack the side of %s a few times. It sparks, then powers on.\r\n", GET_OBJ_NAME(cyberdeck));
+      return TRUE;
     }
     
     strcat(buf, ".\r\n");
     send_to_char(buf, ch);
-    return;
   }
   
-  if (GET_CYBERDECK_MPCP(cyberdeck) == 0) {
-    send_to_char(ch, "The faint smell of burned MPCP tells you that %s is going to need some repairs first.\r\n", GET_OBJ_NAME(cyberdeck));
-    return;
-  }
+  return FALSE;
 }

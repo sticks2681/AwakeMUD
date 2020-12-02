@@ -1667,7 +1667,7 @@ void circle_build(struct char_data *ch, char *type, int force)
     return;
   }
   GET_NUYEN(ch) -= force * force;
-  struct obj_data *obj = read_object(115, VIRTUAL);
+  struct obj_data *obj = read_object(OBJ_HERMETIC_CIRCLE, VIRTUAL);
   GET_OBJ_VAL(obj, 1) = force;
   GET_OBJ_VAL(obj, 2) = element;
   GET_OBJ_VAL(obj, 3) = GET_IDNUM(ch);
@@ -1706,7 +1706,7 @@ void lodge_build(struct char_data *ch, int force)
     return;
   }
   GET_NUYEN(ch) -= force * 500;
-  struct obj_data *obj = read_object(114, VIRTUAL);
+  struct obj_data *obj = read_object(OBJ_SHAMANIC_LODGE, VIRTUAL);
   GET_OBJ_VAL(obj, 1) = force;
   GET_OBJ_VAL(obj, 2) = GET_TOTEM(ch);
   GET_OBJ_VAL(obj, 3) = GET_IDNUM(ch);
@@ -2379,7 +2379,7 @@ ACMD(do_conjure)
           sprintf(ENDOF(buf), "%s %s", have_sent_text ? "," : "", spirits[spirit].name);
           have_sent_text = TRUE;
         }
-      send_to_char(ch, buf);
+      send_to_char(buf, ch);
       return;
     }
     if (GET_DOMAIN(ch) != ((spirit == SPIRIT_MIST || spirit == SPIRIT_STORM || spirit == SPIRIT_WIND) ? SPIRIT_SKY : spirit)) {

@@ -48,7 +48,7 @@ void pedit_disp_program_menu(struct descriptor_data *d)
     if (screenreader_mode)
       send_to_char(d->character, "%d) %s\r\n", counter, programs[counter].name);
     else {
-      sprintf(ENDOF(buf), "%s%d) %-20s%s", 
+      sprintf(ENDOF(buf), "%s%2d) %-22s%s", 
               counter % 3 == 1 ? "  " : "", 
               counter, 
               programs[counter].name,
@@ -158,7 +158,7 @@ void pedit_parse(struct descriptor_data *d, const char *arg)
 
 void create_program(struct char_data *ch)
 {
-  struct obj_data *design = read_object(107, VIRTUAL);
+  struct obj_data *design = read_object(OBJ_BLANK_PROGRAM_DESIGN, VIRTUAL);
   STATE(ch->desc) = CON_PRO_CREATE;
   design->restring = str_dup("A blank program");
   ch->desc->edit_obj = design;
@@ -301,8 +301,14 @@ ACMD(do_design)
     return;
   }
   if (GET_OBJ_TIMER(prog) == GET_OBJ_VAL(prog, 4)) {
-    send_to_char(ch, "You begin designing %s.\r\n", prog->restring);
-    GET_OBJ_VAL(prog, 8) = success_test(skill, target);
+    if (access_level(ch, LVL_ADMIN)) {
+      send_to_char(ch, "You use your admin powers to greatly accelerate the design time of %s.\r\n", prog->restring);
+      GET_OBJ_TIMER(prog) = 0;
+      GET_OBJ_VAL(prog, 8) = 10;
+    } else {
+      send_to_char(ch, "You begin designing %s.\r\n", prog->restring);
+      GET_OBJ_VAL(prog, 8) = success_test(skill, target);
+    }
   } else
     send_to_char(ch, "You continue to design %s.\r\n", prog->restring);
   AFF_FLAGS(ch).SetBit(AFF_DESIGN);
@@ -419,7 +425,7 @@ ACMD(do_copy)
     }
 
     GET_OBJ_VAL(comp, 3) += GET_OBJ_VAL(prog, 2);
-    struct obj_data *newp = read_object(108, VIRTUAL);
+    struct obj_data *newp = read_object(OBJ_BLANK_PROGRAM, VIRTUAL);
     newp->restring = str_dup(GET_OBJ_NAME(prog));
     GET_OBJ_VAL(newp, 0) = GET_OBJ_VAL(prog, 0);
     GET_OBJ_VAL(newp, 1) = GET_OBJ_VAL(prog, 1);
@@ -488,7 +494,7 @@ void update_buildrepair(void)
                     x++;
                   }
               if (x == 6)
-                GET_OBJ_VAL(PROG->in_obj, 9) = 0;
+                GET_CYBERDECK_IS_INCOMPLETE(PROG->in_obj) = 0;
             }
           }
           STOP_WORKING(desc->character);
@@ -511,7 +517,7 @@ void update_buildrepair(void)
             send_to_char(desc->character, "You realise programming %s is a lost cause.\r\n", GET_OBJ_NAME(PROG));
           else {
             send_to_char(desc->character, "You complete programming %s.\r\n", GET_OBJ_NAME(PROG));
-            struct obj_data *newp = read_object(108, VIRTUAL);
+            struct obj_data *newp = read_object(OBJ_BLANK_PROGRAM, VIRTUAL);
             newp->restring = str_dup(GET_OBJ_NAME(PROG));
             GET_OBJ_VAL(newp, 0) = GET_OBJ_VAL(PROG, 0);
             GET_OBJ_VAL(newp, 1) = GET_OBJ_VAL(PROG, 1);
