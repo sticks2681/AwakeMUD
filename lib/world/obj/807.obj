@@ -718,7 +718,6 @@ Material:	fabric
 	Val4:	2
 	Val5:	100
 	Val6:	100
-	Val7:	8
 	Val8:	5
 SourceBook:	SR3 p283-284, Camouflage Clothing
 BREAK
@@ -754,8 +753,7 @@ Material:	fabric
 	Val4:	6
 	Val5:	100
 	Val6:	100
-	Val7:	8
-	Val8:	4
+	Val8:	5
 SourceBook:	SR3 p283-284, Camouflage Clothing
 BREAK
 #80725
@@ -787,8 +785,7 @@ Material:	fabric
 	Val4:	4
 	Val5:	300
 	Val6:	100
-	Val7:	4
-	Val8:	4
+	Val8:	5
 SourceBook:	SR3 p283-284, Camouflage Clothing
 BREAK
 #80726
