@@ -1,0 +1,66 @@
+#1000000
+Keywords:	nuesti sword elegant elven thinblade blade
+Name:	an elegant elven thinblade
+RoomDesc:$
+An elegant-looking sword of elvish make is here.~
+LookDesc:$
+An incredibly beautiful sword crafted by a master smith. 
+~
+Type:	Weapon
+WearFlags:	10000000000001
+ExtraFlags:	111010000000001000000
+AffFlags:	0
+Material:	orichalcum
+[POINTS]
+	Weight:	1.00
+	Barrier:	32
+	Cost:	0
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	5
+	LegalCode:	2
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val1:	4
+	Val2:	4
+	Val4:	3
+	Val5:	-1
+	Val6:	1
+	Val7:	-2
+	Val8:	-2
+	Val9:	-2
+BREAK
+#1000001
+Keywords:	custom assault rifle
+Name:	a custom assault rifle
+RoomDesc:$
+A custom assault rifle is lying here.~
+LookDesc:$
+This is a custom-made assault rifle. 
+~
+Type:	Weapon
+WearFlags:	10000000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	adv. plastics
+[POINTS]
+	Weight:	5.00
+	Barrier:	6
+	Cost:	0
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	3
+	LegalCode:	7
+	LegalPermit:	0
+	StreetIndex:	0.00
+	InnateRecoilComp:	4
+[VALUES]
+	Val0:	15
+	Val1:	3
+	Val3:	13
+	Val4:	14
+	Val5:	30
+	Val10:	28
+BREAK
+END
