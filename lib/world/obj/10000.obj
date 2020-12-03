@@ -63,4 +63,27 @@ Material:	adv. plastics
 	Val5:	30
 	Val10:	28
 BREAK
+#1000003
+Keywords:	hideout door garage remote-entry entry fob
+Name:	a remote-entry fob
+RoomDesc:$
+This remote-entry fob has no indication of where or what it may open.~
+LookDesc:$
+It looks pretty much like an unfinished object~
+Type:	Key
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	plastic
+[POINTS]
+	Weight:	0.00
+	Barrier:	3
+	Cost:	0
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+BREAK
 END
