@@ -32,8 +32,8 @@ Material:	orichalcum
 	Val9:	-2
 BREAK
 #1000001
-Keywords:	custom assault rifle
-Name:	a custom assault rifle
+Keywords:	custom M105 assault rifle
+Name:	a custom M105 assault rifle
 RoomDesc:$
 A custom assault rifle is lying here.~
 LookDesc:$
@@ -61,7 +61,38 @@ Material:	adv. plastics
 	Val3:	13
 	Val4:	14
 	Val5:	30
+	Val7:	64988
+	Val8:	28640
+	Val9:	1000002
 	Val10:	28
+BREAK
+#1000002
+Keywords:	foregrip grip gas vent recoil compensation integral
+Name:	a foregrip and recoil compensation package
+RoomDesc:$
+A combination foregrip and rifle compensation vent package is lying here.~
+LookDesc:$
+It looks like some gun parts. 
+~
+Type:	Gun Accessory
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	0.50
+	Barrier:	4
+	Cost:	5000
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val0:	2
+	Val1:	3
+	Val2:	-4
 BREAK
 #1000003
 Keywords:	hideout door garage remote-entry entry fob
@@ -78,6 +109,30 @@ Material:	plastic
 [POINTS]
 	Weight:	0.00
 	Barrier:	3
+	Cost:	0
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+BREAK
+#1000004
+Keywords:	keyring ring key
+Name:	a keyring
+RoomDesc:$
+A keyring is lying here.~
+LookDesc:$
+It looks like a ring for holding keys. 
+~
+Type:	Keyring
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	0.00
+	Barrier:	4
 	Cost:	0
 	AvailTN:	0
 	AvailDay:	0.00
