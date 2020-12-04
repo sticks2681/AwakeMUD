@@ -328,4 +328,31 @@ Material:	fabric
 	Val2:	2
 	Val4:	4
 BREAK
+#1000012
+
+Keywords:	credstick platinum
+Name:	a platinum credstick
+RoomDesc:$
+Someone has dropped their platinum credstick here.~
+LookDesc:$
+The most expensive and most secure model of the credsticks, the platinum requires a successful retinal scan to access an account.
+~
+Type:	Money
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	0.25
+	Barrier:	6
+	Cost:	10
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val1:	1
+	Val2:	3
+BREAK
 END
