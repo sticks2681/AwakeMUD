@@ -301,10 +301,10 @@ Material:	fabric
 SourceBook:	SR3 p283-284
 BREAK
 #1000011
-Keywords:	tactical battle belt
-Name:	a tactical battle belt
+Keywords:	battle belt
+Name:	a battle belt
 RoomDesc:$
-a sleek looking battle belt has been dropped here.~
+a sleek battle belt has been dropped here.~
 LookDesc:$
 This is a multi-purpose belt designed to meet the needs of any on-duty military or security personel. It's made from a non-glossy black leather and fitted with attachments such as magazine pouches, room for a holster, and space for a couple other small objects such as flashlights or grenades. An internal polymer stiffener runs the length of the belt, for added firmness and holster support. 
 ~
