@@ -2,12 +2,12 @@
 Keywords:	vendor vendomatic vend-o-matic safehouse
 Name:	a Vend-O-Matic
 RoomDesc:$
-A Vend-O-Matic has been installed against one wall. Items are delivered to a drop outside and processed through the unit here.
+A Vend-O-Matic has been installed against one wall.
 
 ~
 LookDesc:$
 Unassuming and bland, this unit consists of a speaker grille, a delivery slot,
-and a keypad to punch your order into. 
+and a keypad to punch your order into. Items are delivered to a drop outside and processed through the unit here.
 ~
 ArriveMsg:	arrives from
 LeaveMsg:	leaves
