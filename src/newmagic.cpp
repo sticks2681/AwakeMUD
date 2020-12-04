@@ -3444,7 +3444,7 @@ void deactivate_power(struct char_data *ch, int power)
 
 ACMD(do_powerdown)
 {
-  if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) != TRAD_ADEPT && GET_TRADITION(ch) != TRAD_MYSTIC) {
     nonsensical_reply(ch);
     return;
   }
