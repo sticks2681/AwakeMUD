@@ -3046,12 +3046,13 @@ SPECIAL(neophyte_entrance)
     send_to_char("You can't drag people here.\r\n", ch);
     return TRUE;
   }
-  if ((CMD_IS("south") || CMD_IS("enter")) && !(IS_SENATOR(ch))) {
-    send_to_char("The barrier prevents you from entering the guild.\r\n", ch);
-    send_to_char(ch, "(^mOOC^n: You may only visit the training grounds until you have received %d karma.)\r\n", NEWBIE_KARMA_THRESHOLD);
-    act("$n stumbles into the barrier covering the entrance.", FALSE, ch, 0, 0, TO_ROOM);
-    return TRUE;
-  }
+  // if ((CMD_IS("south") || CMD_IS("enter")) && !PLR_FLAGGED(ch, PLR_NEWBIE)
+      // && !(IS_SENATOR(ch))) {
+    // send_to_char("The barrier prevents you from entering the guild.\r\n", ch);
+    // send_to_char(ch, "(^mOOC^n: You may only visit the training grounds until you have received %d karma.)\r\n", NEWBIE_KARMA_THRESHOLD);
+    // act("$n stumbles into the barrier covering the entrance.", FALSE, ch, 0, 0, TO_ROOM);
+    // return TRUE;
+  // }
   return FALSE;
 }
 
