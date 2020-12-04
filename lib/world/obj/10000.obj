@@ -14,7 +14,7 @@ Material:	orichalcum
 [POINTS]
 	Weight:	1.00
 	Barrier:	32
-	Cost:	0
+	Cost:	50000
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	5
@@ -47,7 +47,7 @@ Material:	adv. plastics
 [POINTS]
 	Weight:	5.00
 	Barrier:	6
-	Cost:	0
+	Cost:	10000
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	3
@@ -67,7 +67,7 @@ Material:	adv. plastics
 	Val10:	28
 BREAK
 #1000002
-Keywords:	foregrip grip gas vent recoil compensation integral
+Keywords:	foregrip grip gas vent recoil compensation package
 Name:	a foregrip and recoil compensation package
 RoomDesc:$
 A combination foregrip and rifle compensation vent package is lying here.~
@@ -100,16 +100,16 @@ Name:	a remote-entry fob
 RoomDesc:$
 This remote-entry fob has no indication of where or what it may open.~
 LookDesc:$
-It looks pretty much like an unfinished object~
+This is a security fob for unlocking something.~
 Type:	Key
 WearFlags:	1
 ExtraFlags:	0
 AffFlags:	0
 Material:	plastic
 [POINTS]
-	Weight:	0.00
+	Weight:	0.1
 	Barrier:	3
-	Cost:	0
+	Cost:	20
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	0
@@ -131,8 +131,34 @@ ExtraFlags:	0
 AffFlags:	0
 Material:	metal
 [POINTS]
-	Weight:	0.00
+	Weight:	0.01
 	Barrier:	4
+	Cost:	5
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+BREAK
+#1000005
+Keywords:	lockers
+Name:	some armor lockers
+RoomDesc:$
+A set of lockers are against the wall.~
+LookDesc:$
+Self-illuminating lockers line the walls, with a bullet-proofed and
+smash-resistant glass allowing one to see through to the clothing and armor
+stored within.
+~
+Type:	Container
+WearFlags:	0
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	100.00
+	Barrier:	32
 	Cost:	0
 	AvailTN:	0
 	AvailDay:	0.00
@@ -140,5 +166,166 @@ Material:	metal
 	LegalCode:	0
 	LegalPermit:	0
 	StreetIndex:	0.00
+[VALUES]
+	Val0:	500
+	Val2:	-1
+BREAK
+#1000006
+Keywords:	full suit form fitting dragonskin skin body armor
+Name:	a full suit of form-fitting Dragonskin(TM) body armor
+RoomDesc:$
+A full suit of form-fitting Dragonskin(TM) armor lies here.~
+LookDesc:$
+Ares Arms has devised a new Dragonskin(TM) Form-Fitting Body Armor system that is contour-cut  for each individual buyer. This patented design is made of an imbricated overlapping configuration of high tensile ceramic discs encased in an aramid textile cover. The discs are strategically placed to protect vital organs and arteries while not restricting the wearer's movements nearly as much as the bulkier vests and other types of protective suits used in combat.~
+Type:	Worn
+WearFlags:	100000000000000001
+ExtraFlags:	100000000
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	1.5
+	Barrier:	6
+	Cost:	5000
+	AvailTN:	6
+	AvailDay:	14.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	1.00
+[VALUES]
+	Val5:	6
+	Val6:	4
+	Val7:	12
+BREAK
+#1000007
+Keywords:	pair tactical gloves
+Name:	a pair of tactical gloves
+RoomDesc:$
+A pair of tactical gloves lies here.~
+LookDesc:$
+These gloves are designed for tactical law enforcement or military ops. Made of high-durability leather and ballistic nylon offering heavy duty stitching, rugged construction, advanced ergonomic design, and reliability. These black gloves are breathable, quick drying, and lightweight with amazing durability and dexterity. Somewhat intimidating in appearance, they are also designed with full wrist support. 
+~
+Type:	Worn
+WearFlags:	10000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	leather
+[POINTS]
+	Weight:	0.00
+	Barrier:	6
+	Cost:	75
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+BREAK
+#1000008
+Keywords:	form-fitting fitting kevlar mask balaclava
+Name:	a form-fitting kevlar balaclava
+RoomDesc:$
+A face mask lies here.~
+LookDesc:$
+Styled in that classic ninja manner, with with a single opening around the eyes, this entire black mask is woven out of a semi-elastic type of kevlar fiber. While not designed to completely route a bullet, it can stop it from causing an excessively fatal injury. It also has a thin layer of thermal insulation for your general comfort. 
+~
+Type:	Worn
+WearFlags:	100000000000000000010001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	0.00
+	Barrier:	6
+	Cost:	100
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val7:	8
+BREAK
+#1000009
+Keywords:	military backpack pack bag large
+Name:	a large military-style backpack
+RoomDesc:$
+A large backpack is lying here, waiting to be filled.~
+LookDesc:$
+A large military-style backpack designed for 72-hour operations. It's got numerous compartments for all kinds of equipment, and the exterior os covered in MOLLE mesh for add customization. 
+~
+Type:	Container
+WearFlags:	1000000000000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	5.00
+	Barrier:	6
+	Cost:	850
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	55
+	Val1:	1
+	Val2:	-1
+	Val3:	-1
+BREAK
+#1000010
+Keywords:	tactical vest
+Name:	a tactical vest
+RoomDesc:$
+A tactical vest is lying here.~
+LookDesc:$
+This MOLLE tactical vest is designed to be worn over clothing, allowing the user to attach various holsters or  pouches to fit their needs.~
+Type:	Worn
+WearFlags:	10000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	1.00
+	Barrier:	6
+	Cost:	300
+	AvailTN:	2
+	AvailDay:	1.50
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.80
+[VALUES]
+	Val0:	2
+	Val4:	10
+SourceBook:	SR3 p283-284
+BREAK
+#1000011
+Keywords:	tactical battle belt
+Name:	a tactical battle belt
+RoomDesc:$
+a sleek looking battle belt has been dropped here.~
+LookDesc:$
+This is a multi-purpose belt designed to meet the needs of any on-duty military or security personel. It's made from a non-glossy black leather and fitted with attachments such as magazine pouches, room for a holster, and space for a couple other small objects such as flashlights or grenades. An internal polymer stiffener runs the length of the belt, for added firmness and holster support. 
+~
+Type:	Worn
+WearFlags:	100000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	1.00
+	Barrier:	4
+	Cost:	200
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	1
+	Val1:	6
+	Val2:	2
+	Val4:	4
 BREAK
 END

@@ -752,16 +752,16 @@ Material:	metal
 	Val2:	-1
 BREAK
 #60726
-Keywords:	ergonomic weapon sling
-Name:	an ergonomically-designed weapon sling
+Keywords:	ergonomic weapon harness
+Name:	an ergonomically-designed weapon harness
 RoomDesc:$
 A weapon harness is stretched out on the floor here.~
 LookDesc:$
-Carefully designed and available in sizes to fit Gnomes and Giants, this
+Carefully designed and available in sizes to fit Gnomes to Giants, this
 weapon sling accepts most types of sheaths and can distribute the weight and
 load of equipment evenly over a persons body to make sure that they remain
 comfortable. Composed of durable polymer compounds that provide comfort and a
-long life in the line of duty, this allows even the richest street samurais to
+long life in the line of duty, this allows even the richest street samurai to
 strap themselves to the teeth better than ever before so they will be prepared
 for anything short of all out nuclear warfare. 
 ~
@@ -769,7 +769,7 @@ Type:	Worn
 WearFlags:	10001000000000000000001
 ExtraFlags:	0
 AffFlags:	0
-Material:	fabric
+Material:	leather
 [POINTS]
 	Weight:	0.10
 	Barrier:	8
