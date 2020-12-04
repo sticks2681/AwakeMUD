@@ -1,0 +1,34 @@
+#1000000
+Keywords:	vendor vendomatic vend-o-matic safehouse
+Name:	a Vend-O-Matic
+RoomDesc:$
+A Vend-O-Matic has been installed against one wall. Items are delivered to a drop outside and processed through the unit here.
+
+~
+LookDesc:$
+Unassuming and bland, this unit consists of a speaker grille, a delivery slot,
+and a keypad to punch your order into. 
+~
+ArriveMsg:	arrives from
+LeaveMsg:	leaves
+MobFlags:	1000000000000000000000000001010
+AffFlags:	0
+Race:	Undef
+Gender:	Neutral
+DefaultPos:	Standing
+[ATTRIBUTES]
+	Bod:	50
+	Qui:	50
+	Str:	50
+	Cha:	50
+	Int:	50
+	Wil:	50
+	Mag:	0
+[POINTS]
+	Height:	0
+	Weight:	0
+	Ballistic:	50
+	Impact:	50
+[SKILLS]
+BREAK
+END
