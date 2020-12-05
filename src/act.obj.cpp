@@ -166,14 +166,17 @@ void perform_put(struct char_data *ch, struct obj_data *obj, struct obj_data *co
       act("You can only put keys on $P.", FALSE, ch, obj, cont, TO_CHAR);
       return;
     }
-    
-    // if (GET_OBJ_WEIGHT(cont) + GET_OBJ_WEIGHT(obj) > MAX_KEYRING_WEIGHT) {
-      // act("$P's ring isn't strong enough to hold everything you're trying to put on it.", FALSE, ch, obj, cont, TO_CHAR);
-      // return;
-    // }
-  // } else if (GET_OBJ_WEIGHT(cont) + GET_OBJ_WEIGHT(obj) > GET_OBJ_VAL(cont, 0)) {
-    // act("$p won't fit in $P.", FALSE, ch, obj, cont, TO_CHAR);
-    // return;
+
+    // Previously, we weight-limited the keyring, but that's no fun.
+    /*
+    if (GET_OBJ_WEIGHT(cont) + GET_OBJ_WEIGHT(obj) > MAX_KEYRING_WEIGHT) {
+      act("$P's ring isn't strong enough to hold everything you're trying to put on it.", FALSE, ch, obj, cont, TO_CHAR);
+      return;
+    }
+    */
+  } else if (GET_OBJ_WEIGHT(cont) + GET_OBJ_WEIGHT(obj) > GET_OBJ_VAL(cont, 0)) {
+    act("$p won't fit in $P.", FALSE, ch, obj, cont, TO_CHAR);
+    return;
   }
   
   if (obj->in_obj)

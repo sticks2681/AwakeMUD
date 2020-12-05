@@ -2939,7 +2939,7 @@ struct obj_data *read_object(int nr, int type)
         struct obj_data *mod = &obj_proto[real_object(GET_OBJ_VAL(obj, i))];
         // We know the attachment code will throw a fit if we attach over the top of an 'existing' object, so wipe it out without removing it.
         GET_OBJ_VAL(obj, i) = 0;
-        attach_attachment_to_weapon(mod, obj, NULL);
+        attach_attachment_to_weapon(mod, obj, NULL, i);
       }
     if (IS_GUN(GET_OBJ_VAL(obj, 3))) {
       if (IS_SET(GET_OBJ_VAL(obj, 10), 1 << MODE_SS))
@@ -4459,6 +4459,7 @@ void load_saved_veh()
       veh = read_vehicle(vnum, VIRTUAL);
     else
       continue;
+      
     veh->damage = data.GetInt("VEHICLE/Damage", 0);
     veh->owner = owner;
     veh->idnum = data.GetLong("VEHICLE/Idnum", number(0, INT_MAX));
@@ -4497,8 +4498,7 @@ void load_saved_veh()
               // The cost of the item was preserved, but nothing else was. Re-attach the item, then subtract its cost.
               // We know the attachment code will throw a fit if we attach over the top of an 'existing' object, so wipe it out without removing it.
               GET_OBJ_VAL(obj, i) = 0;
-              attach_attachment_to_weapon(attach, obj, NULL);
-              GET_OBJ_COST(obj) -= GET_OBJ_COST(attach);
+              attach_attachment_to_weapon(attach, obj, NULL, i);
             }
         sprintf(buf, "%s/Condition", sect_name);
         GET_OBJ_CONDITION(obj) = data.GetInt(buf, GET_OBJ_CONDITION(obj));
@@ -4684,9 +4684,7 @@ void load_consist(void)
                   (attach = &obj_proto[real_object(GET_OBJ_VAL(obj, q))])) {
                 // We know the attachment code will throw a fit if we attach over the top of an 'existing' object, so wipe it out without removing it.
                 GET_OBJ_VAL(obj, i) = 0;
-                attach_attachment_to_weapon(attach, obj, NULL);
-                // The cost was already saved at the higher value from when we last attached, so don't increase it again.
-                GET_OBJ_COST(obj) -= GET_OBJ_COST(attach);
+                attach_attachment_to_weapon(attach, obj, NULL, i);
               }
           
           inside = data.GetInt(buf, 0);

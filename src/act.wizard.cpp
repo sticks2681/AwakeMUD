@@ -4595,7 +4595,7 @@ ACMD(do_ilist)
 
   for (nr = MAX(0, real_object(first)); nr <= top_of_objt && (OBJ_VNUM_RNUM(nr) <= last); nr++) {
     if (OBJ_VNUM_RNUM(nr) >= first) {
-      sprintf(buf + strlen(buf), "%5d. [%5ld -%2d] %s%s\r\n", ++found,
+      sprintf(buf + strlen(buf), "%5d. [%5ld x%4d] %s%s\r\n", ++found,
       OBJ_VNUM_RNUM(nr),
       ObjList.CountObj(nr),
       obj_proto[nr].text.name,
