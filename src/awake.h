@@ -2217,7 +2217,7 @@ struct ban_list_element
 #define MATERIAL_CONCRETE     16
 #define NUM_MATERIALS         17
 
-#define MAX_KEYRING_WEIGHT    50.0
+#define MAX_KEYRING_WEIGHT    1.0
 
 // Note: If you change this, you'll have to update zone file loading etc as well.
 #define NUM_ZONE_EDITOR_IDS   5
