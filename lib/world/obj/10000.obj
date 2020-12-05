@@ -315,7 +315,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	1.00
-	Barrier:	4
+	Barrier:	6
 	Cost:	200
 	AvailTN:	0
 	AvailDay:	0.00
@@ -343,7 +343,7 @@ AffFlags:	0
 Material:	leather
 [POINTS]
 	Weight:	1.00
-	Barrier:	4
+	Barrier:	6
 	Cost:	50
 	AvailTN:	0
 	AvailDay:	0.00
@@ -365,10 +365,10 @@ Type:	Holster
 WearFlags:	10001000000000000000001
 ExtraFlags:	0
 AffFlags:	0
-Material:	leather
+Material:	fabric
 [POINTS]
 	Weight:	1.00
-	Barrier:	4
+	Barrier:	6
 	Cost:	50
 	AvailTN:	0
 	AvailDay:	0.00
