@@ -26,7 +26,7 @@ Desc:$
    This is a fenced-in entrance and parking area in front of a rather
 plain-looking building that has little to hint at its contents. 
 ~
-Flags:	1100
+Flags:	1000000010000000000000000000100
 SecType:	City
 MatrixExit:	0
 Crowd:	0
