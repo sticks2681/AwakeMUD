@@ -110,5 +110,13 @@ Etiquette:	46
 		Vnum:	28422
 		Type:	Always
 		Stock:	0
+	[SELL 23]
+		Vnum:	1921
+		Type:	Always
+		Stock:	0
+	[SELL 24]
+		Vnum:	100008
+		Type:	Always
+		Stock:	0
 BREAK
 END
