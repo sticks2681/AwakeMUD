@@ -131,7 +131,7 @@ ExtraFlags:	0
 AffFlags:	0
 Material:	metal
 [POINTS]
-	Weight:	1.00
+	Weight:	0.1
 	Barrier:	4
 	Cost:	5
 	AvailTN:	0
