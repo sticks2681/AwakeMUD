@@ -89,42 +89,7 @@ RoomType:	6
 	Desc:$
 a reinforced roll-up door 
 ~
-	ToVnum:	1000000
-	Flags:	4
-	Material:	metal
-	Barrier:	8
-	KeyVnum:	1000003
-	LockRating:	50
-BREAK
-#1000003
-Name:	A Large Garage and Workshop
-Desc:$
-   This large open area has plenty of space for several vehicles to park, as
-well as ample storage room. 
-~
-Flags:	1100000100000000000000000001000
-SecType:	City
-MatrixExit:	0
-Crowd:	0
-Cover:	0
-X:	50
-Y:	50
-Z:	10.00
-RoomType:	0
-[POINTS]
-	SpecIdx:	0
-	Rating:	0
-	Light:	0
-	Smoke:	0
-	Background:	0
-	BackgroundType:	0
-	StaffLockLevel:	0
-[EXIT north]
-	Keywords:	reinforced roll-up door garage
-	Desc:$
-a reinforced roll-up door 
-~
-	ToVnum:	1000002
+	ToVnum:	1000001
 	Flags:	4
 	Material:	metal
 	Barrier:	8
