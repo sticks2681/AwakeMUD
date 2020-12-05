@@ -906,7 +906,7 @@ void assign_rooms(void)
   ASSIGNROOM(62501, car_dealer);
   ASSIGNROOM(62201, car_dealer);
   ASSIGNROOM(62331, car_dealer);
-  ASSIGNROOM(1000002, car_dealer);
+  ASSIGNROOM(1000001, car_dealer);
 
   /* Mitsuhama */
   ASSIGNROOM(17171, circulation_fan);
