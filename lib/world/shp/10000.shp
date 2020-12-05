@@ -90,5 +90,25 @@ Etiquette:	46
 		Vnum:	70148
 		Type:	Always
 		Stock:	0
+	[SELL 18]
+		Vnum:	31542
+		Type:	Always
+		Stock:	0
+	[SELL 19]
+		Vnum:	18825
+		Type:	Always
+		Stock:	0
+	[SELL 20]
+		Vnum:	1302
+		Type:	Always
+		Stock:	0
+	[SELL 01]
+		Vnum:	37597
+		Type:	Always
+		Stock:	0
+	[SELL 22]
+		Vnum:	28842
+		Type:	Always
+		Stock:	0
 BREAK
 END
