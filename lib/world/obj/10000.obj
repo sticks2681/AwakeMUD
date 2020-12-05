@@ -340,10 +340,10 @@ Type:	Holster
 WearFlags:	100000000001
 ExtraFlags:	0
 AffFlags:	0
-Material:	fabric
+Material:	leather
 [POINTS]
 	Weight:	1.00
-	Barrier:	3
+	Barrier:	4
 	Cost:	50
 	AvailTN:	0
 	AvailDay:	0.00
@@ -351,7 +351,7 @@ Material:	fabric
 	LegalCode:	0
 	LegalPermit:	0
 [VALUES]
-	Val0:	1
+	Val0:	2
 BREAK
 #1000013
 Keywords:	rifle strap nylon two-point point sling tactical
@@ -368,7 +368,7 @@ AffFlags:	0
 Material:	leather
 [POINTS]
 	Weight:	1.00
-	Barrier:	6
+	Barrier:	4
 	Cost:	50
 	AvailTN:	0
 	AvailDay:	0.00
