@@ -1,0 +1,73 @@
+Name:	GMC MPUV SUV heavily modified
+ShortDesc:	A modified GMC MPUV
+RoomDesc:	A modified GMC MPUV is parked here
+LongDesc:$
+The multi-purpose utility vehicle (MPUV) is a common sight amongst both
+civilian and security forces due to its reliability and versatility, not to
+mention its low price tag for a vehicle of its class. Clad in armour plates,
+this light-combat SUV makes no attempt to hide its durable nature, while still
+retaining its maneuverability, making it perfect for hauling precious goods,
+or skipping the toll on a go-ganger roadblock. 
+~
+Inside:$
+The interior is rather plain at best, although it does contain a small array
+of various electronic ports and standard radio connections. The front two
+seats are comfortable bucket seats, offering plenty of space to maneuver
+around for both driver and passenger alike. 
+~
+InsideRear:$
+The rear of this vehicle is even more sparsely equipped than the front cabin,
+having been stripped of everything unnecessary to save on weight, which also
+allows it to perform perfectly as both a transport for hauling goods as
+well as people. 
+~
+Leaving:	muscles its way off
+Arriving:	muscles its way in
+Handling:	2
+Speed:	180
+Accel:	12
+Body:	5
+Armour:	15
+Pilot:	1
+Sig:	2
+Autonav:	4
+Seating:	2
+SeatingBack:	3
+Load:	600
+Cost:	368000
+Type:	3
+Flags:	1000
+Engine:	5
+BREAK
+#1000001
+Name:	ares roadmaster master modified
+ShortDesc:	A modified Ares RoadMaster
+RoomDesc:	A modified Ares RoadMaster sits ominously at the curb
+LongDesc:$
+This is the basic model of the Ares Master Series, Ares' main security-related vehicle. It has a large cargo capacity which could easily be utilized in many different ways, from smuggling to security work.
+~
+Inside:$
+The interior of this RoadMaster shows just how much it has been modified from the stock version. Everything from the control setup to the seating has been customized, with special attention paid to the protection of those inside. 
+~
+InsideRear:$
+The rear of this RoadMaster is fairly roomy, even with all of the added armor. There is seating along the walls for six passengers, with plenty of storage space for weapons or other gear.
+~
+Leaving:	rumbles
+Arriving:	rumbles in
+Handling:	3
+Speed:	135
+Accel:	5
+Body:	6
+Armour:	18
+Pilot:	1
+Sig:	4
+Autonav:	4
+Seating:	2
+SeatingBack:	6
+Load:	575
+Cost:	300863
+Type:	3
+Flags:	1000
+Engine:	5
+BREAK
+END

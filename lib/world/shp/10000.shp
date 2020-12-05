@@ -19,7 +19,7 @@ Buytypes:	1000000000000001000000000000000000000000001
 Etiquette:	46
 [SELLING]
 	[SELL 0]
-		Vnum:	1000012
+		Vnum:	1000014
 		Type:	Always
 		Stock:	0
 	[SELL 1]
@@ -71,14 +71,22 @@ Etiquette:	46
 		Type:	Always
 		Stock:	0
 	[SELL 13]
-		Vnum:	1000001
+		Vnum:	1000012
 		Type:	Always
 		Stock:	0
 	[SELL 14]
-		Vnum:	127
+		Vnum:	1000013
 		Type:	Always
 		Stock:	0
 	[SELL 15]
+		Vnum:	1000001
+		Type:	Always
+		Stock:	0
+	[SELL 16]
+		Vnum:	127
+		Type:	Always
+		Stock:	0
+	[SELL 17]
 		Vnum:	70148
 		Type:	Always
 		Stock:	0

@@ -40,6 +40,28 @@ a reinforced roll-up door
 	LockRating:	50
 BREAK
 #1000001
+Name:	Safehouse Vehicle Shop Load Room
+Desc:$
+   This is the Safehouse Vehicle Shop Load Room. Linked vehicle shop is room 1000002. 
+~
+Flags:	0
+SecType:	City
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	20
+Y:	20
+Z:	2.50
+RoomType:	0
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+BREAK
+#1000002
 Name:	A Large Garage and Workshop
 Desc:$
    This large open area has plenty of space for several vehicles to park, as

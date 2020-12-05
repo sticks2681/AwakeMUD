@@ -329,7 +329,56 @@ Material:	fabric
 	Val4:	4
 BREAK
 #1000012
-
+Keywords:	sheath
+Name:	a sword sheath
+RoomDesc:$
+A sword sheath is here.~
+LookDesc:$
+A black leather sword sheath. 
+~
+Type:	Holster
+WearFlags:	100000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	1.00
+	Barrier:	3
+	Cost:	50
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	1
+BREAK
+#1000013
+Keywords:	rifle strap nylon two-point point sling tactical
+Name:	a two-point tactical rifle sling
+RoomDesc:$
+A nylon sling with some buckles has been left here.~
+LookDesc:$
+It's a nylon sling with attachments to hook an assault rifle, or possibly something larger, to. 
+~
+Type:	Holster
+WearFlags:	10001000000000000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	leather
+[POINTS]
+	Weight:	1.00
+	Barrier:	6
+	Cost:	50
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	2
+BREAK
+#1000014
 Keywords:	credstick platinum
 Name:	a platinum credstick
 RoomDesc:$
