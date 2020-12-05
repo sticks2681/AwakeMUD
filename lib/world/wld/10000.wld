@@ -32,7 +32,7 @@ RoomType:	0
 	Desc:$
 a reinforced roll-up door 
 ~
-	ToVnum:	1000001
+	ToVnum:	1000002
 	Flags:	4
 	Material:	metal
 	Barrier:	8
