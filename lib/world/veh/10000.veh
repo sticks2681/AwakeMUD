@@ -45,13 +45,19 @@ Name:	ares roadmaster master modified
 ShortDesc:	A modified Ares RoadMaster
 RoomDesc:	A modified Ares RoadMaster sits ominously at the curb
 LongDesc:$
-This is the basic model of the Ares Master Series, Ares' main security-related vehicle. It has a large cargo capacity which could easily be utilized in many different ways, from smuggling to security work.
+This is the basic model of the Ares Master Series, Ares' main security-related 
+vehicle. It has a large cargo capacity which could easily be utilized in many 
+different ways, from smuggling to security work.
 ~
 Inside:$
-The interior of this RoadMaster shows just how much it has been modified from the stock version. Everything from the control setup to the seating has been customized, with special attention paid to the protection of those inside. 
+The interior of this RoadMaster shows just how much it has been modified from 
+the stock version. Everything from the control setup to the seating has been 
+customized, with special attention paid to the protection of those inside. 
 ~
 InsideRear:$
-The rear of this RoadMaster is fairly roomy, even with all of the added armor. There is seating along the walls for six passengers, with plenty of storage space for weapons or other gear.
+The rear of this RoadMaster is fairly roomy, even with all of the added armor. 
+There is seating along the walls for six passengers, with plenty of storage 
+space for weapons or other gear.
 ~
 Leaving:	rumbles
 Arriving:	rumbles in
