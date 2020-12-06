@@ -81,7 +81,7 @@ AffFlags:	0
 Material:	metal
 [POINTS]
 	Weight:	0.50
-	Barrier:	16
+	Barrier:	24
 	Cost:	5000
 	AvailTN:	0
 	AvailDay:	0.00
@@ -190,7 +190,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	1.5
-	Barrier:	8
+	Barrier:	16
 	Cost:	5000
 	AvailTN:	16
 	AvailDay:	14.00
@@ -277,7 +277,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	5.00
-	Barrier:	12
+	Barrier:	16
 	Cost:	850
 	AvailTN:	0
 	AvailDay:	0.00
@@ -306,7 +306,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	1.00
-	Barrier:	12
+	Barrier:	16
 	Cost:	300
 	AvailTN:	2
 	AvailDay:	1.50
@@ -339,7 +339,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	1.00
-	Barrier:	12
+	Barrier:	16
 	Cost:	200
 	AvailTN:	0
 	AvailDay:	0.00
@@ -367,7 +367,7 @@ AffFlags:	0
 Material:	leather
 [POINTS]
 	Weight:	1.00
-	Barrier:	12
+	Barrier:	16
 	Cost:	50
 	AvailTN:	0
 	AvailDay:	0.00
@@ -378,7 +378,7 @@ Material:	leather
 	Val0:	1
 BREAK
 #1000013
-Keywords:	rifle strap nylon two-point point sling tactical
+Keywords:	rifle strap two-point point sling tactical
 Name:	a two-point tactical rifle sling
 RoomDesc:$
 A sling with some buckles has been left here.~
@@ -393,7 +393,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	1.00
-	Barrier:	12
+	Barrier:	16
 	Cost:	50
 	AvailTN:	0
 	AvailDay:	0.00
