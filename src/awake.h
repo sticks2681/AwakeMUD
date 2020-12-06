@@ -84,7 +84,7 @@ using namespace std;
 #define TRAD_HERMETIC   0
 #define TRAD_SHAMANIC   1
 #define TRAD_MUNDANE    2
-#define TRAD_ADEPT      0
+#define TRAD_ADEPT      3
 #define TRAD_MYSTIC     4
 
 #define ASPECT_FULL		0

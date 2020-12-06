@@ -3961,7 +3961,7 @@ ACMD(do_initiate)
     PLR_FLAGS(ch).SetBit(PLR_INITIATE);  
     disp_init_menu(ch->desc);
   } else if (subcmd == SCMD_POWERPOINT) {
-    if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC)
+    if (GET_TRADITION(ch) != TRAD_ADEPT && GET_TRADITION(ch) != TRAD_MYSTIC)
       nonsensical_reply(ch);
     else if (GET_KARMA(ch) < 2000 || ch->points.extrapp > (int)(GET_REP(ch) / 50))
       send_to_char("You do not have enough karma to purchase a powerpoint.\r\n", ch);
