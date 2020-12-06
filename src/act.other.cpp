@@ -2087,8 +2087,8 @@ ACMD(do_customize)
 
   skip_spaces(&argument);
   if (!*argument) {
-     send_to_char(ch, "Usage: customize <persona/physical%s%s/background>\r\n", ch, (GET_TRADITION(ch) == TRAD_SHAMANIC || GET_TRADITION(ch) == TRAD_HERMETIC) && GET_ASPECT(ch) == ASPECT_FULL ? "/reflection" : "",
-                 GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_SHAMANIC ? "/magic" : "");
+     send_to_char(ch, "Usage: customize <persona/physical%s%s/background>\r\n", ch, (GET_TRADITION(ch) == TRAD_SHAMANIC || GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_MYSTIC) && GET_ASPECT(ch) == ASPECT_FULL ? "/reflection" : "",
+                 GET_TRADITION(ch) == TRAD_HERMETIC || GET_TRADITION(ch) == TRAD_SHAMANIC || GET_TRADITION(ch) == TRAD_MYSTIC ? "/magic" : "");
     return;
   }
   if (is_abbrev(argument, "magic")) {}
@@ -2105,7 +2105,8 @@ ACMD(do_customize)
     STATE(ch->desc) = CON_PCUSTOMIZE;
   } else if (is_abbrev(argument, "reflection")) {
     if (!IS_SENATOR(ch) && GET_TRADITION(ch) != TRAD_SHAMANIC &&
-        GET_TRADITION(ch) != TRAD_HERMETIC) {
+        GET_TRADITION(ch) != TRAD_HERMETIC &&
+        GET_TRADITION(ch) != TRAD_MYSTIC) {
       send_to_char("And just why would you need to do that?!\r\n", ch);
       return;
     }
