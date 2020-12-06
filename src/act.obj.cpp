@@ -505,7 +505,7 @@ ACMD(do_put)
       act(buf, FALSE, ch, cont, 0, TO_CHAR);
       return;
     }
-  } else if (GET_OBJ_TYPE(cont) != ITEM_CONTAINER && GET_OBJ_TYPE(cont) != ITEM_QUIVER && GET_OBJ_TYPE(cont) != ITEM_WORN && GET_OBJ_TYPE(cont) != ITEM_KEYRING && GET_OBJ_TYPE(cont) != ITEM_CORPSE) {
+  } else if (GET_OBJ_TYPE(cont) != ITEM_CONTAINER && GET_OBJ_TYPE(cont) != ITEM_QUIVER && GET_OBJ_TYPE(cont) != ITEM_WORN && GET_OBJ_TYPE(cont) != ITEM_KEYRING) {
     snprintf(buf, sizeof(buf), "$p is not a container.");
     act(buf, FALSE, ch, cont, 0, TO_CHAR);
     return;
@@ -1295,7 +1295,7 @@ ACMD(do_get)
       for (cont = ch->in_room->contents; cont; cont = cont->next_content)
         if (CAN_SEE_OBJ(ch, cont) &&
             (cont_dotmode == FIND_ALL || isname(arg2, cont->text.keywords))) {
-          if (GET_OBJ_TYPE(cont) == (ITEM_CONTAINER || GET_OBJ_TYPE(cont) == ITEM_KEYRING)) {
+          if (GET_OBJ_TYPE(cont) == ITEM_CONTAINER || GET_OBJ_TYPE(cont) == ITEM_KEYRING) {
             get_from_container(ch, cont, arg1, FIND_OBJ_ROOM);
             found = 1;
           } else if (cont_dotmode == FIND_ALLDOT) {
