@@ -430,4 +430,218 @@ Material:	metal
 	Val1:	1
 	Val2:	3
 BREAK
+#1000100
+Keywords:	adura arms armathor armor combat suit matte-black black
+Name:	^La matte-black Armathor(TM) combat suit^n
+RoomDesc:$
+An armored combat suit lies here~
+LookDesc:$
+This is an Armathor(TM) combat suit, by Adura Arms. SOTA
+materials and construction processes have developed a
+combat suit beyond anything seen before. The suit is
+designed with multiple pockets for carrying essential
+gear or ammunition.
+~
+Type:	Worn
+WearFlags:	100001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	5.00
+	Barrier:	32
+	Cost:	10000
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	2
+	Val4:	4
+	Val5:	1
+	Val6:	1
+	Val7:	-1
+BREAK
+#1000101
+Keywords:	adura arms armathor armor combat boots black
+Name:	^La pair of black Armathor(TM) combat boots^n
+RoomDesc:$
+A pair of combat boots stand here.~
+LookDesc:$
+This is a pair of Armathor(TM) combat boots, by Adura Arms. SOTA
+materials and construction processes have developed a system of
+combat gear beyond anything seen before. Each boot has a convenient
+sheath to contain a boot knife or a small sidearm for when those
+unwelcome, but seemingly ever-present, surprises occur.
+~
+Type:	Worn
+WearFlags:	1000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	2.00
+	Barrier:	32
+	Cost:	250
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	1
+	Val7:	-1
+[AFFECT 0]
+	Location:	Ballistic
+	Modifier:	1
+[AFFECT 1]
+	Location:	Impact
+	Modifier:	1
+BREAK
+#1000102
+Keywords:	adura arms armathor armor combat utility belt black
+Name:	^La black Armathor(TM) combat utility belt^n
+RoomDesc:$
+A utilty belt lies here.~
+LookDesc:$
+This is an Armathor(TM) combat utility belt, by Adura Arms. SOTA
+materials and construction processes have developed a system of
+combat gear beyond anything seen before. Fully customizable with
+numerous pouches and compartments available, allowing for storage
+of essential gear or ammunition, to keep things handy when the
+going gets tough.
+~
+Type:	Worn
+WearFlags:	100000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	2.00
+	Barrier:	32
+	Cost:	100
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	6
+	Val1:	5
+	Val2:	5
+	Val3:	5
+	Val4:	2
+BREAK
+#1000103
+Keywords:	adura arms armathor armor combat vest armor black
+Name:	^La black Armathor(TM) combat vest^n
+RoomDesc:$
+An combat vest lies here.~
+LookDesc:$
+This is an Armathor(TM) combat vest by, Adura Arms. SOTA
+materials and construction processes have developed a system of
+combat gear beyond anything seen before. Fully customizable
+with numerous pouches and compartments available, allowing for
+storage of essential gear or ammunition, while the ballistic
+weave and polymer plates allow the gear to stand up to the
+hazards of everyday life on the streets.
+~
+Type:	Worn
+WearFlags:	10000001001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	3.00
+	Barrier:	32
+	Cost:	500
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val0:	4
+	Val1:	8
+	Val2:	2
+	Val3:	4
+	Val4:	4
+	Val5:	4
+	Val6:	3
+[AFFECT 0]
+	Location:	Ballistic
+	Modifier:	1
+[AFFECT 1]
+	Location:	Impact
+	Modifier:	1
+BREAK
+#1000104
+Keywords:	adura arms armathor armor combat gloves black
+Name:	^La pair of black Armathor(TM) combat gloves^n
+RoomDesc:$
+A pair of combat gloves lies here.~
+LookDesc:$
+This is a pair of Armathor(TM) combat gloves, by Adura Arms.
+SOTA materials and construction processes have developed a
+system of combat gear beyond anything seen before. These
+gloves are breathable, quick drying, and lightweight with
+amazing durability and dexterity.
+~
+Type:	Worn
+WearFlags:	10000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	leather
+[POINTS]
+	Weight:	0.50
+	Barrier:	32
+	Cost:	100
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[AFFECT 0]
+	Location:	Ballistic
+	Modifier:	1
+[AFFECT 1]
+	Location:	Impact
+	Modifier:	1
+BREAK
+#1000105
+Keywords:	adura arms armathor armor combat helmet black
+Name:	^La black Armathor(TM) combat helmet^n
+RoomDesc:$
+An armored helmet lies here~
+LookDesc:$
+This is an Armathor(TM) combat helmet, by Adura Arms. SOTA
+materials and construction processes have developed a system
+of combat gear beyond anything seen before. This sleek,
+lightweight, open faced combat helmet protects not only the
+skull but also the neck without restricting movement or vision. 
+~
+Type:	Worn
+WearFlags:	10001
+ExtraFlags:	0
+AffFlags:	0
+Material:	plastic
+[POINTS]
+	Weight:	2.00
+	Barrier:	32
+	Cost:	1000
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+[VALUES]
+	Val7:	2
+[AFFECT 0]
+	Location:	Ballistic
+	Modifier:	2
+[AFFECT 1]
+	Location:	Impact
+	Modifier:	2
+BREAK
 END
