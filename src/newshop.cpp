@@ -64,7 +64,7 @@ bool is_open(struct char_data *keeper, int shop_nr)
       // snprintf(buf, sizeof(buf), "We've closed for the day.");
   // }
   // if (!*buf)
-    // return TRUE;
+     return TRUE;
   // else
   // {
     // do_say(keeper, buf, cmd_say, 0);
