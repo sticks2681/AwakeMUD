@@ -118,5 +118,29 @@ Etiquette:	46
 		Vnum:	100008
 		Type:	Always
 		Stock:	0
+	[SELL 25]
+		Vnum:	1000100
+		Type:	Always
+		Stock:	0
+	[SELL 26]
+		Vnum:	1000101
+		Type:	Always
+		Stock:	0
+	[SELL 27]
+		Vnum:	1000102
+		Type:	Always
+		Stock:	0
+	[SELL 28]
+		Vnum:	1000103
+		Type:	Always
+		Stock:	0
+	[SELL 29]
+		Vnum:	1000104
+		Type:	Always
+		Stock:	0
+	[SELL 30]
+		Vnum:	1000105
+		Type:	Always
+		Stock:	0
 BREAK
 END

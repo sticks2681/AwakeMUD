@@ -107,7 +107,7 @@ ExtraFlags:	0
 AffFlags:	0
 Material:	plastic
 [POINTS]
-	Weight:	0.1
+	Weight:	0.10
 	Barrier:	8
 	Cost:	20
 	AvailTN:	0
@@ -131,7 +131,7 @@ ExtraFlags:	0
 AffFlags:	0
 Material:	metal
 [POINTS]
-	Weight:	0.1
+	Weight:	0.10
 	Barrier:	16
 	Cost:	5
 	AvailTN:	0
@@ -189,7 +189,7 @@ ExtraFlags:	100000000
 AffFlags:	0
 Material:	fabric
 [POINTS]
-	Weight:	1.5
+	Weight:	1.50
 	Barrier:	16
 	Cost:	5000
 	AvailTN:	16
@@ -230,6 +230,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #1000008
 Keywords:	form-fitting fitting kevlar mask balaclava
@@ -257,6 +258,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val7:	8
 BREAK
@@ -284,6 +286,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	55
 	Val1:	1
@@ -346,6 +349,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	1
 	Val1:	6
@@ -374,6 +378,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	1
 BREAK
@@ -400,6 +405,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	2
 BREAK
@@ -426,6 +432,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val1:	1
 	Val2:	3
@@ -443,25 +450,24 @@ designed with multiple pockets for carrying essential
 gear or ammunition.
 ~
 Type:	Worn
-WearFlags:	100001
-ExtraFlags:	0
+WearFlags:	100000000000000001
+ExtraFlags:	10000000000000000000000000
 AffFlags:	0
-Material:	fabric
+Material:	adv. plastics
 [POINTS]
 	Weight:	5.00
 	Barrier:	32
-	Cost:	10000
+	Cost:	75000
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
-	Val0:	2
-	Val4:	4
-	Val5:	1
-	Val6:	1
-	Val7:	-1
+	Val4:	6
+	Val5:	10
+	Val6:	10
 BREAK
 #1000101
 Keywords:	adura arms armathor armor combat boots black
@@ -479,19 +485,19 @@ Type:	Worn
 WearFlags:	1000001
 ExtraFlags:	0
 AffFlags:	0
-Material:	fabric
+Material:	leather
 [POINTS]
 	Weight:	2.00
 	Barrier:	32
-	Cost:	250
+	Cost:	2500
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
-	Val0:	1
-	Val7:	-1
+	Val4:	2
 [AFFECT 0]
 	Location:	Ballistic
 	Modifier:	1
@@ -516,22 +522,19 @@ Type:	Worn
 WearFlags:	100000000001
 ExtraFlags:	0
 AffFlags:	0
-Material:	fabric
+Material:	leather
 [POINTS]
 	Weight:	2.00
 	Barrier:	32
-	Cost:	100
+	Cost:	1000
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
-	Val0:	6
-	Val1:	5
-	Val2:	5
-	Val3:	5
-	Val4:	2
+	Val4:	10
 BREAK
 #1000103
 Keywords:	adura arms armathor armor combat vest armor black
@@ -548,27 +551,22 @@ weave and polymer plates allow the gear to stand up to the
 hazards of everyday life on the streets.
 ~
 Type:	Worn
-WearFlags:	10000001001
+WearFlags:	1001
 ExtraFlags:	0
 AffFlags:	0
-Material:	fabric
+Material:	adv. plastics
 [POINTS]
 	Weight:	3.00
 	Barrier:	32
-	Cost:	500
+	Cost:	5000
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
-	Val0:	4
-	Val1:	8
-	Val2:	2
-	Val3:	4
-	Val4:	4
-	Val5:	4
-	Val6:	3
+	Val4:	10
 [AFFECT 0]
 	Location:	Ballistic
 	Modifier:	1
@@ -596,12 +594,13 @@ Material:	leather
 [POINTS]
 	Weight:	0.50
 	Barrier:	32
-	Cost:	100
+	Cost:	1000
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [AFFECT 0]
 	Location:	Ballistic
 	Modifier:	1
@@ -625,18 +624,17 @@ Type:	Worn
 WearFlags:	10001
 ExtraFlags:	0
 AffFlags:	0
-Material:	plastic
+Material:	adv. plastics
 [POINTS]
 	Weight:	2.00
 	Barrier:	32
-	Cost:	1000
+	Cost:	2500
 	AvailTN:	0
 	AvailDay:	0.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-[VALUES]
-	Val7:	2
+	StreetIndex:	0.00
 [AFFECT 0]
 	Location:	Ballistic
 	Modifier:	2
