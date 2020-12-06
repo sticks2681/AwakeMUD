@@ -497,7 +497,7 @@ Material:	leather
 	LegalPermit:	0
 	StreetIndex:	0.00
 [VALUES]
-	Val4:	2
+	Val0:	2
 [AFFECT 0]
 	Location:	Ballistic
 	Modifier:	1
@@ -534,7 +534,8 @@ Material:	leather
 	LegalPermit:	0
 	StreetIndex:	0.00
 [VALUES]
-	Val4:	10
+	Val0:	3
+	Val4:	8
 BREAK
 #1000103
 Keywords:	adura arms armathor armor combat vest armor black
@@ -566,6 +567,7 @@ Material:	adv. plastics
 	LegalPermit:	0
 	StreetIndex:	0.00
 [VALUES]
+	Val0:	3
 	Val4:	10
 [AFFECT 0]
 	Location:	Ballistic
@@ -586,7 +588,7 @@ system of combat gear beyond anything seen before. These
 gloves are breathable, quick drying, and lightweight with
 amazing durability and dexterity.
 ~
-Type:	Worn
+Type:	Climbing gear
 WearFlags:	10000001
 ExtraFlags:	0
 AffFlags:	0
@@ -601,6 +603,8 @@ Material:	leather
 	LegalCode:	0
 	LegalPermit:	0
 	StreetIndex:	0.00
+[VALUES]
+	Val0:	3
 [AFFECT 0]
 	Location:	Ballistic
 	Modifier:	1
