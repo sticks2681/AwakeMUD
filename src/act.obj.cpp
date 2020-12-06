@@ -505,7 +505,7 @@ ACMD(do_put)
       act(buf, FALSE, ch, cont, 0, TO_CHAR);
       return;
     }
-  } else if (GET_OBJ_TYPE(cont) != ITEM_CONTAINER && GET_OBJ_TYPE(cont) != ITEM_QUIVER && GET_OBJ_TYPE(cont) != ITEM_WORN && GET_OBJ_TYPE(cont) != ITEM_KEYRING) {
+  } else if (GET_OBJ_TYPE(cont) != ITEM_CONTAINER && GET_OBJ_TYPE(cont) != ITEM_QUIVER && GET_OBJ_TYPE(cont) != ITEM_WORN && GET_OBJ_TYPE(cont) != ITEM_KEYRING && GET_OBJ_TYPE(cont) != ITEM_CORPSE) {
     sprintf(buf, "$p is not a container.");
     act(buf, FALSE, ch, cont, 0, TO_CHAR);
     return;
