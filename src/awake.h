@@ -2156,9 +2156,9 @@ struct ban_list_element
 // Misc defines from spec_procs.cpp
 #define LIBRARY_SKILL    3
 #define NEWBIE_SKILL    6
-#define NORMAL_MAX_SKILL  8
+#define NORMAL_MAX_SKILL  9
 #define LEARNED_LEVEL    12
-#define MAX_SKILL_LEVEL_FOR_MORTS  20
+#define MAX_SKILL_LEVEL_FOR_MORTS  15
 #define MAX_SKILL_LEVEL_FOR_IMMS   100
 #define RENT_FACTOR 1
 
