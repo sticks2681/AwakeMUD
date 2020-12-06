@@ -47,49 +47,49 @@ teach_t metamagict[] = {
 teach_t teachers[] = {
                        { 1001, { SKILL_BR_EDGED, SKILL_BR_POLEARM, SKILL_BR_CLUB, SKILL_BR_THROWINGWEAPONS, SKILL_BR_WHIPS, 
                          SKILL_BR_PROJECTILES, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of shuffling slides you feel you can now do "
-                         "your job safer.\r\n", AMATEUR },
+                         "your job safer.\r\n", ADVANCED },
                        { 1002, { SKILL_BR_PISTOL, SKILL_BR_SHOTGUN, SKILL_BR_RIFLE, SKILL_BR_HEAVYWEAPON, SKILL_BR_SMG, 
                          SKILL_BR_ARMOUR, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of shuffling slides you feel you can now do your job "
-                         "safer.\r\n", AMATEUR }, 
+                         "safer.\r\n", ADVANCED }, 
                        { 1003, { SKILL_SINGING, SKILL_CHANTING, SKILL_DANCING, SKILL_INSTRUMENT, SKILL_ACTING, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "After about an hour of shuffling slides you feel you can now do your job safer.\r\n", AMATEUR },
+                         "After about an hour of shuffling slides you feel you can now do your job safer.\r\n", ADVANCED },
                        { 1004, { SKILL_OFFHAND_EDGED, SKILL_OFFHAND_CLUB, SKILL_OFFHAND_CYBERIMPLANTS, SKILL_OFFHAND_WHIP, 
                          SKILL_SPRAY_WEAPONS, SKILL_GUNCANE, SKILL_BRACERGUN, SKILL_BLOWGUN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of "
-                         "shuffling slides you feel you can now do your job safer.\r\n", AMATEUR },
+                         "shuffling slides you feel you can now do your job safer.\r\n", ADVANCED },
                        { 1005, { SKILL_NAVI_LAND, SKILL_NAVI_AIR, SKILL_NAVI_WATER, SKILL_PILOT_ROTORCRAFT, SKILL_PILOT_FIXEDWING,
                          SKILL_PILOT_VECTORTHRUST, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of shuffling slides you feel you can now do " 
-                         "your job safer.\r\n", AMATEUR },
+                         "your job safer.\r\n", ADVANCED },
                        { 1006, { SKILL_INTIMIDATION, SKILL_INTERROGATION, SKILL_LEADERSHIP, SKILL_SURVIVAL, SKILL_LEGERDEMAIN,
                          SKILL_TRACK, SKILL_DISGUISE, SKILL_SMALL_UNIT_TACTICS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of shuffling slides you "
-                         "feel you can now do your job safer.\r\n", AMATEUR },
+                         "feel you can now do your job safer.\r\n", ADVANCED },
                        { 1007, { SKILL_ANIMAL_HANDLING, SKILL_ANIMAL_TAMING, SKILL_CHEMISTRY, SKILL_PHARMA, 
-                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of shuffling slides you feel you can now do your job safer.\r\n", AMATEUR },
+                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of shuffling slides you feel you can now do your job safer.\r\n", ADVANCED },
                        { 1008, { SKILL_DEMOLITIONS, SKILL_DIVING, SKILL_PARACHUTING, SKILL_UNDERWATER_COMBAT, SKILL_LOCK_PICKING,
                          SKILL_RIDING, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After about an hour of shuffling slides you feel you can now do your job "
-                         "safer.\r\n", AMATEUR },
+                         "safer.\r\n", ADVANCED },
                        { 2508, { SKILL_BIOTECH, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After hours of medical research and instruction, you begin "
-                         "to\r\nunderstand more of the basic biotech procedures.\r\n", AMATEUR },
+                         "to\r\nunderstand more of the basic biotech procedures.\r\n", ADVANCED },
                        { 2701, { SKILL_ATHLETICS, SKILL_STEALTH, SKILL_UNARMED_COMBAT, SKILL_EDGED_WEAPONS,
                          SKILL_WHIPS_FLAILS, SKILL_PROJECTILES, SKILL_THROWING_WEAPONS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "Toh Li gives you the workout of your life, but you come out more learned.", AMATEUR },
+                         "Toh Li gives you the workout of your life, but you come out more learned.", ADVANCED },
                        { 3722, { SKILL_ATHLETICS, SKILL_RIFLES, SKILL_PISTOLS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "After hours of study and physical practice, you feel like you've learned\r\nsomething.\r\n", AMATEUR },
+                         "After hours of study and physical practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
                        { 4101, { SKILL_SHOTGUNS, SKILL_PISTOLS, SKILL_RIFLES, SKILL_SMG, SKILL_ASSAULT_RIFLES, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "After hours of study and target practice, you feel like you've learned\r\nsomething.\r\n", AMATEUR },
+                         "After hours of study and target practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
                        { 4102, { SKILL_CLUBS, SKILL_EDGED_WEAPONS, SKILL_POLE_ARMS, SKILL_WHIPS_FLAILS,
                          SKILL_PILOT_CAR, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After hours of study and practice, you feel like you've "
-                         "learned\r\nsomething.\r\n", AMATEUR },
+                         "learned\r\nsomething.\r\n", ADVANCED },
                        { 4103, { SKILL_SHOTGUNS, SKILL_PISTOLS, SKILL_RIFLES, SKILL_SMG, SKILL_ASSAULT_RIFLES,
                          SKILL_MACHINE_GUNS, SKILL_MISSILE_LAUNCHERS, SKILL_ASSAULT_CANNON, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "After hours of study and target practice, you feel like you've learned\r\nsomething.\r\n", AMATEUR },
+                         "After hours of study and target practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
                        { 4104, { SKILL_CLUBS, SKILL_EDGED_WEAPONS, SKILL_POLE_ARMS, SKILL_WHIPS_FLAILS, 0, 0, 0,
-                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After hours of study and melee practice, you feel like you've learned\r\nsomething.\r\n", AMATEUR },
+                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After hours of study and melee practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
                        { 4250, { SKILL_SORCERY, SKILL_CONJURING, SKILL_AURA_READING, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "After hours of study and magical practice, you feel like you've learned\r\nsomething.\r\n", AMATEUR },
+                         "After hours of study and magical practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
                        { 4251, { SKILL_CONJURING, SKILL_SORCERY, SKILL_AURA_READING, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "After hours of study and magical practice, you feel like you've learned\r\nsomething.\r\n", AMATEUR },
+                         "After hours of study and magical practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
                        { 4257, { SKILL_ASSAULT_RIFLES, SKILL_TASERS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "After hours of study and weapon practice, you feel like you've learned\r\nsomething.\r\n", AMATEUR },
+                         "After hours of study and weapon practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
   
   /* Removed nerp skills from trainers:
    SKILL_ENCHANTING, SKILL_AURA_READING, SKILL_CENTERING, SKILL_TALISMONGERING, SKILL_PROJECTILES, SKILL_THROWING_WEAPONS SKILL_ORALSTRIKE, SKILL_MEDITATION
@@ -149,38 +149,38 @@ teach_t teachers[] = {
   
                      { 30700, { SKILL_ENGLISH, SKILL_JAPANESE, SKILL_CHINESE, SKILL_KOREAN,
                          SKILL_SPERETHIEL, SKILL_SALISH, SKILL_ITALIAN, SKILL_NEGOTIATION, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Socrates shows you the intricities "
-                         "of the language and you emerge with a greater understanding.\r\n", AMATEUR },
+                         "of the language and you emerge with a greater understanding.\r\n", ADVANCED },
                        { 13499, { SKILL_COMPUTER, SKILL_ELECTRONICS, SKILL_BR_COMPUTER, SKILL_BR_ELECTRONICS, SKILL_PROGRAM_COMBAT, SKILL_PROGRAM_DEFENSIVE, SKILL_PROGRAM_CYBERTERM, SKILL_CYBERTERM_DESIGN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Brian explains some concepts you had yet to understand "
-                         "and\r\nyou feel like you've learned something.\r\n", AMATEUR },
+                         "and\r\nyou feel like you've learned something.\r\n", ADVANCED },
                        { 14608, { SKILL_PILOT_CAR, SKILL_GRENADE_LAUNCHERS, SKILL_MACHINE_GUNS,
                          SKILL_MISSILE_LAUNCHERS, SKILL_ASSAULT_CANNON, SKILL_PILOT_BIKE, SKILL_PILOT_TRUCK, SKILL_GUNNERY, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "Hal shows you a trick or two, and the rest just falls into place.\r\n", AMATEUR },
-                       { 14638, { SKILL_COMPUTER, SKILL_ELECTRONICS, SKILL_BR_COMPUTER, SKILL_BIOTECH, SKILL_BR_DRONE, SKILL_PROGRAM_SPECIAL, SKILL_PROGRAM_OPERATIONAL, SKILL_DATA_BROKERAGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Gargamel looks at you, hands you some parts, drops you a clue, and you get it.\r\n", AMATEUR},
+                         "Hal shows you a trick or two, and the rest just falls into place.\r\n", ADVANCED },
+                       { 14638, { SKILL_COMPUTER, SKILL_ELECTRONICS, SKILL_BR_COMPUTER, SKILL_BIOTECH, SKILL_BR_DRONE, SKILL_PROGRAM_SPECIAL, SKILL_PROGRAM_OPERATIONAL, SKILL_DATA_BROKERAGE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Gargamel looks at you, hands you some parts, drops you a clue, and you get it.\r\n", ADVANCED},
                        { 7223, { SKILL_UNARMED_COMBAT, SKILL_THROWING_WEAPONS, SKILL_STEALTH, SKILL_ATHLETICS,
                          SKILL_PROJECTILES, SKILL_CYBER_IMPLANTS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Shing gives you a work out like none you've ever had, "
-                         "but\r\nyou feel like you've learned something.\r\n", AMATEUR },
+                         "but\r\nyou feel like you've learned something.\r\n", ADVANCED },
                        { 24806, { SKILL_SORCERY, SKILL_CONJURING, SKILL_CENTERING, SKILL_ENCHANTING, SKILL_NEGOTIATION,
-                         SKILL_AURA_READING, SKILL_SPELLDESIGN, SKILL_TALISMONGERING, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Hermes imparts his wisdom upon you.\r\n", AMATEUR },
+                         SKILL_AURA_READING, SKILL_SPELLDESIGN, SKILL_TALISMONGERING, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Hermes imparts his wisdom upon you.\r\n", ADVANCED },
                        { 37500, { SKILL_BR_CAR, SKILL_BR_BIKE, SKILL_BR_DRONE, SKILL_BR_TRUCK, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Marty shows you a few tricks of the "
-                         "trade and you emerge more skilled than before.\r\n", AMATEUR }, 
+                         "trade and you emerge more skilled than before.\r\n", ADVANCED }, 
   
   { 35502, { SKILL_STREET_ETIQUETTE,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    "You spend some time talking to the people in line.\r\n", AMATEUR },
+    "You spend some time talking to the people in line.\r\n", ADVANCED },
   
   { 17111, { SKILL_CORPORATE_ETIQUETTE, SKILL_NEGOTIATION,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    "You spend some time making small talk with the secretary.\r\n", AMATEUR },
+    "You spend some time making small talk with the secretary.\r\n", ADVANCED },
   
 #ifdef USE_PRIVATE_CE_WORLD
   // Jessie (SPLAT! Paintballer)
   { 70604, { SKILL_PISTOLS, SKILL_BR_PISTOL, SKILL_STEALTH, SKILL_ATHLETICS,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-  "You learn a few things from the surprisingly-knowledgeable kid.\r\n", AMATEUR },
+  "You learn a few things from the surprisingly-knowledgeable kid.\r\n", ADVANCED },
 #endif
   
                     { 65106, { SKILL_MEDIA_ETIQUETTE, SKILL_STEALTH, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "You talk to the reporter about current events for"
-                         " a while.\r\n", AMATEUR },
+                         " a while.\r\n", ADVANCED },
                        { 18311, { SKILL_STREET_ETIQUETTE, SKILL_MEDIA_ETIQUETTE, SKILL_ELF_ETIQUETTE, SKILL_CORPORATE_ETIQUETTE, 
                                   SKILL_TRIBAL_ETIQUETTE, SKILL_NEGOTIATION, SKILL_POLICE_PROCEDURES, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "You read through "
                          "various lifestyle books for a while.\r\n", LIBRARY },
@@ -194,13 +194,13 @@ teach_t teachers[] = {
                        { 5914, { SKILL_PISTOLS, SKILL_RIFLES, SKILL_SHOTGUNS, SKILL_SMG, SKILL_ASSAULT_RIFLES,
                          SKILL_GUNNERY, SKILL_MACHINE_GUNS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },  "Lucas runs through some theory with you then lets you "
                          "have a few shots on the range.\r\n", NEWBIE},
-                       { 65119, { SKILL_RUSSIAN, SKILL_GERMAN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Olga Chernov brutally crams language forms and syntaxes into your skull.\r\n", AMATEUR },
-                       { 33004, { SKILL_ELF_ETIQUETTE, SKILL_GAELIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, "Milton Buckthorne drops knowledge on your patheticly underpowered brain.\r\n", AMATEUR },
+                       { 65119, { SKILL_RUSSIAN, SKILL_GERMAN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Olga Chernov brutally crams language forms and syntaxes into your skull.\r\n", ADVANCED },
+                       { 33004, { SKILL_ELF_ETIQUETTE, SKILL_GAELIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, "Milton Buckthorne drops knowledge on your patheticly underpowered brain.\r\n", ADVANCED },
                        { 60235, { SKILL_SIOUX, SKILL_MAKAW, SKILL_CROW, SKILL_UTE, SKILL_SALISH, SKILL_NAVAJO, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                         "Speaks-with-Many goes over his lessons with you until they become second nature.\r\n", AMATEUR },
-                       { 39226, { SKILL_LATIN, SKILL_ARABIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "The gentleman demonstrates the finer points of articulation and pronunciation until you feel you've learn something new", AMATEUR },
+                         "Speaks-with-Many goes over his lessons with you until they become second nature.\r\n", ADVANCED },
+                       { 39226, { SKILL_LATIN, SKILL_ARABIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "The gentleman demonstrates the finer points of articulation and pronunciation until you feel you've learn something new", ADVANCED },
                        { 60540, { SKILL_BR_PISTOL, SKILL_BR_SHOTGUN, SKILL_BR_SMG, SKILL_BR_RIFLE, SKILL_BR_HEAVYWEAPON, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Gary teaches you the finer points of gunsmithing.\r\n", NEWBIE }, 
-                       { 22871, { SKILL_BR_PISTOL, SKILL_BR_SHOTGUN, SKILL_BR_SMG, SKILL_BR_RIFLE, SKILL_BR_HEAVYWEAPON, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, "You spend some time reading through the library.\r\n", AMATEUR }, 
+                       { 22871, { SKILL_BR_PISTOL, SKILL_BR_SHOTGUN, SKILL_BR_SMG, SKILL_BR_RIFLE, SKILL_BR_HEAVYWEAPON, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, "You spend some time reading through the library.\r\n", ADVANCED }, 
   { 0, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Report this bug!\r\n", 0 } // this MUST be last
 };
 
