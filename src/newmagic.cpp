@@ -3865,7 +3865,7 @@ void disp_init_menu(struct descriptor_data *d)
 
 bool can_metamagic(struct char_data *ch, int i) 
 {
-  if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC) {
+  if (GET_TRADITION(ch) == TRAD_ADEPT) {
     if (i != META_CENTERING && i != META_MASKING)
       return FALSE;
     if (i == META_CENTERING && GET_METAMAGIC(ch, i) == 2)

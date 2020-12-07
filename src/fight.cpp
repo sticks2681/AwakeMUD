@@ -3842,7 +3842,12 @@ void hit(struct char_data *attacker, struct char_data *victim, struct obj_data *
     // Melee weapon.
     else {
       att->power = GET_WEAPON_STR_BONUS(att->weapon) + GET_STR(att->ch);
-      att->power -= GET_IMPACT(def->ch);
+      
+      // Apply impact armor reduction to attack power.
+      if (GET_POWER(att->ch, ADEPT_PENETRATINGSTRIKE))
+        att->power -= MAX(0, GET_IMPACT(def->ch) - GET_POWER(att->ch, ADEPT_PENETRATINGSTRIKE));
+      else
+        att->power -= GET_IMPACT(def->ch);
     }
     
     // Core p113.
