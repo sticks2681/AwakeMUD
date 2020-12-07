@@ -19,6 +19,7 @@ RoomType:	0
 	Smoke:	0
 	Background:	0
 	BackgroundType:	0
+	StaffLockLevel:	0
 BREAK
 #1000001
 Name:	A Fenced-In Area Before a Nondescript Building
@@ -95,5 +96,203 @@ a reinforced roll-up door
 	Barrier:	8
 	KeyVnum:	1000003
 	LockRating:	50
+BREAK
+#1000100
+Name:	A SOTA Delta Clinic
+Desc:$
+You are in an unfinished room.
+~
+Flags:	1000
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	10
+Y:	10
+Z:	5.00
+RoomType:	5
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT north]
+	ToVnum:	1000103
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT northeast]
+	ToVnum:	1000104
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT east]
+	ToVnum:	1000105
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT west]
+	ToVnum:	1000101
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+[EXIT northwest]
+	ToVnum:	1000102
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#1000101
+Name:	A SOTA Delta-grade Brainware Operation Suite
+Desc:$
+You are in an unfinished room.
+~
+Flags:	1000
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	10
+Y:	10
+Z:	5.00
+RoomType:	5
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT east]
+	ToVnum:	1000100
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#1000102
+Name:	A SOTA Delta-grade Commsware Operation Suite
+Desc:$
+You are in an unfinished room.
+~
+Flags:	1000
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	10
+Y:	10
+Z:	5.00
+RoomType:	5
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT southeast]
+	ToVnum:	1000100
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#1000103
+Name:	A SOTA Delta-grade Senseware Operation Suite
+Desc:$
+You are in an unfinished room.
+~
+Flags:	1000
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	10
+Y:	10
+Z:	5.00
+RoomType:	5
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT south]
+	ToVnum:	1000100
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#1000104
+Name:	A SOTA Delta-grade Bodyware Operation Suite
+Desc:$
+You are in an unfinished room.
+~
+Flags:	1000
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	10
+Y:	10
+Z:	5.00
+RoomType:	5
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT southwest]
+	ToVnum:	1000100
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#1000105
+Name:	A SOTA Delta-grade Bodyware Operation Suite
+Desc:$
+You are in an unfinished room.
+~
+Flags:	1000
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	10
+Y:	10
+Z:	5.00
+RoomType:	5
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT west]
+	ToVnum:	1000100
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
 BREAK
 END
