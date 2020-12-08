@@ -4213,6 +4213,14 @@ ACMD(do_set)
   default:
     snprintf(buf, sizeof(buf), "Can't set that!");
     break;
+  case 72:
+    if (IS_NPC(vict) || (IS_SENATOR(vict) && access_level(vict, LVL_ADMIN)))
+      RANGE(1, 1000);
+    else
+      RANGE(1, 600);
+    vict->real_abils.esshole = value;
+    affect_total(vict);
+    break;
   }
 
   if (fields[l].type == BINARY) {
