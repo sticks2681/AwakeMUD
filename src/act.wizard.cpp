@@ -3680,6 +3680,7 @@ ACMD(do_set)
                { "noidle", LVL_VICEPRES, PC, BINARY },
                { "tke", LVL_VICEPRES, PC, NUMBER }, //70
                { "sysp", LVL_VICEPRES, PC, NUMBER },
+               { "esshole", LVL_ADMIN, PC, NUMBER },
                { "\n", 0, BOTH, MISC }
              };
 
