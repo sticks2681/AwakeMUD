@@ -31,6 +31,39 @@ DefaultPos:	Standing
 	Impact:	50
 [SKILLS]
 BREAK
+#1000099
+Keywords:	test hireling
+Name:	a test hireling
+RoomDesc:$
+A Test Hireling stand here, awaiting orders. 
+
+~
+LookDesc:$
+It looks barely coherent as it waits to be created.
+~
+ArriveMsg:	arrives from
+LeaveMsg:	leaves
+MobFlags:	1000
+AffFlags:	0
+Race:	Elf
+Gender:	Female
+DefaultPos:	Standing
+[ATTRIBUTES]
+	Bod:	6
+	Qui:	7
+	Str:	6
+	Cha:	8
+	Int:	6
+	Wil:	6
+	Mag:	6
+[POINTS]
+	Height:	167
+	Weight:	54
+[SKILLS]
+	Pistols:	6
+	Athletics:	6
+	Stealth:	6
+BREAK
 #1000101
 Keywords:	deltadocbrain delta-ware cyberware ware doctor cyberdoc
 Name:	a cyberdoc
