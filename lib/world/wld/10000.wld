@@ -149,6 +149,12 @@ RoomType:	5
 	Material:	brick
 	Barrier:	4
 	KeyVnum:	0
+[EXIT up]
+	ToVnum:	1000106
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
 BREAK
 #1000101
 Name:	A SOTA Delta-grade Brainware Operation Suite
@@ -289,6 +295,35 @@ RoomType:	5
 	BackgroundType:	0
 	StaffLockLevel:	0
 [EXIT west]
+	ToVnum:	1000100
+	Flags:	0
+	Material:	brick
+	Barrier:	4
+	KeyVnum:	0
+BREAK
+#1000106
+Name:	A SOTA Cultured Bioware Operation Suite
+Desc:$
+You are in an unfinished room.
+~
+Flags:	1000
+SecType:	Inside
+MatrixExit:	0
+Crowd:	0
+Cover:	0
+X:	10
+Y:	10
+Z:	5.00
+RoomType:	5
+[POINTS]
+	SpecIdx:	0
+	Rating:	0
+	Light:	0
+	Smoke:	0
+	Background:	0
+	BackgroundType:	0
+	StaffLockLevel:	0
+[EXIT down]
 	ToVnum:	1000100
 	Flags:	0
 	Material:	brick

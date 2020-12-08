@@ -752,4 +752,189 @@ Etiquette:	44
 		Type:	Always
 		Stock:	0
 BREAK
+#1000106
+Keeper:	1000106
+ProfitBuy:	1.00
+ProfitSell:	1.00
+Random:	0
+Open:	0
+Close:	24
+Type:	Grey
+NoSuchItemKeeper:	Sorry, we don't have that.
+NoSuchItemPlayer:	You don't seem to have that.
+NoNuyen:	You don't have enough nuyen!
+DoesntBuy:	We don't buy that.
+Buy:	That'll be %d nuyen.
+Sell:	Here's your %d nuyen.
+Name:	(null)
+Flags:	110
+Races:	0
+Buytypes:	1010000000000000000000001
+Etiquette:	44
+[SELLING]
+	[SELL 0]
+		Vnum:	85900
+		Type:	Always
+		Stock:	0
+	[SELL 1]
+		Vnum:	85901
+		Type:	Always
+		Stock:	0
+	[SELL 2]
+		Vnum:	85902
+		Type:	Always
+		Stock:	0
+	[SELL 3]
+		Vnum:	85903
+		Type:	Always
+		Stock:	0
+	[SELL 4]
+		Vnum:	85904
+		Type:	Always
+		Stock:	0
+	[SELL 5]
+		Vnum:	85905
+		Type:	Always
+		Stock:	0
+	[SELL 6]
+		Vnum:	85906
+		Type:	Always
+		Stock:	0
+	[SELL 7]
+		Vnum:	85907
+		Type:	Always
+		Stock:	0
+	[SELL 8]
+		Vnum:	85908
+		Type:	Always
+		Stock:	0
+	[SELL 9]
+		Vnum:	85909
+		Type:	Always
+		Stock:	0
+	[SELL 10]
+		Vnum:	85910
+		Type:	Always
+		Stock:	0
+	[SELL 11]
+		Vnum:	85911
+		Type:	Always
+		Stock:	0
+	[SELL 12]
+		Vnum:	85912
+		Type:	Always
+		Stock:	0
+	[SELL 13]
+		Vnum:	85913
+		Type:	Always
+		Stock:	0
+	[SELL 14]
+		Vnum:	85914
+		Type:	Always
+		Stock:	0
+	[SELL 15]
+		Vnum:	85915
+		Type:	Always
+		Stock:	0
+	[SELL 16]
+		Vnum:	85916
+		Type:	Always
+		Stock:	0
+	[SELL 17]
+		Vnum:	85917
+		Type:	Always
+		Stock:	0
+	[SELL 18]
+		Vnum:	85918
+		Type:	Always
+		Stock:	0
+	[SELL 19]
+		Vnum:	85919
+		Type:	Always
+		Stock:	0
+	[SELL 20]
+		Vnum:	85920
+		Type:	Always
+		Stock:	0
+	[SELL 21]
+		Vnum:	85921
+		Type:	Always
+		Stock:	0
+	[SELL 22]
+		Vnum:	85922
+		Type:	Always
+		Stock:	0
+	[SELL 23]
+		Vnum:	85923
+		Type:	Always
+		Stock:	0
+	[SELL 24]
+		Vnum:	85924
+		Type:	Always
+		Stock:	0
+	[SELL 25]
+		Vnum:	85925
+		Type:	Always
+		Stock:	0
+	[SELL 26]
+		Vnum:	85926
+		Type:	Always
+		Stock:	0
+	[SELL 27]
+		Vnum:	85927
+		Type:	Always
+		Stock:	0
+	[SELL 28]
+		Vnum:	85928
+		Type:	Always
+		Stock:	0
+	[SELL 29]
+		Vnum:	85929
+		Type:	Always
+		Stock:	0
+	[SELL 30]
+		Vnum:	85930
+		Type:	Always
+		Stock:	0
+	[SELL 31]
+		Vnum:	85931
+		Type:	Always
+		Stock:	0
+	[SELL 32]
+		Vnum:	85932
+		Type:	Always
+		Stock:	0
+	[SELL 33]
+		Vnum:	85933
+		Type:	Always
+		Stock:	0
+	[SELL 34]
+		Vnum:	85934
+		Type:	Always
+		Stock:	0
+	[SELL 35]
+		Vnum:	85935
+		Type:	Always
+		Stock:	0
+	[SELL 36]
+		Vnum:	85936
+		Type:	Always
+		Stock:	0
+	[SELL 37]
+		Vnum:	85937
+		Type:	Always
+		Stock:	0
+	[SELL 38]
+		Vnum:	85938
+		Type:	Always
+		Stock:	0
+	[SELL 39]
+		Vnum:	85939
+		Type:	Always
+		Stock:	0
+	[SELL 40]
+		Vnum:	85940
+		Type:	Always
+		Stock:	0
+BREAK
 END
