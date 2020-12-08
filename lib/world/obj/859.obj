@@ -146,7 +146,6 @@ Material:	organic
 	LegalPermit:	0
 [VALUES]
 	Val0:	3
-	Val1:	1
 	Val2:	1
 	Val4:	0
 [AFFECT 0]
@@ -642,7 +641,6 @@ Material:	organic
 	LegalPermit:	1
 [VALUES]
 	Val0:	13
-	Val1:	1
 	Val2:	1
 	Val4:	0
 [AFFECT 0]
