@@ -43,7 +43,7 @@ It looks barely coherent as it waits to be created.
 ~
 ArriveMsg:	arrives from
 LeaveMsg:	leaves
-MobFlags:	1000
+MobFlags:	1010
 AffFlags:	0
 Race:	Elf
 Gender:	Female
