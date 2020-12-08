@@ -41,7 +41,7 @@ This is a custom-made assault rifle.
 ~
 Type:	Weapon
 WearFlags:	10000000000001
-ExtraFlags:	0
+ExtraFlags:	1000000000000
 AffFlags:	0
 Material:	adv. plastics
 [POINTS]
@@ -57,7 +57,7 @@ Material:	adv. plastics
 	InnateRecoilComp:	4
 [VALUES]
 	Val0:	12
-	Val1:	3
+	Val1:	2
 	Val3:	13
 	Val4:	14
 	Val5:	30
@@ -436,6 +436,29 @@ Material:	metal
 [VALUES]
 	Val1:	1
 	Val2:	3
+BREAK
+#1000099
+Keywords:	charm ring hireling
+Name:	a charming ring
+RoomDesc:$
+A charming ring lies here.~
+LookDesc:$
+It looks pretty much like an unfinished object~
+Type:	Worn
+WearFlags:	11
+ExtraFlags:	0
+AffFlags:	1000000000000000000
+Material:	metal
+[POINTS]
+	Weight:	0.01
+	Barrier:	32
+	Cost:	0
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #1000100
 Keywords:	adura arms armathor armor combat suit matte-black black

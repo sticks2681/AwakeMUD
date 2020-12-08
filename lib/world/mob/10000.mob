@@ -44,7 +44,7 @@ It looks barely coherent as it waits to be created.
 ArriveMsg:	arrives from
 LeaveMsg:	leaves
 MobFlags:	1010
-AffFlags:	0
+AffFlags:	1000000010001000001000
 Race:	Elf
 Gender:	Female
 DefaultPos:	Standing
@@ -59,8 +59,10 @@ DefaultPos:	Standing
 [POINTS]
 	Height:	167
 	Weight:	54
+	Ballistic:	2
+	Impact:	1
 [SKILLS]
-	Pistols:	6
+	Firearms:	6
 	Athletics:	6
 	Stealth:	6
 BREAK
