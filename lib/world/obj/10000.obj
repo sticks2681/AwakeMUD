@@ -469,11 +469,11 @@ Material:	adv. plastics
 	Val5:	15
 	Val6:	15
 	Val7:	64988
-	Val8:	1000015
+	Val8:	1000016
 	Val9:	-1
 	Val10:	4
 BREAK
-#1000015
+#1000016
 Keywords:	pistol sound suppressor
 Name:	a pistol suppressor
 RoomDesc:$
