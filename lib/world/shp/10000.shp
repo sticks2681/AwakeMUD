@@ -146,6 +146,18 @@ Etiquette:	46
 		Vnum:	1000105
 		Type:	Always
 		Stock:	0
+	[SELL 32]
+		Vnum:	1000015
+		Type:	Always
+		Stock:	0
+	[SELL 33]
+		Vnum:	60728
+		Type:	Always
+		Stock:	0
+	[SELL 34]
+		Vnum:	70119
+		Type:	Always
+		Stock:	0
 BREAK
 #1000101
 Keeper:	1000101
