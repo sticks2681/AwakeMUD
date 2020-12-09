@@ -48,9 +48,9 @@ Material:	adv. plastics
 [POINTS]
 	Weight:	3.00
 	Barrier:	24
-	Cost:	10000
-	AvailTN:	0
-	AvailDay:	0.00
+	Cost:	7500
+	AvailTN:	15
+	AvailDay:	7.00
 	LegalNum:	2
 	LegalCode:	7
 	LegalPermit:	0
@@ -92,7 +92,7 @@ Material:	metal
 	StreetIndex:	1.00
 [VALUES]
 	Val0:	2
-	Val1:	3
+	Val1:	4
 	Val2:	-2
 BREAK
 #1000003
@@ -495,6 +495,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	1
 	Val1:	5
