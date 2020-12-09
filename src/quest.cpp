@@ -454,22 +454,22 @@ void end_quest(struct char_data *ch)
 
 bool rep_too_high(struct char_data *ch, int num)
 {
-  if (num < 0 || num > top_of_questt)
-    return TRUE;
+  // if (num < 0 || num > top_of_questt)
+    // return TRUE;
 
-  if (GET_REP(ch) > quest_table[num].max_rep)
-    return TRUE;
+  // if (GET_REP(ch) > quest_table[num].max_rep)
+    // return TRUE;
 
   return FALSE;
 }
 
 bool rep_too_low(struct char_data *ch, int num)
 {
-  if (num < 0 || num > top_of_questt)
-    return TRUE;
+  // if (num < 0 || num > top_of_questt)
+    // return TRUE;
 
-  if (GET_REP(ch) < quest_table[num].min_rep)
-    return TRUE;
+  // if (GET_REP(ch) < quest_table[num].min_rep)
+    // return TRUE;
 
   return FALSE;
 }
@@ -863,13 +863,13 @@ SPECIAL(johnson)
         }
       
       // Reject high-rep characters.
-      // if (rep_too_high(ch, GET_SPARE2(johnson))) {
-        // do_say(johnson, "With rep as high as yours? I can't afford your rates for this one!", 0, 0);
-        // GET_SPARE1(johnson) = -1;
-        // if (memory(johnson, ch))
-          // forget(johnson, ch);
-        // return TRUE;
-      // }
+      if (rep_too_high(ch, GET_SPARE2(johnson))) {
+        do_say(johnson, "With rep as high as yours? I can't afford your rates for this one!", 0, 0);
+        GET_SPARE1(johnson) = -1;
+        if (memory(johnson, ch))
+          forget(johnson, ch);
+        return TRUE;
+      }
       
       // Reject low-rep characters.
       if (rep_too_low(ch, GET_SPARE2(johnson))) {
