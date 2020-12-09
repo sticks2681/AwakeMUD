@@ -454,8 +454,8 @@ void end_quest(struct char_data *ch)
 
 bool rep_too_high(struct char_data *ch, int num)
 {
-  // if (num < 0 || num > top_of_questt)
-    // return TRUE;
+  if (num < 0 || num > top_of_questt)
+    return TRUE;
 
   // if (GET_REP(ch) > quest_table[num].max_rep)
     // return TRUE;
@@ -465,8 +465,8 @@ bool rep_too_high(struct char_data *ch, int num)
 
 bool rep_too_low(struct char_data *ch, int num)
 {
-  // if (num < 0 || num > top_of_questt)
-    // return TRUE;
+  if (num < 0 || num > top_of_questt)
+    return TRUE;
 
   // if (GET_REP(ch) < quest_table[num].min_rep)
     // return TRUE;
