@@ -32,12 +32,13 @@ Material:	orichalcum
 	Val9:	-2
 BREAK
 #1000001
-Keywords:	custom M105 assault rifle
-Name:	a custom M105 assault rifle
+Keywords:	custom hk G38 assault rifle
+Name:	a custom-modified HK G38 assault rifle
 RoomDesc:$
-A custom assault rifle is lying here.~
+A tricked-out assault rifle is lying here.~
 LookDesc:$
-This is a custom-made assault rifle. 
+This is an HK G38 that has been custom modified by Adura Arms. The weapon
+has been refit from the ground up with stability and accuracy in mind.
 ~
 Type:	Weapon
 WearFlags:	10000000000001
@@ -45,18 +46,18 @@ ExtraFlags:	1000000000000
 AffFlags:	0
 Material:	adv. plastics
 [POINTS]
-	Weight:	5.00
+	Weight:	3.00
 	Barrier:	24
 	Cost:	10000
 	AvailTN:	0
 	AvailDay:	0.00
-	LegalNum:	3
+	LegalNum:	2
 	LegalCode:	7
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	3.00
 	InnateRecoilComp:	4
 [VALUES]
-	Val0:	12
+	Val0:	10
 	Val1:	2
 	Val3:	13
 	Val4:	14
@@ -67,12 +68,12 @@ Material:	adv. plastics
 	Val10:	28
 BREAK
 #1000002
-Keywords:	foregrip grip gas vent recoil compensation package
+Keywords:	foregrip grip
 Name:	a foregrip and recoil compensation package
 RoomDesc:$
-A combination foregrip and rifle compensation vent package is lying here.~
+An ergonomic vertical foregrip has been left here, waiting to be attached to a rifle.~
 LookDesc:$
-It looks like some gun parts. 
+It looks like a gun part. 
 ~
 Type:	Gun Accessory
 WearFlags:	1
@@ -82,17 +83,17 @@ Material:	metal
 [POINTS]
 	Weight:	0.50
 	Barrier:	24
-	Cost:	5000
-	AvailTN:	0
-	AvailDay:	0.00
+	Cost:	200
+	AvailTN:	2
+	AvailDay:	24.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	2
 	Val1:	3
-	Val2:	-4
+	Val2:	-2
 BREAK
 #1000003
 Keywords:	hideout door garage remote-entry entry fob
