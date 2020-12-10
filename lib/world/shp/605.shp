@@ -140,34 +140,18 @@ Etiquette:	46
 		Type:	Always
 		Stock:	0
 	[SELL 4]
-		Vnum:	85089
-		Type:	Always
-		Stock:	0
-	[SELL 5]
-		Vnum:	85090
-		Type:	Always
-		Stock:	0
-	[SELL 6]
-		Vnum:	85091
-		Type:	Always
-		Stock:	0
-	[SELL 7]
-		Vnum:	85092
-		Type:	Always
-		Stock:	0
-	[SELL 8]
 		Vnum:	85093
 		Type:	Always
 		Stock:	0
-	[SELL 9]
+	[SELL 5]
 		Vnum:	85108
 		Type:	Always
 		Stock:	0
-	[SELL 10]
+	[SELL 6]
 		Vnum:	85117
 		Type:	Always
 		Stock:	0
-	[SELL 11]
+	[SELL 7]
 		Vnum:	85118
 		Type:	Always
 		Stock:	0
@@ -979,10 +963,6 @@ Etiquette:	46
 		Vnum:	60550
 		Type:	Always
 		Stock:	0
-	[SELL 5]
-		Vnum:	603
-		Type:	Always
-		Stock:	0
 BREAK
 #60569
 Keeper:	60522
@@ -1009,14 +989,10 @@ Etiquette:	46
 		Type:	Always
 		Stock:	0
 	[SELL 1]
-		Vnum:	603
-		Type:	Always
-		Stock:	0
-	[SELL 2]
 		Vnum:	60556
 		Type:	Always
 		Stock:	0
-	[SELL 3]
+	[SELL 2]
 		Vnum:	60555
 		Type:	Always
 		Stock:	0
@@ -1687,15 +1663,7 @@ Buytypes:	1000000000000000000000000001
 Etiquette:	46
 [SELLING]
 	[SELL 0]
-		Vnum:	603
-		Type:	Always
-		Stock:	0
-	[SELL 1]
 		Vnum:	601
-		Type:	Always
-		Stock:	0
-	[SELL 2]
-		Vnum:	602
 		Type:	Always
 		Stock:	0
 BREAK
@@ -2187,34 +2155,18 @@ Etiquette:	46
 		Type:	Always
 		Stock:	0
 	[SELL 4]
-		Vnum:	85289
-		Type:	Always
-		Stock:	0
-	[SELL 5]
-		Vnum:	85290
-		Type:	Always
-		Stock:	0
-	[SELL 6]
-		Vnum:	85291
-		Type:	Always
-		Stock:	0
-	[SELL 7]
-		Vnum:	85292
-		Type:	Always
-		Stock:	0
-	[SELL 8]
 		Vnum:	85293
 		Type:	Always
 		Stock:	0
-	[SELL 9]
+	[SELL 5]
 		Vnum:	85308
 		Type:	Always
 		Stock:	0
-	[SELL 10]
+	[SELL 6]
 		Vnum:	85317
 		Type:	Always
 		Stock:	0
-	[SELL 11]
+	[SELL 7]
 		Vnum:	85318
 		Type:	Always
 		Stock:	0

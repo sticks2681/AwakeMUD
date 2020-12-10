@@ -20,6 +20,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700001
 Keywords:	key 2A
@@ -43,6 +44,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700002
 Keywords:	key 3A
@@ -66,6 +68,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700003
 Keywords:	key 4A
@@ -89,6 +92,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700004
 Keywords:	key 5A
@@ -112,6 +116,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700005
 Keywords:	key 6A
@@ -135,6 +140,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700006
 Keywords:	key 7A
@@ -158,6 +164,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700007
 Keywords:	key 8A
@@ -181,6 +188,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700008
 Keywords:	key 9A
@@ -204,6 +212,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700009
 Keywords:	key 10A
@@ -227,6 +236,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700010
 Keywords:	key 1B
@@ -250,6 +260,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700011
 Keywords:	key 2B
@@ -273,6 +284,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700012
 Keywords:	key 3B
@@ -296,6 +308,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700013
 Keywords:	key 4B
@@ -319,6 +332,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700014
 Keywords:	key 5B
@@ -342,6 +356,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700015
 Keywords:	golden master key
@@ -365,6 +380,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700016
 Keywords:	key golden sunburst
@@ -388,6 +404,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700017
 Keywords:	blue key DE
@@ -411,6 +428,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700018
 Keywords:	red key DE
@@ -434,6 +452,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700019
 Keywords:	green key DE
@@ -457,6 +476,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700020
 Keywords:	black key DE
@@ -480,6 +500,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700021
 Keywords:	gold key DE
@@ -503,6 +524,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700022
 Keywords:	haven apartments key
@@ -526,6 +548,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700023
 Keywords:	stein german beer
@@ -550,6 +573,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	18
 	Val1:	18
@@ -578,6 +602,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	20
 	Val1:	20
@@ -606,6 +631,7 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	16
 	Val1:	16
@@ -634,6 +660,7 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	18
 	Val1:	18
@@ -662,6 +689,7 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	18
 	Val1:	18
@@ -689,6 +717,7 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	18
 	Val1:	18
@@ -717,6 +746,7 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	18
 	Val1:	18
@@ -747,6 +777,7 @@ Material:	ceramic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	16
 	Val1:	16
@@ -775,6 +806,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	20
 	Val1:	20
@@ -803,6 +835,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	20
 	Val1:	20
@@ -831,6 +864,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	20
 	Val1:	20
@@ -860,6 +894,7 @@ Material:	organic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	16
 BREAK
@@ -887,6 +922,7 @@ Material:	organic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	12
 BREAK
@@ -913,6 +949,7 @@ Material:	organic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	16
 BREAK
@@ -940,6 +977,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	16
 	Val1:	16
@@ -968,6 +1006,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	16
 	Val1:	16
@@ -996,6 +1035,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	16
 	Val1:	16
@@ -1024,6 +1064,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	15
 	Val1:	15
@@ -1051,6 +1092,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	15
 	Val1:	15
@@ -1079,6 +1121,7 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	15
 	Val1:	15
@@ -1109,6 +1152,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700044
 Keywords:	Seattle Seahawks jacket
@@ -1133,6 +1177,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	1
 	Val1:	4
@@ -1145,9 +1190,6 @@ Name:	a large ^Lmetal^N gunsafe
 RoomDesc:$
 A large, black gunsafe sits here, keeping your weapons safe.~
 LookDesc:$
-Made of durable steel and two different locks to keep intruders out of it,
-this gunsafe is a must have for every gun toting, sword weilding runner out
-there. 
 ~
 Type:	Container
 WearFlags:	1
@@ -1163,6 +1205,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	150
 	Val1:	1
@@ -1193,6 +1236,7 @@ Material:	organic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700047
 Keywords:	muscular pitbull
@@ -1218,6 +1262,7 @@ Material:	organic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700048
 Keywords:	black cloak
@@ -1243,6 +1288,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val7:	12
 BREAK
@@ -1269,6 +1315,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	2
 	Val1:	4
@@ -1299,6 +1346,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700051
 Keywords:	pair cowboy boots
@@ -1326,6 +1374,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700052
 Keywords:	Stetson cowboy hat
@@ -1352,6 +1401,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700053
 Keywords:	jet black motorcycle helmet
@@ -1378,6 +1428,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val7:	2
 [AFFECT 0]
@@ -1410,6 +1461,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700055
 Keywords:	can skoal chewing tobacco
@@ -1435,6 +1487,7 @@ Material:	plastic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	1
 	Val1:	1
@@ -1463,6 +1516,7 @@ Material:	plastic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	1
 	Val1:	1
@@ -1490,6 +1544,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700058
 Keywords:	leather wallet
@@ -1515,6 +1570,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	1
 	Val1:	1
@@ -1544,6 +1600,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700060
 Keywords:	bottle sunscreen lotion
@@ -1568,6 +1625,7 @@ Material:	plastic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700061
 Keywords:	rows comfortable sauna benches
@@ -1592,6 +1650,7 @@ Material:	stone
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700062
 Keywords:	oversized hot tub hot-tub
@@ -1618,6 +1677,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	500
 	Val1:	500
@@ -1649,6 +1709,7 @@ Material:	stone
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	10000
 	Val1:	10000
@@ -1679,6 +1740,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	600
 	Val1:	1
@@ -1710,6 +1772,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	600
 	Val1:	1
@@ -1737,6 +1800,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700067
 Keywords:	key 3A flimsy
@@ -1760,6 +1824,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700068
 Keywords:	key 1B flimsy
@@ -1783,6 +1848,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700069
 Keywords:	key 1C
@@ -1806,6 +1872,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700070
 Keywords:	key 2C
@@ -1829,6 +1896,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700071
 Keywords:	key 3C
@@ -1852,6 +1920,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700072
 Keywords:	key 4C
@@ -1875,6 +1944,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700073
 Keywords:	key 5C
@@ -1898,6 +1968,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700074
 Keywords:	key 6C
@@ -1921,6 +1992,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700075
 Keywords:	key 7C
@@ -1944,6 +2016,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700076
 Keywords:	key 8C
@@ -1967,6 +2040,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700077
 Keywords:	key 9C
@@ -1990,6 +2064,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700078
 Keywords:	key 10C
@@ -2013,6 +2088,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700079
 Keywords:	key 2A flimsy
@@ -2036,6 +2112,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700080
 Keywords:	key 6A
@@ -2059,6 +2136,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700081
 Keywords:	key 9A
@@ -2082,6 +2160,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700082
 Keywords:	key 10A
@@ -2105,6 +2184,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700083
 Keywords:	desk balsa sturdy wood
@@ -2131,6 +2211,7 @@ Material:	wood
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val0:	50
 	Val1:	15
@@ -2160,6 +2241,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700085
 Keywords:	key master golden
@@ -2183,6 +2265,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700086
 Keywords:	keycard managers office electronic
@@ -2207,6 +2290,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700087
 Keywords:	haven apartments key
@@ -2230,6 +2314,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700088
 Keywords:	key master golden
@@ -2253,6 +2338,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 #700089
 Keywords:	key golden sunburst
@@ -2276,5 +2362,6 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
+	StreetIndex:	0.00
 BREAK
 END
