@@ -619,9 +619,9 @@ void create_parse(struct descriptor_data *d, const char *arg)
 {
   int i = MIN(120, atoi(arg)), ok;
   int minimum_attribute_points, maximum_attribute_points, available_attribute_points;
-  long shirts[5] = { 80700 };
-  long pants[5] = { 80701 };
-  long shoes[5] = { 80706 };
+  long shirts[1] = { 80700 };
+  long pants[1] = { 80701 };
+  long shoes[1] = { 80706 };
 
   switch (d->ccr.mode)
   {
