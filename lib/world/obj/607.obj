@@ -21,7 +21,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60701
 Keywords:	book shakespeare william complete works
@@ -46,7 +45,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60702
 Keywords:	book novel dead air
@@ -72,7 +70,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60703
 Keywords:	Shadowrun FASA box set complete Roleplaying System
@@ -97,7 +94,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60704
 Keywords:	pot coffee
@@ -121,7 +117,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	100
 	Val1:	100
@@ -151,7 +146,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60706
 Keywords:	shoe box foot hole shiner automated
@@ -176,7 +170,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60707
 Keywords:	book year pictures 2062 patrak ranam
@@ -203,7 +196,6 @@ Material:	paper
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60708
 Keywords:	trenchcoat coat trench plated armor
@@ -228,7 +220,6 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val1:	3
 	Val2:	2
@@ -260,7 +251,6 @@ Material:	electronics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60710
 Keywords:	black beret
@@ -285,7 +275,6 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60711
 Keywords:	automated dual-minigun smart turret
@@ -312,7 +301,6 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60712
 Keywords:	spa
@@ -336,7 +324,6 @@ Material:	ceramic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	100000
 	Val1:	100000
@@ -363,7 +350,6 @@ Material:	electronics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60714
 Keywords:	grandfather clock
@@ -392,7 +378,6 @@ Material:	wood
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [EXTRADESC 0]
 	Keywords:	time
 	Desc:$
@@ -426,7 +411,6 @@ Material:	glass
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60716
 Keywords:	workstation
@@ -452,7 +436,6 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60717
 Keywords:	control panel weather console fog rain day night
@@ -488,7 +471,6 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60718
 Keywords:	stream fountain pure
@@ -517,7 +499,6 @@ Material:	ceramic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	9999
 	Val1:	9998
@@ -546,7 +527,6 @@ Material:	organic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	24
 BREAK
@@ -580,7 +560,6 @@ Material:	plastic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	80
 	Val1:	80
@@ -616,7 +595,6 @@ Material:	plastic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	80
 	Val1:	80
@@ -653,7 +631,6 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60723
 Keywords:	ammo crate box
@@ -683,7 +660,6 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	350
 	Val2:	-1
@@ -715,7 +691,6 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	400
 	Val2:	-1
@@ -724,7 +699,7 @@ BREAK
 Keywords:	lockers
 Name:	Armor Lockers
 RoomDesc:$
-A set of lockers are against the wall.~
+A set of lockers cover the walls here.~
 LookDesc:$
 Self-illuminating lockers line the walls, with a bullet-proofed and
 smash-resistant glass allowing one to see through to the clothing and armor
@@ -746,22 +721,21 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	300
 	Val2:	-1
 BREAK
 #60726
-Keywords:	ergonomic weapon harness
-Name:	an ergonomically-designed weapon harness
+Keywords:	ergonomic weapon sling
+Name:	an ergonomically-designed weapon sling
 RoomDesc:$
 A weapon harness is stretched out on the floor here.~
 LookDesc:$
-Carefully designed and available in sizes to fit Gnomes to Giants, this
+Carefully designed and available in sizes to fit Gnomes and Giants, this
 weapon sling accepts most types of sheaths and can distribute the weight and
 load of equipment evenly over a persons body to make sure that they remain
 comfortable. Composed of durable polymer compounds that provide comfort and a
-long life in the line of duty, this allows even the richest street samurai to
+long life in the line of duty, this allows even the richest street samurais to
 strap themselves to the teeth better than ever before so they will be prepared
 for anything short of all out nuclear warfare. 
 ~
@@ -769,7 +743,7 @@ Type:	Worn
 WearFlags:	10001000000000000000001
 ExtraFlags:	0
 AffFlags:	0
-Material:	leather
+Material:	fabric
 [POINTS]
 	Weight:	0.10
 	Barrier:	8
@@ -779,7 +753,6 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	4
 	Val2:	6
@@ -816,7 +789,6 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	4
 	Val2:	2
@@ -850,7 +822,6 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60729
 Keywords:	pouch medic
@@ -880,7 +851,6 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	50
 	Val2:	-1
@@ -911,7 +881,6 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60731
 Keywords:	maglock passkey black
@@ -939,7 +908,6 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 BREAK
 #60732
 Keywords:	pistol colt double eagle custom
@@ -965,7 +933,6 @@ Material:	metal
 	LegalNum:	6
 	LegalCode:	5
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	9
 	Val1:	2
@@ -1005,7 +972,6 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
 [VALUES]
 	Val0:	10
 	Val1:	2

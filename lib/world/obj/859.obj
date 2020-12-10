@@ -146,6 +146,7 @@ Material:	organic
 	LegalPermit:	0
 [VALUES]
 	Val0:	3
+	Val1:	1
 	Val2:	1
 	Val4:	0
 [AFFECT 0]
@@ -624,7 +625,7 @@ supercharges the recipient. With the higher levels of energy available,
 characters with a Suprathyroid have a tendency toward hyperactivity.
 ^n
 Individuals implanted with a Suprathyroid Gland must ingest twice as much food 
-and drink as the normal person to fuel the higher metabolic rate.~
+and drink as the normal person to fuel the higher metabolic rate~
 Type:	Bioware
 WearFlags:	1
 ExtraFlags:	0
@@ -641,6 +642,7 @@ Material:	organic
 	LegalPermit:	1
 [VALUES]
 	Val0:	13
+	Val1:	1
 	Val2:	1
 	Val4:	0
 [AFFECT 0]
