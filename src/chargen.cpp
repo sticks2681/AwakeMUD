@@ -619,9 +619,9 @@ void create_parse(struct descriptor_data *d, const char *arg)
 {
   int i = MIN(120, atoi(arg)), ok;
   int minimum_attribute_points, maximum_attribute_points, available_attribute_points;
-  long shirts[1] = { 80700 };
-  long pants[1] = { 80701 };
-  long shoes[1] = { 80706 };
+  long shirts[5] = { 80700, 80700, 80700, 80700, 80700 };
+  long pants[5] = { 80701, 80701, 80701, 80701, 80701 };
+  long shoes[5] = { 80706, 80706, 80706, 80706, 80706};
 
   switch (d->ccr.mode)
   {
@@ -920,9 +920,9 @@ void create_parse(struct descriptor_data *d, const char *arg)
     
     if (real_object(OBJ_MAP_OF_SEATTLE) > -1)
       obj_to_char(read_object(OBJ_MAP_OF_SEATTLE, VIRTUAL), d->character);
-    GET_EQ(d->character, WEAR_BODY) = read_object(shirts[number(0, 1)], VIRTUAL);
-    GET_EQ(d->character, WEAR_LEGS) = read_object(pants[number(0, 1)], VIRTUAL);
-    GET_EQ(d->character, WEAR_FEET) = read_object(shoes[number(0, 1)], VIRTUAL);
+    GET_EQ(d->character, WEAR_BODY) = read_object(shirts[number(0, 4)], VIRTUAL);
+    GET_EQ(d->character, WEAR_LEGS) = read_object(pants[number(0, 4)], VIRTUAL);
+    GET_EQ(d->character, WEAR_FEET) = read_object(shoes[number(0, 4)], VIRTUAL);
     ccr_type_menu(d);
     break;
   case CCR_TOTEM:
