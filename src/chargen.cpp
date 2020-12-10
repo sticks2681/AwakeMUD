@@ -783,7 +783,7 @@ void create_parse(struct descriptor_data *d, const char *arg)
         d->ccr.mode = CCR_PRIORITY;
         break;
       case '2':
-        d->ccr.points = 156;
+        d->ccr.points = 192;
         
         // Assign racial minimums and subtract them from the point value.
         d->ccr.pr[PO_ATTR] = get_minimum_attribute_points_for_race(GET_RACE(CH)) * 2;
