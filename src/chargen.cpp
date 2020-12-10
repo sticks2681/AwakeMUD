@@ -617,7 +617,7 @@ int get_maximum_attribute_points_for_race(int race) {
 
 void create_parse(struct descriptor_data *d, const char *arg)
 {
-  int i = MIN(156, atoi(arg)), ok;
+  int i = MIN(120, atoi(arg)), ok;
   int minimum_attribute_points, maximum_attribute_points, available_attribute_points;
   long shirts[5] = { 80700, 80700, 80700, 80700, 80700 };
   long pants[5] = { 80701, 80701, 80701, 80701, 80701 };
@@ -783,7 +783,7 @@ void create_parse(struct descriptor_data *d, const char *arg)
         d->ccr.mode = CCR_PRIORITY;
         break;
       case '2':
-        d->ccr.points = 192;
+        d->ccr.points = 120;
         
         // Assign racial minimums and subtract them from the point value.
         d->ccr.pr[PO_ATTR] = get_minimum_attribute_points_for_race(GET_RACE(CH)) * 2;
