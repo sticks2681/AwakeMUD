@@ -32,12 +32,12 @@ Material:	orichalcum
 	Val9:	-2
 BREAK
 #1000001
-Keywords:	custom hk G38 assault rifle
-Name:	a custom-modified HK G38 assault rifle
+Keywords:	custom hk 416 a7 assault rifle
+Name:	a custom-modified HK416-A7 assault rifle
 RoomDesc:$
 A tricked-out assault rifle is lying here.~
 LookDesc:$
-This is an HK G38 that has been custom modified by Adura Arms. The weapon
+This is an HK417-A7 that has been custom modified by Adura Arms. The weapon
 has been refit from the ground up with stability and accuracy in mind.
 ~
 Type:	Weapon
@@ -57,388 +57,17 @@ Material:	adv. plastics
 	StreetIndex:	3.00
 	InnateRecoilComp:	4
 [VALUES]
-	Val0:	10
+	Val0:	9
 	Val1:	2
 	Val3:	13
 	Val4:	14
 	Val5:	30
 	Val7:	64988
 	Val8:	28640
-	Val9:	1000002
+	Val9:	1000025
 	Val10:	28
 BREAK
 #1000002
-Keywords:	foregrip grip
-Name:	a foregrip and recoil compensation package
-RoomDesc:$
-An ergonomic vertical foregrip has been left here, waiting to be attached to a rifle.~
-LookDesc:$
-It looks like a gun part. 
-~
-Type:	Gun Accessory
-WearFlags:	1
-ExtraFlags:	0
-AffFlags:	0
-Material:	metal
-[POINTS]
-	Weight:	0.50
-	Barrier:	24
-	Cost:	200
-	AvailTN:	2
-	AvailDay:	24.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	1.00
-[VALUES]
-	Val0:	2
-	Val1:	4
-	Val2:	-2
-BREAK
-#1000003
-Keywords:	hideout door garage remote-entry entry fob
-Name:	a remote-entry fob
-RoomDesc:$
-This remote-entry fob has no indication of where or what it may open.~
-LookDesc:$
-This is a security fob for unlocking something.~
-Type:	Key
-WearFlags:	1
-ExtraFlags:	0
-AffFlags:	0
-Material:	plastic
-[POINTS]
-	Weight:	0.10
-	Barrier:	8
-	Cost:	20
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-BREAK
-#1000004
-Keywords:	keyring ring key
-Name:	a keyring
-RoomDesc:$
-A keyring is lying here.~
-LookDesc:$
-It looks like a ring for holding keys. 
-~
-Type:	Keyring
-WearFlags:	1
-ExtraFlags:	0
-AffFlags:	0
-Material:	metal
-[POINTS]
-	Weight:	0.10
-	Barrier:	16
-	Cost:	5
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-BREAK
-#1000005
-Keywords:	lockers
-Name:	some armor lockers
-RoomDesc:$
-A set of lockers are against the wall.~
-LookDesc:$
-Self-illuminating lockers line the walls, with a bullet-proofed and
-smash-resistant glass allowing one to see through to the clothing and armor
-stored within.
-~
-Type:	Container
-WearFlags:	0
-ExtraFlags:	0
-AffFlags:	0
-Material:	metal
-[POINTS]
-	Weight:	100.00
-	Barrier:	32
-	Cost:	0
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-[VALUES]
-	Val0:	500
-	Val2:	-1
-BREAK
-#1000006
-Keywords:	full suit form fitting dragonskin skin body armor
-Name:	a full suit of form-fitting Dragonskin(TM) body armor
-RoomDesc:$
-A full suit of form-fitting Dragonskin(TM) armor lies here.~
-LookDesc:$
-Ares Arms has devised a new Dragonskin(TM) Form-Fitting Body Armor system 
-that is contour-cut  for each individual buyer. This patented design is 
-made of an imbricated overlapping configuration of high tensile ceramic 
-discs encased in an aramid textile cover. The discs are strategically 
-placed to protect vital organs and arteries while not restricting the 
-wearer's movements nearly as much as the bulkier vests and other types 
-of protective suits used in combat.~
-Type:	Worn
-WearFlags:	100000000000000001
-ExtraFlags:	100000000
-AffFlags:	0
-Material:	fabric
-[POINTS]
-	Weight:	1.50
-	Barrier:	16
-	Cost:	5000
-	AvailTN:	16
-	AvailDay:	14.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	1.00
-[VALUES]
-	Val5:	6
-	Val6:	4
-	Val7:	12
-BREAK
-#1000007
-Keywords:	pair tactical gloves
-Name:	a pair of tactical gloves
-RoomDesc:$
-A pair of tactical gloves lies here.~
-LookDesc:$
-These gloves are designed for tactical law enforcement or military ops. 
-Made of high-durability leather and ballistic nylon offering heavy-duty 
-stitching, rugged construction, advanced ergonomic design, and reliability. 
-These black gloves are breathable, quick drying, and lightweight with 
-amazing durability and dexterity. Somewhat intimidating in appearance, 
-they are also designed with full wrist support. 
-~
-Type:	Worn
-WearFlags:	10000001
-ExtraFlags:	0
-AffFlags:	0
-Material:	leather
-[POINTS]
-	Weight:	0.00
-	Barrier:	12
-	Cost:	75
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-BREAK
-#1000008
-Keywords:	form-fitting fitting kevlar mask balaclava
-Name:	a form-fitting kevlar balaclava
-RoomDesc:$
-A face mask lies here.~
-LookDesc:$
-Styled in that classic ninja manner, with with a single opening around the 
-eyes, this entire black mask is woven out of a semi-elastic type of kevlar 
-fiber. While not designed to completely route a bullet, it can stop it from 
-causing an excessively fatal injury. It also has a thin layer of thermal 
-insulation for your general comfort. 
-~
-Type:	Worn
-WearFlags:	100000000000000000010001
-ExtraFlags:	0
-AffFlags:	0
-Material:	fabric
-[POINTS]
-	Weight:	0.00
-	Barrier:	12
-	Cost:	100
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-[VALUES]
-	Val7:	8
-BREAK
-#1000009
-Keywords:	military backpack pack bag large
-Name:	a large military-style backpack
-RoomDesc:$
-A large backpack is lying here, waiting to be filled.~
-LookDesc:$
-A large military-style backpack designed for 72-hour operations. It's got 
-numerous compartments for all kinds of equipment, and the exterior is 
-covered in MOLLE mesh for add customization. 
-~
-Type:	Container
-WearFlags:	1000000000000000001
-ExtraFlags:	0
-AffFlags:	0
-Material:	fabric
-[POINTS]
-	Weight:	5.00
-	Barrier:	16
-	Cost:	850
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-[VALUES]
-	Val0:	55
-	Val1:	1
-	Val2:	-1
-	Val3:	-1
-BREAK
-#1000010
-Keywords:	tactical vest
-Name:	a tactical vest
-RoomDesc:$
-A tactical vest is lying here.~
-LookDesc:$
-This MOLLE tactical vest is designed to be worn over clothing, allowing 
-the user to attach various holsters or  pouches to fit their needs.
-~
-Type:	Worn
-WearFlags:	10000000001
-ExtraFlags:	0
-AffFlags:	0
-Material:	fabric
-[POINTS]
-	Weight:	1.00
-	Barrier:	16
-	Cost:	300
-	AvailTN:	2
-	AvailDay:	1.50
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.80
-[VALUES]
-	Val0:	2
-	Val4:	10
-SourceBook:	SR3 p283-284
-BREAK
-#1000011
-Keywords:	battle belt
-Name:	a battle belt
-RoomDesc:$
-a sleek battle belt has been dropped here.~
-LookDesc:$
-This is a multi-purpose belt designed to meet the needs of any on-duty 
-military or security personel. It's made from a non-glossy black leather 
-and fitted with attachments such as magazine pouches, room for a holster, 
-and space for a couple other small objects such as flashlights or grenades. 
-An internal polymer stiffener runs the length of the belt, for added 
-firmness and holster support. 
-~
-Type:	Worn
-WearFlags:	100000000001
-ExtraFlags:	0
-AffFlags:	0
-Material:	fabric
-[POINTS]
-	Weight:	1.00
-	Barrier:	16
-	Cost:	200
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-[VALUES]
-	Val0:	1
-	Val1:	6
-	Val2:	2
-	Val4:	4
-BREAK
-#1000012
-Keywords:	sheath
-Name:	a sword sheath
-RoomDesc:$
-A sword sheath is here.~
-LookDesc:$
-A black leather sword sheath. 
-~
-Type:	Holster
-WearFlags:	100000000001
-ExtraFlags:	0
-AffFlags:	0
-Material:	leather
-[POINTS]
-	Weight:	1.00
-	Barrier:	16
-	Cost:	50
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-[VALUES]
-	Val0:	1
-BREAK
-#1000013
-Keywords:	rifle strap two-point point sling tactical
-Name:	a two-point tactical rifle sling
-RoomDesc:$
-A sling with some buckles has been left here.~
-LookDesc:$
-It's a nylon sling with attachments to hook an assault rifle, or 
-possibly something larger, to. 
-~
-Type:	Holster
-WearFlags:	10001000000000000000001
-ExtraFlags:	0
-AffFlags:	0
-Material:	fabric
-[POINTS]
-	Weight:	1.00
-	Barrier:	16
-	Cost:	50
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-[VALUES]
-	Val0:	2
-BREAK
-#1000014
-Keywords:	credstick platinum
-Name:	a platinum credstick
-RoomDesc:$
-Someone has dropped their platinum credstick here.~
-LookDesc:$
-The most expensive and most secure model of the credsticks, the 
-platinum requires a successful retinal scan to access an account.
-~
-Type:	Money
-WearFlags:	1
-ExtraFlags:	0
-AffFlags:	0
-Material:	metal
-[POINTS]
-	Weight:	0.25
-	Barrier:	6
-	Cost:	10
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-[VALUES]
-	Val1:	1
-	Val2:	3
-BREAK
-#1000015
 Keywords:	custom ares predator pistol III
 Name:	a custom Ares Predator III
 RoomDesc:$
@@ -470,11 +99,39 @@ Material:	adv. plastics
 	Val5:	15
 	Val6:	15
 	Val7:	64988
-	Val8:	1000016
+	Val8:	1000026
 	Val9:	-1
 	Val10:	4
 BREAK
-#1000016
+#1000025
+Keywords:	ergonomic vertical foregrip grip
+Name:	an ergonimoc vertical foregrip
+RoomDesc:$
+An ergonomic vertical foregrip has been left here, waiting to be attached to a rifle.~
+LookDesc:$
+It looks like a gun part. 
+~
+Type:	Gun Accessory
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	0.50
+	Barrier:	24
+	Cost:	200
+	AvailTN:	2
+	AvailDay:	24.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	1.00
+[VALUES]
+	Val0:	2
+	Val1:	4
+	Val2:	-2
+BREAK
+#1000026
 Keywords:	pistol sound suppressor
 Name:	a pistol suppressor
 RoomDesc:$
@@ -500,30 +157,7 @@ Material:	metal
 	Val0:	1
 	Val1:	5
 BREAK
-#1000099
-Keywords:	charm ring hireling
-Name:	a charming ring
-RoomDesc:$
-A charming ring lies here.~
-LookDesc:$
-It looks pretty much like an unfinished object~
-Type:	Worn
-WearFlags:	11
-ExtraFlags:	0
-AffFlags:	1000000000000000000
-Material:	metal
-[POINTS]
-	Weight:	0.01
-	Barrier:	32
-	Cost:	0
-	AvailTN:	0
-	AvailDay:	0.00
-	LegalNum:	0
-	LegalCode:	0
-	LegalPermit:	0
-	StreetIndex:	0.00
-BREAK
-#1000100
+#1000050
 Keywords:	adura arms armathor armor combat suit matte-black black
 Name:	^La matte-black Armathor(TM) combat suit^n
 RoomDesc:$
@@ -555,7 +189,7 @@ Material:	adv. plastics
 	Val5:	12
 	Val6:	10
 BREAK
-#1000101
+#1000051
 Keywords:	adura arms armathor armor combat boots black
 Name:	^La pair of black Armathor(TM) combat boots^n
 RoomDesc:$
@@ -591,7 +225,7 @@ Material:	leather
 	Location:	Impact
 	Modifier:	1
 BREAK
-#1000102
+#1000052
 Keywords:	adura arms armathor armor combat utility belt black
 Name:	^La black Armathor(TM) combat utility belt^n
 RoomDesc:$
@@ -623,7 +257,7 @@ Material:	leather
 	Val0:	3
 	Val4:	8
 BREAK
-#1000103
+#1000053
 Keywords:	adura arms armathor armor combat vest armor black
 Name:	^La black Armathor(TM) combat vest^n
 RoomDesc:$
@@ -662,7 +296,7 @@ Material:	adv. plastics
 	Location:	Impact
 	Modifier:	1
 BREAK
-#1000104
+#1000054
 Keywords:	adura arms armathor armor combat gloves black
 Name:	^La pair of black Armathor(TM) combat gloves^n
 RoomDesc:$
@@ -698,7 +332,7 @@ Material:	leather
 	Location:	Impact
 	Modifier:	1
 BREAK
-#1000105
+#1000055
 Keywords:	adura arms armathor armor combat helmet black
 Name:	^La black Armathor(TM) combat helmet^n
 RoomDesc:$
@@ -731,5 +365,247 @@ Material:	adv. plastics
 [AFFECT 1]
 	Location:	Impact
 	Modifier:	2
+BREAK
+#1000056
+Keywords:	form-fitting fitting mask balaclava
+Name:	a form-fitting balaclava
+RoomDesc:$
+A face mask lies here.~
+LookDesc:$
+Styled in that classic ninja manner, with a single opening around the eyes,
+this entire black mask is woven out of a semi-elastic type of kevlar-nomex
+blended fiber. While not designed to completely route a bullet, it might
+help stop it from causing an excessively fatal injury. It also has a thin
+layer of thermal insulation for your general comfort.
+~
+Type:	Worn
+WearFlags:	100000000000000000010001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	0.00
+	Barrier:	12
+	Cost:	100
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val7:	8
+BREAK
+#1000075
+Keywords:	military backpack pack bag large
+Name:	a large military-style backpack
+RoomDesc:$
+A large backpack is lying here, waiting to be filled.~
+LookDesc:$
+A large military-style backpack designed for 72-hour operations. It's got 
+numerous compartments for all kinds of equipment, and the exterior is 
+covered in MOLLE mesh for add customization. 
+~
+Type:	Container
+WearFlags:	1000000000000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	5.00
+	Barrier:	16
+	Cost:	850
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val0:	55
+	Val1:	1
+	Val2:	-1
+	Val3:	-1
+BREAK
+#1000076
+Keywords:	rifle strap two-point point sling tactical
+Name:	a two-point tactical rifle sling
+RoomDesc:$
+A sling with some buckles has been left here.~
+LookDesc:$
+It's a nylon sling with attachments to hook an assault rifle, or 
+possibly something larger, to. 
+~
+Type:	Holster
+WearFlags:	10001000000000000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	1.00
+	Barrier:	16
+	Cost:	50
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val0:	2
+BREAK
+#1000077
+Keywords:	sheath
+Name:	a sword sheath
+RoomDesc:$
+A sword sheath is here.~
+LookDesc:$
+A black leather sword sheath. 
+~
+Type:	Holster
+WearFlags:	100000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	leather
+[POINTS]
+	Weight:	1.00
+	Barrier:	16
+	Cost:	50
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val0:	1
+BREAK
+#1000100
+Keywords:	hideout door garage remote-entry entry fob
+Name:	a remote-entry fob
+RoomDesc:$
+This remote-entry fob has no indication of where or what it may open.~
+LookDesc:$
+This is a security fob for unlocking something.~
+Type:	Key
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	plastic
+[POINTS]
+	Weight:	0.10
+	Barrier:	8
+	Cost:	20
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+BREAK
+#1000101
+Keywords:	charm ring hireling
+Name:	a charming ring
+RoomDesc:$
+A charming ring lies here.~
+LookDesc:$
+It looks pretty much like an unfinished object~
+Type:	Worn
+WearFlags:	11
+ExtraFlags:	0
+AffFlags:	1000000000000000000
+Material:	metal
+[POINTS]
+	Weight:	0.01
+	Barrier:	32
+	Cost:	0
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+BREAK
+#1000123
+Keywords:	credstick platinum
+Name:	a platinum credstick
+RoomDesc:$
+Someone has dropped their platinum credstick here.~
+LookDesc:$
+The most expensive and most secure model of the credsticks, the 
+platinum requires a successful retinal scan to access an account.
+This credstick comes complete with a high-quality counterfeit SIN.
+~
+Type:	Money
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	0.25
+	Barrier:	6
+	Cost:	100000
+	AvailTN:	10
+	AvailDay:	14.00
+	LegalNum:	2
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	1.00
+[VALUES]
+	Val1:	1
+	Val2:	3
+BREAK
+#1000124
+Keywords:	keyring ring key
+Name:	a keyring
+RoomDesc:$
+A keyring is lying here.~
+LookDesc:$
+It looks like a ring for holding keys. 
+~
+Type:	Keyring
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	0.10
+	Barrier:	16
+	Cost:	5
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+BREAK
+#1000125
+Keywords:	lockers
+Name:	some armor lockers
+RoomDesc:$
+A set of lockers are against the wall.~
+LookDesc:$
+Self-illuminating lockers line the walls, with a bullet-proofed and
+smash-resistant glass allowing one to see through to the clothing and armor
+stored within.
+~
+Type:	Container
+WearFlags:	0
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	100.00
+	Barrier:	32
+	Cost:	0
+	AvailTN:	0
+	AvailDay:	0.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val0:	500
+	Val2:	-1
 BREAK
 END
