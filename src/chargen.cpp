@@ -619,9 +619,9 @@ void create_parse(struct descriptor_data *d, const char *arg)
 {
   int i = MIN(120, atoi(arg)), ok;
   int minimum_attribute_points, maximum_attribute_points, available_attribute_points;
-  long shirts[5] = { 70000, 70001, 70002, 70003, 70004 };
-  long pants[5] = { 70005, 70006, 70007, 70008, 70009 };
-  long shoes[5] = { 70010, 70011, 70012, 70013, 70014};
+  long shirts[5] = { 80700 };
+  long pants[5] = { 80701 };
+  long shoes[5] = { 80706 };
 
   switch (d->ccr.mode)
   {
@@ -675,7 +675,7 @@ void create_parse(struct descriptor_data *d, const char *arg)
     break;
   case CCR_PO_MAGIC:
     i--;
-    if (i > 4 || i < 0)
+    if (i > 5 || i < 0)
       send_to_char(CH, "Invalid number. Enter desired magic level (^c%d^n available): ", d->ccr.points);
     else if (magic_cost[i] > d->ccr.points)
       send_to_char(CH, "You do not have enough points for that. Enter desired magic level(^c%d^n available):", d->ccr.points);

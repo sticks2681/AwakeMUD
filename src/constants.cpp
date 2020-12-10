@@ -2427,5 +2427,6 @@ const char *tradition_names[] = {
   "Hermetic",
   "Shamanic",
   "Mundane",
-  "Adept"
+  "Adept",
+  "Mystic Adept"
 };
