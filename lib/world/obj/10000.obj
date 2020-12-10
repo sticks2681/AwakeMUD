@@ -20,7 +20,7 @@ Material:	orichalcum
 	LegalNum:	5
 	LegalCode:	2
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val1:	4
 	Val2:	4
@@ -90,7 +90,7 @@ Material:	adv. plastics
 	LegalNum:	6
 	LegalCode:	5
 	LegalPermit:	1
-	StreetIndex:	0.00
+	StreetIndex:	2.00
 [VALUES]
 	Val0:	9
 	Val1:	2
@@ -152,7 +152,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	1
 	Val1:	5
@@ -183,7 +183,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val4:	6
 	Val5:	12
@@ -215,7 +215,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	2
 [AFFECT 0]
@@ -252,7 +252,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	3
 	Val4:	8
@@ -285,7 +285,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	3
 	Val4:	10
@@ -322,7 +322,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	3
 [AFFECT 0]
@@ -358,7 +358,7 @@ Material:	adv. plastics
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [AFFECT 0]
 	Location:	Ballistic
 	Modifier:	2
@@ -368,7 +368,7 @@ Material:	adv. plastics
 BREAK
 #1000056
 Keywords:	form-fitting fitting mask balaclava
-Name:	a form-fitting balaclava
+Name:	^La form-fitting balaclava^n
 RoomDesc:$
 A face mask lies here.~
 LookDesc:$
@@ -392,9 +392,45 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val7:	8
+BREAK
+#1000057
+Keywords:	adura arms long coat
+Name:	^La stylish black long coat^n
+RoomDesc:$
+A stylish long coat is lying here.~
+LookDesc:$
+Available in a variety of styles, the Adura Arms long coat is a popular
+form of armor. It uses rigid plates concealed between layers of ballistic
+cloth to cover vital organs.~
+Type:	Worn
+WearFlags:	10000001001
+ExtraFlags:	0
+AffFlags:	0
+Material:	fabric
+[POINTS]
+	Weight:	2.00
+	Barrier:	24
+	Cost:	1000
+	AvailTN:	3
+	AvailDay:	1.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	1.00
+[VALUES]
+	Val0:	4
+	Val4:	10
+	Val7:	10
+[AFFECT 0]
+	Location:	Ballistic
+	Modifier:	4
+[AFFECT 1]
+	Location:	Impact
+	Modifier:	2
+SourceBook:	SR3 p284, SSC p41
 BREAK
 #1000075
 Keywords:	military backpack pack bag large
@@ -420,7 +456,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	55
 	Val1:	1
@@ -450,7 +486,7 @@ Material:	fabric
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	2
 BREAK
@@ -476,7 +512,7 @@ Material:	leather
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	1
 BREAK
@@ -501,7 +537,7 @@ Material:	plastic
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 BREAK
 #1000101
 Keywords:	charm ring hireling
@@ -524,7 +560,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 BREAK
 #1000123
 Keywords:	credstick platinum
@@ -577,7 +613,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 BREAK
 #1000125
 Keywords:	lockers
@@ -603,7 +639,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	500
 	Val2:	-1
