@@ -56,6 +56,7 @@ Material:	metal
 	LegalNum:	8
 	LegalCode:	3
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
 	Val1:	2
 	Val2:	3
@@ -63,9 +64,9 @@ Material:	metal
 	Val4:	4
 	Val5:	-1
 	Val6:	2
-	Val7:	-1
-	Val8:	-1
-	Val9:	-1
+	Val7:	-2
+	Val8:	-2
+	Val9:	-2
 BREAK
 #1000002
 Keywords:	dikote-coated coated glaive telescopng haft
@@ -78,7 +79,7 @@ a haft that can telescope out to full polearm-length.
 ~
 Type:	Weapon
 WearFlags:	10000000000001
-ExtraFlags:	0
+ExtraFlags:	1000000000000
 AffFlags:	0
 Material:	metal
 [POINTS]
@@ -90,16 +91,17 @@ Material:	metal
 	LegalNum:	3
 	LegalCode:	2
 	LegalPermit:	0
+	StreetIndex:	0.00
 [VALUES]
-	Val1:	3
-	Val2:	3
+	Val1:	4
+	Val2:	4
 	Val3:	2
 	Val4:	4
 	Val5:	-1
 	Val6:	2
-	Val7:	-1
-	Val8:	-1
-	Val9:	-1
+	Val7:	-2
+	Val8:	-2
+	Val9:	-2
 BREAK
 #1000003
 Keywords:	custom hk 416 a7 assault rifle
@@ -136,42 +138,6 @@ Material:	adv. plastics
 	Val8:	28640
 	Val9:	1000025
 	Val10:	28
-BREAK
-#1000003
-Keywords:	custom ares predator pistol III
-Name:	a custom Ares Predator III
-RoomDesc:$
-Someone has left a large pistol here.~
-LookDesc:$
-The Ares Predator III is the latest variant of the street sam's favourite
-weapon. It comes with an intergral smartlink-II system. 
-~
-Type:	Weapon
-WearFlags:	10000000000001
-ExtraFlags:	0
-AffFlags:	0
-Material:	adv. plastics
-[POINTS]
-	Weight:	2.25
-	Barrier:	24
-	Cost:	1000
-	AvailTN:	5
-	AvailDay:	1.00
-	LegalNum:	6
-	LegalCode:	5
-	LegalPermit:	1
-	StreetIndex:	2.00
-[VALUES]
-	Val0:	9
-	Val1:	2
-	Val3:	8
-	Val4:	11
-	Val5:	15
-	Val6:	15
-	Val7:	64988
-	Val8:	1000026
-	Val9:	-1
-	Val10:	4
 BREAK
 #1000025
 Keywords:	ergonomic vertical foregrip grip
