@@ -674,9 +674,6 @@ SPECIAL(johnson)
         GET_SPARE1(johnson) = -1;
       } else if (GET_QUEST(temp)) {
         handle_info(johnson);
-      } else {
-        do_say(johnson, buf, 0, 0);
-        // We're in the gap between someone asking for a job and accepting it. Do nothing.
       }
     } else if (time_info.minute > 0 && time_info.minute <= 5)
       new_quest(johnson);
