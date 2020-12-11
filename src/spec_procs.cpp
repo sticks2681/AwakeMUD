@@ -207,16 +207,16 @@ int train_ability_cost(struct char_data *ch, int abil, int level) {
   
   switch (abil) {
     case ADEPT_IMPROVED_BOD:
-      if (GET_REAL_BOD(ch) + GET_POWER_TOTAL(ch, ADEPT_IMPROVED_BOD) > racial_limits[(int)GET_RACE(ch)][0][0] - GET_PERM_BOD_LOSS(ch))
-        cost *= 2;
+      if (GET_REAL_BOD(ch) + GET_POWER_TOTAL(ch, ADEPT_IMPROVED_BOD) >= racial_limits[(int)GET_RACE(ch)][0][0] - GET_PERM_BOD_LOSS(ch))
+        cost *= 1;
       break;
     case ADEPT_IMPROVED_QUI:
-      if (GET_REAL_QUI(ch) + GET_POWER_TOTAL(ch, ADEPT_IMPROVED_QUI) > racial_limits[(int)GET_RACE(ch)][0][1])
-        cost *= 2;
+      if (GET_REAL_QUI(ch) + GET_POWER_TOTAL(ch, ADEPT_IMPROVED_QUI) >= racial_limits[(int)GET_RACE(ch)][0][1])
+        cost *= 1;
       break;
     case ADEPT_IMPROVED_STR:
-      if (GET_REAL_STR(ch) + GET_POWER_TOTAL(ch, ADEPT_IMPROVED_STR) > racial_limits[(int)GET_RACE(ch)][0][2])
-        cost *= 2;
+      if (GET_REAL_STR(ch) + GET_POWER_TOTAL(ch, ADEPT_IMPROVED_STR) >= racial_limits[(int)GET_RACE(ch)][0][2])
+        cost *= 1;
       break;
   }
   
