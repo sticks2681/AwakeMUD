@@ -32,6 +32,76 @@ Material:	orichalcum
 	Val9:	-2
 BREAK
 #1000001
+Keywords:	dikote-coated coated telescoping staff
+Name:	a dikote-coated telescoping staff
+RoomDesc:$
+A telescoping staff lies here.~
+LookDesc:$
+When collapsed, this weapon is the size of a small club. A quick spin extends
+the telescopic sections staves from each end, nearly tripling it's length. It
+appears to have received a dikote treatment, giving it an extra bit of punch
+to its strikes. 
+~
+Type:	Weapon
+WearFlags:	10000000000001
+ExtraFlags:	1000000000000
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	3.00
+	Barrier:	24
+	Cost:	6500
+	AvailTN:	6
+	AvailDay:	14.00
+	LegalNum:	8
+	LegalCode:	3
+	LegalPermit:	0
+[VALUES]
+	Val1:	2
+	Val2:	3
+	Val3:	1
+	Val4:	4
+	Val5:	-1
+	Val6:	2
+	Val7:	-1
+	Val8:	-1
+	Val9:	-1
+BREAK
+#1000002
+Keywords:	dikote-coated coated glaive telescopng haft
+Name:	A dikote-coated glaive with a telescoping haft
+RoomDesc:$
+A glaive with a telescoping haft lies here.~
+LookDesc:$
+This weapon is essentially a slightly-curved sword blade attached to
+a haft that can telescope out to full polearm-length.
+~
+Type:	Weapon
+WearFlags:	10000000000001
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	4.00
+	Barrier:	24
+	Cost:	7000
+	AvailTN:	6
+	AvailDay:	14.00
+	LegalNum:	3
+	LegalCode:	2
+	LegalPermit:	0
+[VALUES]
+	Val1:	3
+	Val2:	3
+	Val3:	2
+	Val4:	4
+	Val5:	-1
+	Val6:	2
+	Val7:	-1
+	Val8:	-1
+	Val9:	-1
+BREAK
+#1000003
 Keywords:	custom hk 416 a7 assault rifle
 Name:	a custom-modified HK416-A7 assault rifle
 RoomDesc:$
@@ -67,7 +137,7 @@ Material:	adv. plastics
 	Val9:	1000025
 	Val10:	28
 BREAK
-#1000002
+#1000003
 Keywords:	custom ares predator pistol III
 Name:	a custom Ares Predator III
 RoomDesc:$

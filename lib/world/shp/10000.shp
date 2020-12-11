@@ -63,50 +63,62 @@ Etiquette:	46
 		Type:	Always
 		Stock:	0
 	[SELL 11]
-		Vnum:	1000001
+		Vnum:	1000000
 		Type:	Always
 		Stock:	0
 	[SELL 12]
-		Vnum:	127
+		Vnum:	1000001
 		Type:	Always
 		Stock:	0
 	[SELL 13]
-		Vnum:	70148
+		Vnum:	1000002
 		Type:	Always
 		Stock:	0
 	[SELL 14]
-		Vnum:	70149
+		Vnum:	1000003
 		Type:	Always
 		Stock:	0
 	[SELL 15]
-		Vnum:	31542
+		Vnum:	127
 		Type:	Always
 		Stock:	0
 	[SELL 16]
-		Vnum:	18825
+		Vnum:	70148
 		Type:	Always
 		Stock:	0
 	[SELL 17]
-		Vnum:	1302
+		Vnum:	70149
 		Type:	Always
 		Stock:	0
 	[SELL 18]
-		Vnum:	37597
+		Vnum:	31542
 		Type:	Always
 		Stock:	0
 	[SELL 19]
-		Vnum:	28422
+		Vnum:	18825
 		Type:	Always
 		Stock:	0
 	[SELL 20]
-		Vnum:	1000123
+		Vnum:	1302
 		Type:	Always
 		Stock:	0
 	[SELL 21]
-		Vnum:	1000124
+		Vnum:	37597
 		Type:	Always
 		Stock:	0
 	[SELL 22]
+		Vnum:	28422
+		Type:	Always
+		Stock:	0
+	[SELL 23]
+		Vnum:	1000123
+		Type:	Always
+		Stock:	0
+	[SELL 24]
+		Vnum:	1000124
+		Type:	Always
+		Stock:	0
+	[SELL 25]
 		Vnum:	1000100
 		Type:	Always
 		Stock:	0
