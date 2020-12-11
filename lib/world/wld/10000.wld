@@ -94,7 +94,7 @@ a reinforced roll-up door
 	Flags:	4
 	Material:	metal
 	Barrier:	8
-	KeyVnum:	1000003
+	KeyVnum:	1000100
 	LockRating:	50
 BREAK
 END
