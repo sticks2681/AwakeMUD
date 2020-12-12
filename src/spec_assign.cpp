@@ -70,7 +70,7 @@ struct teach_data teachers[] = {
                        { 2508, { SKILL_BIOTECH, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "After hours of medical research and instruction, you begin "
                          "to\r\nunderstand more of the basic biotech procedures.\r\n", ADVANCED },
                        { 2701, { SKILL_ATHLETICS, SKILL_STEALTH, SKILL_UNARMED_COMBAT, SKILL_EDGED_WEAPONS,
-                         SKILL_WHIPS_FLAILS, SKILL_PROJECTILES, SKILL_THROWING_WEAPONS, SKILL_ARMED_COMBAT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                         SKILL_WHIPS_FLAILS, SKILL_PROJECTILES, SKILL_THROWING_WEAPONS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                          "Toh Li gives you the workout of your life, but you come out more learned.", ADVANCED },
                        { 3722, { SKILL_ATHLETICS, SKILL_RIFLES, SKILL_PISTOLS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                          "After hours of study and physical practice, you feel like you've learned\r\nsomething.\r\n", ADVANCED },
@@ -192,7 +192,7 @@ struct teach_data teachers[] = {
                        { 778, { SKILL_SORCERY, SKILL_CONJURING, SKILL_AURA_READING, SKILL_SPELLDESIGN, SKILL_ENCHANTING, SKILL_CENTERING, SKILL_TALISMONGERING, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                          "The Master teaches you more than you thought possible.\r\n", ADVANCED },
                        { 5914, { SKILL_PISTOLS, SKILL_RIFLES, SKILL_SHOTGUNS, SKILL_SMG, SKILL_ASSAULT_RIFLES,
-                         SKILL_GUNNERY, SKILL_MACHINE_GUNS, SKILL_FIREARMS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },  "Lucas runs through some theory with you then lets you "
+                         SKILL_GUNNERY, SKILL_MACHINE_GUNS, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },  "Lucas runs through some theory with you then lets you "
                          "have a few shots on the range.\r\n", NEWBIE},
                        { 65119, { SKILL_RUSSIAN, SKILL_GERMAN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, "Olga Chernov brutally crams language forms and syntaxes into your skull.\r\n", ADVANCED },
                        { 33004, { SKILL_ELF_ETIQUETTE, SKILL_GAELIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, "Milton Buckthorne drops knowledge on your patheticly underpowered brain.\r\n", ADVANCED },
