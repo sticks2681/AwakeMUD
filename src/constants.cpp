@@ -2430,4 +2430,5 @@ const char *tradition_names[] = {
   "Mundane",
   "Adept",
   "Mystic Adept"
+  "ERROR"
 };
