@@ -3069,7 +3069,15 @@ vnum_t get_authoritative_vnum_for_item(vnum_t vnum) {
     PAIR(373,   85024);
     PAIR(33248, 85224);
     PAIR(502,   85025);
-    
+    PAIR(427,   85034); // Vehicle control rigs.
+    PAIR(428,   85035);
+    PAIR(429,   85036);
+    PAIR(464,   85235);
+    PAIR(465,   85435);
+    PAIR(466,   85236);
+    PAIR(467,   85436);
+    PAIR(532,   85234);
+    // WIP
   }
   
   // No match.
