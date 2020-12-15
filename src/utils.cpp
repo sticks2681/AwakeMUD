@@ -1813,13 +1813,14 @@ struct obj_data *get_mount_manned_by_ch(struct char_data *ch) {
   return NULL;
 }
 
-void store_message_to_history(struct descriptor_data *d, int channel, const char *mallocd_message) {
+void store_message_to_history(struct descriptor_data *d, int channel, const char *newd_message) {
   // We use our very own message buffer to ensure we'll never overwrite whatever buffer the caller is using.
   static char log_message[256];
   
   // Precondition: No screwy pointers. Removed warning since we can be passed NPC descriptors (which we ignore).
-  if (d == NULL || mallocd_message == NULL) {
+  if (d == NULL || newd_message == NULL) {
     // mudlog("SYSERR: Null descriptor or message passed to store_message_to_history.", NULL, LOG_SYSLOG, TRUE);
+    DELETE_ARRAY_IF_EXTANT(newd_message);
     return;
   }
   
@@ -1827,18 +1828,19 @@ void store_message_to_history(struct descriptor_data *d, int channel, const char
   if (channel < 0 || channel >= NUM_COMMUNICATION_CHANNELS) {
     snprintf(log_message, sizeof(log_message), "SYSERR: Channel %d is not within bounds 0 <= channel < %d.", channel, NUM_COMMUNICATION_CHANNELS);
     mudlog(log_message, NULL, LOG_SYSLOG, TRUE);
+    DELETE_ARRAY_IF_EXTANT(newd_message);
     return;
   }
   
   // Add the message to the descriptor's channel history.
-  d->message_history[channel].AddItem(NULL, mallocd_message);
+  d->message_history[channel].AddItem(NULL, newd_message);
   
   // Constrain message history to the specified amount.
   if (d->message_history[channel].NumItems() > NUM_MESSAGES_TO_RETAIN) {
     // We're over the amount. Remove the tail, making sure we delete the contents.
     if (d->message_history[channel].Tail()->data)
       delete [] d->message_history[channel].Tail()->data;
-    
+
     d->message_history[channel].RemoveItem(d->message_history[channel].Tail());
   }
 }
@@ -3077,6 +3079,37 @@ vnum_t get_authoritative_vnum_for_item(vnum_t vnum) {
     PAIR(466,   85236);
     PAIR(467,   85436);
     PAIR(532,   85234);
+    PAIR(493,   85037); // oral 'ware
+    PAIR(494,   80538);
+    PAIR(524,   85238);
+    PAIR(525,   85237);
+    PAIR(492,   85039);
+    PAIR(33264, 85040);
+    PAIR(39721, 85041);
+    PAIR(39722, 85241);
+    PAIR(507,   85043); // eyeware
+    PAIR(557,   85243);
+    PAIR(506,   85042);
+    PAIR(509,   85051);
+    PAIR(512,   85047);
+    PAIR(513,   85046);
+    PAIR(554,   85246);
+    PAIR(555,   85247);
+    PAIR(558,   85242);
+    PAIR(33223, 85442);
+    PAIR(305,   85048);
+    PAIR(559,   85248);
+    PAIR(508,   85049);
+    PAIR(556,   85249);
+    PAIR(306,   85050);
+    PAIR(565,   85250);
+    PAIR(510,   85052);
+    PAIR(39371, 85252);
+    
+    // Bioware.
+    PAIR(1461, 85802); // cats eyes
+    PAIR(60344, 85802);
+    PAIR(33254, 85902);
     // WIP
   }
   

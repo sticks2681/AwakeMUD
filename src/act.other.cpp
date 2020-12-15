@@ -229,7 +229,8 @@ ACMD(do_steal)
           break;
         }
       if (!obj) {
-        act("$E hasn't got that item.", FALSE, ch, 0, vict, TO_CHAR);
+        snprintf(buf, sizeof(buf), "$E hasn't got %s.", obj_name);
+        act(buf, FALSE, ch, 0, vict, TO_CHAR);
         return;
       } else {                  /* It is equipment */
         send_to_char(ch, "You unequip %s and steal it.", GET_OBJ_NAME(obj));
@@ -525,11 +526,11 @@ ACMD(do_patch)
     return;
   }
   if (GET_OBJ_VAL(patch, 1) < 1) {
-    send_to_char("That patch seems to be defective...\r\n", ch);
+    send_to_char(ch, "%s seems to be defective...\r\n", capitalize(GET_OBJ_NAME(patch)));
     return;
   }
   if (GET_OBJ_TYPE(patch) != ITEM_PATCH) {
-    send_to_char("That item is not a patch.\r\n", ch);
+    send_to_char(ch, "%s is not a patch.\r\n", capitalize(GET_OBJ_NAME(patch)));
     return;
   }  
   switch (GET_OBJ_VAL(patch, 0)) {
@@ -696,7 +697,7 @@ ACMD(do_use)
     if (isname(arg, obj->text.keywords))
       break;
   if (!obj) {
-    send_to_char(ch, "You don't have that item.\r\n");
+    send_to_char(ch, "You don't have a '%s'.\r\n", arg);
     return;
   }
 
@@ -1741,7 +1742,7 @@ ACMD(do_unattach)
     return;
   }
   if (!(gun = get_obj_in_list_vis(ch, buf2, ch->carrying))) {
-    send_to_char("You don't seem to have that item.\r\n", ch);
+    send_to_char(ch, "You don't seem to have a '%s'.\r\n", buf2);
     return;
   }
 
@@ -2474,7 +2475,7 @@ ACMD(do_remember)
       }
 
     m = new remem;
-    m->mem = strdup(buf2);
+    m->mem = str_dup(buf2);
     m->idnum = GET_IDNUM(vict);
     m->next = GET_MEMORY(ch);
     GET_MEMORY(ch) = m;
@@ -3941,8 +3942,8 @@ ACMD(do_spray)
       }
       struct obj_data *paint = read_object(OBJ_GRAFFITI, VIRTUAL);
       snprintf(buf, sizeof(buf), "Someone has sprayed \"%s^g\" here.", argument);
-      paint->restring = strdup(buf);
-      paint->graffiti = strdup(buf);
+      paint->restring = str_dup(buf);
+      paint->graffiti = str_dup(buf);
       obj_to_room(paint, ch->in_room);
       if (++GET_OBJ_TIMER(obj) == 3) {
         send_to_char("The spray can is now empty, so you throw it away.\r\n", ch);

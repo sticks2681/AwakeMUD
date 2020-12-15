@@ -560,7 +560,7 @@ bool reload_weapon_from_bulletpants(struct char_data *ch, struct obj_data *weapo
     // Restring it, although I don't think anyone will ever see the restring. Better safe than sorry.
     snprintf(buf, sizeof(buf), "a %d-round %s magazine", GET_MAGAZINE_BONDED_MAXAMMO(magazine), weapon_type[GET_MAGAZINE_BONDED_ATTACKTYPE(magazine)]);
     DELETE_ARRAY_IF_EXTANT(magazine->restring);
-    magazine->restring = strdup(buf);
+    magazine->restring = str_dup(buf);
     
     // Load the weapon with the magazine.
     obj_to_obj(magazine, weapon);
@@ -683,4 +683,7 @@ int npc_ammo_usage_preferences[] = {
  - add ability to split apart ammo boxes
  - pockets add <box>: put box in pockets, then junk box
  - shopkeepers sell ammo that goes straight into your pockets
+ - enable loading from boxes on ground / in vehicle
+ - figure out what happens to pockets on death
+ - pockets put all / pockets get all
 */
