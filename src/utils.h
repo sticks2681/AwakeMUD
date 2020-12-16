@@ -74,6 +74,7 @@ void    add_workshop_to_room(struct obj_data *obj);
 void    remove_workshop_from_room(struct obj_data *obj);
 bool    mount_has_weapon(struct obj_data *mount);
 struct  obj_data *get_mount_weapon(struct obj_data *mount);
+struct  obj_data *get_mount_ammo(struct obj_data *mount);
 struct  obj_data *stop_manning_weapon_mounts(struct char_data *ch, bool send_message);
 struct  obj_data *get_mount_manned_by_ch(struct char_data *ch);
 void    terminate_mud_process_with_message(const char *message, int error_code);
@@ -149,8 +150,7 @@ void    advance_level(struct char_data *ch);
 void    set_title(struct char_data *ch, const char *title);
 void    set_pretitle(struct char_data *ch, const char *title);
 void    set_whotitle(struct char_data *ch, const char *title);
-int     gain_exp(struct char_data *ch, int gain, bool rep);
-void    gain_exp_regardless(struct char_data *ch, int gain);
+int     gain_karma(struct char_data * ch, int gain, bool rep, bool limits, bool multiplier);
 void    gain_condition(struct char_data *ch, int condition, int value);
 void    update_pos(struct char_data *victim);
 

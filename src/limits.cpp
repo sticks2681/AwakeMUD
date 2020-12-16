@@ -35,6 +35,7 @@
 #include "newmagic.h"
 #include "newmail.h"
 #include <sys/time.h>
+#include "config.h"
 
 extern class objList ObjList;
 extern int modify_target(struct char_data *ch);
@@ -195,37 +196,51 @@ void set_pretitle(struct char_data * ch, const char *title)
   GET_PRETITLE(ch) = get_new_kosherized_title(title, MAX_TITLE_LENGTH);
 }
 
-int gain_exp(struct char_data * ch, int gain, bool rep)
-{
+// The centralized karma gain func. Includes code in support of multipliers.
+int gain_karma(struct char_data * ch, int gain, bool rep, bool limits, bool multiplier)
+{  
   if (IS_PROJECT(ch))
     ch = ch->desc->original;
-  int max_gain, old = (int)(GET_KARMA(ch) / 100);
+    
+  int old = (int)(GET_KARMA(ch) / 100);
+  
+  // Non-NPC level 0? Not sure how that's a thing. Also, staff get no karma.
   if (!IS_NPC(ch) && ((GET_LEVEL(ch) < 1 || IS_SENATOR(ch))))
     return 0;
   
-  if (IS_NPC(ch))
-  {
+  // NPCs have a standard gain formula, no frills. No multiplier either.
+  if (IS_NPC(ch)) {
     GET_KARMA(ch) += (int)(gain / 10);
     return (int)(gain / 10);
   }
   
-  if ( GET_TKE(ch) >= 0 && GET_TKE(ch) < 100 )
-  {
-    max_gain = 20;
-  } else if ( GET_TKE(ch) >= 100 && GET_TKE(ch) < 500 )
-  {
-    max_gain = 30;
-  } else
-  {
-    max_gain = GET_TKE(ch)/4;
-  }
+  // If we've gotten here, it's a player. Mult it up.
+  if (multiplier)
+    gain *= KARMA_GAIN_MULTIPLIER;
   
-  if (gain > 0)
-  {
-    gain = MIN(max_gain, gain); /* put a cap on the max gain per kill */
+  if (gain != 0) {
+    if (limits) {
+      if (GET_TKE(ch) >= 0 && GET_TKE(ch) < 100) {
+        gain = MIN(MAX_NEWCHAR_GAIN, gain);
+      } else if (GET_TKE(ch) >= 100 && GET_TKE(ch) < 500) {
+        gain = MIN(MAX_MIDCHAR_GAIN, gain);
+      } else {
+        gain = MIN(MAX_OLDCHAR_GAIN, gain);
+      }
+    }
+    
+    if (gain < 0) {
+      char message_buf[500];
+      snprintf(message_buf, sizeof(message_buf), 
+               "Info: gain_karma processing negative karma amount %d for %s.", 
+               gain, GET_CHAR_NAME(ch));
+      mudlog(message_buf, ch, LOG_SYSLOG, TRUE);
+    }
     
     GET_KARMA(ch) += gain;
+    
     GET_TKE(ch) += (int)(GET_KARMA(ch) / 100) - old;
+    
     if (rep)
       GET_REP(ch) += (int)(GET_KARMA(ch) / 100) - old;
     else
@@ -233,27 +248,6 @@ int gain_exp(struct char_data * ch, int gain, bool rep)
   }
   
   return gain;
-}
-
-void gain_exp_regardless(struct char_data * ch, int gain)
-{
-  if (IS_PROJECT(ch))
-    ch = ch->desc->original;
-  int old = (int)(GET_KARMA(ch) / 100);
-  
-  if (!IS_NPC(ch))
-  {
-    GET_KARMA(ch) += gain;
-    if (GET_KARMA(ch) < 0)
-      GET_KARMA(ch) = 0;
-    GET_TKE(ch) += (int)(GET_KARMA(ch) / 100) - old;
-    GET_REP(ch) += (int)(GET_KARMA(ch) / 100) - old;
-  } else
-  {
-    GET_KARMA(ch) += gain;
-    if (GET_KARMA(ch) < 0)
-      GET_KARMA(ch) = 0;
-  }
 }
 
 // only the pcs should need to access this
@@ -919,8 +913,8 @@ void save_vehicles(void)
       
       // No temp room means it's towed. Yolo it into the Seattle garage.
       if (!temp_room) {
-        snprintf(buf, sizeof(buf), "Falling back to Seattle garage for non-veh, non-room veh %s.", GET_VEH_NAME(veh));
-        log(buf);
+        // snprintf(buf, sizeof(buf), "Falling back to Seattle garage for non-veh, non-room veh %s.", GET_VEH_NAME(veh));
+        // log(buf);
         temp_room = &world[real_room(RM_SEATTLE_PARKING_GARAGE)];
       }
 
@@ -1023,17 +1017,23 @@ void save_vehicles(void)
     fprintf(fl, "[MOUNTS]\n");
     int m = 0;
     for (obj = veh->mount; obj; obj = obj->next_content, m++) {
+      struct obj_data *ammo = NULL;
+      struct obj_data *gun = NULL;
+      
       fprintf(fl, "\t[Mount %d]\n", m);
       fprintf(fl, "\t\tMountNum:\t%ld\n", GET_OBJ_VNUM(obj));
-      fprintf(fl, "\t\tAmmo:\t%d\n", GET_OBJ_VAL(obj, 9));
-      if (obj->contains) {
-        fprintf(fl, "\t\tVnum:\t%ld\n", GET_OBJ_VNUM(obj->contains));
-        fprintf(fl, "\t\tCondition:\t%d\n", GET_OBJ_CONDITION(obj->contains));
-        if (obj->restring)
-          fprintf(fl, "\t\tName:\t%s\n", obj->contains->restring);
+      if ((ammo = get_mount_ammo(obj)) && GET_AMMOBOX_QUANTITY(ammo) > 0) {
+        fprintf(fl, "\t\tAmmo:\t%d\n", GET_AMMOBOX_QUANTITY(ammo));
+        fprintf(fl, "\t\tAmmoType:\t%d\n", GET_AMMOBOX_TYPE(ammo));
+        fprintf(fl, "\t\tAmmoWeap:\t%d\n", GET_AMMOBOX_WEAPON(ammo));
+      }
+      if ((gun = get_mount_weapon(obj))) {
+        fprintf(fl, "\t\tVnum:\t%ld\n", GET_OBJ_VNUM(gun));
+        fprintf(fl, "\t\tCondition:\t%d\n", GET_OBJ_CONDITION(gun));
+        if (gun->restring)
+          fprintf(fl, "\t\tName:\t%s\n", gun->restring);
         for (int x = 0; x < NUM_VALUES; x++)
-          fprintf(fl, "\t\tValue %d:\t%d\n", x, GET_OBJ_VAL(obj->contains, x));
-        
+          fprintf(fl, "\t\tValue %d:\t%d\n", x, GET_OBJ_VAL(gun, x));
       }
     }
     fprintf(fl, "[GRIDGUIDE]\n");

@@ -2955,14 +2955,18 @@ struct obj_data *read_object(int nr, int type)
   return obj;
 }
 
+SPECIAL(traffic);
 void spec_update(void)
 {
   PERF_PROF_SCOPE(pr_, __func__);
   int i;
   char empty_argument = '\0';
+  
+  // Instead of calculating the random number for every traffic room, just calc once.
+  bool will_traffic = (number(0, 6) == 1);
 
   for (i = 0; i <= top_of_world; i++)
-    if (world[i].func != NULL)
+    if (world[i].func != NULL && (will_traffic || world[i].func != traffic))
       world[i].func (NULL, world + i, 0, &empty_argument);
 
   ObjList.CallSpec();
@@ -3133,8 +3137,7 @@ void reset_zone(int zone, int reboot)
           veh->usedload += load;
           veh->sig -= sig;
 
-          if (veh->mount)
-            obj->next_content = veh->mount;
+          obj->next_content = veh->mount;
           veh->mount = obj;
         }
         
@@ -4582,6 +4585,8 @@ void load_saved_veh()
             }
           if (last_obj)
             obj_to_obj(obj, last_obj);
+          else
+            obj_to_veh(obj, veh);
         } else
           obj_to_veh(obj, veh);
         last_in = inside;
@@ -4617,7 +4622,17 @@ void load_saved_veh()
       snprintf(buf, sizeof(buf), "%s/MountNum", sect_name);
       obj = read_object(data.GetLong(buf, 0), VIRTUAL);
       snprintf(buf, sizeof(buf), "%s/Ammo", sect_name);
-      GET_OBJ_VAL(obj, 9) = data.GetInt(buf, 0);
+      int ammo_qty = data.GetInt(buf, 0);
+      if (ammo_qty > 0) {
+        struct obj_data *ammo = read_object(OBJ_BLANK_AMMOBOX, VIRTUAL);
+        GET_AMMOBOX_QUANTITY(ammo) = ammo_qty;
+        snprintf(buf, sizeof(buf), "%s/AmmoType", sect_name);
+        GET_AMMOBOX_TYPE(ammo) = data.GetInt(buf, 0);
+        snprintf(buf, sizeof(buf), "%s/AmmoWeap", sect_name);
+        GET_AMMOBOX_WEAPON(ammo) = data.GetInt(buf, 0);
+        ammo->restring = str_dup(get_ammobox_default_restring(ammo));
+        obj_to_obj(ammo, obj);
+      }
       snprintf(buf, sizeof(buf), "%s/Vnum", sect_name);
       int gun = data.GetLong(buf, 0);
       struct obj_data *weapon;

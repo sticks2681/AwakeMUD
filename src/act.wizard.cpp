@@ -2246,9 +2246,9 @@ ACMD(do_award)
   }
 
   if (vict->desc && vict->desc->original)
-    gain_exp_regardless(vict->desc->original, k);
+    gain_karma(vict->desc->original, k, TRUE, FALSE, FALSE);
   else
-    gain_exp_regardless(vict, k);
+    gain_karma(vict, k, TRUE, FALSE, FALSE);
 
   send_to_char(vict, "You have been awarded %0.2f karma for %s.\r\n", (float)k*0.01, reason);
 
@@ -2282,9 +2282,9 @@ ACMD(do_penalize)
   }
 
   if (vict->desc && vict->desc->original)
-    gain_exp_regardless(vict->desc->original, k * -1);
+    gain_karma(vict->desc->original, k * -1, TRUE, FALSE, FALSE);
   else
-    gain_exp_regardless(vict, k * -1);
+    gain_karma(vict, k * -1, TRUE, FALSE, FALSE);
 
   send_to_char(vict, "You have been penalized %0.2f karma for %s.\r\n", (float)k*0.01, reason);
 
