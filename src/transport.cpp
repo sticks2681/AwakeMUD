@@ -28,11 +28,15 @@
 #include "transport.h"
 #include "utils.h"
 #include "constants.h"
+#include "config.h"
 
 SPECIAL(call_elevator);
 SPECIAL(elevator_spec);
 extern int find_first_step(vnum_t src, vnum_t target);
 extern void perform_fall(struct char_data *ch);
+
+ACMD_DECLARE(do_echo);
+
 // ----------------------------------------------------------------------------
 
 // ______________________________
@@ -73,7 +77,7 @@ struct dest_data taxi_destinations[] =
   { "airport", "Seattle-Tacoma Airport", 19410, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
   { "tarislar", "Tarislar", 4965, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
   { "tacoma", "Tacoma", 2000, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
-  { "twe", "Tacoma Weapons Emporium", 2514, TAXI_DEST_TYPE_SHOPPING, TRUE },
+  { "TWE", "Tacoma Weapons Emporium", 2514, TAXI_DEST_TYPE_SHOPPING, TRUE },
   // TODO: Stopped alphabetizing by title here.
     // { "vieux", "Le Cinema Vieux", 32588 },
     { "big", "The Big Rhino", 32635, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
@@ -81,7 +85,7 @@ struct dest_data taxi_destinations[] =
     { "yoshi", "Yoshi's Sushi Bar", 32751, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
     { "garage", "Seattle Parking Garage", 32720, TAXI_DEST_TYPE_OTHER , TRUE },
     { "formal", "Seattle Formal Wear", 32746, TAXI_DEST_TYPE_SHOPPING, TRUE },
-    { "sda", "The SDA Plaza", 30610, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE },
+    { "SDA", "The SDA Plaza", 30610, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE },
     { "dante", "Dante's Inferno", 32661, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
     { "quinns", "Quinn's", 32521, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
     { "shintaru", "Shintaru", 32513, TAXI_DEST_TYPE_CORPORATE_PARK , TRUE },
@@ -121,6 +125,7 @@ struct dest_data taxi_destinations[] =
     { "touristville", "Touristville", 25313, TAXI_DEST_TYPE_AREA_OF_TOWN , TRUE },
     { "skeleton", "The Skeleton", 25308, TAXI_DEST_TYPE_RESTAURANTS_AND_NIGHTCLUBS, TRUE },
     { "junkyard",  "The Tacoma Junkyard", 2070, TAXI_DEST_TYPE_AREA_OF_TOWN, TRUE },
+    { "neophyte",  "The Neophyte Guild", 32679, TAXI_DEST_TYPE_OTHER, TRUE },
 #ifdef USE_PRIVATE_CE_WORLD
     { "planetary", "Planetary Corporation", 72503, TAXI_DEST_TYPE_CORPORATE_PARK, FALSE },
 #endif
@@ -661,7 +666,7 @@ SPECIAL(taxi)
       return FALSE;
     
     bool found = FALSE;
-    if (GET_ACTIVE(driver) == ACT_AWAIT_CMD)
+    if (GET_ACTIVE(driver) == ACT_AWAIT_CMD) 
       for (dest = 0; (portland ? *port_destinations[dest].keyword : *taxi_destinations[dest].keyword) != '\n'; dest++) {
         // Skip invalid destinations.
         if (!DEST_IS_VALID(dest, portland ? port_destinations : taxi_destinations))
@@ -670,6 +675,9 @@ SPECIAL(taxi)
         if ( str_str((const char *)argument, (portland ? port_destinations[dest].keyword : taxi_destinations[dest].keyword))) {
           comm = CMD_TAXI_DEST;
           found = TRUE;
+          do_say(ch, argument, 0, 0);
+          strncpy(buf2, " punches a few buttons on the meter, calculating the fare.", sizeof(buf2));
+          do_echo(driver, buf2, 0, SCMD_EMOTE);
           break;
         }
       }
@@ -679,9 +687,18 @@ SPECIAL(taxi)
         comm = CMD_TAXI_YES;
       } else if (str_str(argument, "no") || str_str(argument, "nah") || str_str(argument, "negative")) {
         comm = CMD_TAXI_NO;
+      } else {
+        do_say(ch, argument, 0, 0);
+        if (!portland) {
+          snprintf(buf2, sizeof(buf2), " Hey chummer, rules is rules. You gotta tell me something off of that sign there.");
+        } else {
+          snprintf(buf2, sizeof(buf2), " Sorry chummer, rules are rules. You need to tell me something from the sign.");
+        }        
+        do_say(driver, buf2, 0, 0);
+        return TRUE;
       }
+      do_say(ch, argument, 0, 0);
     }
-    do_say(ch, argument, 0, 0);
   } else if (CMD_IS("nod") || CMD_IS("agree")) {
     comm = CMD_TAXI_YES;
     do_action(ch, argument, cmd, 0);
@@ -713,9 +730,9 @@ SPECIAL(taxi)
       dist++;
     }
     if (!temp_room)
-      GET_SPARE1(driver) = 250;
+      GET_SPARE1(driver) = MAX_CAB_FARE;
     else
-      GET_SPARE1(driver) = MIN(250, 5 + dist);
+      GET_SPARE1(driver) = MIN(MAX_CAB_FARE, 5 + dist);
     GET_SPARE2(driver) = dest;
     GET_ACTIVE(driver) = ACT_REPLY_DEST;
     if (PLR_FLAGGED(ch, PLR_NEWBIE))

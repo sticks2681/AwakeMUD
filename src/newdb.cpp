@@ -376,9 +376,9 @@ bool load_char(const char *name, char_data *ch, bool logon)
   ch->points.sustained[0] = 0;
   GET_LAST_TELL(ch) = NOBODY;
   MYSQL_RES *res;
-  MYSQL_ROW row;
-  // TODO: Sanitize this. It shouldn't be exploitable to begin with, but better safe than sorry.
-  snprintf(buf, sizeof(buf), "SELECT * FROM pfiles WHERE Name='%s';", name);
+  MYSQL_ROW row;  
+  
+  snprintf(buf, sizeof(buf), "SELECT * FROM pfiles WHERE Name='%s';", prepare_quotes(buf3, name, sizeof(buf3) / sizeof(buf3[0])));
   mysql_wrapper(mysql, buf);
   if (!(res = mysql_use_result(mysql))) {
     return FALSE;
@@ -1382,7 +1382,7 @@ static bool save_char(char_data *player, DBIndex::vnum_t loadroom)
     if ((obj = GET_EQ(player, i)) && !IS_OBJ_STAT(obj, ITEM_NORENT))
       break;
   while (obj && i < NUM_WEARS) {
-    if (!IS_OBJ_STAT(obj, ITEM_NORENT)) {
+    if (!IS_OBJ_STAT(obj, ITEM_NORENT) || GET_OBJ_VNUM(obj) == OBJ_BLANK_MAGAZINE) {
       strcpy(buf, "INSERT INTO pfiles_worn (idnum, Vnum, Cost, Restring, Photo, Value0, Value1, Value2, Value3, Value4, Value5, Value6,"\
               "Value7, Value8, Value9, Value10, Value11, Inside, Position, Timer, ExtraFlags, Attempt, Cond, posi) VALUES (");
       snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "%ld, %ld, %d, '%s', '%s'", GET_IDNUM(player), GET_OBJ_VNUM(obj), GET_OBJ_COST(obj),

@@ -802,7 +802,7 @@ int perform_move(struct char_data *ch, int dir, int extra, struct char_data *vic
     } else if (GET_REAL_LEVEL(ch) == 1) {
       send_to_char("Sorry, that area is for game administration only.\r\n", ch);
     } else {
-      send_to_char(ch, "Sorry, you need to be a level-%d immortal to go there.", EXIT(ch, dir)->to_room->staff_level_lock);
+      send_to_char(ch, "Sorry, you need to be a level-%d immortal to go there.\r\n", EXIT(ch, dir)->to_room->staff_level_lock);
     }
     return 0;
   }
@@ -903,7 +903,8 @@ int find_door(struct char_data *ch, const char *type, char *dir, const char *cmd
     if (EXIT(ch, door)) {
       if (EXIT(ch, door)->keyword) {
         if (isname(type, EXIT(ch, door)->keyword) &&
-            !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED))
+            !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED) &&
+            !IS_SET(EXIT(ch, door)->exit_info, EX_HIDDEN))
           return door;
         else {
           send_to_char(ch, "I see no %s there.\r\n", type);
@@ -928,7 +929,8 @@ int find_door(struct char_data *ch, const char *type, char *dir, const char *cmd
       if (EXIT(ch, door))
         if (EXIT(ch, door)->keyword)
           if (isname(type, EXIT(ch, door)->keyword) &&
-              !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED))
+              !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED) &&
+              !IS_SET(EXIT(ch, door)->exit_info, EX_HIDDEN))
             return door;
 
     send_to_char(ch, "There doesn't seem to be %s %s here.\r\n", AN(type), type);
@@ -987,7 +989,7 @@ const int flags_door[] =
 #define OPEN_DOOR(room, obj, door)      ((obj) ? (TOGGLE_BIT(GET_OBJ_VAL(obj, 1), CONT_CLOSED)) : (TOGGLE_BIT(EXITN(room, door)->exit_info, EX_CLOSED)))
 #define LOCK_DOOR(room, obj, door)      ((obj) ? (TOGGLE_BIT(GET_OBJ_VAL(obj, 1), CONT_LOCKED)) : (TOGGLE_BIT(EXITN(room, door)->exit_info, EX_LOCKED)))
 
-#define DOOR_IS_OPENABLE(ch, obj, door) ((obj) ? ((GET_OBJ_TYPE(obj) == ITEM_CONTAINER) && (IS_SET(GET_OBJ_VAL(obj, 1), CONT_CLOSEABLE))) : (IS_SET(EXIT(ch, door)->exit_info, EX_ISDOOR) && !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED)))
+#define DOOR_IS_OPENABLE(ch, obj, door) ((obj) ? ((GET_OBJ_TYPE(obj) == ITEM_CONTAINER) && (IS_SET(GET_OBJ_VAL(obj, 1), CONT_CLOSEABLE))) : (IS_SET(EXIT(ch, door)->exit_info, EX_ISDOOR) && !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED) && !IS_SET(EXIT(ch, door)->exit_info, EX_HIDDEN)))
 #define DOOR_IS_OPEN(ch, obj, door)     ((obj) ? (!IS_SET(GET_OBJ_VAL(obj, 1), CONT_CLOSED)) : (!IS_SET(EXIT(ch, door)->exit_info, EX_CLOSED)))
 #define DOOR_IS_UNLOCKED(ch, obj, door) ((obj) ? (!IS_SET(GET_OBJ_VAL(obj, 1), CONT_LOCKED)) : (!IS_SET(EXIT(ch, door)->exit_info, EX_LOCKED)))
 #define DOOR_IS_PICKPROOF(ch, obj, door) ((obj) ? (IS_SET(GET_OBJ_VAL(obj, 1), CONT_PICKPROOF)) : (IS_SET(EXIT(ch, door)->exit_info, EX_PICKPROOF)))
@@ -1058,16 +1060,24 @@ void do_doorcmd(struct char_data *ch, struct obj_data *obj, int door, int scmd, 
   }
 
   /* Notify the room */
-  snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "%s%s.", ((obj) ? "" : "the "), (obj) ? "$p" :
-          (EXIT(ch, door)->keyword ? "$F" : "door"));
+  if (obj) {
+    snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "$p.");
+  } else {
+    snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "the %s to %s.", 
+            EXIT(ch, door)->keyword ? "$F" : "door",
+            thedirs[door]);
+  }
+  
   if (!(obj) || (obj->in_room))
     act(buf, FALSE, ch, obj, obj ? 0 : EXIT(ch, door)->keyword, TO_ROOM);
 
   /* Notify the other room */
   if (((scmd == SCMD_OPEN) || (scmd == SCMD_CLOSE) || (scmd == SCMD_KNOCK)) && (back))
   {
-    snprintf(buf, sizeof(buf), "The %s is %s%s from the other side.\r\n",
-            (back->keyword ? fname(back->keyword) : "door"), cmd_door[scmd],
+    snprintf(buf, sizeof(buf), "The %s to %s is %s%s from the other side.\r\n",
+            (back->keyword ? fname(back->keyword) : "door"), 
+            thedirs[rev_dir[door]],
+            cmd_door[scmd],
             (scmd == SCMD_CLOSE) ? "d" : "ed");
     send_to_room(buf, EXIT(ch, door)->to_room);
   }
@@ -1446,7 +1456,7 @@ ACMD(do_drag)
   }
 
   if (!(vict = get_char_room_vis(ch, buf1))) {
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf1);
     return;
   }
   if (AFF_FLAGGED(vict, AFF_BINDING)) {
@@ -1534,7 +1544,7 @@ ACMD(do_enter)
 
     for (door = 0; door < NUM_OF_DIRS; door++)
       if (EXIT(ch, door))
-        if (EXIT(ch, door)->keyword && !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED))
+        if (EXIT(ch, door)->keyword && !IS_SET(EXIT(ch, door)->exit_info, EX_DESTROYED) && !IS_SET(EXIT(ch, door)->exit_info, EX_HIDDEN))
           if (!str_cmp(EXIT(ch, door)->keyword, buf)) {
             perform_move(ch, door, CHECK_SPECIAL | LEADER, NULL);
             return;
@@ -1910,7 +1920,7 @@ ACMD(do_wake)
     if (GET_POS(ch) == POS_SLEEPING)
       send_to_char("You can't wake people up if you're asleep yourself!\r\n", ch);
     else if ((vict = get_char_room_vis(ch, arg)) == NULL)
-      send_to_char(NOPERSON, ch);
+      send_to_char(ch, "You don't see anyone named '%s' here.\r\n", arg);
     else if (vict == ch)
       self = 1;
     else if (GET_POS(vict) > POS_SLEEPING)
@@ -1963,7 +1973,7 @@ ACMD(do_follow)
 
   if (*buf) {
     if (!(leader = get_char_room_vis(ch, buf))) {
-      send_to_char(NOPERSON, ch);
+      send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
       return;
     }
   } else {

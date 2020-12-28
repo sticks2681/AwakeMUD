@@ -26,6 +26,7 @@
 #include "boards.h"
 #include "constants.h"
 #include "newmatrix.h"
+#include "config.h"
 
 extern bool memory(struct char_data *ch, struct char_data *vict);
 extern class objList ObjList;
@@ -528,7 +529,7 @@ void reward(struct char_data *ch, struct char_data *johnson)
       act("$n gives $p to $N.", TRUE, johnson, obj, ch, TO_NOTVICT);
     }
   }
-  nuyen = 5 * negotiate(ch, johnson, 0, nuyen, 0, FALSE);
+  nuyen = negotiate(ch, johnson, 0, nuyen, 0, FALSE) * NUYEN_GAIN_MULTIPLIER;
 
   if (AFF_FLAGGED(ch, AFF_GROUP))
   {
@@ -1825,17 +1826,17 @@ void qedit_parse(struct descriptor_data *d, const char *arg)
       break;
     case 'e':
     case 'E':
-      send_to_char("Enter the string that will be given when the Johnson comes to work:\n\r", CH);
+      send_to_char("Enter the string that will be given when the Johnson comes to work:\r\n", CH);
       d->edit_mode = QEDIT_SSTRING;
       break;
     case 'f':
     case 'F':
-      send_to_char("Enter the string that will be given when the Johnson leaves work:\n\r", CH);
+      send_to_char("Enter the string that will be given when the Johnson leaves work:\r\n", CH);
       d->edit_mode = QEDIT_ESTRING;
       break;
     case 'g':
     case 'G':
-      send_to_char("Enter the string that will be given if quest is already complete:\n\r", CH);
+      send_to_char("Enter the string that will be given if quest is already complete:\r\n", CH);
       d->edit_mode = QEDIT_DONE;
       break;
     case 'h':
@@ -2360,7 +2361,7 @@ void qedit_parse(struct descriptor_data *d, const char *arg)
   case QEDIT_SHOUR:
     number = atoi(arg);
     if ( number > 23 || number < -1 ) {
-      send_to_char("Needs to be between -1 and 23.\n\rWhat time does he start work? ", CH);
+      send_to_char("Needs to be between -1 and 23.\r\nWhat time does he start work? ", CH);
     } else {
       QUEST->s_time = number;
       d->edit_mode = QEDIT_EHOUR;
@@ -2370,7 +2371,7 @@ void qedit_parse(struct descriptor_data *d, const char *arg)
   case QEDIT_EHOUR:
     number = atoi(arg);
     if ( number > 23 || number < 0 ) {
-      send_to_char("Needs to be between 0 and 23.\n\rWhat time does he stop work? ", CH);
+      send_to_char("Needs to be between 0 and 23.\r\nWhat time does he stop work? ", CH);
       return;
     } else {
       QUEST->e_time = number;
@@ -2396,4 +2397,45 @@ void qedit_parse(struct descriptor_data *d, const char *arg)
     qedit_disp_menu(d);
     break;
   }
+}
+
+// Remotely end a run. Requires a phone.
+ACMD(do_endrun) {
+  struct obj_data *phone = NULL;
+  
+  // Must be on a quest.
+  FAILURE_CASE(!GET_QUEST(ch), "But you're not on a run.");
+  
+  // Must have a phone.
+  for (phone = ch->carrying; phone; phone = phone->next_content)
+    if (GET_OBJ_TYPE(phone) == ITEM_PHONE)
+      break;
+  // Cyberware phones are fine.
+  if (!phone)
+    for (phone = ch->cyberware; phone; phone = phone->next_content)
+      if (GET_OBJ_VAL(phone, 0) == CYB_PHONE)
+        break;
+  // No phone? Go away.    
+  FAILURE_CASE(!phone, "How do you expect to contact your Johnson without a phone?");
+  
+  // Drop the quest.
+  for (struct char_data *johnson = character_list; johnson; johnson = johnson->next) {
+    if (IS_NPC(johnson) && (GET_MOB_VNUM(johnson) == quest_table[GET_QUEST(ch)].johnson)) {
+      send_to_char(ch, "You call your Johnson, and after a short wait the phone is picked up.\r\n"
+                       "^Y%s on the other end of the line says, \"%s\"^n\r\n"
+                       "With your run abandoned, you hang up the phone.\r\n", 
+                       GET_CHAR_NAME(johnson), 
+                       quest_table[GET_QUEST(ch)].quit);
+      snprintf(buf, sizeof(buf), "$z's phone rings. $e answers, listens for a moment, then says into it, \"%s\"", quest_table[GET_QUEST(ch)].quit);
+      act(buf, FALSE, johnson, NULL, NULL, TO_ROOM);
+      
+      end_quest(ch);
+      forget(johnson, ch);
+      return;
+    }
+  }
+  
+  // Error case.
+  mudlog("SYSERR: Attempted remote job termination, but the Johnson could not be found!", ch, LOG_SYSLOG, TRUE);
+  send_to_char("You dial your phone, but something's up with the connection, and you can't get through.\r\n", ch);
 }

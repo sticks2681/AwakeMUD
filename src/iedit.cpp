@@ -461,6 +461,9 @@ void iedit_disp_val2_menu(struct descriptor_data * d)
         case TYPE_PARTS:
           send_to_char("  0) General Parts\r\n  1) Memory Chips\r\n", CH);
           break;
+        case TYPE_COOKER:
+          send_to_char("Rating: ", CH);
+          break;
         default:
           iedit_disp_menu(d);
           break;
@@ -1557,7 +1560,7 @@ void iedit_parse(struct descriptor_data * d, const char *arg)
         case 'q':
         case 'Q':
           if (IS_OBJ_STAT(OBJ, ITEM_DONT_TOUCH)) {
-            send_to_char("You can't save this object! Edit it directly in the world files.", d->character);
+            send_to_char("You can't save this object! Edit it directly in the world files.\r\n", d->character);
             break;
           }
           d->edit_mode = IEDIT_CONFIRM_SAVESTRING;
@@ -2073,6 +2076,12 @@ void iedit_parse(struct descriptor_data * d, const char *arg)
             case TYPE_PARTS:
               if (number < 0 || number > 1) {
                 send_to_char("Invalid choice!  Part type:", CH);
+                return;
+              }
+              break;
+            case TYPE_COOKER:
+              if (number < 0 || number > 10) {
+                send_to_char("Rating must be between 0 and 10. Rating: ", CH);
                 return;
               }
               break;

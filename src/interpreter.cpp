@@ -79,6 +79,7 @@ void free_quest(struct quest_data *quest);
 void init_parse(struct descriptor_data *d, char *arg);
 void vehcust_parse(struct descriptor_data *d, char *arg);
 void pocketsec_parse(struct descriptor_data *d, char *arg);
+int fix_common_command_fuckups(const char *arg, struct command_info *cmd_info);
 
 // for spell creation
 void cedit_parse(struct descriptor_data *d, char *arg);
@@ -156,6 +157,7 @@ ACMD_DECLARE(do_echo);
 ACMD_DECLARE(do_eject);
 ACMD_DECLARE(do_elemental);
 ACMD_DECLARE(do_enter);
+ACMD_DECLARE(do_endrun);
 ACMD_DECLARE(do_equipment);
 ACMD_DECLARE(do_examine);
 ACMD_DECLARE(do_exit);
@@ -166,6 +168,7 @@ ACMD_DECLARE(do_focus);
 ACMD_DECLARE(do_follow);
 ACMD_DECLARE(do_force);
 ACMD_DECLARE(do_forget);
+ACMD_DECLARE(do_fuckups);
 ACMD_DECLARE(do_gecho);
 ACMD_DECLARE(do_gen_comm);
 ACMD_DECLARE(do_gen_door);
@@ -267,6 +270,7 @@ ACMD_DECLARE(do_rlist);
 ACMD_DECLARE(do_rig);
 ACMD_DECLARE(do_room);
 ACMD_DECLARE(do_say);
+ACMD_DECLARE(do_save);
 ACMD_DECLARE(do_scan);
 ACMD_DECLARE(do_score);
 ACMD_DECLARE(do_self_advance);
@@ -275,6 +279,7 @@ ACMD_DECLARE(do_send);
 ACMD_DECLARE(do_set);
 ACMD_DECLARE(do_settime);
 ACMD_DECLARE(do_shedit);
+ACMD_DECLARE(do_shopfind);
 ACMD_DECLARE(do_shoot);
 ACMD_DECLARE(do_show);
 ACMD_DECLARE(do_shutdown);
@@ -420,6 +425,7 @@ struct command_info cmd_info[] =
     { "aecho"    , POS_SLEEPING, do_echo     , LVL_ARCHITECT, SCMD_AECHO },
     { "accept"   , POS_LYING   , do_accept   , 0, 0 },
     { "addpoint" , POS_DEAD    , do_initiate , 0, SCMD_POWERPOINT },
+    { "affects"  , POS_LYING   , do_status   , 0, 0 },
     { "ammo"     , POS_LYING   , do_ammo     , 0, 0 },
     { "assense"  , POS_LYING   , do_assense  , 0, 0 },
     { "at"       , POS_DEAD    , do_at       , LVL_BUILDER, 0 },
@@ -459,6 +465,7 @@ struct command_info cmd_info[] =
     { "close"    , POS_SITTING , do_gen_door , 0, SCMD_CLOSE },
     { "cls"      , POS_DEAD    , do_gen_ps   , 0, SCMD_CLEAR },
     { "consider" , POS_LYING   , do_consider , 0, 0 },
+    { "configure", POS_DEAD    , do_toggle   , 0, 0 },
     { "conjure"  , POS_RESTING , do_conjure  , 0, 0 },
     { "connect"  , POS_RESTING , do_connect  , 0, 0 },
     { "contest"  , POS_SITTING , do_contest  , 0, 0 },
@@ -512,7 +519,8 @@ struct command_info cmd_info[] =
     { "elemental", POS_DEAD    , do_elemental, 0, 0 },
     { "emote"    , POS_LYING   , do_echo     , 0, SCMD_EMOTE },
     { ":"        , POS_LYING   , do_echo     , 0, SCMD_EMOTE },
-    { "enter"    , POS_SITTING, do_enter    , 0, 0 },
+    { "enter"    , POS_SITTING , do_enter    , 0, 0 },
+    { "endrun"   , POS_RESTING , do_endrun   , 0, 0 },
     { "equipment", POS_SLEEPING, do_equipment, 0, 0 },
     { "exits"    , POS_LYING   , do_exits    , 0, 0 },
     { "examine"  , POS_RESTING , do_examine  , 0, SCMD_EXAMINE },
@@ -529,6 +537,7 @@ struct command_info cmd_info[] =
     { "focus"    , POS_RESTING , do_focus    , 0, 0 },
     { "follow"   , POS_RESTING , do_follow   , 0, 0 },
     { "freeze"   , POS_DEAD    , do_wizutil  , LVL_FREEZE, SCMD_FREEZE },
+    { "fuckups"  , POS_DEAD    , do_fuckups  , LVL_ADMIN, 0 },
 
     { "get"      , POS_RESTING , do_get      , 0, 0 },
     { "gaecho"   , POS_DEAD    , do_gecho    , LVL_CONSPIRATOR, SCMD_AECHO },
@@ -708,19 +717,22 @@ struct command_info cmd_info[] =
     { "says"     , POS_DEAD    , do_switched_message_history, 0, COMM_CHANNEL_SAYS },
     { "'"        , POS_LYING   , do_say      , 0, SCMD_SAY },
     { "sayto"    , POS_LYING   , do_say      , 0, SCMD_SAYTO },
-    { "\""  , POS_LYING   , do_say      , 0, SCMD_SAYTO },
+    { "\""       , POS_LYING   , do_say      , 0, SCMD_SAYTO },
+    { "save"     , POS_DEAD    , do_save     , 0, 0 },
     { "score"    , POS_DEAD    , do_score    , 0, 0 },
     { "scan"     , POS_RESTING , do_scan     , 0, 0 },
     { "search"   , POS_STANDING, do_search   , 0, 0 },
     { "send"     , POS_SLEEPING, do_send     , LVL_FIXER, 0 },
     { "sedit"    , POS_DEAD    , do_shedit   , LVL_BUILDER, 0 },
     { "set"      , POS_DEAD    , do_set      , LVL_DEVELOPER, 0 },
+    { "settings" , POS_DEAD    , do_toggle   , 0, 0 },
     { "settime"  , POS_DEAD    , do_settime  , LVL_DEVELOPER, 0 },
     { "sheath"   , POS_RESTING , do_holster  , 0, 0 },
     { "shout"    , POS_LYING   , do_gen_comm , 0, SCMD_SHOUT },
     { "shouts"   , POS_DEAD    , do_switched_message_history, 0, COMM_CHANNEL_SHOUTS },
     { "shoot"    , POS_FIGHTING, do_shoot    , 0, 0 },
     { "show"     , POS_DEAD    , do_show     , 0, 0 },
+    { "shopfind" , POS_DEAD    , do_shopfind , LVL_VICEPRES, 0 },
     { "shutdown" , POS_RESTING , do_shutdown , 0, SCMD_SHUTDOWN },
     { "sip"      , POS_RESTING , do_drink    , 0, SCMD_SIP },
     { "sit"      , POS_LYING   , do_sit      , 0, 0 },
@@ -789,7 +801,6 @@ struct command_info cmd_info[] =
     { "unsubscribe",POS_RESTING, do_subscribe, 0, SCMD_UNSUB },
     { "untrain"  , POS_RESTING , do_train    , 1, SCMD_UNTRAIN },
     { "unlearn"  , POS_DEAD    , do_forget   , 0, 0 },
-    { "unwield"  , POS_RESTING , do_remove   , 0, 0 },
     { "upgrade"  , POS_SITTING , do_upgrade  , 0 , 0 },
     { "uptime"   , POS_DEAD    , do_date     , LVL_BUILDER, SCMD_UPTIME },
     { "use"      , POS_SITTING , do_use      , 1, SCMD_USE },
@@ -1287,7 +1298,7 @@ const char *reserved[] =
     "\n"
   };
 
-void nonsensical_reply(struct char_data *ch)
+void nonsensical_reply(struct char_data *ch, const char *arg)
 {
   send_to_char(ch, "That is not a valid command.\r\n");
   if (ch->desc && ++ch->desc->invalid_command_counter >= 5) {
@@ -1296,6 +1307,16 @@ void nonsensical_reply(struct char_data *ch)
                  PRF_FLAGGED(ch, PRF_SCREENREADER) ? "type " : "",
                  PLR_FLAGGED(ch, PLR_NEWBIE) ? "NEWBIE" : "OOC");
     ch->desc->invalid_command_counter = 0;
+  }
+  if (arg) {
+    char log_buf[1000];
+    snprintf(log_buf, sizeof(log_buf), "Invalid command: '%s'.", arg);
+    mudlog(log_buf, ch, LOG_SYSLOG, TRUE);
+    
+    // Log it to DB.
+    snprintf(buf, sizeof(buf), "INSERT INTO command_fuckups (Name, Count) VALUES ('%s', 1) ON DUPLICATE KEY UPDATE Count = Count + 1;", 
+             prepare_quotes(buf3, arg, sizeof(buf3) / sizeof(buf3[0])));
+    mysql_wrapper(mysql, buf);
   }
   /*  Removing the prior 'funny' messages and replacing them with something understandable by MUD newbies.
   switch (number(1, 9))
@@ -1361,9 +1382,18 @@ void command_interpreter(struct char_data * ch, char *argument, char *tcname)
    */
   if (!isalpha(*argument))
   {
-    arg[0] = argument[0];
-    arg[1] = '\0';
-    line = argument+1;
+    // Strip out the PennMUSH bullshit.
+    if (*argument == '@' || *argument == '+' || *argument == '/') {
+      argument[0] = ' ';
+      skip_spaces(&argument);
+      if (!*argument)
+        return;
+      line = any_one_arg(argument, arg);
+    } else {
+      arg[0] = argument[0];
+      arg[1] = '\0';
+      line = argument+1;
+    }
   } else
     line = any_one_arg(argument, arg);
   if (AFF_FLAGGED(ch, AFF_FEAR))
@@ -1382,20 +1412,22 @@ void command_interpreter(struct char_data * ch, char *argument, char *tcname)
     for (length = strlen(arg), cmd = 0; *mtx_info[cmd].command != '\n'; cmd++)
       if (!strncmp(mtx_info[cmd].command, arg, length))
         break;
-    if (*mtx_info[cmd].command == '\n') {
+        
+    // If they have failed to enter a valid Matrix command, and we were unable to fix a typo in their command:
+    if (*mtx_info[cmd].command == '\n' && (cmd = fix_common_command_fuckups(arg, mtx_info)) == -1) {      
       // If the command exists outside of the Matrix, let them know that it's not an option here.
       for (length = strlen(arg), cmd = 0; *cmd_info[cmd].command != '\n'; cmd++)
         if (!strncmp(cmd_info[cmd].command, arg, length))
           if ((cmd_info[cmd].minimum_level < LVL_BUILDER) || access_level(ch, cmd_info[cmd].minimum_level))
             break;
       
-      // Nothing was found, give them the "wat" and bail.
-      if (*cmd_info[cmd].command == '\n') {
-        nonsensical_reply(ch);
+      // Nothing was found? Give them the "wat" and bail.
+      if (*cmd_info[cmd].command == '\n' && (cmd = fix_common_command_fuckups(arg, cmd_info)) == -1) {
+        nonsensical_reply(ch, arg);
         return;
-      } else {
-        ch->desc->invalid_command_counter = 0;
       }
+      
+      ch->desc->invalid_command_counter = 0;
       
       // Their command was valid in external context. Inform them.
       quit_the_matrix_first(ch, line, 0, 0);
@@ -1412,8 +1444,8 @@ void command_interpreter(struct char_data * ch, char *argument, char *tcname)
     for (length = strlen(arg), cmd = 0; *rig_info[cmd].command != '\n'; cmd++)
       if (!strncmp(rig_info[cmd].command, arg, length))
         break;
-    if (*rig_info[cmd].command == '\n') {
-      nonsensical_reply(ch);
+    if (*rig_info[cmd].command == '\n' && (cmd = fix_common_command_fuckups(arg, rig_info)) == -1) {
+      nonsensical_reply(ch, arg);
       return;
     } else {
       ch->desc->invalid_command_counter = 0;
@@ -1429,8 +1461,8 @@ void command_interpreter(struct char_data * ch, char *argument, char *tcname)
           break;
 
     // this was added so we can make the special respond to any text they type
-    if (*cmd_info[cmd].command == '\n') {
-      nonsensical_reply(ch);
+    if (*cmd_info[cmd].command == '\n' && (cmd = fix_common_command_fuckups(arg, cmd_info)) == -1) {
+      nonsensical_reply(ch, arg);
       return;
     } else {
       if (ch->desc)
@@ -1912,7 +1944,7 @@ void half_chop(char *string, char *arg1, char *arg2)
 }
 
 /* Used in specprocs, mostly.  (Exactly) matches "command" to cmd number */
-int find_command(const char *command)
+int find_command_in_x(const char *command, const struct command_info *cmd_info)
 {
   int cmd;
 
@@ -1922,15 +1954,16 @@ int find_command(const char *command)
 
   return -1;
 }
+
+/* Used in specprocs, mostly.  (Exactly) matches "command" to cmd number */
+int find_command(const char *command)
+{
+  return find_command_in_x(command, cmd_info);
+}
+
 int find_mcommand(const char *command)
 {
-  int cmd;
-
-  for (cmd = 0; *mtx_info[cmd].command != '\n'; cmd++)
-    if (!strcmp(mtx_info[cmd].command, command))
-      return cmd;
-
-  return -1;
+  return find_command_in_x(command, mtx_info);
 }
 
 int special(struct char_data * ch, int cmd, char *arg)
@@ -1970,7 +2003,7 @@ int special(struct char_data * ch, int cmd, char *arg)
         return 1;
 
   /* special in object present? */
-  for (i = ch->in_veh ? ch->in_veh->contents : ch->in_room->contents; i; i = i->next_content)
+  FOR_ITEMS_AROUND_CH(ch, i)
     if (GET_OBJ_SPEC(i) != NULL && !(ch->in_veh && ch->vfront != i->vfront))
       if (GET_OBJ_SPEC(i) (ch, i, cmd, arg))
         return 1;
@@ -2832,3 +2865,35 @@ void nanny(struct descriptor_data * d, char *arg)
     break;
   }
 }
+
+// Attempts to map common typos to their actual commands.
+#define COMMAND_ALIAS(typo, corrected)   if (strncmp(arg, (typo), strlen(arg)) == 0) { return find_command_in_x((corrected), cmd_info); }
+
+int fix_common_command_fuckups(const char *arg, struct command_info *cmd_info) {
+  COMMAND_ALIAS("recieve", "receive");
+  COMMAND_ALIAS("dorp", "drop");
+  COMMAND_ALIAS("sheathe", "sheath");
+  COMMAND_ALIAS("unsheathe", "draw");
+  COMMAND_ALIAS("weild", "wield");
+  COMMAND_ALIAS("taxi", "hail");
+  COMMAND_ALIAS("prove", "probe");
+  COMMAND_ALIAS("pickup", "get");
+  COMMAND_ALIAS("yes", "nod");
+  COMMAND_ALIAS("setup", "unpack");
+  COMMAND_ALIAS("endjob", "endrun");
+  COMMAND_ALIAS("resign", "endrun");
+  
+  // one of the most common commands, although people eventually learn to just use 'l'
+  COMMAND_ALIAS("olok", "look");
+  COMMAND_ALIAS("lok", "look");
+  COMMAND_ALIAS("loko", "look");
+  
+  // equipment seems to give people a lot of trouble
+  COMMAND_ALIAS("unwield", "remove");
+  COMMAND_ALIAS("unwear", "remove");
+  COMMAND_ALIAS("unequip", "remove");
+  
+  // Found nothing, return the failure code.
+  return -1;
+}
+#undef MAP_TYPO

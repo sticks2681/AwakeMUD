@@ -80,7 +80,7 @@ extern int vnum_vehicles(char *searchname, struct char_data * ch);
 extern void disp_init_menu(struct descriptor_data *d);
 
 extern const char *pgroup_print_privileges(Bitfield privileges);
-extern void nonsensical_reply(struct char_data *ch);
+extern void nonsensical_reply(struct char_data *ch, const char *arg);
 extern void display_pockets_to_char(struct char_data *ch, struct char_data *vict);
 
 extern struct elevator_data *elevator;
@@ -123,35 +123,117 @@ ACMD(do_copyover)
 {
   FILE *fp;
   struct descriptor_data *d, *d_next;
+  struct char_data *och;
   int mesnum = number(0, 18);
+  
+  /* Old messages, preserved for posterity.
+  // "I like copyovers, yes I do!  Eating player corpses in a copyover stew!\r\n",
+  // "A Haiku while you wait: Copyover time.  Your quests and corpses are fucked.  Ha ha ha ha ha.\r\n",
+  // "Yes. We did this copyover solely to fuck YOUR character over.\r\n",
+  // "Ahh drek, Maestra's broke the mud again!  Go bug Che and he might fix it.\r\n",
+  // "Deleting player corpses, please wait...\r\n",
+  */
   const char *messages[] =
     {
-      "This copyover has been brought to you by NERPS.  It's more than a lubricant, its a lifestyle!\r\n",
+      "This copyover has been brought to you by NERPS.  It's more than a lubricant, it's a lifestyle!\r\n", // 0
       "Yes, the mud is lagging.  Deal with it.\r\n",
-      "I like copyovers, yes I do!  Eating player corpses in copyover stew!\r\n",
-      "A Haiku while you wait: Copyover time.  Your quests and corpses are fucked.  Ha ha ha ha ha.\r\n",
-      "Ahh drek, Maestra's broke the mud again!  Go bug Che and he might fix it.\r\n",
-      "You can find your car at the Seattle Garage if you were driving when this happened.\r\n",
       "Its a copyover.  Now would be a good time to take out the trash.\r\n",
       "Jerry Garcia told me to type copyover.  He is wise, isn't he?\r\n",
-      "Yes. We did this copyover solely to fuck YOUR character over.\r\n",
       "My dog told me to copyover. Goood dog, good dog.\r\n",
-      "It's called a changeover, the movie goes on, and nobody in the audience has any idea.\r\n",
+      "It's called a changeover, the movie goes on, and nobody in the audience has any idea.\r\n", // 5
       "Oh shit, I forgot to compile.  I'm gonna have to do this again!\r\n",
       "Please wait while your character is deleted.\r\n",
       "You are mortally wounded and will die soon if not aided.\r\n",
       "Connection closed by foreign host.\r\n",
-      "Someone says \x1B[0;35mOOCly\x1B[0m, \"I'm going to get fired for this.\"\r\n",
+      "Someone says \x1B[0;35mOOCly\x1B[0m, \"I'm going to get fired for this.\"\r\n", // 10
       "Yum Yum Copyover Stew, out with the old code, in with the new!\r\n",
-      "Deleting player corpses, please wait...\r\n",
-      "\x1B[0;35m[\x1B[0mSerge\x1B[0;35m] \x1B[0;31m(\x1B[0mOOC\x1B[0;31m)\x1B[0m, \"This porn's taking too long to download, needs more bandwidth. So the Mud'll be back up in a bit.\"\r\n"
+      "\x1B[0;35m[\x1B[0mSerge\x1B[0;35m] \x1B[0;31m(\x1B[0mOOC\x1B[0;31m)\x1B[0m, \"This porn's taking too long to download, needs more bandwidth. So the Mud'll be back up in a bit.\"\r\n",
+      "\x1B[0;35m[\x1B[0mLucien\x1B[0;35m] \x1B[0;31m(\x1B[0mOOC\x1B[0;31m)\x1B[0m, \"Honestly, I give this new code a 30% chance of crashing outright.\"\r\n",
+      "There's a sound like a record scratching, and everything around you stutters to a standstill.",
+      "One moment while we drive up the server cost with heavy CPU usage...\r\n", //15
+      "You wake up. You're still a lizard sunning on a red rock. It was all a dream. The concept of selling 'feet pics' to pay back 'ripperdocs' is already losing its meaning as you open and lick your own eyeballs to moisten them. Time to eat a bug.\r\n",
+      "For the briefest of moments, you peer beyond the veil, catching a glimpse of the whirling, gleaming machinery that lies at the heart of the world. Your mind begins to break down at the sight...\r\n",
+      "Your vision goes black, then starts to fade in again. You're sitting in the back of a cart, your hands bound before you. A disheveled blonde man sitting across from you meets your eyes. \"Hey, you. You're finally awake.\""
     };
 
   fp = fopen (COPYOVER_FILE, "w");
 
   if (!fp) {
-    send_to_char ("Copyover file not writeable, aborted.\n\r",ch);
+    send_to_char ("Copyover file not writeable, aborted.\r\n",ch);
     return;
+  }
+  
+  // Check for PCs on quests and people not in PLAYING state.  
+  strncpy(buf, "Characters currently on quests: ", sizeof(buf));
+  int num_questors = 0;
+  int fucky_states = 0;
+  int cab_inhabitants = 0;
+  for (d = descriptor_list; d; d = d->next) {
+    och = d->character;
+    if (GET_QUEST(och)) {
+      snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "%s%s",
+               num_questors > 0 ? "^n, ^c" : "^c",
+               GET_CHAR_NAME(och));
+      num_questors += 1;
+    }
+    
+    // Count PCs in weird states.
+    if (STATE(d) != CON_PLAYING)
+      fucky_states++;
+      
+    // Count PCs in cabs.
+    if (och->in_room
+        && ((GET_ROOM_VNUM(och->in_room) >= FIRST_CAB && GET_ROOM_VNUM(och->in_room) <= LAST_CAB)
+            || (GET_ROOM_VNUM(och->in_room) >= FIRST_PORTCAB && GET_ROOM_VNUM(och->in_room) <= LAST_PORTCAB))
+      )
+      cab_inhabitants++;
+  }
+  
+  // Check for PC corpses with things still in them.
+  int num_corpses = ObjList.CountPlayerCorpses();
+  
+  skip_spaces(&argument);
+  if (str_cmp(argument, "force") != 0) {
+    if (num_questors > 0) {
+      send_to_char(ch, "Copyover aborted, there %s %d character%s doing autoruns right now. Use 'copyover force' to override this.\r\n%s^n.\r\n",
+                   num_questors != 1 ? "are" : "is",
+                   num_questors, 
+                   num_questors != 1 ? "s" : "",
+                   buf);
+      return;
+    }
+    
+    // Check for PCs in non-playing states.
+    if (fucky_states > 0) {
+      send_to_char(ch, "Copyover aborted, %d player%s not in the playing state. Check USERS for details. Use 'copyover force' to override this.\r\n",
+                   fucky_states, fucky_states != 1 ? "s are" : " is");
+      return;
+    }
+    
+    if (num_corpses) {
+      send_to_char(ch, "Copyover aborted, there %s %d player corpse%s out there with things still in them.\r\n", 
+                   num_corpses != 1 ? "are" : "is",
+                   num_corpses,
+                   num_corpses != 1 ? "s" : "");
+      return;
+    }
+    
+    if (cab_inhabitants) {
+      send_to_char(ch, "Copyover aborted, there %s %d %s.\r\n", 
+                   cab_inhabitants != 1 ? "are" : "is",
+                   cab_inhabitants,
+                   cab_inhabitants != 1 ? "people taking taxis" : "person taking a cab");
+      return;
+    }
+  } else if (ch->desc){
+    snprintf(buf, sizeof(buf), "Forcibly copying over. This will disconnect %d player%s, delete %d corpse%s, refund %d cab fare%s, and drop %d quest%s.\r\n",
+             fucky_states,    fucky_states    != 1 ? "s" : "",
+             num_corpses,     num_corpses     != 1 ? "s" : "",
+             cab_inhabitants, cab_inhabitants != 1 ? "s" : "",
+             num_questors,    num_questors    != 1 ? "s" : "");
+    write_to_descriptor(ch->desc->descriptor, buf);    
+  } else {
+    log("WTF, ch who initiated copyover had no desc? ;-;");
   }
 
   snprintf(buf, sizeof(buf), "Copyover initiated by %s", GET_CHAR_NAME(ch));
@@ -161,15 +243,25 @@ ACMD(do_copyover)
   log("Disconnecting players.");
   /* For each playing descriptor, save its state */
   for (d = descriptor_list; d ; d = d_next) {
-    struct char_data * och = d->character;
+    och = d->character;
     d_next = d->next; // delete from list, save stuff
 
     if (!d->character || d->connected > CON_PLAYING) // drops those logging on
     {
-      write_to_descriptor (d->descriptor, "\n\rSorry, we are rebooting. Come back in a few minutes.\n\r");
+      write_to_descriptor (d->descriptor, "\r\nSorry, we are rebooting. Come back in a few minutes.\r\n");
       close_socket (d); // yer outta here!
 
     } else {
+      // Refund people in cabs for the extra cash. Fixes edge case of 'I only had enough to cover my original cab fare'.
+      if (!PLR_FLAGGED(och, PLR_NEWBIE) && och->in_room
+          && ((GET_ROOM_VNUM(och->in_room) >= FIRST_CAB && GET_ROOM_VNUM(och->in_room) <= LAST_CAB)
+              || (GET_ROOM_VNUM(och->in_room) >= FIRST_PORTCAB && GET_ROOM_VNUM(och->in_room) <= LAST_PORTCAB))
+        ) {
+        snprintf(buf, sizeof(buf), "You have been refunded %d nuyen to compensate for the extra cab fare.\r\n", MAX_CAB_FARE);
+        write_to_descriptor(d->descriptor, buf);
+        GET_NUYEN(och) += MAX_CAB_FARE;
+      }
+      
       fprintf (fp, "%d %s %s %s\n", d->descriptor, GET_CHAR_NAME(och), d->host, CopyoverGet(d));
       GET_LAST_IN(och) = get_ch_in_room(och)->number;
       if (!GET_LAST_IN(och) || GET_LAST_IN(och) == NOWHERE) {
@@ -207,7 +299,7 @@ ACMD(do_copyover)
   /* Failed - sucessful exec will not return */
 
   perror ("do_copyover: execl");
-  send_to_char ("Copyover FAILED!\n\r",ch);
+  send_to_char ("Copyover FAILED!\r\n",ch);
 
   exit (1); /* too much trouble to try to recover! */
 }
@@ -246,21 +338,23 @@ ACMD(do_oocdisable)
 ACMD(do_zecho)
 {
   struct descriptor_data *d;
+  struct room_data *room;
 
   skip_spaces(&argument);
 
   if (!*argument)
     send_to_char(ch, "Yes, but WHAT do you like to zecho?\r\n");
   else {
+    room = get_ch_in_room(ch);
     act(argument, FALSE, ch, 0, 0, TO_CHAR);
     for (d = descriptor_list; d; d = d->next)
       if (!d->connected && d->character && d->character != ch)
-        if (zone_table[d->character->in_room->zone].number == zone_table[ch->in_room->zone].number &&
+        if (zone_table[get_ch_in_room(d->character)->zone].number == zone_table[room->zone].number &&
             !(subcmd == SCMD_AECHO && !(IS_ASTRAL(d->character) || IS_DUAL(d->character))))
           act(argument, FALSE, d->character, 0, 0, TO_CHAR);
     snprintf(buf, sizeof(buf), "%s zechoed %s in zone #%d",
             GET_CHAR_NAME(ch), argument,
-            zone_table[ch->in_room->zone].number);
+            zone_table[room->zone].number);
     mudlog(buf, ch, LOG_WIZLOG, TRUE);
   }
 }
@@ -271,10 +365,11 @@ ACMD(do_echo)
   struct char_data *vict;
   struct veh_data *veh;
   skip_spaces(&argument);
-  extern void nonsensical_reply(struct char_data *ch);
 
-  if (!*argument)
+  if (!*argument) {
     send_to_char("Yes.. but what?\r\n", ch);
+    return;
+  }
   else {
     if (PLR_FLAGGED(ch, PLR_MATRIX) && !ch->persona) {
       send_to_char(ch, "You can't do that while hitching.\r\n");
@@ -298,7 +393,7 @@ ACMD(do_echo)
       case SCMD_ECHO:
       case SCMD_AECHO:
         if (!PRF_FLAGGED(ch, PRF_QUESTOR) && (ch->desc && ch->desc->original ? GET_LEVEL(ch->desc->original) : GET_LEVEL(ch)) < LVL_ARCHITECT) {
-          nonsensical_reply(ch);
+          nonsensical_reply(ch, NULL);
           return;
         }
         snprintf(buf, sizeof(buf), "%s", argument);
@@ -306,9 +401,15 @@ ACMD(do_echo)
     }
 
     if (subcmd == SCMD_AECHO) {
-      for (vict = ch->in_room->people; vict; vict = vict->next_in_room)
-        if (ch != vict && (IS_ASTRAL(vict) || IS_DUAL(vict)))
-          act(buf, FALSE, ch, 0, vict, TO_VICT);
+      if (ch->in_room) {
+        for (vict = ch->in_room->people; vict; vict = vict->next_in_room)
+          if (ch != vict && (IS_ASTRAL(vict) || IS_DUAL(vict)))
+            act(buf, FALSE, ch, 0, vict, TO_VICT);
+      } else {
+        for (vict = ch->in_veh->people; vict; vict = vict->next_in_veh)
+          if (ch != vict && (IS_ASTRAL(vict) || IS_DUAL(vict)))
+            act(buf, FALSE, ch, 0, vict, TO_VICT);
+      }
     } else {
       if (PLR_FLAGGED(ch, PLR_MATRIX))
         send_to_host(ch->persona->in_host, buf, ch->persona, TRUE);
@@ -422,7 +523,7 @@ ACMD(do_echo)
 
     if ( subcmd == SCMD_ECHO || subcmd == SCMD_AECHO) {
       snprintf(buf2, sizeof(buf2), "%s echoed %s at #%ld",
-              GET_CHAR_NAME(ch), buf, GET_ROOM_VNUM(ch->in_room));
+              GET_CHAR_NAME(ch), buf, ch->in_room ? GET_ROOM_VNUM(ch->in_room) : -1);
       mudlog(buf2, ch, LOG_WIZLOG, TRUE);
     }
   }
@@ -439,7 +540,7 @@ ACMD(do_send)
     return;
   }
   if (!(vict = get_char_vis(ch, arg))) {
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", arg);
     return;
   }
   if (!IS_NPC(vict) &&
@@ -631,7 +732,7 @@ ACMD(do_goto)
   
   // Perform location validity check for level lock.
   if (location->staff_level_lock > GET_REAL_LEVEL(ch)) {
-    send_to_char(ch, "Sorry, you need to be a level-%d immortal to go there.", location->staff_level_lock);
+    send_to_char(ch, "Sorry, you need to be a level-%d immortal to go there.\r\n", location->staff_level_lock);
     return;
   }
 
@@ -664,7 +765,7 @@ void transfer_ch_to_ch(struct char_data *victim, struct char_data *ch) {
   if (!ch || !victim)
     return;
   
-  act("$n is whisked away by the game's administration.", FALSE, victim, 0, 0, TO_ROOM);
+  act("$n is whisked away by the game's administration.", TRUE, victim, 0, 0, TO_ROOM);
   if (AFF_FLAGGED(victim, AFF_PILOT))
     AFF_FLAGS(victim).ToggleBit(AFF_PILOT);
   char_from_room(victim);
@@ -677,7 +778,7 @@ void transfer_ch_to_ch(struct char_data *victim, struct char_data *ch) {
     char_to_room(victim, ch->in_room);
     snprintf(buf2, sizeof(buf2), "%s transferred %s to %s^g.", GET_CHAR_NAME(ch), IS_NPC(victim) ? GET_NAME(victim) : GET_CHAR_NAME(victim), GET_ROOM_NAME(victim->in_room));
   }
-  act("$n arrives from a puff of smoke.", FALSE, victim, 0, 0, TO_ROOM);
+  act("$n arrives from a puff of smoke.", TRUE, victim, 0, 0, TO_ROOM);
   act("$n has transferred you!", FALSE, ch, 0, victim, TO_VICT);
   mudlog(buf2, ch, LOG_WIZLOG, TRUE);
   look_at_room(victim, 0);
@@ -700,7 +801,7 @@ ACMD(do_trans)
     send_to_char("Whom do you wish to transfer?\r\n", ch);
   else if (str_cmp("all", buf)) {
     if (!(victim = get_char_vis(ch, buf)))
-      send_to_char(NOPERSON, ch);
+      send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
     else if (victim == ch)
       send_to_char("That doesn't make much sense, does it?\r\n", ch);
     else {
@@ -743,12 +844,16 @@ ACMD(do_vteleport)
   if (!*buf)
     send_to_char("What vehicle do you wish to teleport?\r\n", ch);
   else if (!(veh = get_veh_list(buf, ch->in_veh ? ch->in_veh->carriedvehs : ch->in_room->vehicles, ch)))
-    send_to_char(NOOBJECT, ch);
+    send_to_char(ch, "You don't see any vehicles named '%s' here.\r\n", buf);
   else if (!*buf2)
     send_to_char("Where do you wish to send this vehicle?\r\n", ch);
   else if ((target = find_target_room(ch, buf2))) {
     snprintf(buf, sizeof(buf), "%s drives off into the sunset.\r\n", GET_VEH_NAME(veh));
-    send_to_room(buf, veh->in_room);
+    if (veh->in_room) {
+      send_to_room(buf, veh->in_room);
+    } else if (veh->in_veh) {
+      send_to_veh(buf, veh->in_veh, ch, FALSE);
+    }
     veh_from_room(veh);
     veh_to_room(veh, target);
     snprintf(buf, sizeof(buf), "%s screeches suddenly into the area.\r\n", GET_VEH_NAME(veh));
@@ -768,7 +873,7 @@ ACMD(do_teleport)
   if (!*buf)
     send_to_char("Whom do you wish to teleport?\r\n", ch);
   else if (!(victim = get_char_vis(ch, buf)))
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
   else if (victim == ch)
     send_to_char("Use 'goto' to teleport yourself.\r\n", ch);
   else if (GET_LEVEL(victim) > GET_LEVEL(ch) &&
@@ -782,12 +887,12 @@ ACMD(do_teleport)
     send_to_char("Where do you wish to send this person?\r\n", ch);
   else if ((target = find_target_room(ch, buf2))) {
     send_to_char(OK, ch);
-    act("$n disappears in a puff of smoke.", FALSE, victim, 0, 0, TO_ROOM);
+    act("$n disappears in a puff of smoke.", TRUE, victim, 0, 0, TO_ROOM);
     if (AFF_FLAGGED(victim, AFF_PILOT))
       AFF_FLAGS(victim).ToggleBit(AFF_PILOT);
     char_from_room(victim);
     char_to_room(victim, target);
-    act("$n arrives from a puff of smoke.", FALSE, victim, 0, 0, TO_ROOM);
+    act("$n arrives from a puff of smoke.", TRUE, victim, 0, 0, TO_ROOM);
     act("$n has teleported you!", FALSE, ch, 0, victim, TO_VICT);
     look_at_room(victim, 0);
     snprintf(buf2, sizeof(buf2), "%s teleported %s to %s",
@@ -1279,7 +1384,7 @@ void do_stat_character(struct char_data * ch, struct char_data * k)
           GET_REAL_WIL(k), ((int)GET_REAL_MAG(k) / 100), GET_REAL_REA(k), ((float)GET_REAL_ESS(k) / 100));
 
   snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "Physical p.:[^G%d/%d^n]  Mental p.:[^G%d/%d^n]  Bio Index:[^c%0.2f^n]\r\n"
-          "Ess Index:[^c%0.2f^n]\n\r",
+          "Ess Index:[^c%0.2f^n]\r\n",
           (int)(GET_PHYSICAL(k) / 100), (int)(GET_MAX_PHYSICAL(k) / 100),
           (int)(GET_MENTAL(k) / 100), (int)(GET_MAX_MENTAL(k) / 100),
           ((float)GET_INDEX(k) / 100), (((float)GET_ESS(k) / 100) + 3));
@@ -1621,7 +1726,7 @@ ACMD(do_snoop)
   else if (victim->desc->snooping == ch->desc)
     send_to_char("Don't be stupid.\r\n", ch);
   else if (!IS_NPC(victim) && PLR_FLAGS(victim).IsSet(PLR_NOSNOOP) )
-    send_to_char("You can't snoop an unsnoopable person.\n\r",ch);
+    send_to_char("You can't snoop an unsnoopable person.\r\n",ch);
   else {
     if (victim->desc->original)
       tch = victim->desc->original;
@@ -1718,9 +1823,12 @@ ACMD(do_return)
       if (PLR_FLAGGED(ch->desc->original, PLR_PROJECT)) {
         GET_TEMP_ESSLOSS(ch->desc->original) = GET_ESS(ch->desc->original) - GET_ESS(ch);
         affect_total(ch->desc->original);
-      }
-      if (PLR_FLAGGED(ch->desc->original, PLR_PROJECT))
         PLR_FLAGS(ch->desc->original).RemoveBit(PLR_PROJECT);
+        
+        // Make the projection unkillable.
+        if (IS_NPC(ch))
+          MOB_FLAGS(ch).SetBit(MOB_NOKILL);
+      }
       if (PLR_FLAGGED(ch->desc->original, PLR_SWITCHED))
         PLR_FLAGS(ch->desc->original).RemoveBit(PLR_SWITCHED);
 
@@ -1743,6 +1851,7 @@ ACMD(do_return)
       ch->desc->character->desc = ch->desc;
       update_pos(ch->desc->character);
       ch->desc = NULL;
+      
       if (IS_NPC(vict) && GET_MOB_VNUM(vict) >= 50 && GET_MOB_VNUM(vict) < 70 &&
           PLR_FLAGGED(ch, PLR_PROJECT)) {
         GET_MEMORY(vict) = NULL;
@@ -1820,7 +1929,7 @@ void perform_wizload_object(struct char_data *ch, int vnum) {
   obj->obj_flags.extra_flags.SetBit(ITEM_IMMLOAD); // Why the hell do we have immload AND wizload?
   obj->obj_flags.extra_flags.SetBit(ITEM_WIZLOAD);
   act("$n makes a strange magical gesture.", TRUE, ch, 0, 0, TO_ROOM);
-  act("$n has created $p!", FALSE, ch, obj, 0, TO_ROOM);
+  act("$n has created $p!", TRUE, ch, obj, 0, TO_ROOM);
   act("You create $p.", FALSE, ch, obj, 0, TO_CHAR);
   snprintf(buf, sizeof(buf), "%s wizloaded object #%d (%s).",
           GET_CHAR_NAME(ch), vnum, GET_OBJ_NAME(obj));
@@ -1890,7 +1999,7 @@ ACMD(do_wizload)
 
     act("$n makes a quaint, magical gesture with one hand.", TRUE, ch,
         0, 0, TO_ROOM);
-    act("$n has created $N!", FALSE, ch, 0, mob, TO_ROOM);
+    act("$n has created $N!", TRUE, ch, 0, mob, TO_ROOM);
     act("You create $N.", FALSE, ch, 0, mob, TO_CHAR);
   } else if (is_abbrev(buf, "obj")) {
     perform_wizload_object(ch, numb);
@@ -1971,7 +2080,7 @@ ACMD(do_purge)
   extern void die_follower(struct char_data * ch);
 
   if (!access_level(ch, LVL_EXECUTIVE) &&
-      (ch->in_room && (ch->player_specials->saved.zonenum != zone_table[ch->in_room->zone].number))) {
+      (ch->player_specials->saved.zonenum != zone_table[get_ch_in_room(ch)->zone].number)) {
     send_to_char("You can only purge in your zone.\r\n", ch);
     return;
   }
@@ -2235,7 +2344,12 @@ ACMD(do_award)
     return;
   }
   if (!(vict = get_char_vis(ch, arg))) {
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", arg);
+    return;
+  }
+  
+  if (IS_SENATOR(vict)) {
+    send_to_char(ch, "Staff can't receive karma this way. Use the SET command.\r\n", ch);
     return;
   }
   
@@ -2277,7 +2391,7 @@ ACMD(do_penalize)
     return;
   }
   if (!(vict = get_char_vis(ch, arg))) {
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", arg);
     return;
   }
 
@@ -2368,7 +2482,7 @@ ACMD(do_restore)
   
   // Shifted here from interpreter to allow morts to use the restore command for the testing obj.
   if (!access_level(ch, LVL_CONSPIRATOR)) {
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
     return;
   }
 
@@ -2394,7 +2508,7 @@ ACMD(do_restore)
   
   // Not restore all mode-- find their target.
   if (!(vict = get_char_vis(ch, buf))) {
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
     return;
   }
   
@@ -2429,15 +2543,28 @@ void perform_immort_invis(struct char_data *ch, int level)
 
   if (STATE(ch->desc) == CON_PLAYING)
   {
-    for (tch = ch->in_room->people; tch; tch = tch->next_in_room) {
-      if (tch == ch)
-        continue;
-      if (access_level(tch, GET_INVIS_LEV(ch)) && !access_level(tch, level))
-        act("You blink and suddenly realize that $n is gone.",
-            FALSE, ch, 0, tch, TO_VICT);
-      if (!access_level(tch, GET_INVIS_LEV(ch)) && access_level(tch, level))
-        act("You suddenly realize that $n is standing beside you.",
-            FALSE, ch, 0, tch, TO_VICT);
+    if (ch->in_room) {
+      for (tch = ch->in_room->people; tch; tch = tch->next_in_room) {
+        if (tch == ch)
+          continue;
+        if (access_level(tch, GET_INVIS_LEV(ch)) && !access_level(tch, level))
+          act("You blink and suddenly realize that $n is gone.",
+              FALSE, ch, 0, tch, TO_VICT);
+        if (!access_level(tch, GET_INVIS_LEV(ch)) && access_level(tch, level))
+          act("You suddenly realize that $n is standing beside you.",
+              FALSE, ch, 0, tch, TO_VICT);
+      }
+    } else {
+      for (tch = ch->in_veh->people; tch; tch = tch->next_in_veh) {
+        if (tch == ch)
+          continue;
+        if (access_level(tch, GET_INVIS_LEV(ch)) && !access_level(tch, level))
+          act("You blink and suddenly realize that $n is gone.",
+              FALSE, ch, 0, tch, TO_VICT);
+        if (!access_level(tch, GET_INVIS_LEV(ch)) && access_level(tch, level))
+          act("You suddenly realize that $n is standing beside you.",
+              FALSE, ch, 0, tch, TO_VICT);
+      }
     }
 
     send_to_char(ch, "Your invisibility level is %d.\r\n", level);
@@ -2509,7 +2636,7 @@ ACMD(do_poofset)
       send_to_char(ch, "Your current poofout is: ^m%s^n\r\n", POOFOUT(ch));
     return;
   } else if (strlen(argument) >= LINE_LENGTH) {
-    send_to_char(ch, "Line too long (max %d characters); function aborted.\r\n",
+    send_to_char(ch, "Line too long (max %d characters). Function aborted.\r\n",
                  LINE_LENGTH - 1);
     return;
   }
@@ -2532,7 +2659,7 @@ ACMD(do_dc)
   one_argument(argument, arg);
 
   if (atoi(arg)) {
-    send_to_char("Usage: dc <name>\r\n""       dc *\r\n", ch);
+    send_to_char("Usage: dc <name>\r\n       dc *\r\n", ch);
     return;
   }
 
@@ -2720,7 +2847,7 @@ ACMD(do_force)
   // Single-person force.
   if (!access_level(ch, LVL_ADMIN) || (str_cmp("all", arg) && str_cmp("room", arg))) {
     if (!(vict = get_char_vis(ch, arg)))
-      send_to_char(NOPERSON, ch);
+      send_to_char(ch, "You don't see anyone named '%s' here.\r\n", arg);
     else if (PLR_FLAGGED(ch, PLR_WRITING) || PLR_FLAGGED(ch, PLR_EDITING) ||
              PLR_FLAGGED(ch, PLR_MAILING) || PLR_FLAGGED(ch, PLR_SPELL_CREATE) ||
              PLR_FLAGGED(ch, PLR_CUSTOMIZE))
@@ -3041,7 +3168,7 @@ ACMD(do_wizutil)
         GET_FREEZE_LEV(vict) = GET_LEVEL(ch);
         send_to_char("A bitter wind suddenly rises and drains every erg of heat from your body!\r\nYou feel frozen!\r\n", vict);
         send_to_char("Frozen.\r\n", ch);
-        act("A sudden cold wind conjured from nowhere freezes $n!", FALSE, vict, 0, 0, TO_ROOM);
+        act("A sudden cold wind conjured from nowhere freezes $n!", TRUE, vict, 0, 0, TO_ROOM);
         snprintf(buf, sizeof(buf), "%s frozen by %s.", GET_CHAR_NAME(vict), GET_CHAR_NAME(ch));
         mudlog(buf, ch, LOG_WIZLOG, TRUE);
         break;
@@ -3062,7 +3189,7 @@ ACMD(do_wizutil)
         send_to_char("A fireball suddenly explodes in front of you, melting the ice!\r\nYou feel thawed.\r\n", vict);
         send_to_char("Thawed.\r\n", ch);
         GET_FREEZE_LEV(vict) = 0;
-        act("A sudden fireball conjured from nowhere thaws $n!", FALSE, vict, 0, 0, TO_ROOM);
+        act("A sudden fireball conjured from nowhere thaws $n!", TRUE, vict, 0, 0, TO_ROOM);
         break;
       default:
         log("SYSERR: Unknown subcmd passed to do_wizutil (act.wizard.c)");
@@ -4064,7 +4191,7 @@ ACMD(do_set)
 
     /* Can't demote other owners this way, unless it's yourself */
     if ( access_level(vict, LVL_PRESIDENT) && vict != ch ) {
-      send_to_char("You can't demote other presidents.\n\r",ch);
+      send_to_char("You can't demote other presidents.\r\n",ch);
 
       SET_CLEANUP(false);
 
@@ -5102,7 +5229,7 @@ ACMD(do_tail)
   two_arguments(argument, arg, buf);
 
   if ( !*arg ) {
-    send_to_char( "Syntax note: tail <lines into history to read> <logfile>", ch );
+    send_to_char( "Syntax note: tail <lines into history to read> <logfile>\r\n", ch );
     send_to_char( "The following logs are available:\r\n", ch );
     snprintf(buf, sizeof(buf), "ls -C ../log" );
   } else {
@@ -5180,7 +5307,7 @@ bool restring_with_args(struct char_data *ch, char *argument, bool using_sysp) {
   }
   
   if (!(obj = get_obj_in_list_vis(ch, arg, ch->carrying))) {
-    send_to_char("You don't have that item.\r\n", ch);
+    send_to_char("You're not carrying that item.\r\n", ch);
     return FALSE;
   }
   if (GET_OBJ_TYPE(obj) == ITEM_GUN_ACCESSORY || GET_OBJ_TYPE(obj) == ITEM_MOD) {
@@ -5188,7 +5315,7 @@ bool restring_with_args(struct char_data *ch, char *argument, bool using_sysp) {
     return FALSE;
   }
   if (strlen(buf) >= LINE_LENGTH) {
-    send_to_char("That restring is too long, please shorten it.\r\n", ch);
+    send_to_char(ch, "That restring is too long, please shorten it. The maximum length is %d characters.\r\n", LINE_LENGTH - 1);
     return FALSE;
   }
   
@@ -5211,7 +5338,7 @@ bool restring_with_args(struct char_data *ch, char *argument, bool using_sysp) {
       GET_SYSTEM_POINTS(ch) -= SYSP_RESTRING_COST;
     } else {
       if (GET_KARMA(ch) < 250) {
-        send_to_char(ch, "You don't have enough karma to restring that.\r\n");
+        send_to_char("You don't have enough karma to restring that. It costs 2.5 karma.\r\n", ch);
         return FALSE;
       }
       GET_KARMA(ch) -= 250;
@@ -5239,10 +5366,8 @@ ACMD(do_incognito)
   if (!*arg)
     if (GET_INCOG_LEV(ch)) {
       GET_INCOG_LEV(ch) = 0;
-      send_to_char("You are no longer incognito.\r\n", ch);
     } else {
       GET_INCOG_LEV(ch) = 2;
-      send_to_char("Your incognito is level 2.\r\n", ch);
     }
   else {
     i = atoi(arg);
@@ -5252,12 +5377,15 @@ ACMD(do_incognito)
     }
     if (i < 1) {
       GET_INCOG_LEV(ch) = 0;
-      send_to_char("You are no longer incognito.\r\n", ch);
     } else {
       GET_INCOG_LEV(ch) = i;
-      send_to_char(ch, "Your incognito is level %d.\r\n", i);
     }
   }
+  
+  if (GET_INCOG_LEV(ch) == 0)
+    send_to_char("You are no longer incognito on the wholist.\r\n", ch);
+  else
+    send_to_char(ch, "Your wholist incognito is level %d.\r\n", i);
 }
 
 ACMD(do_zone) {
@@ -5331,4 +5459,108 @@ ACMD(do_perfmon) {
         do_perfmon( ch, empty_arg, cmd, subcmd );
         return;
     }
+}
+
+ACMD(do_shopfind)
+{
+  int number;
+
+  one_argument(argument, buf2);
+
+  if (!access_level(ch, LVL_PRESIDENT) && !PLR_FLAGGED(ch, PLR_OLC)) {
+    send_to_char(YOU_NEED_OLC_FOR_THAT, ch);
+    return;
+  }
+
+  if (!*buf2 || !isdigit(*buf2)) {
+    send_to_char("Usage: shopfind <number>\r\n", ch);
+    return;
+  }
+  if ((number = atoi(buf2)) < 0) {
+    send_to_char("A NEGATIVE number??\r\n", ch);
+    return;
+  }
+  
+  send_to_char(ch, "Shops selling the item with vnum %d:\r\n", number);
+  
+  int index = 0;
+  for (int i = 0; i <= top_of_shopt; i++) {
+    for (struct shop_sell_data *sell = shop_table[i].selling; sell; sell = sell->next, i++) {
+      if (sell->vnum == number) {
+        send_to_char(ch, "%3d)  %8ld  (%s)\r\n", ++index, shop_table[i].vnum, mob_proto[real_mobile(shop_table[i].keeper)].player.physical_text.name);
+      }
+    }
+  }
+  if (index == 0)
+    send_to_char("- None.\r\n", ch);
+}
+
+void print_x_fuckups(struct char_data *ch, int print_count) {
+  MYSQL_RES *res;
+  MYSQL_ROW row;
+  char query_buf[1000];
+  
+  snprintf(query_buf, sizeof(query_buf), "SELECT Name, Count FROM command_fuckups ORDER BY COUNT DESC LIMIT %d;", print_count);
+  
+  mysql_wrapper(mysql, query_buf);
+  if (!(res = mysql_use_result(mysql))) {
+    mudlog("SYSERR: Failed to access command fuckups data!", ch, LOG_SYSLOG, TRUE);
+    send_to_char(ch, "Sorry, the fuckups system is offline at the moment.\r\n");
+    return;
+  }
+  
+  send_to_char(ch, "^CTop %d fuckups:^n\r\n", print_count);
+  int counter = 1;
+  while ((row = mysql_fetch_row(res))) {
+    send_to_char(ch, "%2d) %-20s: %-5s\r\n", counter++, row[0], row[1]);
+  }
+  if (counter == 1)
+    send_to_char(ch, "...None! Lucky you, not a single command typo in the entire game.\r\n");
+  mysql_free_result(res);
+}
+
+ACMD(do_fuckups) {
+  // fuckups [x] -- list the top X fuckups, default 10
+  // fuckups del <cmd> -- remove something from the fuckups list
+  int fuckup_count = 10;
+  
+  skip_spaces(&argument);
+  
+  // Display 10.
+  if (!*argument) {
+    print_x_fuckups(ch, 10);
+    return;
+  }
+  
+  // Display X.
+  if ((fuckup_count = atoi(argument))) {
+    if (fuckup_count <= 0) {
+      send_to_char("1 or more, please.\r\n", ch);
+      return;
+    }
+    
+    print_x_fuckups(ch, fuckup_count);
+    return;
+  }
+  
+  // Delete mode.
+  char mode[100];
+  const char *deletion_string = one_argument(argument, mode);
+  if (!strncmp(mode, "delete", strlen(mode))) {
+    if (!access_level(ch, LVL_PRESIDENT) || IS_NPC(ch)) {
+      send_to_char("Sorry, only level-10 PC staff can delete fuckups.\r\n", ch);
+      return;
+    }
+    
+    char query_buf[1000];
+    snprintf(query_buf, sizeof(query_buf), "DELETE FROM command_fuckups WHERE Name = '%s'",
+             prepare_quotes(buf, deletion_string, sizeof(buf)));
+    mysql_wrapper(mysql, query_buf);
+    send_to_char("Done.\r\n", ch);
+    
+    snprintf(buf, sizeof(buf), "%s deleted command fuckup '%s' from the database.", GET_CHAR_NAME(ch), deletion_string);
+    return;
+  }
+  
+  send_to_char("Syntax: `fuckups [count]` to list, or `fuckups delete <command>` to remove.", ch);
 }

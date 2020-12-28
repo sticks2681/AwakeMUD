@@ -264,7 +264,7 @@ ACMD(do_tell)
     return;
   }
   if (!(vict = get_player_vis(ch, buf, 0))) {
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
     return;
   }
   if (!IS_NPC(vict) && !vict->desc)      /* linkless */
@@ -410,7 +410,7 @@ ACMD(do_spec_comm)
     ch->in_veh = last_veh;
   } else if (!(vict = get_char_room_vis(ch, buf)) &&
              !((veh = get_veh_list(buf, ch->in_room->vehicles, ch)) && subcmd == SCMD_WHISPER))
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
   else if (vict == ch)
     send_to_char("You can't get your mouth close enough to your ear...\r\n", ch);
   else if (IS_ASTRAL(ch) && vict &&
@@ -758,9 +758,10 @@ ACMD(do_broadcast)
                   if (GET_OBJ_TYPE(obj2) == ITEM_RADIO)
                     radio = obj2;
             }
-          for (obj = ch->in_veh ? ch->in_veh->contents : ch->in_room->contents; obj && !radio; obj = obj->next_content)
+          FOR_ITEMS_AROUND_CH(ch, obj) {
             if (GET_OBJ_TYPE(obj) == ITEM_RADIO && !CAN_WEAR(obj, ITEM_WEAR_TAKE))
               radio = obj;
+          }
 
           if (radio) {
             suc = success_test(GET_SKILL(d->character, GET_LANGUAGE(ch)), 4);
@@ -890,7 +891,7 @@ ACMD(do_gen_comm)
   }
 
   if ( _NO_OOC_ && subcmd == SCMD_OOC ) {
-    send_to_char("This command has been disabled.\n\r",ch);
+    send_to_char("This command has been disabled.\r\n",ch);
     return;
   }
 
@@ -1399,7 +1400,7 @@ ACMD(do_phone)
       }
       return;
     }
-    snprintf(buf2, MAX_STRING_LENGTH, 
+    snprintf(buf, MAX_STRING_LENGTH, 
             "%s:\r\n"
             "Phone Number: %04d-%04d\r\n"
             "Switched: %s\r\n"
@@ -1413,11 +1414,11 @@ ACMD(do_phone)
     
     if (phone && phone->dest) {
       if (phone->dest->connected && phone->connected)
-        snprintf(buf, sizeof(buf), "%sConnected to: %d\r\n", buf2, phone->dest->number);
+        snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "Connected to: %d\r\n", phone->dest->number);
       else if (!phone->dest->connected)
-        snprintf(buf, sizeof(buf), "%sCalling: %d\r\n", buf2, phone->dest->number);
-      else snprintf(buf, sizeof(buf), "%sIncoming call from: %08d\r\n", buf2, phone->dest->number);
-    }
+        snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "Calling: %d\r\n", phone->dest->number);
+      else snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "Incoming call from: %08d\r\n", phone->dest->number);
+    } 
     send_to_char(buf, ch);
   }
 }

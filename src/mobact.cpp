@@ -700,7 +700,7 @@ bool mobact_process_guard(struct char_data *ch, struct room_data *room) {
 }
 
 bool mobact_process_self_buff(struct char_data *ch) {
-  if (GET_SKILL(ch, SKILL_SORCERY) && !MOB_FLAGGED(ch, MOB_SPEC)) {
+  if (GET_SKILL(ch, SKILL_SORCERY) && GET_MAG(ch) >= 100 && !MOB_FLAGGED(ch, MOB_SPEC)) {
     
     // Always self-heal if able.
     if (GET_PHYSICAL(ch) < GET_MAX_PHYSICAL(ch) && !AFF_FLAGGED(ch, AFF_HEALED))
@@ -756,6 +756,9 @@ bool mobact_process_self_buff(struct char_data *ch) {
 }
 
 bool mobact_process_scavenger(struct char_data *ch) {
+  if (!ch || !ch->in_room)
+    return FALSE;
+    
   /* Scavenger (picking up objects) */
   if (MOB_FLAGGED(ch, MOB_SCAVENGER)) {
     if (ch->in_room->contents && !number(0, 10)) {
@@ -763,7 +766,7 @@ bool mobact_process_scavenger(struct char_data *ch) {
       int max = 1;
       
       // Find the most valuable object in the room (ignoring worthless things):
-      for (obj = ch->in_room->contents; obj; obj = obj->next_content) {
+      FOR_ITEMS_AROUND_CH(ch, obj) {
         if (CAN_GET_OBJ(ch, obj) && GET_OBJ_COST(obj) > max && GET_OBJ_TYPE(obj) != ITEM_WORKSHOP) {
           best_obj = obj;
           max = GET_OBJ_COST(obj);
@@ -933,6 +936,12 @@ void mobile_activity(void)
   // Iterate through all characters in the game.
   for (ch = character_list; ch; ch = next_ch) {
     next_ch = ch->next;
+    
+    // Skip broken-ass characters.
+    if (!ch->in_room && !ch->in_veh) {
+      mudlog("SYSERR: Encountered char with no room, no veh in mobile_activity().", NULL, LOG_SYSLOG, TRUE);
+      continue;
+    }
     
     current_room = get_ch_in_room(ch);
     

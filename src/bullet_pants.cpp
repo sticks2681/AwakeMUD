@@ -124,7 +124,7 @@ ACMD(do_pockets) {
         int ammotype = GET_AMMOBOX_TYPE(ammobox);
         
         if (GET_BULLETPANTS_AMMO_AMOUNT(ch, weapontype, ammotype) >= MAX_NUMBER_OF_BULLETS_IN_PANTS) {
-          send_to_char(ch, "Your pockets are already full of %s.", get_ammo_representation(weapontype, ammotype, 0));
+          send_to_char(ch, "Your pockets are already full of %s.\r\n", get_ammo_representation(weapontype, ammotype, 0));
           return;
         }
         
@@ -254,20 +254,12 @@ ACMD(do_pockets) {
             
     // They didn't have one on their person-- check the room.
     if (!ammobox) {
-      if (ch->in_veh) {
-        for (ammobox = ch->in_veh->contents; ammobox; ammobox = ammobox->next_content)
-          if (GET_OBJ_TYPE(ammobox) == ITEM_GUN_AMMO 
-              && GET_AMMOBOX_WEAPON(ammobox) == weapon
-              && GET_AMMOBOX_TYPE(ammobox) == ammotype
-              && GET_AMMOBOX_QUANTITY(ammobox) >= quantity)
-                break;
-      } else {
-        for (ammobox = ch->in_room->contents; ammobox; ammobox = ammobox->next_content)
-          if (GET_OBJ_TYPE(ammobox) == ITEM_GUN_AMMO 
-              && GET_AMMOBOX_WEAPON(ammobox) == weapon
-              && GET_AMMOBOX_TYPE(ammobox) == ammotype
-              && GET_AMMOBOX_QUANTITY(ammobox) >= quantity)
-                break;
+      FOR_ITEMS_AROUND_CH(ch, ammobox) {
+        if (GET_OBJ_TYPE(ammobox) == ITEM_GUN_AMMO 
+            && GET_AMMOBOX_WEAPON(ammobox) == weapon
+            && GET_AMMOBOX_TYPE(ammobox) == ammotype
+            && GET_AMMOBOX_QUANTITY(ammobox) >= quantity)
+          break;
       }
       
       // Make sure they can carry it. We don't do this check for already-carried boxes.
@@ -278,7 +270,7 @@ ACMD(do_pockets) {
     }
             
     if (!ammobox) {
-      send_to_char(ch, "You don't have an ammo box containing %d %s.",
+      send_to_char(ch, "You don't have an ammo box containing %d %s.\r\n",
                    quantity, get_ammo_representation(weapon, ammotype, quantity));
       return;
     }
@@ -335,27 +327,6 @@ ACMD(do_pockets) {
 /*******************
 * Database helpers *
 ********************/
-
-// Checks to see if the BP table is in yet.
-bool have_bullet_pants_table() {  
-  bool have_table = FALSE;
-  
-  MYSQL_RES *res;
-  MYSQL_ROW row;
-  
-  mysql_wrapper(mysql, "SHOW TABLES LIKE 'pfiles_ammo';");
-  
-  if (!(res = mysql_use_result(mysql)))
-    return FALSE;
-  
-  // Iterate through all the results and update the respective ammo values.
-  if ((row = mysql_fetch_row(res)) && mysql_field_count(mysql))
-    have_table = TRUE;
-    
-  mysql_free_result(res);
-  
-  return have_table;
-}
 
 // Saves the ch's bullet pants to db.
 void save_bullet_pants(struct char_data *ch) {  
@@ -823,10 +794,3 @@ int npc_ammo_usage_preferences[] = {
   AMMO_GEL,
   AMMO_FLECHETTE
 };
-
-// things left to implement:
-/* 
- - staff bullet pants set command mode (just use force)
- - write pockets help file
- - add ability to split apart ammo boxes (just do it through pockets)
-*/

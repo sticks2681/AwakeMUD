@@ -22,7 +22,7 @@ extern void die(struct char_data *ch);
 extern void damage_equip(struct char_data *ch, struct char_data *vict, int power, int type);
 extern void damage_obj(struct char_data *ch, struct obj_data *obj, int power, int type);
 extern void check_killer(struct char_data * ch, struct char_data * vict);
-extern void nonsensical_reply(struct char_data *ch);
+extern void nonsensical_reply(struct char_data *ch, const char *arg);
 
 struct char_data *find_spirit_by_id(int spiritid, long playerid)
 {
@@ -672,10 +672,10 @@ bool find_duplicate_spell(struct char_data *ch, struct char_data *vict, int spel
   return FALSE;
 }
 
-bool check_spell_victim(struct char_data *ch, struct char_data *vict, int spell)
+bool check_spell_victim(struct char_data *ch, struct char_data *vict, int spell, char *buf)
 {
   if (!vict)
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
   else if (((IS_PROJECT(ch) || IS_ASTRAL(ch)) && !(IS_DUAL(vict) || IS_ASTRAL(vict) || IS_PROJECT(vict))) ||
            ((IS_PROJECT(vict) || IS_ASTRAL(vict)) && !(IS_DUAL(ch) || IS_ASTRAL(ch) || IS_PROJECT(ch))))
     send_to_char("They aren't accessible from this plane.\r\n", ch);
@@ -751,7 +751,7 @@ void cast_combat_spell(struct char_data *ch, int spell, int force, char *arg)
   }
   if (*buf1)
     vict = get_char_room_vis(ch, buf1);
-  if (!check_spell_victim(ch, vict, spell))
+  if (!check_spell_victim(ch, vict, spell, buf1))
     return;
   if (ch == vict) {
     send_to_char("You can't target yourself with a combat spell!\r\n", ch);
@@ -878,7 +878,7 @@ void cast_detection_spell(struct char_data *ch, int spell, int force, char *arg,
     vict = mob;
   else if (*arg)
     vict = get_char_room_vis(ch, arg);
-  if (!check_spell_victim(ch, vict, spell))
+  if (!check_spell_victim(ch, vict, spell, arg))
     return;
   if (find_duplicate_spell(ch, vict, spell, 0))
     return;
@@ -929,7 +929,7 @@ void cast_health_spell(struct char_data *ch, int spell, int sub, int force, char
     vict = mob;
   else if (*arg)
     vict = get_char_room_vis(ch, arg);
-  if (!check_spell_victim(ch, vict, spell))
+  if (!check_spell_victim(ch, vict, spell, arg))
     return;
   if (find_duplicate_spell(ch, vict, spell, sub))
     return;
@@ -1081,7 +1081,7 @@ void cast_health_spell(struct char_data *ch, int spell, int sub, int force, char
         target += 10 - (GET_ESS(vict) / 100);
       success = (int)(success_test(skill, target) -
                       ((spell == SPELL_DECATTR || spell == SPELL_DECCYATTR) ? resist_spell(vict, spell, force, sub) : 0));
-      if (success > 0) {
+      if (success > 1) {
         create_sustained(ch, vict, spell, force, sub, success, spells[spell].draindamage);
         act("You successfully sustain that spell on $N.", FALSE, ch, 0, vict, TO_CHAR);
         send_to_char("You feel your body tingle.\r\n", vict);
@@ -1111,7 +1111,7 @@ void cast_health_spell(struct char_data *ch, int spell, int sub, int force, char
     {
     case SPELL_CONFUSION:
     case SPELL_CHAOS:
-      if (!check_spell_victim(ch, vict, spell))
+      if (!check_spell_victim(ch, vict, spell, arg))
         return;
       check_killer(ch, vict);
       if (spell == SPELL_CONFUSION)
@@ -1137,7 +1137,7 @@ void cast_health_spell(struct char_data *ch, int spell, int sub, int force, char
       break;
     case SPELL_INVIS:
     case SPELL_IMP_INVIS:
-      if (!check_spell_victim(ch, vict, spell))
+      if (!check_spell_victim(ch, vict, spell, arg))
         return;
       success = success_test(skill, target + 4);
       if (success > 0) {
@@ -1149,7 +1149,7 @@ void cast_health_spell(struct char_data *ch, int spell, int sub, int force, char
       spell_drain(ch, spell, force, 0);
       break;
     case SPELL_STEALTH:
-      if (!check_spell_victim(ch, vict, spell))
+      if (!check_spell_victim(ch, vict, spell, arg))
         return;
       success = success_test(skill, target + 4);
       if (success > 0) {
@@ -1228,7 +1228,7 @@ void cast_manipulation_spell(struct char_data *ch, int spell, int force, char *a
   switch (spell)
   {
   case SPELL_ARMOUR:
-    if (!check_spell_victim(ch, vict, spell))
+    if (!check_spell_victim(ch, vict, spell, arg))
       return;
     success = success_test(skill, target + 6);
     if (success > 0) {
@@ -1275,7 +1275,7 @@ void cast_manipulation_spell(struct char_data *ch, int spell, int force, char *a
     spell_drain(ch, spell, force, 0);
     break;
   case SPELL_IGNITE:
-    if (!check_spell_victim(ch, vict, spell))
+    if (!check_spell_victim(ch, vict, spell, arg))
       return;
     check_killer(ch, vict);
     if (ch == vict) {
@@ -1317,14 +1317,14 @@ void cast_manipulation_spell(struct char_data *ch, int spell, int force, char *a
     spell_drain(ch, spell, force, 0);
     break;
   case SPELL_CLOUT:
-    if (!check_spell_victim(ch, vict, spell))
+    if (!check_spell_victim(ch, vict, spell, arg))
       return;
     check_killer(ch, vict);
     if (!AWAKE(vict))
       target -= 2;
     else {
       // Dodge test: You must be awake.
-      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf));
+      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf, sizeof(buf)));
     }
     success += success_test(skill, 4 + target);
       
@@ -1366,13 +1366,13 @@ void cast_manipulation_spell(struct char_data *ch, int spell, int force, char *a
     spell_drain(ch, spell, force, basedamage);
     break;
   case SPELL_FLAMETHROWER:
-    if (!check_spell_victim(ch, vict, spell))
+    if (!check_spell_victim(ch, vict, spell, arg))
       return;
     check_killer(ch, vict);
     if (!AWAKE(vict))
       target -= 2;
     else
-      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf));
+      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf, sizeof(buf)));
     act("$n's hands seem to spontaneously combust as $e directs a stream of flame at $N!", TRUE, ch, 0, vict, TO_ROOM);
     if (!IS_NPC(ch) && PLR_FLAGGED(ch, PLR_KILLER) && !IS_NPC(vict))
       success = -1;
@@ -1419,13 +1419,13 @@ void cast_manipulation_spell(struct char_data *ch, int spell, int force, char *a
     spell_drain(reflected ? vict : ch, spell, force, basedamage);
     break;
   case SPELL_ACIDSTREAM:
-    if (!check_spell_victim(ch, vict, spell))
+    if (!check_spell_victim(ch, vict, spell, arg))
       return;
     check_killer(ch, vict);
     if (!AWAKE(vict))
       target -= 2;
     else
-      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf));
+      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf, sizeof(buf)));
     act("Dark clouds form around $n moments before it condenses into a dark sludge and flies towards $N!", TRUE, ch, 0, vict, TO_ROOM);
     if (!IS_NPC(ch) && PLR_FLAGGED(ch, PLR_KILLER) && !IS_NPC(vict))
       success = -1;
@@ -1468,14 +1468,14 @@ void cast_manipulation_spell(struct char_data *ch, int spell, int force, char *a
     spell_drain(reflected ? vict : ch, spell, force, basedamage);
     break;
   case SPELL_LIGHTNINGBOLT:
-    if (!check_spell_victim(ch, vict, spell))
+    if (!check_spell_victim(ch, vict, spell, arg))
       return;
     check_killer(ch, vict);
     if (!AWAKE(vict))
       target -= 2;
     else {
       // NOTE: Added sidestep here. Not sure if you should be able to sidestep lightning, but if you can dodge it in the first place...
-      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf));
+      success -= success_test(GET_DEFENSE(vict) + GET_DEFENSE(vict) ? GET_POWER(vict, ADEPT_SIDESTEP) : 0, 4 + damage_modifier(vict, buf, sizeof(buf)));
     }
     act("Lightning bursts forth from $n and heads directly towards $N!", TRUE, ch, 0, vict, TO_ROOM);
     if (!IS_NPC(ch) && PLR_FLAGGED(ch, PLR_KILLER) && !IS_NPC(vict))
@@ -2109,7 +2109,7 @@ ACMD(do_bond)
       }
       if (PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED)) {
         if (GET_FORCE_POINTS(ch) < karma) {
-          send_to_char(ch, "You don't have enough force points to bond that (Need %d). You can get more force points by returning to the spell trainers and typing LEARN FORCE.\r\n", karma);
+          send_to_char(ch, "You don't have enough force points to bond that (Need %d). You can get more force points by returning to the talismonger or the spell trainers and typing LEARN FORCE.\r\n", karma);
           return;
         }
         GET_FORCE_POINTS(ch) -= karma;
@@ -2198,7 +2198,7 @@ ACMD(do_release)
     }
     return;
   }
-  send_to_char("Release what?\r\n", ch);
+  send_to_char("You'll want to specify an spell number, an elemental/spirit number, or 'all'. HELP RELEASE for more.\r\n", ch);
 }
 
 ACMD(do_cast)
@@ -2316,7 +2316,7 @@ ACMD(do_conjure)
     }
     bool library = FALSE, circle = FALSE;
     struct obj_data *obj;
-    for (struct obj_data *obj = ch->in_room->contents; obj; obj = obj->next_content)
+    FOR_ITEMS_AROUND_CH(ch, obj)
       if (GET_OBJ_TYPE(obj) == ITEM_MAGIC_TOOL) {
         if (GET_OBJ_VAL(obj, 0) == TYPE_LIBRARY_CONJURE) {
           if (GET_OBJ_VAL(obj, 1) < force) {
@@ -2460,7 +2460,7 @@ ACMD(do_spells)
 ACMD(do_forget)
 {
   if (!PLR_FLAGGED(ch, PLR_NOT_YET_AUTHED) || !GET_SPELLS(ch)) {
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
     return;
   }
   skip_spaces(&argument);
@@ -2915,7 +2915,7 @@ POWER(spirit_accident)
       }
     if (success < 1) {
       act("$n trips and stumbles.", TRUE, tch, 0, 0, TO_ROOM);
-      send_to_char(tch, "You trip and stumble!");
+      send_to_char(tch, "You trip and stumble!\r\n");
       GET_INIT_ROLL(tch) -= 10;
     } else {
       snprintf(buf, sizeof(buf), "%s fails to cause $N to have an accident.", CAP(GET_NAME(spirit)));
@@ -3446,7 +3446,7 @@ void deactivate_power(struct char_data *ch, int power)
 ACMD(do_powerdown)
 {
   if (GET_TRADITION(ch) != TRAD_ADEPT && GET_TRADITION(ch) != TRAD_MYSTIC) {
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
     return;
   }
   for (int i = 0; i < ADEPT_NUMPOWER; i++)
@@ -3595,7 +3595,7 @@ ACMD(do_track)
   two_arguments(argument, buf, buf1);
   if (!generic_find(buf,  FIND_OBJ_INV | FIND_OBJ_ROOM | FIND_OBJ_EQUIP |
                     FIND_CHAR_ROOM, ch, &vict, &obj)) {
-    send_to_char(NOOBJECT, ch);
+    send_to_char(ch, "You don't see anything named '%s' here.\r\n", buf);
     return;
   }
   if (vict) {
@@ -3700,7 +3700,7 @@ ACMD(do_dispell)
   struct char_data *vict;
   two_arguments(argument, buf, buf2);
   if (!(vict = get_char_room_vis(ch, buf))) {
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
     return;
   }
   int x = atoi(buf2);
@@ -3762,7 +3762,7 @@ ACMD(do_heal)
   else if (GET_POS(ch) == POS_FIGHTING)
     send_to_char(TOOBUSY, ch);
   else if (!(vict = get_char_room_vis(ch, arg)))
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", arg);
   else if (GET_PHYSICAL(ch) <= 100)
     send_to_char("Succeeding in that task would surely kill you.\r\n", ch);
   else if (GET_PHYSICAL(vict) == GET_MAX_PHYSICAL(vict))
@@ -3809,7 +3809,7 @@ ACMD(do_relieve)
   if (GET_POS(ch) == POS_FIGHTING)
     send_to_char(TOOBUSY, ch);
   else if (!(vict = get_char_room_vis(ch, argument)))
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", argument);
   else if (GET_MENTAL(vict) == GET_MAX_MENTAL(vict))
     send_to_char("They don't need your help.\r\n", ch);
   else if (GET_POS(vict) > POS_LYING)
@@ -3905,7 +3905,7 @@ bool init_cost(struct char_data *ch, bool spend)
   int karmacost = (GET_GRADE(ch) + 6) * 300;
   long nuyencost = MIN(825000, (25000 + (25000 * 1<<GET_GRADE(ch)))), tke = 0;
   if (karmacost > GET_KARMA(ch)) {
-    send_to_char("You do not have enough karma to initiate.\n\r", ch);
+    send_to_char("You do not have enough karma to initiate.\r\n", ch);
     return FALSE;
   }
   if (nuyencost > GET_NUYEN(ch)) {
@@ -3942,7 +3942,7 @@ ACMD(do_subpoint)
   struct char_data *vict;
   skip_spaces(&argument);
   if (!(vict = get_char_vis(ch, argument)))
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", argument);
   else if (GET_TRADITION(vict) != TRAD_ADEPT || GET_TRADITION(vict) != TRAD_MYSTIC)
     send_to_char("You can only use this command on Adepts.\r\n", ch);
   else if (GET_PP(vict) <= 0)
@@ -3956,14 +3956,14 @@ ACMD(do_subpoint)
 ACMD(do_initiate)
 {
   if (GET_TRADITION(ch) == TRAD_MUNDANE)
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
   else if (subcmd == SCMD_INITIATE && init_cost(ch, FALSE)) {
     STATE(ch->desc) = CON_INITIATE;
     PLR_FLAGS(ch).SetBit(PLR_INITIATE);  
     disp_init_menu(ch->desc);
   } else if (subcmd == SCMD_POWERPOINT) {
     if (GET_TRADITION(ch) != TRAD_ADEPT && GET_TRADITION(ch) != TRAD_MYSTIC) {
-      nonsensical_reply(ch);
+      nonsensical_reply(ch, NULL);
       return;
     }
     
@@ -4076,7 +4076,7 @@ void init_parse(struct descriptor_data *d, char *arg)
 ACMD(do_masking)
 {
   if (GET_METAMAGIC(ch, META_MASKING) < 2) {
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
     return;
   }
   skip_spaces(&argument);
@@ -4107,7 +4107,7 @@ ACMD(do_masking)
 ACMD(do_focus)
 {
   if (GET_TRADITION(ch) != TRAD_ADEPT || !GET_POWER(ch, ADEPT_LIVINGFOCUS)) {
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
     return;
   }
   skip_spaces(&argument);
@@ -4168,7 +4168,7 @@ ACMD(do_metamagic)
 ACMD(do_cleanse)
 {
   if (GET_METAMAGIC(ch, META_CLEANSING) < 2) {  
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
     return;
   }
   if (!(IS_ASTRAL(ch) || IS_DUAL(ch)))

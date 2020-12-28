@@ -233,7 +233,7 @@ ACMD(do_steal)
         act(buf, FALSE, ch, 0, vict, TO_CHAR);
         return;
       } else {                  /* It is equipment */
-        send_to_char(ch, "You unequip %s and steal it.", GET_OBJ_NAME(obj));
+        send_to_char(ch, "You unequip %s and steal it.\r\n", GET_OBJ_NAME(obj));
         obj_to_char(unequip_char(vict, eq_pos, TRUE), ch);
         char *representation = generate_new_loggable_representation(obj);
         snprintf(buf, sizeof(buf), "%s steals from %s: %s", GET_CHAR_NAME(ch), GET_CHAR_NAME(vict), representation);
@@ -385,8 +385,7 @@ ACMD(do_group)
   }
 
   if (ch->master) {
-    act("You can not enroll group members without being head of the group.",
-        FALSE, ch, 0, 0, TO_CHAR);
+    send_to_char("You can not enroll group members without being head of the group.\r\n", ch);
     return;
   }
 
@@ -400,7 +399,7 @@ ACMD(do_group)
   }
 
   if (!(vict = get_char_room_vis(ch, buf)))
-    send_to_char(NOPERSON, ch);
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf);
   else if ((vict->master != ch) && (vict != ch))
     act("$N must follow you to enter your group.", FALSE, ch, 0, vict, TO_CHAR);
   else {
@@ -450,12 +449,12 @@ ACMD(do_ungroup)
     return;
   }
   if (tch->master != ch) {
-    send_to_char("That person is not following you!\r\n", ch);
+    send_to_char(ch, "%s is not following you!\r\n", capitalize(GET_CHAR_NAME(tch)));
     return;
   }
 
   if (!IS_AFFECTED(tch, AFF_GROUP)) {
-    send_to_char("That person isn't in your group.\r\n", ch);
+    send_to_char(ch, "%s isn't in your group.\r\n", capitalize(GET_CHAR_NAME(tch)));
     return;
   }
 
@@ -553,7 +552,7 @@ ACMD(do_patch)
       return;
     }
     act("You slap $p on your shoulder and feel more aware.", FALSE, ch, patch, 0, TO_CHAR);
-    act("$n slaps $p on $s shoulder and appears more aware.", FALSE, ch, patch, 0, TO_ROOM);
+    act("$n slaps $p on $s shoulder and appears more aware.", TRUE, ch, patch, 0, TO_ROOM);
     GET_OBJ_VAL(patch,5) = GET_MENTAL(ch);
     GET_MENTAL(ch) = MIN(GET_MAX_MENTAL(ch), GET_MENTAL(ch) + (GET_OBJ_VAL(patch, 1) * 100));
     obj_from_char(patch);
@@ -623,7 +622,7 @@ void do_drug_take(struct char_data *ch, struct obj_data *obj)
       send_to_char(ch, "Maybe you should wait.\r\n");
       return;
     }
-    act("$n takes $p.", FALSE, ch, obj, 0, TO_ROOM);
+    act("$n takes $p.", TRUE, ch, obj, 0, TO_ROOM);
     GET_DRUG_AFFECT(ch) = drugval;
     GET_DRUG_DOSES(ch, drugval)++;
     if (GET_DRUG_DOSES(ch, drugval) == 1) {
@@ -1191,7 +1190,11 @@ ACMD(do_toggle)
     } else if (is_abbrev(argument, "hired")) {
       result = PRF_TOG_CHK(ch, PRF_QUEST);
       mode = 14;
+#ifndef MORTS_CAN_SEE_ROLLS
     } else if (IS_SENATOR(ch) && is_abbrev(argument, "rolls")) {
+#else
+    } else if (is_abbrev(argument, "rolls")) {
+#endif
       result = PRF_TOG_CHK(ch, PRF_ROLLS);
       mode = 17;
     } else if (is_abbrev(argument, "roomflags") && IS_SENATOR(ch)) {
@@ -1624,7 +1627,7 @@ ACMD(do_attach)
   }
   if (*arg) {
     if (ch->in_veh || !(veh = get_veh_list(buf1, ch->in_veh ? ch->in_veh->carriedvehs : ch->in_room->vehicles, ch))) {
-      send_to_char(NOOBJECT, ch);
+      send_to_char(ch, "You don't see any vehicles named '%s' here.\r\n", buf1);
       return;
     }
     if (veh->type != VEH_DRONE) {
@@ -1641,7 +1644,7 @@ ACMD(do_attach)
       return;
     }
     if (GET_OBJ_TYPE(item) != ITEM_WEAPON) {
-      send_to_char("How do you expect to attach that?\r\n", ch);
+      send_to_char(ch, "%s is not a weapon you can attach to %s.\r\n", capitalize(GET_OBJ_NAME(item)), GET_VEH_NAME(veh));
       return;
     }
     for (item2 = veh->mount; item2; item2 = item2->next_content)
@@ -2466,12 +2469,20 @@ ACMD(do_remember)
   argument = any_one_arg(argument, buf1);
   argument = one_argument(argument, buf2);
 
-  if (!*buf1 || !*buf2)
+  if (!*buf1 || !*buf2) {
     send_to_char(ch, "Remember Who as What?\r\n");
-  else if (!(vict = get_char_room_vis(ch, buf1)) || (ch->in_veh && !(vict = get_char_veh(ch, buf1, ch->in_veh))))
-    send_to_char(NOPERSON, ch);
+    return;
+  }
+  
+  if (ch->in_veh)
+    vict = get_char_veh(ch, buf1, ch->in_veh);
+  else
+    vict = get_char_room_vis(ch, buf1);
+  
+  if (!vict)
+    send_to_char(ch, "You don't see anyone named '%s' here.\r\n", buf1);
   else if (IS_NPC(vict))
-    send_to_char(ch, "You cannot remember mobs.\r\n");
+    send_to_char(ch, "You cannot remember NPCs.\r\n");
   else if (ch == vict)
     send_to_char(ch, "You should have no problem remembering who you are.\r\n");
   else if (IS_SENATOR(vict))
@@ -2661,7 +2672,7 @@ ACMD(do_photo)
       }
     }
     if (!found) {
-      send_to_char(NOOBJECT, ch);
+      send_to_char(ch, "You don't see anything named '%s' here.\r\n", argument);
       return;
     }
   } else {
@@ -2700,7 +2711,8 @@ ACMD(do_photo)
           strcat(buf, ".\r\n");
         }
       }
-    for (struct obj_data *obj = ch->in_room->contents; obj; obj = obj->next_content) {
+    struct obj_data *obj;
+    FOR_ITEMS_AROUND_CH(ch, obj) {
       int num = 0;
       while (obj->next_content) {
         if (obj->item_number != obj->next_content->item_number || obj->restring)
@@ -2755,7 +2767,7 @@ ACMD(do_photo)
   }
   photo = read_object(OBJ_BLANK_PHOTO, VIRTUAL);
   if (!mem)
-    act("$n takes a photo with $p.", FALSE, ch, camera, NULL, TO_ROOM);
+    act("$n takes a photo with $p.", TRUE, ch, camera, NULL, TO_ROOM);
   send_to_char(ch, "You take a photo.\r\n");
   photo->photo = str_dup(buf);
   if (strlen(buf2) >= LINE_LENGTH)
@@ -2770,9 +2782,9 @@ ACMD(do_photo)
 ACMD(do_boost)
 {
   int suc;
-  extern void nonsensical_reply(struct char_data *ch);
+  extern void nonsensical_reply(struct char_data *ch, const char *arg);
   if (GET_TRADITION(ch) != TRAD_ADEPT || GET_TRADITION(ch) != TRAD_MYSTIC) {
-    nonsensical_reply(ch);
+    nonsensical_reply(ch, NULL);
     return;
   }
   skip_spaces(&argument);
@@ -2990,8 +3002,12 @@ ACMD(do_assense)
         mag -= GET_GRADE(vict) * 100;
       strcpy(buf, make_desc(ch, vict, buf2, 2, FALSE));
       if (success < 3) {
-        if (vict->cyberware)
-          strcat(buf, " has cyberware present and");
+        if (vict->cyberware) {
+          if (GET_SEX(vict) != SEX_NEUTRAL || (IS_NPC(vict) && MOB_FLAGGED(vict, MOB_INANIMATE)))
+            strcat(buf, " has cyberware present and");
+          else
+            strcat(buf, " have cyberware present and");
+        }
         if (IS_NPC(vict)) {
           if (IS_SPIRIT(vict))
             snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), " is a %s spirit", spirit_name[GET_SPARE1(vict)]);
@@ -3324,7 +3340,7 @@ ACMD(do_unpack)
       send_to_char("You can't set up a vehicle in the front seat.\r\n", ch);
     }
   }
-  for (shop = ch->in_veh ? ch->in_veh->contents : ch->in_room->contents; shop; shop = shop->next_content)
+  FOR_ITEMS_AROUND_CH(ch, shop) {
     if (GET_OBJ_TYPE(shop) == ITEM_WORKSHOP && GET_WORKSHOP_GRADE(shop) == TYPE_WORKSHOP) {
       if (GET_WORKSHOP_IS_SETUP(shop) || GET_WORKSHOP_UNPACK_TICKS(shop)) {
         send_to_char("There is already a workshop set up here.\r\n", ch);
@@ -3332,6 +3348,7 @@ ACMD(do_unpack)
       } else
         break;
     }
+  }
   if (!shop)
     send_to_char(ch, "There is no workshop here to set up.\r\n");
   else {
@@ -3353,7 +3370,7 @@ ACMD(do_unpack)
 ACMD(do_packup)
 {
   struct obj_data *shop = NULL;
-  for (shop = ch->in_veh ? ch->in_veh->contents : ch->in_room->contents; shop; shop = shop->next_content)
+  FOR_ITEMS_AROUND_CH(ch, shop) {
     if (GET_OBJ_TYPE(shop) == ITEM_WORKSHOP && GET_OBJ_VAL(shop, 1) > 1) {
       if (GET_OBJ_VAL(shop, 3)) {
         send_to_char(ch, "Someone is already working on the workshop.\r\n");
@@ -3361,6 +3378,7 @@ ACMD(do_packup)
       } else if (GET_OBJ_VAL(shop, 2))
         break;
     }
+  }
   if (!shop)
     send_to_char(ch, "There is no workshop here to pack up.\r\n");
   else {
@@ -3402,7 +3420,7 @@ ACMD(do_jack)
       obj_to_char(chip, ch);
       send_to_char(ch, "You remove %s from your chipjack.\r\n", GET_OBJ_NAME(chip));
       ch->char_specials.saved.skills[GET_OBJ_VAL(chip, 0)][1] = 0;
-      act("$n removes a chip from their chipjack.", FALSE, ch, 0, 0, TO_ROOM);
+      act("$n removes a chip from their chipjack.", TRUE, ch, 0, 0, TO_ROOM);
     } else
       send_to_char(ch, "But you don't have anything installed in it.\r\n");
     return;
@@ -3437,7 +3455,7 @@ ACMD(do_jack)
     obj_from_char(chip);
     obj_to_obj(chip, jack);
     ch->char_specials.saved.skills[GET_OBJ_VAL(chip, 0)][1] = MIN(max, GET_OBJ_VAL(chip, 1));
-    act("$n puts a chip into their chipjack.", FALSE, ch, 0, 0, TO_ROOM);
+    act("$n puts a chip into their chipjack.", TRUE, ch, 0, 0, TO_ROOM);
   }
 }
 
@@ -4125,7 +4143,7 @@ ACMD(do_syspoints) {
     vict = vict->desc->original;
     
   if (IS_NPC(vict)) {
-    send_to_char("Not on NPCs.", ch);
+    send_to_char("Not on NPCs.\r\n", ch);
     return;
   }
 
@@ -4181,4 +4199,8 @@ bool is_reloadable_weapon(struct obj_data *weapon, int ammotype) {
     
   // Good to go.
   return TRUE;
+}
+
+ACMD(do_save) {
+  send_to_char("Worry not! The game auto-saves all characters frequently, and also saves on quit and copyover, so there's no need to manually save.\r\n", ch);
 }

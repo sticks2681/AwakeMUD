@@ -11,9 +11,7 @@ extern int max_filesize;
 extern int max_bad_pws;
 extern int nameserver_is_slow;
 extern const char *OK;
-extern const char *NOPERSON;
 extern const char *TOOBUSY;
-extern const char *NOOBJECT;
 extern const char *MENU;
 extern const char *QMENU;
 extern const char *GREETINGS;
@@ -25,8 +23,9 @@ extern const char *DEFAULT_POOFOUT_STRING;
 extern const char *CANNOT_GO_THAT_WAY;
 extern const char *CHARACTER_DELETED_NAME_FOR_SQL;
 
-// What karma multiplier do you want your game to have? This effects grind length, higher is faster.
-#define KARMA_GAIN_MULTIPLIER 2.5
+// What karma / nuyen multipliers do you want your game to have? This effects grind length, higher is faster.
+#define KARMA_GAIN_MULTIPLIER 2.0
+#define NUYEN_GAIN_MULTIPLIER 2.0
 
 // What maximum amount of karma per action do you want PCs < 100 TKE to have?
 #define MAX_NEWCHAR_GAIN 50
@@ -51,5 +50,8 @@ extern const char *CHARACTER_DELETED_NAME_FOR_SQL;
 // considers itself to be stuck during copyover too, so if you have a large world,
 // you should increase this value.
 #define SECONDS_TO_WAIT_FOR_HUNG_MUD_TO_RECOVER_BEFORE_KILLING_IT 30
+
+// What is the maximum cab fare in nuyen?
+#define MAX_CAB_FARE  250
 
 #endif

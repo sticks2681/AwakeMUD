@@ -54,6 +54,7 @@ extern void check_quest_kill(struct char_data *ch, struct char_data *victim);
 extern void wire_nuyen(struct char_data *ch, struct char_data *target, int amount, bool isfile);
 extern void restore_character(struct char_data *vict, bool reset_staff_stats);
 bool memory(struct char_data *ch, struct char_data *vict);
+extern void do_probe_veh(struct char_data *ch, struct veh_data * k);
 
 extern struct command_info cmd_info[];
 
@@ -1376,7 +1377,7 @@ SPECIAL(janitor)
   if (cmd || FIGHTING(ch) || !AWAKE(ch))
     return 0;
 
-  for (i = jan->in_room->contents; i; i = i->next_content) {
+  FOR_ITEMS_AROUND_CH(jan, i) {
     if (!CAN_WEAR(i, ITEM_WEAR_TAKE) || IS_OBJ_STAT(i, ITEM_CORPSE) || i->obj_flags.quest_id)
       continue;
     switch (GET_MOB_VNUM(jan)) {
@@ -1503,6 +1504,15 @@ SPECIAL(car_dealer)
     else
       send_to_char(ch, "You buy %s. It is wheeled out into the yard.\r\n", GET_VEH_NAME(newveh));
     save_vehicles();
+    return TRUE;
+  } else if (CMD_IS("probe") || CMD_IS("info")) {
+    argument = one_argument(argument, buf);
+    if (!(veh = get_veh_list(buf, world[car_room].vehicles, ch))) {
+      send_to_char("There is no such vehicle for sale.\r\n", ch);
+      return TRUE;
+    }
+    send_to_char(ch, "^yProbing shopkeeper's ^n%s^y...^n\r\n", GET_VEH_NAME(veh));
+    do_probe_veh(ch, veh);
     return TRUE;
   }
   return FALSE;
@@ -1798,7 +1808,7 @@ SPECIAL(mugger_park)
   }
 
   if (!FIGHTING(ch)) {
-    for (obj = ch->in_room->contents; obj; obj = obj->next_content)
+    FOR_ITEMS_AROUND_CH(ch, obj)
       if (GET_OBJ_TYPE(obj) == ITEM_MONEY) {
         act("$n grins as he picks up $p from the ground.", FALSE, ch, obj, 0, TO_ROOM);
         act("You grin slightly as you pick up $p.", FALSE, ch, obj, 0, TO_CHAR);
@@ -3000,9 +3010,16 @@ const char *traffic_messages[] = {
   "A few sporadic pops of gunfire sound from somewhere in the distance.\r\n",
   "The stench of garbage wafts from somewhere nearby.\r\n",
   "A harried-looking salaryman hurries by.\r\n",
-  "A backfiring Ford-Canada Bison splutters past.\r\n" // 35
+  "A backfiring Ford-Canada Bison splutters past.\r\n", // 35
+  "A sleek ^rred^n roto-drone zips past.\r\n",
+  "A crumpled-up plastic bag skitters past, carried by the wind.\r\n",
+  "A poised and confident executive strides past, talking on her phone.\r\n",
+  "An annoying-ass teen on a scooter does a drive-by on you with a squirt gun.\r\n",
+  "A billboard nearby flickers with an ad for ^RChernobyl Vodka^n.\r\n", // 40
+  "A billboard nearby displays an ad for ^rBrimstone ^RRed^n Ale^n.\r\n",
+  "The greasy scent of fast food is carried to you on the breeze.\r\n"
 };
-#define NUM_TRAFFIC_MESSAGES 36
+#define NUM_TRAFFIC_MESSAGES 43
 
 SPECIAL(traffic)
 {
@@ -3484,6 +3501,9 @@ SPECIAL(auth_room)
         obj_to_char(radio, ch);
         send_to_char(ch, "You have been given a radio.^n\r\n");
       }
+      // Heal them.
+      GET_PHYSICAL(ch) = 1000;
+      GET_MENTAL(ch) = 1000;
       snprintf(buf, sizeof(buf), "DELETE FROM pfiles_chargendata WHERE idnum=%ld;", GET_IDNUM(ch));
       mysql_wrapper(mysql, buf);
       
@@ -4077,7 +4097,7 @@ SPECIAL(locker)
       send_to_char("No lockers are currently free. Please try again later.\r\n", ch);
     else {
       num = 0;
-      for (locker = ch->in_room->contents; locker; locker = locker->next_content)
+      FOR_ITEMS_AROUND_CH(ch, locker)
         if (GET_OBJ_VNUM(locker) == 9826) {
           num++;
           if (!GET_OBJ_VAL(locker, 9))
@@ -4093,7 +4113,7 @@ SPECIAL(locker)
       send_to_char("The system beeps loudly.\r\n", ch);
     else {
       num = 0;
-      for (locker = ch->in_room->contents; locker; locker = locker->next_content)
+      FOR_ITEMS_AROUND_CH(ch, locker)
         if (GET_OBJ_VNUM(locker) == 9826 && ++num && GET_OBJ_VAL(locker, 9) == free) {
           int cost = (int)((((time(0) - GET_OBJ_VAL(locker, 8)) / SECS_PER_REAL_DAY) + 1) * 50);
           if (GET_NUYEN(ch) < cost)
@@ -4111,7 +4131,7 @@ SPECIAL(locker)
     }
   } else if (CMD_IS("lock")) {
     num = atoi(argument);
-    for (locker = ch->in_room->contents; locker; locker = locker->next_content)
+    FOR_ITEMS_AROUND_CH(ch, locker)
       if (GET_OBJ_VNUM(locker) == 9826 && !--num && !IS_SET(GET_OBJ_VAL(locker, 1), CONT_CLOSED)) {
         snprintf(buf, sizeof(buf), "%d%d%d%d%d%d%d", number(1, 9), number(1, 9), number(1, 9), number(1, 9), number(1, 9), number(1, 9), number(1, 9));
         GET_OBJ_VAL(locker, 8) = time(0);
@@ -5292,7 +5312,7 @@ SPECIAL(sombrero_bridge)
     if (!*argument)
       send_to_char("Who do you want to beam?\r\n", ch);
     else if (!(victim = get_char_vis(ch, argument)))
-      send_to_char("You can't see that person.\r\n", ch);
+      send_to_char(ch, "You can't see anyone named '%s'.\r\n", argument);
     else if (GET_ROOM_VNUM(victim->in_room) >= 1000 && GET_ROOM_VNUM(victim->in_room) <= 1099) {
       send_to_char("PZZZAAAAAAATTTT!!!!\r\n", victim);
       act("$n sparkles momentarily then fades from view.", FALSE, victim, 0, 0, TO_ROOM);
