@@ -24,17 +24,17 @@ extern const char *CANNOT_GO_THAT_WAY;
 extern const char *CHARACTER_DELETED_NAME_FOR_SQL;
 
 // What karma / nuyen multipliers do you want your game to have? This effects grind length, higher is faster.
-#define KARMA_GAIN_MULTIPLIER 100.0
+#define KARMA_GAIN_MULTIPLIER 6.0
 #define NUYEN_GAIN_MULTIPLIER 6.0
 
 // What maximum amount of karma per action do you want PCs < 100 TKE to have?
-#define MAX_NEWCHAR_GAIN 500
+#define MAX_NEWCHAR_GAIN 50
 
 // What maximum amount of karma per action do you want PCs < 500 TKE to have?
-#define MAX_MIDCHAR_GAIN 1000
+#define MAX_MIDCHAR_GAIN 100
 
 // What maximum amount of karma per action do you want PCs >= 500 TKE to have?
-#define MAX_OLDCHAR_GAIN MAX(1000, GET_TKE(ch) / 4)
+#define MAX_OLDCHAR_GAIN MAX(100, GET_TKE(ch) / 4)
 
 // What do you want the maximum skill levels to be? Reference values in awake.h.
 #define MAX_SKILL_LEVEL_FOR_MORTS  LEARNED_LEVEL
