@@ -1113,7 +1113,7 @@ void parse_room(File &fl, long nr)
   room->room_flags.FromString(data.GetString("Flags", "0"));
   if (room->room_flags.IsSet(ROOM_PEACEFUL))
     room->peaceful = 1;
-  room->sector_type = data.LookupInt("SecType", spirit_name, SPIRIT_CITY);
+  room->sector_type = data.LookupInt("SecType", spirit_name, DEFAULT_SECTOR_TYPE);
   room->matrix = data.GetLong("MatrixExit", 0);
   room->io = data.GetInt("IO", 0);
   room->bandwidth = data.GetInt("Bandwidth", 0);
@@ -1139,9 +1139,9 @@ void parse_room(File &fl, long nr)
   }
   room->crowd = data.GetInt("Crowd", 0);
   room->cover = data.GetInt("Cover", 0);
-  room->x = data.GetInt("X", 20);
-  room->y = data.GetInt("Y", 20);
-  room->z = data.GetFloat("Z", 2.5);
+  room->x = data.GetInt("X", DEFAULT_DIMENSIONS_X);
+  room->y = data.GetInt("Y", DEFAULT_DIMENSIONS_Y);
+  room->z = data.GetFloat("Z", DEFAULT_DIMENSIONS_Z);
   room->type = data.GetInt("RoomType", 0);
   // read in directions
   int i;
@@ -1191,10 +1191,10 @@ void parse_room(File &fl, long nr)
         dir->exit_info = 0;
 
       snprintf(field, sizeof(field), "%s/Material", sect);
-      dir->material = data.LookupInt(field, material_names, 5);
+      dir->material = data.LookupInt(field, material_names, DEFAULT_EXIT_MATERIAL);
 
       snprintf(field, sizeof(field), "%s/Barrier", sect);
-      dir->barrier = data.GetInt(field, 4);
+      dir->barrier = data.GetInt(field, DEFAULT_EXIT_BARRIER_RATING);
       dir->condition = dir->barrier;
 
       snprintf(field, sizeof(field), "%s/KeyVnum", sect);
@@ -1205,6 +1205,9 @@ void parse_room(File &fl, long nr)
 
       snprintf(field, sizeof(field), "%s/HiddenRating", sect);
       dir->hidden = data.GetInt(field, 0);
+      if (dir->hidden > MAX_EXIT_HIDDEN_RATING) {
+        dir->hidden = MAX_EXIT_HIDDEN_RATING;
+      }
       
       snprintf(field, sizeof(field), "%s/GoIntoSecondPerson", sect);
       dir->go_into_secondperson = str_dup(data.GetString(field, NULL));
@@ -3201,7 +3204,7 @@ void reset_zone(int zone, int reboot)
         }
         
         // Special case: Weapons for mounts. Note that this ignores current vehicle load, mount size, etc.
-        else if (IS_GUN(GET_OBJ_VAL(obj, 3))) {
+        else if (GET_OBJ_TYPE(obj) == ITEM_WEAPON && IS_GUN(GET_WEAPON_ATTACK_TYPE(obj))) {
           struct obj_data *mount = NULL;
           
           // Iterate through every mount on the vehicle.
@@ -3233,6 +3236,18 @@ void reset_zone(int zone, int reboot)
           }
         }
         else {
+          if (GET_MOD(veh, GET_OBJ_VAL(obj, 0))) {
+            snprintf(buf, sizeof(buf), "Warning: Double-upgrading vehicle %s with object %s (was %s). Extracting old mod.",
+                     GET_VEH_NAME(veh),
+                     GET_OBJ_NAME(obj),
+                     GET_OBJ_NAME(GET_MOD(veh, GET_OBJ_VAL(obj, 0))));
+            mudlog(buf, NULL, LOG_SYSLOG, TRUE);
+            veh->usedload -= GET_OBJ_VAL(GET_MOD(veh, GET_OBJ_VAL(obj, 0)), 1);
+            for (int j = 0; j < MAX_OBJ_AFFECT; j++)
+              affect_veh(veh, GET_MOD(veh, GET_OBJ_VAL(obj, 0))->affected[j].location, -GET_MOD(veh, GET_OBJ_VAL(obj, 0))->affected[j].modifier);
+            extract_obj(GET_MOD(veh, GET_OBJ_VAL(obj, 0)));
+          }
+          
           GET_MOD(veh, GET_OBJ_VAL(obj, 0)) = obj;
           veh->usedload += GET_OBJ_VAL(obj, 1);
           for (int j = 0; j < MAX_OBJ_AFFECT; j++)
