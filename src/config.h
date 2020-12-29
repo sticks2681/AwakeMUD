@@ -25,7 +25,7 @@ extern const char *CHARACTER_DELETED_NAME_FOR_SQL;
 
 // What karma / nuyen multipliers do you want your game to have? This effects grind length, higher is faster.
 #define KARMA_GAIN_MULTIPLIER 10.0
-#define NUYEN_GAIN_MULTIPLIER 5.0
+#define NUYEN_GAIN_MULTIPLIER 10.0
 
 // What maximum amount of karma per action do you want PCs < 100 TKE to have?
 #define MAX_NEWCHAR_GAIN 50
