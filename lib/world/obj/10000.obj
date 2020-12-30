@@ -680,4 +680,58 @@ Material:	metal
 	Val0:	500
 	Val2:	-1
 BREAK
+#1000150
+Keywords:	hermetic sorcery library rating 12
+Name:	a laptop containing a dedicated sorcery library
+RoomDesc:$
+A rugged laptop labeled "SORCERY" is sitting here.~
+LookDesc:$
+This black, ruggedized, laptop has a label with the word "SORCERY" on it. 
+~
+Type:	Magic Tool
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	computers
+[POINTS]
+	Weight:	3.00
+	Barrier:	8
+	Cost:	145000
+	AvailTN:	12
+	AvailDay:	7.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val0:	1
+	Val1:	12
+BREAK
+#1000151
+Keywords:	hermetic conjuring library rating 12
+Name:	a laptop containing a dedicated conjuring library
+RoomDesc:$
+A rugged laptop labeled "CONJURING" is sitting here.~
+LookDesc:$
+This black, ruggedized, laptop has a label with the word "CONJURING" on it. 
+~
+Type:	Magic Tool
+WearFlags:	1
+ExtraFlags:	0
+AffFlags:	0
+Material:	computers
+[POINTS]
+	Weight:	3.00
+	Barrier:	8
+	Cost:	145000
+	AvailTN:	12
+	AvailDay:	7.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	0.00
+[VALUES]
+	Val0:	0
+	Val1:	12
+BREAK
 END
