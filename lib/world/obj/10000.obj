@@ -107,12 +107,12 @@ Material:	metal
 	Val9:	-2
 BREAK
 #1000003
-Keywords:	custom hk 416 a7 assault rifle
-Name:	a custom-modified HK416-A7 assault rifle
+Keywords:	custom hk 417 assault rifle
+Name:	a custom-modified HK417 assault rifle
 RoomDesc:$
 A tricked-out assault rifle is lying here.~
 LookDesc:$
-This is an HK416-A7 that has been custom modified by Adura Arms. The weapon
+This is an HK417 that has been custom modified by Adura Arms. The weapon
 has been refit from the ground up with stability and accuracy in mind.
 ~
 Type:	Weapon
@@ -132,8 +132,8 @@ Material:	adv. plastics
 	StreetIndex:	3.00
 	InnateRecoilComp:	4
 [VALUES]
-	Val0:	12
-	Val1:	3
+	Val0:	15
+	Val1:	4
 	Val3:	13
 	Val4:	14
 	Val5:	30
