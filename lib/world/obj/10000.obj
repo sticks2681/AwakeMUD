@@ -109,7 +109,7 @@ Name:	a custom-modified HK416-A7 assault rifle
 RoomDesc:$
 A tricked-out assault rifle is lying here.~
 LookDesc:$
-This is an HK417-A7 that has been custom modified by Adura Arms. The weapon
+This is an HK416-A7 that has been custom modified by Adura Arms. The weapon
 has been refit from the ground up with stability and accuracy in mind.
 ~
 Type:	Weapon
@@ -120,7 +120,7 @@ Material:	adv. plastics
 [POINTS]
 	Weight:	3.00
 	Barrier:	24
-	Cost:	7500
+	Cost:	10000
 	AvailTN:	15
 	AvailDay:	7.00
 	LegalNum:	2
@@ -129,7 +129,7 @@ Material:	adv. plastics
 	StreetIndex:	3.00
 	InnateRecoilComp:	4
 [VALUES]
-	Val0:	9
+	Val0:	12
 	Val1:	2
 	Val3:	13
 	Val4:	14
