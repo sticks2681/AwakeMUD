@@ -118,14 +118,6 @@ Etiquette:	46
 		Vnum:	1000100
 		Type:	Avail
 		Stock:	0
-	[SELL 25]
-		Vnum:	1000150
-		Type:	Avail
-		Stock:	0
-	[SELL 26]
-		Vnum:	1000151
-		Type:	Avail
-		Stock:	0
 BREAK
 #1000001
 Keeper:	1000001
@@ -152,6 +144,14 @@ Etiquette:	46
 		Type:	Avail
 		Stock:	0
 	[SELL 1]
+		Vnum:	1000150
+		Type:	Avail
+		Stock:	0
+	[SELL 2]
+		Vnum:	1000151
+		Type:	Avail
+		Stock:	0
+	[SELL 3]
 		Vnum:	1000153
 		Type:	Avail
 		Stock:	0

@@ -14,15 +14,15 @@ Material:	orichalcum
 [POINTS]
 	Weight:	1.00
 	Barrier:	32
-	Cost:	50000
+	Cost:	840000
 	AvailTN:	8
-	AvailDay:	3.00
+	AvailDay:	14.00
 	LegalNum:	5
 	LegalCode:	2
 	LegalPermit:	0
-	StreetIndex:	2.00
+	StreetIndex:	1.00
 [VALUES]
-	Val1:	4
+	Val1:	10
 	Val2:	4
 	Val4:	3
 	Val5:	-1
@@ -94,7 +94,7 @@ Material:	metal
 	LegalNum:	3
 	LegalCode:	2
 	LegalPermit:	0
-	StreetIndex:	2.00
+	StreetIndex:	1.00
 [VALUES]
 	Val1:	4
 	Val2:	4
@@ -129,7 +129,7 @@ Material:	adv. plastics
 	LegalNum:	2
 	LegalCode:	7
 	LegalPermit:	0
-	StreetIndex:	3.00
+	StreetIndex:	1.00
 	InnateRecoilComp:	4
 [VALUES]
 	Val0:	15
@@ -705,7 +705,7 @@ Material:	computers
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	2.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	1
 	Val1:	12
@@ -732,7 +732,7 @@ Material:	computers
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	2.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	0
 	Val1:	12
@@ -760,7 +760,7 @@ Material:	metal
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	2.00
+	StreetIndex:	1.00
 [VALUES]
 	Val0:	5
 	Val1:	1
