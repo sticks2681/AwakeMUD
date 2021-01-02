@@ -531,7 +531,7 @@ Material:	fabric
 BREAK
 #1000077
 Keywords:	sheath
-Name:	a sword sheath
+Name:	a sheath
 RoomDesc:$
 A sheath is here.~
 LookDesc:$
