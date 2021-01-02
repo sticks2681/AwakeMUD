@@ -210,7 +210,7 @@ gear or ammunition.
 ~
 Type:	Worn
 WearFlags:	100000000000000001
-ExtraFlags:	10000000000000000000000000
+ExtraFlags:	0
 AffFlags:	0
 Material:	adv. plastics
 [POINTS]
