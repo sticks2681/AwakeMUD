@@ -28,7 +28,7 @@ Desc:$
 plain-looking building that has little to hint at its contents. 
 ~
 Flags:	1000000010000000000000000000100
-SecType:	City
+SecType:	Inside
 MatrixExit:	0
 Crowd:	0
 Cover:	0
@@ -69,7 +69,7 @@ Desc:$
 well as ample storage room. 
 ~
 Flags:	1100000100000000000000000001000
-SecType:	City
+SecType:	Inside
 MatrixExit:	0
 Crowd:	0
 Cover:	0
@@ -96,5 +96,24 @@ a reinforced roll-up door
 	Barrier:	8
 	KeyVnum:	1000100
 	LockRating:	50
+[EXIT up]
+	ToVnum:	1000003
+	KeyVnum:	0
+BREAK
+#1000003
+Name:	A Library
+Desc:$
+Much of this floor has been set aside for the study and practice of the magical arts.
+~
+Flags:	100000000000000000000000001000
+SecType:	Inside
+X:	50
+Y:	50
+Z:	4.00
+RoomType:	10
+[POINTS]
+[EXIT down]
+	ToVnum:	1000002
+	KeyVnum:	0
 BREAK
 END

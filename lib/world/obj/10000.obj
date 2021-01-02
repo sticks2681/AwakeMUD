@@ -737,4 +737,32 @@ Material:	computers
 	Val0:	0
 	Val1:	12
 BREAK
+#1000153
+Keywords:	sustaining focus tungsten ring
+Name:	a simple black tungsten band
+RoomDesc:$
+A simple black tungsten ring is lying here.~
+LookDesc:$
+This looks like a simple, though well-crafted, tungsten ring at first glance.
+On closer examination, tiny runes are visible etched on the inside edge. 
+~
+Type:	Focus
+WearFlags:	11
+ExtraFlags:	0
+AffFlags:	0
+Material:	metal
+[POINTS]
+	Weight:	0.10
+	Barrier:	32
+	Cost:	15000
+	AvailTN:	2
+	AvailDay:	2.00
+	LegalNum:	0
+	LegalCode:	0
+	LegalPermit:	0
+	StreetIndex:	2.00
+[VALUES]
+	Val0:	5
+	Val1:	1
+BREAK
 END
