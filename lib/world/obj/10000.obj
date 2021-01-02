@@ -739,7 +739,7 @@ Material:	computers
 BREAK
 #1000153
 Keywords:	sustaining focus tungsten ring
-Name:	a simple black tungsten band
+Name:	a simple ^Lblack ^ntungsten band
 RoomDesc:$
 A simple black tungsten ring is lying here.~
 LookDesc:$
