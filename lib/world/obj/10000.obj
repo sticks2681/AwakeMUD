@@ -15,12 +15,12 @@ Material:	orichalcum
 	Weight:	1.00
 	Barrier:	32
 	Cost:	50000
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	8
+	AvailDay:	3.00
 	LegalNum:	5
 	LegalCode:	2
 	LegalPermit:	0
-	StreetIndex:	1.00
+	StreetIndex:	2.00
 [VALUES]
 	Val1:	4
 	Val2:	4
@@ -59,7 +59,7 @@ Material:	metal
 	LegalNum:	8
 	LegalCode:	3
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	1.00
 [VALUES]
 	Val1:	2
 	Val2:	3
@@ -94,7 +94,7 @@ Material:	metal
 	LegalNum:	3
 	LegalCode:	2
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	2.00
 [VALUES]
 	Val1:	4
 	Val2:	4
@@ -125,7 +125,7 @@ Material:	adv. plastics
 	Barrier:	24
 	Cost:	10000
 	AvailTN:	15
-	AvailDay:	7.00
+	AvailDay:	4.00
 	LegalNum:	2
 	LegalCode:	7
 	LegalPermit:	0
@@ -160,7 +160,7 @@ Material:	metal
 	Barrier:	24
 	Cost:	200
 	AvailTN:	2
-	AvailDay:	24.00
+	AvailDay:	2.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -217,8 +217,8 @@ Material:	adv. plastics
 	Weight:	5.00
 	Barrier:	32
 	Cost:	75000
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	4
+	AvailDay:	3.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -249,8 +249,8 @@ Material:	leather
 	Weight:	2.00
 	Barrier:	32
 	Cost:	2500
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	4
+	AvailDay:	3.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -286,8 +286,8 @@ Material:	leather
 	Weight:	2.00
 	Barrier:	32
 	Cost:	1000
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	4
+	AvailDay:	3.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -319,8 +319,8 @@ Material:	adv. plastics
 	Weight:	3.00
 	Barrier:	32
 	Cost:	5000
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	4
+	AvailDay:	3.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -356,8 +356,8 @@ Material:	leather
 	Weight:	0.50
 	Barrier:	32
 	Cost:	1000
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	4
+	AvailDay:	3.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -392,8 +392,8 @@ Material:	adv. plastics
 	Weight:	2.00
 	Barrier:	32
 	Cost:	2500
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	4
+	AvailDay:	3.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -426,8 +426,8 @@ Material:	fabric
 	Weight:	0.00
 	Barrier:	12
 	Cost:	100
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	3
+	AvailDay:	1.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -490,8 +490,8 @@ Material:	fabric
 	Weight:	5.00
 	Barrier:	16
 	Cost:	850
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	3
+	AvailDay:	1.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -518,10 +518,10 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	1.00
-	Barrier:	16
+	Barrier:	24
 	Cost:	50
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	3
+	AvailDay:	1.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -533,9 +533,9 @@ BREAK
 Keywords:	sheath
 Name:	a sword sheath
 RoomDesc:$
-A sword sheath is here.~
+A sheath is here.~
 LookDesc:$
-A black leather sword sheath. 
+A black leather sheath. 
 ~
 Type:	Holster
 WearFlags:	100000000001
@@ -544,10 +544,10 @@ AffFlags:	0
 Material:	leather
 [POINTS]
 	Weight:	1.00
-	Barrier:	16
+	Barrier:	24
 	Cost:	50
-	AvailTN:	0
-	AvailDay:	0.00
+	AvailTN:	3
+	AvailDay:	1.00
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
@@ -705,7 +705,7 @@ Material:	computers
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	2.00
 [VALUES]
 	Val0:	1
 	Val1:	12
@@ -732,7 +732,7 @@ Material:	computers
 	LegalNum:	0
 	LegalCode:	0
 	LegalPermit:	0
-	StreetIndex:	0.00
+	StreetIndex:	2.00
 [VALUES]
 	Val0:	0
 	Val1:	12

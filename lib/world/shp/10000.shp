@@ -20,115 +20,111 @@ Etiquette:	46
 [SELLING]
 	[SELL 0]
 		Vnum:	1000050
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 1]
 		Vnum:	1000051
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 2]
 		Vnum:	1000052
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 3]
 		Vnum:	1000053
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 4]
 		Vnum:	1000054
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 5]
 		Vnum:	1000055
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 6]
 		Vnum:	1000056
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 7]
 		Vnum:	1000057
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 8]
 		Vnum:	1000075
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 9]
 		Vnum:	1000076
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 10]
 		Vnum:	1000077
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 	[SELL 11]
-		Vnum:	1000000
-		Type:	Always
+		Vnum:	1000001
+		Type:	Avail
 		Stock:	0
 	[SELL 12]
-		Vnum:	1000001
-		Type:	Always
+		Vnum:	1000002
+		Type:	Avail
 		Stock:	0
 	[SELL 13]
-		Vnum:	1000002
-		Type:	Always
+		Vnum:	1000003
+		Type:	Avail
 		Stock:	0
 	[SELL 14]
-		Vnum:	1000003
-		Type:	Always
+		Vnum:	127
+		Type:	Avail
 		Stock:	0
 	[SELL 15]
-		Vnum:	127
-		Type:	Always
+		Vnum:	70148
+		Type:	Avail
 		Stock:	0
 	[SELL 16]
-		Vnum:	70148
-		Type:	Always
+		Vnum:	70149
+		Type:	Avail
 		Stock:	0
 	[SELL 17]
-		Vnum:	70149
-		Type:	Always
+		Vnum:	31542
+		Type:	Avail
 		Stock:	0
 	[SELL 18]
-		Vnum:	31542
-		Type:	Always
+		Vnum:	18825
+		Type:	Avail
 		Stock:	0
 	[SELL 19]
-		Vnum:	18825
-		Type:	Always
+		Vnum:	1302
+		Type:	Avail
 		Stock:	0
 	[SELL 20]
-		Vnum:	1302
-		Type:	Always
+		Vnum:	37597
+		Type:	Avail
 		Stock:	0
 	[SELL 21]
-		Vnum:	37597
-		Type:	Always
+		Vnum:	28422
+		Type:	Avail
 		Stock:	0
 	[SELL 22]
-		Vnum:	28422
-		Type:	Always
+		Vnum:	1000123
+		Type:	Avail
 		Stock:	0
 	[SELL 23]
-		Vnum:	1000123
-		Type:	Always
+		Vnum:	1000124
+		Type:	Avail
 		Stock:	0
 	[SELL 24]
-		Vnum:	1000124
-		Type:	Always
+		Vnum:	1000100
+		Type:	Avail
 		Stock:	0
 	[SELL 25]
-		Vnum:	1000100
-		Type:	Always
+		Vnum:	1000150
+		Type:	Avail
 		Stock:	0
 	[SELL 26]
-		Vnum:	1000150
-		Type:	Always
-		Stock:	0
-	[SELL 27]
 		Vnum:	1000151
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 BREAK
 #1000001
@@ -152,12 +148,12 @@ Buytypes:	1000000000000001000000000000000000000000001
 Etiquette:	46
 [SELLING]
 	[SELL 0]
-		Vnum:	1000153
-		Type:	Always
+		Vnum:	1000000
+		Type:	Avail
 		Stock:	0
 	[SELL 1]
 		Vnum:	1000153
-		Type:	Always
+		Type:	Avail
 		Stock:	0
 BREAK
 END
