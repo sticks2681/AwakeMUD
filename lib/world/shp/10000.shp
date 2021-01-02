@@ -63,19 +63,19 @@ Etiquette:	46
 		Type:	Avail
 		Stock:	0
 	[SELL 11]
-		Vnum:	1000001
+		Vnum:	1000000
 		Type:	Avail
 		Stock:	0
 	[SELL 12]
-		Vnum:	1000002
+		Vnum:	1000001
 		Type:	Avail
 		Stock:	0
 	[SELL 13]
-		Vnum:	1000003
+		Vnum:	1000002
 		Type:	Avail
 		Stock:	0
 	[SELL 14]
-		Vnum:	127
+		Vnum:	1000003
 		Type:	Avail
 		Stock:	0
 	[SELL 15]
@@ -140,18 +140,14 @@ Buytypes:	1000000000000001000000000000000000000000001
 Etiquette:	46
 [SELLING]
 	[SELL 0]
-		Vnum:	1000000
-		Type:	Avail
-		Stock:	0
-	[SELL 1]
 		Vnum:	1000150
 		Type:	Avail
 		Stock:	0
-	[SELL 2]
+	[SELL 1]
 		Vnum:	1000151
 		Type:	Avail
 		Stock:	0
-	[SELL 3]
+	[SELL 2]
 		Vnum:	1000153
 		Type:	Avail
 		Stock:	0

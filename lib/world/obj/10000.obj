@@ -14,7 +14,7 @@ Material:	orichalcum
 [POINTS]
 	Weight:	1.00
 	Barrier:	32
-	Cost:	840000
+	Cost:	7500
 	AvailTN:	8
 	AvailDay:	14.00
 	LegalNum:	5
@@ -22,7 +22,7 @@ Material:	orichalcum
 	LegalPermit:	0
 	StreetIndex:	1.00
 [VALUES]
-	Val1:	10
+	Val1:	4
 	Val2:	4
 	Val4:	3
 	Val5:	-1
