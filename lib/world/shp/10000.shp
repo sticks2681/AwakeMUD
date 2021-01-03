@@ -20,103 +20,103 @@ Etiquette:	4
 [SELLING]
 	[SELL 0]
 		Vnum:	1000050
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 1]
 		Vnum:	1000051
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 2]
 		Vnum:	1000052
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 3]
 		Vnum:	1000053
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 4]
 		Vnum:	1000054
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 5]
 		Vnum:	1000055
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 6]
 		Vnum:	1000056
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 7]
 		Vnum:	1000057
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 8]
 		Vnum:	1000075
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 9]
 		Vnum:	1000076
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 10]
 		Vnum:	1000077
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 11]
 		Vnum:	1000000
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 12]
 		Vnum:	1000001
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 13]
 		Vnum:	1000002
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 14]
 		Vnum:	1000003
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 15]
 		Vnum:	70148
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 16]
 		Vnum:	70149
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 17]
 		Vnum:	31542
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 18]
 		Vnum:	18825
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 19]
 		Vnum:	1302
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 20]
 		Vnum:	37597
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 21]
 		Vnum:	28422
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 22]
 		Vnum:	1000123
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 23]
 		Vnum:	1000124
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 24]
 		Vnum:	1000100
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 BREAK
 #1000001
@@ -141,15 +141,15 @@ Etiquette:	4
 [SELLING]
 	[SELL 0]
 		Vnum:	1000150
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 1]
 		Vnum:	1000151
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 	[SELL 2]
 		Vnum:	1000153
-		Type:	Avail
+		Type:	Always
 		Stock:	0
 BREAK
 END
