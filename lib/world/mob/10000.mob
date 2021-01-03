@@ -17,12 +17,12 @@ Race:	Undef
 Gender:	Neutral
 DefaultPos:	Standing
 [ATTRIBUTES]
-	Bod:	50
-	Qui:	50
-	Str:	50
-	Cha:	50
-	Int:	50
-	Wil:	50
+	Bod:	10
+	Qui:	1
+	Str:	1
+	Cha:	1
+	Int:	1
+	Wil:	1
 	Mag:	0
 [POINTS]
 	Height:	0
@@ -50,12 +50,12 @@ Race:	Undef
 Gender:	Neutral
 DefaultPos:	Standing
 [ATTRIBUTES]
-	Bod:	50
-	Qui:	50
-	Str:	50
-	Cha:	50
-	Int:	50
-	Wil:	50
+	Bod:	10
+	Qui:	1
+	Str:	1
+	Cha:	1
+	Int:	1
+	Wil:	1
 	Mag:	0
 [POINTS]
 	Height:	0
