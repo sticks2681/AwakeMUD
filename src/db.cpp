@@ -69,6 +69,7 @@ extern void add_phone_to_list(struct obj_data *);
 extern void idle_delete();
 extern void clearMemory(struct char_data * ch);
 extern void weight_change_object(struct obj_data * obj, float weight);
+extern void generate_archetypes();
 extern void populate_mobact_aggression_octets();
 
 
@@ -350,6 +351,40 @@ void require_that_sql_table_exists(const char *table_name, const char *migration
   }
 }
 
+void require_that_field_exists_in_table(const char *field_name, const char *table_name, const char *migration_path_from_root_directory) {
+  bool have_column = FALSE;
+  
+  MYSQL_RES *res;
+  MYSQL_ROW row;
+  
+  char query_buf[1000];
+  snprintf(query_buf, sizeof(query_buf), "SHOW COLUMNS FROM %s LIKE '%s';", 
+           prepare_quotes(buf, table_name, sizeof(buf)),
+           prepare_quotes(buf2, field_name, sizeof(buf2)));
+  mysql_wrapper(mysql, query_buf);
+  
+  if (!(res = mysql_use_result(mysql))) {
+    log_vfprintf("ERROR: You need to run the %s migration from the SQL directory. "
+                 "Probable syntax from root directory: `mysql -u YOUR_USERNAME -p AwakeMUD < %s`.",
+                 table_name,
+                 migration_path_from_root_directory);
+    exit(ERROR_DB_COLUMN_REQUIRED);
+  }
+
+  if ((row = mysql_fetch_row(res)) && mysql_field_count(mysql))
+    have_column = TRUE;
+    
+  mysql_free_result(res);
+  
+  if (!have_column) {
+    log_vfprintf("ERROR: You need to run the %s migration from the SQL directory! "
+                 "Probable syntax from root directory: `mysql -u YOUR_USERNAME -p AwakeMUD < %s`.",
+                 table_name,
+                 migration_path_from_root_directory);
+    exit(ERROR_DB_COLUMN_REQUIRED);
+  }
+}
+
 void boot_world(void)
 {
   // Sanity check to ensure we haven't added more bits than our bitfield can hold.
@@ -389,6 +424,7 @@ void boot_world(void)
   log("Verifying that DB has expected migrations. Note that not all migrations are checked here.");
   require_that_sql_table_exists("pfiles_ammo", "SQL/bullet_pants.sql");
   require_that_sql_table_exists("command_fuckups", "SQL/fuckups.sql");
+  require_that_field_exists_in_table("socialbonus", "pfiles", "SQL/migrations/socialize.sql");
   
   log("Handling idle deletion.");
   idle_delete();
@@ -469,6 +505,9 @@ void DBInit()
 
   log("Loading player index.");
   playerDB.Load();
+  
+  log("Generating character creation archetypes.");
+  generate_archetypes();
 
   log("Assigning function pointers:");
   if (!no_specials) {
@@ -521,7 +560,7 @@ void DBInit()
   
   log("Loading shop orders.");
   boot_shop_orders();
-  
+
   log("Setting up mobact aggression octets.");
   populate_mobact_aggression_octets();
   
@@ -2021,6 +2060,18 @@ void parse_quest(File &fl, long virtual_nr)
   quest_table[quest_nr].s_string = fl.ReadString("s_string");
   quest_table[quest_nr].e_string = fl.ReadString("e_string");
   quest_table[quest_nr].done = fl.ReadString("done");
+  
+  /* Alright, here's the situation. I was going to add in a location field for 
+     the quests, which would show up in the recap and help newbies out... BUT.
+     Turns out we use a shit-tacular file format that's literally just 'crap out
+     strings into a file and require that they exist, no defaulting allowed, or
+     you can't load any quests and the game dies'. Gotta love that jank-ass code.
+     
+     This feature is disabled until someone transitions all the quests into an
+     actually sensible file format. -- LS */
+#ifdef USE_QUEST_LOCATION_CODE
+  quest_table[quest_nr].location = NULL; //fl.ReadString("location");
+#endif
 
   top_of_questt = quest_nr++;
 }
@@ -2994,9 +3045,10 @@ struct obj_data *read_object(int nr, int type)
   } else if (GET_OBJ_TYPE(obj) == ITEM_GUN_MAGAZINE)
     GET_OBJ_VAL(obj, 9) = GET_OBJ_VAL(obj, 0);
   else if (GET_OBJ_TYPE(obj) == ITEM_WEAPON) {
+    int real_obj;
     for (int i = ACCESS_LOCATION_TOP; i <= ACCESS_LOCATION_UNDER; i++)
-      if (GET_OBJ_VAL(obj, i) > 0 && real_object(GET_OBJ_VAL(obj, i)) > 0) {
-        struct obj_data *mod = &obj_proto[real_object(GET_OBJ_VAL(obj, i))];
+      if (GET_OBJ_VAL(obj, i) > 0 && (real_obj = real_object(GET_OBJ_VAL(obj, i))) > 0) {
+        struct obj_data *mod = &obj_proto[real_obj];
         // We know the attachment code will throw a fit if we attach over the top of an 'existing' object, so wipe it out without removing it.
         GET_OBJ_VAL(obj, i) = 0;
         attach_attachment_to_weapon(mod, obj, NULL, i - ACCESS_ACCESSORY_LOCATION_DELTA);
@@ -4632,15 +4684,17 @@ void load_saved_veh()
         }
         if (GET_OBJ_TYPE(obj) == ITEM_PHONE && GET_OBJ_VAL(obj, 2))
           add_phone_to_list(obj);
-        if (GET_OBJ_TYPE(obj) == ITEM_WEAPON && IS_GUN(GET_OBJ_VAL(obj, 3)))
+        if (GET_OBJ_TYPE(obj) == ITEM_WEAPON && IS_GUN(GET_OBJ_VAL(obj, 3))) {
+          int real_obj;
           for (int q = ACCESS_LOCATION_TOP; q <= ACCESS_LOCATION_UNDER; q++)
-            if (GET_OBJ_VAL(obj, q) > 0 && real_object(GET_OBJ_VAL(obj, q)) > 0 && 
-               (attach = &obj_proto[real_object(GET_OBJ_VAL(obj, q))])) {
+            if (GET_OBJ_VAL(obj, q) > 0 && (real_obj = real_object(GET_OBJ_VAL(obj, q))) > 0 && 
+               (attach = &obj_proto[real_obj])) {
               // The cost of the item was preserved, but nothing else was. Re-attach the item, then subtract its cost.
               // We know the attachment code will throw a fit if we attach over the top of an 'existing' object, so wipe it out without removing it.
               GET_OBJ_VAL(obj, i) = 0;
               attach_attachment_to_weapon(attach, obj, NULL, i - ACCESS_ACCESSORY_LOCATION_DELTA);
             }
+        }
         snprintf(buf, sizeof(buf), "%s/Condition", sect_name);
         GET_OBJ_CONDITION(obj) = data.GetInt(buf, GET_OBJ_CONDITION(obj));
         snprintf(buf, sizeof(buf), "%s/Inside", sect_name);
@@ -4821,14 +4875,16 @@ void load_consist(void)
           snprintf(buf, sizeof(buf), "%s/Inside", sect_name);
           
           // Handle weapon attachments.
-          if (GET_OBJ_TYPE(obj) == ITEM_WEAPON && IS_GUN(GET_OBJ_VAL(obj, 3)))
+          if (GET_OBJ_TYPE(obj) == ITEM_WEAPON && IS_GUN(GET_OBJ_VAL(obj, 3))) {
+            int real_obj;
             for (int q = ACCESS_LOCATION_TOP; q <= ACCESS_LOCATION_UNDER; q++)
-              if (GET_OBJ_VAL(obj, q) > 0 && real_object(GET_OBJ_VAL(obj, q)) > 0 &&
-                  (attach = &obj_proto[real_object(GET_OBJ_VAL(obj, q))])) {
+              if (GET_OBJ_VAL(obj, q) > 0 && (real_obj = real_object(GET_OBJ_VAL(obj, q))) > 0 &&
+                  (attach = &obj_proto[real_obj])) {
                 // We know the attachment code will throw a fit if we attach over the top of an 'existing' object, so wipe it out without removing it.
                 GET_OBJ_VAL(obj, i) = 0;
                 attach_attachment_to_weapon(attach, obj, NULL, i - ACCESS_ACCESSORY_LOCATION_DELTA);
               }
+          }
           
           inside = data.GetInt(buf, 0);
           if (inside > 0) {
