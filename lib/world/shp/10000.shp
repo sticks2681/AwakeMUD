@@ -16,7 +16,7 @@ Name:	(null)
 Flags:	0
 Races:	0
 Buytypes:	1000000000000001000000000000000000000000001
-Etiquette:	46
+Etiquette:	4
 [SELLING]
 	[SELL 0]
 		Vnum:	1000050
@@ -137,7 +137,7 @@ Name:	(null)
 Flags:	0
 Races:	0
 Buytypes:	1000000000000001000000000000000000000000001
-Etiquette:	46
+Etiquette:	4
 [SELLING]
 	[SELL 0]
 		Vnum:	1000150
