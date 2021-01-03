@@ -52,7 +52,7 @@ AffFlags:	0
 Material:	metal
 [POINTS]
 	Weight:	3.00
-	Barrier:	24
+	Barrier:	32
 	Cost:	6500
 	AvailTN:	6
 	AvailDay:	14.00
@@ -87,7 +87,7 @@ AffFlags:	0
 Material:	metal
 [POINTS]
 	Weight:	4.00
-	Barrier:	24
+	Barrier:	32
 	Cost:	7000
 	AvailTN:	6
 	AvailDay:	14.00
@@ -122,7 +122,7 @@ AffFlags:	0
 Material:	adv. plastics
 [POINTS]
 	Weight:	3.00
-	Barrier:	24
+	Barrier:	32
 	Cost:	10000
 	AvailTN:	15
 	AvailDay:	4.00
@@ -157,7 +157,7 @@ AffFlags:	0
 Material:	metal
 [POINTS]
 	Weight:	0.50
-	Barrier:	24
+	Barrier:	32
 	Cost:	200
 	AvailTN:	2
 	AvailDay:	2.00
@@ -424,7 +424,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	0.00
-	Barrier:	12
+	Barrier:	32
 	Cost:	100
 	AvailTN:	3
 	AvailDay:	1.00
@@ -451,7 +451,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	2.00
-	Barrier:	24
+	Barrier:	32
 	Cost:	1000
 	AvailTN:	3
 	AvailDay:	1.00
@@ -488,7 +488,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	5.00
-	Barrier:	16
+	Barrier:	32
 	Cost:	850
 	AvailTN:	3
 	AvailDay:	1.00
@@ -518,7 +518,7 @@ AffFlags:	0
 Material:	fabric
 [POINTS]
 	Weight:	1.00
-	Barrier:	24
+	Barrier:	32
 	Cost:	50
 	AvailTN:	3
 	AvailDay:	1.00
@@ -544,7 +544,7 @@ AffFlags:	0
 Material:	leather
 [POINTS]
 	Weight:	1.00
-	Barrier:	24
+	Barrier:	32
 	Cost:	50
 	AvailTN:	3
 	AvailDay:	1.00
@@ -569,7 +569,7 @@ AffFlags:	0
 Material:	plastic
 [POINTS]
 	Weight:	0.10
-	Barrier:	8
+	Barrier:	32
 	Cost:	20
 	AvailTN:	0
 	AvailDay:	0.00
@@ -618,7 +618,7 @@ AffFlags:	0
 Material:	metal
 [POINTS]
 	Weight:	0.25
-	Barrier:	6
+	Barrier:	32
 	Cost:	100000
 	AvailTN:	10
 	AvailDay:	14.00
@@ -645,7 +645,7 @@ AffFlags:	0
 Material:	metal
 [POINTS]
 	Weight:	0.10
-	Barrier:	16
+	Barrier:	32
 	Cost:	5
 	AvailTN:	0
 	AvailDay:	0.00
