@@ -107,13 +107,15 @@ Material:	metal
 	Val9:	-2
 BREAK
 #1000003
-Keywords:	custom hk 417 assault rifle
-Name:	a custom-modified HK417 assault rifle
+Keywords:	adura arms m13 assault rifle
+Name:	an Adura Arms M13 assault rifle
 RoomDesc:$
 A tricked-out assault rifle is lying here.~
 LookDesc:$
-This is an HK417 that has been custom modified by Adura Arms. The weapon
-has been refit from the ground up with stability and accuracy in mind.
+This weapon is a piston-driven assault rifle designed for the Awakened
+World. Using heavy-caliber caseless ammunition and designed with accuracy
+and recoil-management in mind, this SOTA weapon system blows away the
+competition.
 ~
 Type:	Weapon
 WearFlags:	10000000000001
