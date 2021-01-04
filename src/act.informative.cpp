@@ -70,6 +70,7 @@ extern SPECIAL(fence);
 extern SPECIAL(terell_davis);
 extern SPECIAL(hacker);
 extern SPECIAL(receptionist);
+extern SPECIAL(fixer);
 
 extern bool trainable_attribute_is_maximized(struct char_data *ch, int attribute);
 extern float get_bulletpants_weight(struct char_data *ch);
@@ -792,7 +793,7 @@ void list_one_char(struct char_data * i, struct char_data * ch)
         }
         if (mob_index[GET_MOB_RNUM(i)].func == adept_trainer || mob_index[GET_MOB_RNUM(i)].sfunc == adept_trainer) {
           // Adepts can't see adept trainers' abilities.
-          if (GET_TRADITION(ch) == TRAD_ADEPT && GET_TRADITION(ch) == TRAD_MYSTIC)
+          if (GET_TRADITION(ch) == TRAD_ADEPT && GET_TRADITION(ch) = TRAD_MYSTIC)
             snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s looks willing to help you train your powers.^n\r\n", HSSH(i), already_printed ? " also" : "");
             already_printed = TRUE;
         }
@@ -827,32 +828,9 @@ void list_one_char(struct char_data * i, struct char_data * ch)
           snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s has bunks for rent.^n\r\n", HSSH(i), already_printed ? " also" : "");
           already_printed = TRUE;
         }
-      }
-      
-      if (mob_index[GET_MOB_RNUM(i)].sfunc && mob_index[GET_MOB_RNUM(i)].sfunc != mob_index[GET_MOB_RNUM(i)].func) {
-        if (mob_index[GET_MOB_RNUM(i)].sfunc == trainer) {
-          snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s looks willing to train you.^n\r\n", HSSH(i), mob_index[GET_MOB_RNUM(i)].func ? " also" : "");
-        }
-        if (mob_index[GET_MOB_RNUM(i)].sfunc == teacher) {
-          snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s looks willing to help you practice your skills.^n\r\n", HSSH(i), mob_index[GET_MOB_RNUM(i)].func ? " also" : "");
-        }
-        if (mob_index[GET_MOB_RNUM(i)].sfunc == metamagic_teacher) {
-          // Mundanes can't see metamagic teachers' abilities.
-          if (GET_TRADITION(ch) != TRAD_MUNDANE)
-            snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s looks willing to help you train in metamagic techniques.^n\r\n", HSSH(i), mob_index[GET_MOB_RNUM(i)].func ? " also" : "");
-        }
-        if (mob_index[GET_MOB_RNUM(i)].sfunc == adept_trainer) {
-          // Adepts can't see adept trainers' abilities.
-          if (GET_TRADITION(ch) == TRAD_ADEPT || GET_TRADITION(ch) == TRAD_MYSTIC)
-            snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s looks willing to help you train your powers.^n\r\n", HSSH(i), mob_index[GET_MOB_RNUM(i)].func ? " also" : "");
-        }
-        if (mob_index[GET_MOB_RNUM(i)].sfunc == spell_trainer) {
-          // Mundanes and adepts can't see spell trainers' abilities.
-          if (GET_TRADITION(ch) != TRAD_MUNDANE && GET_TRADITION(ch) != TRAD_ADEPT)
-            snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s looks willing to help you learn new spells.^n\r\n", HSSH(i), mob_index[GET_MOB_RNUM(i)].func ? " also" : "");
-        }
-        if (mob_index[GET_MOB_RNUM(i)].sfunc == johnson) {
-          snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s might have a job for you.^n\r\n", HSSH(i), mob_index[GET_MOB_RNUM(i)].func ? " also" : "");
+        if (mob_index[GET_MOB_RNUM(i)].func == fixer || mob_index[GET_MOB_RNUM(i)].sfunc == fixer) {
+          snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s can repair objects for you.^n\r\n", HSSH(i), already_printed ? " also" : "");
+          already_printed = TRUE;
         }
 /*
 #define FUNC_TO_DEBUG_MSG(function, message) \
