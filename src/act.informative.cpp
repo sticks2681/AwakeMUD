@@ -793,7 +793,7 @@ void list_one_char(struct char_data * i, struct char_data * ch)
         }
         if (mob_index[GET_MOB_RNUM(i)].func == adept_trainer || mob_index[GET_MOB_RNUM(i)].sfunc == adept_trainer) {
           // Adepts can't see adept trainers' abilities.
-          if (GET_TRADITION(ch) == TRAD_ADEPT && GET_TRADITION(ch) = TRAD_MYSTIC)
+          if (GET_TRADITION(ch) == TRAD_ADEPT && GET_TRADITION(ch) == TRAD_MYSTIC)
             snprintf(ENDOF(buf), sizeof(buf) - strlen(buf), "^y...%s%s looks willing to help you train your powers.^n\r\n", HSSH(i), already_printed ? " also" : "");
             already_printed = TRUE;
         }
