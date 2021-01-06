@@ -373,7 +373,8 @@ enum {
 #define PRF_PURGELOG            47
 #define PRF_NOAUTOKILL          48
 #define PRF_NO_RADIO_NAMES      49
-#define PRF_MAX   		          50
+#define PRF_FUCKUPLOG           50
+#define PRF_MAX   		          51
 
 /* log watch */
 
@@ -392,6 +393,7 @@ enum {
 #define LOG_PGROUPLOG      11
 #define LOG_HELPLOG        12
 #define LOG_PURGELOG       13
+#define LOG_FUCKUPLOG      14
 
 /* player conditions */
 
@@ -2119,16 +2121,6 @@ enum {
 #define OBJ_TITLE_TO_BISON                 897
 #define OBJ_POCKET_SECRETARY               31542
 #define OBJ_NEOPHYTE_DUFFELBAG             60535
-#define OBJ_CYB_CERAMIC_BONE_LACING        85066
-#define OBJ_CYB_DATAJACK                   85012
-#define OBJ_CYB_BOOSTED_REFLEXES_III_ALPHA 85270
-#define OBJ_CYB_THERMOGRAPHIC_VISION       85053
-#define OBJ_CYB_SMARTLINK_II_ALPHA         85318
-#define OBJ_BIO_ENHANCED_ARTICULATION      85803
-#define OBJ_BIO_MUSCLE_TONER_IV            85812
-#define OBJ_BIO_TRAUMA_DAMPER              85940
-#define OBJ_BIO_SYNAPTIC_ACCELERATOR_II    85939
-#define OBJ_BIO_CEREBRAL_BOOSTER_II        85927
 #define OBJ_POLEARM_STRAP                  64989
 #define OBJ_THERMOGRAPHIC_GOGGLES          378
 #define OBJ_STEEL_COMBAT_AXE               658
@@ -2143,6 +2135,46 @@ enum {
 #define OBJ_ASH_LEAF_ANKLET                60565
 #define OBJ_ORICHALCUM_BRACELET            4906
 #define OBJ_TITLE_TO_AMERICAR              891
+#define OBJ_SCK_MODEL_100                  786
+#define OBJ_TOP_MOUNTED_SMARTGUN_LINK      80422
+#define OBJ_FOREGRIP                       28618
+#define OBJ_PAIR_OF_WHITE_TRAINERS         22691
+#define OBJ_CYBERDECK_REPAIR_KIT           38041
+#define OBJ_NOVATECH_BURNER                1172
+#define OBJ_MITSUHAMA_Z4                   1847
+#define OBJ_LONDON_FOG_PROFESSIONAL        8439
+
+#define OBJ_CMT_AVATAR                     80004
+#define OBJ_NOVATECH_SIX_SENSORS           17116
+#define OBJ_NOVATECH_SIX_MASKING           17115
+#define OBJ_NOVATECH_SIX_BOD               17113
+#define OBJ_FUCHI_LTD_EVASION              6105
+#define OBJ_CATCO_SLEAZE                   6108
+#define OBJ_TRANSYS_SCRIBE                 1141
+#define OBJ_TRANSYS_RIFFLE                 1140
+#define OBJ_RENRAKU_BYPASS                 6109
+#define OBJ_FOXFIRE_KITSUNE                1966
+#define OBJ_TRANSYS_ARMOUR                 1139
+#define OBJ_MATRIX_SWORD                   387
+
+#define OBJ_CYB_CERAMIC_BONE_LACING        85066
+#define OBJ_CYB_DATAJACK                   85012
+#define OBJ_CYB_BOOSTED_REFLEXES_III_ALPHA 85270
+#define OBJ_CYB_THERMOGRAPHIC_VISION       85053
+#define OBJ_CYB_SMARTLINK_II_ALPHA         85318
+#define OBJ_CYB_ENCEPHALON_II 85014
+#define OBJ_CYB_MATH_SPU_III 85019
+#define OBJ_CYB_SMARTLINK_II 85118
+#define OBJ_CYB_EYE_PACKAGE_LL_TH_FC_ALPHA 566
+
+#define OBJ_BIO_MUSCLE_TONER_III 85811
+#define OBJ_BIO_CEREBRAL_BOOSTER_II 85927
+#define OBJ_BIO_MUSCLE_AUGMENTATION_II 85806
+#define OBJ_BIO_ENHANCED_ARTICULATION      85803
+#define OBJ_BIO_MUSCLE_TONER_IV            85812
+#define OBJ_BIO_TRAUMA_DAMPER              85940
+#define OBJ_BIO_SYNAPTIC_ACCELERATOR_II    85939
+#define OBJ_BIO_CEREBRAL_BOOSTER_II        85927
 
 
 #define OBJ_OLD_BLANK_MAGAZINE_FROM_CLASSIC 601

@@ -485,7 +485,7 @@ ACMD(do_upgrade)
     return;
   }
   if (ch->in_veh && (ch->vfront || !ch->in_veh->flags.IsSet(VFLAG_WORKSHOP))) {
-    send_to_char("You don't have any more music to play on the radio.\r\n", ch);
+    send_to_char("You need to be in the back of the vehicle with an unpacked workshop to do that.\r\n", ch);
     return;
   }
   if (!(veh = get_veh_list(buf1, ch->in_veh ? ch->in_veh->carriedvehs : ch->in_room->vehicles, ch))) {
@@ -655,7 +655,7 @@ ACMD(do_upgrade)
       send_to_char("You can't use that part on this type of engine.\r\n", ch);
       return;
     }
-    if ((GET_OBJ_VAL(mod, 0) != TYPE_SEATS && GET_OBJ_VAL(mod, 0) == TYPE_ARMOUR && GET_OBJ_VAL(mod, 0) == TYPE_CONCEALEDARMOUR) && GET_MOD(veh, GET_OBJ_VAL(mod, 6))) {
+    if ((GET_OBJ_VAL(mod, 0) != TYPE_SEATS && GET_OBJ_VAL(mod, 0) != TYPE_ARMOUR && GET_OBJ_VAL(mod, 0) != TYPE_CONCEALEDARMOUR) && GET_MOD(veh, GET_OBJ_VAL(mod, 6))) {
       send_to_char(ch, "There is already a mod of that type installed.\r\n");
       return;
     }
@@ -693,8 +693,10 @@ ACMD(do_upgrade)
         GET_MOD(veh, GET_OBJ_VAL(mod, 6))->affected[0].modifier++;
         extract_obj(mod);
       } else {
+        if (GET_MOD(veh, GET_OBJ_VAL(mod, 6)))
+          extract_obj(GET_MOD(veh, GET_OBJ_VAL(mod, 6)));
         GET_MOD(veh, GET_OBJ_VAL(mod, 6)) = mod;
-       obj_from_char(mod);
+        obj_from_char(mod);
       } 
     }
   }

@@ -2086,12 +2086,13 @@ bool would_become_killer(struct char_data * ch, struct char_data * vict)
 bool can_hurt(struct char_data *ch, struct char_data *victim, int attacktype) {
   if (IS_NPC(victim)) {
     // Shopkeeper protection.
-    if (mob_index[GET_MOB_RNUM(victim)].func == shop_keeper 
-        || mob_index[GET_MOB_RNUM(victim)].sfunc == shop_keeper
-        || mob_index[GET_MOB_RNUM(victim)].func == johnson
-        || mob_index[GET_MOB_RNUM(victim)].sfunc == johnson
-        || mob_index[GET_MOB_RNUM(victim)].func == landlord_spec
-        || mob_index[GET_MOB_RNUM(victim)].sfunc == landlord_spec)
+    if (IS_NPC(victim) 
+        && (mob_index[GET_MOB_RNUM(victim)].func == shop_keeper 
+            || mob_index[GET_MOB_RNUM(victim)].sfunc == shop_keeper
+            || mob_index[GET_MOB_RNUM(victim)].func == johnson
+            || mob_index[GET_MOB_RNUM(victim)].sfunc == johnson
+            || mob_index[GET_MOB_RNUM(victim)].func == landlord_spec
+            || mob_index[GET_MOB_RNUM(victim)].sfunc == landlord_spec))
       return false;
     
     // Nokill protection.
@@ -2181,12 +2182,12 @@ bool damage(struct char_data *ch, struct char_data *victim, int dam, int attackt
   }
   
   /* shopkeeper protection */
-  else if (mob_index[GET_MOB_RNUM(victim)].func == shop_keeper 
-      || mob_index[GET_MOB_RNUM(victim)].sfunc == shop_keeper
-      || mob_index[GET_MOB_RNUM(victim)].func == johnson 
-      || mob_index[GET_MOB_RNUM(victim)].sfunc == johnson
-      || mob_index[GET_MOB_RNUM(victim)].func == landlord_spec
-      || mob_index[GET_MOB_RNUM(victim)].sfunc == landlord_spec)
+  else if (IS_NPC(victim) && (mob_index[GET_MOB_RNUM(victim)].func == shop_keeper 
+                              || mob_index[GET_MOB_RNUM(victim)].sfunc == shop_keeper
+                              || mob_index[GET_MOB_RNUM(victim)].func == johnson 
+                              || mob_index[GET_MOB_RNUM(victim)].sfunc == johnson
+                              || mob_index[GET_MOB_RNUM(victim)].func == landlord_spec
+                              || mob_index[GET_MOB_RNUM(victim)].sfunc == landlord_spec))
   {
     dam = -1;
     buf_mod(rbuf, sizeof(rbuf), "Keeper",dam);
@@ -3883,7 +3884,9 @@ void hit(struct char_data *attacker, struct char_data *victim, struct obj_data *
     // Reach is always used offensively. TODO: Add option to use it defensively instead.
     if (net_reach > 0)
       att->modifiers[COMBAT_MOD_REACH] -= net_reach;
-    
+    else
+      def->modifiers[COMBAT_MOD_REACH] -= -net_reach;
+      
     // -------------------------------------------------------------------------------------------------------
     // Calculate and display pre-success-test information.
     snprintf(rbuf, sizeof(rbuf), "^cMelee combat mode. %s's TN modifiers: ", GET_CHAR_NAME(att->ch) );
@@ -3896,9 +3899,9 @@ void hit(struct char_data *attacker, struct char_data *victim, struct obj_data *
     
     snprintf(rbuf, sizeof(rbuf), "^c%s%s's TN modifiers: ", GET_CHAR_NAME( def->ch ),
             (GET_PHYSICAL(def->ch) <= 0 || GET_MENTAL(def->ch) <= 0) ? " (incap)" : "" );
-    def->tn += modify_target_rbuf_raw(att->ch, rbuf, sizeof(rbuf), def->modifiers[COMBAT_MOD_VISIBILITY]);
+    def->tn += modify_target_rbuf_raw(def->ch, rbuf, sizeof(rbuf), def->modifiers[COMBAT_MOD_VISIBILITY]);
     for (int mod_index = 0; mod_index < NUM_COMBAT_MODIFIERS; mod_index++) {
-      buf_mod(rbuf, sizeof(rbuf), combat_modifiers[mod_index], att->modifiers[mod_index]);
+      buf_mod(rbuf, sizeof(rbuf), combat_modifiers[mod_index], def->modifiers[mod_index]);
       def->tn += def->modifiers[mod_index];
     }
     act( rbuf, 1, att->ch, NULL, NULL, TO_ROLLS );
@@ -4125,8 +4128,10 @@ void hit(struct char_data *attacker, struct char_data *victim, struct obj_data *
   // Adjust messaging for unkillable entities.
   if (can_hurt(att->ch, def->ch, att->dam_type))
     staged_damage = stage(att->successes, att->damage_level);
-  else
+  else {
     staged_damage = -1;
+    act("Damage reduced to -1 due to failure of CAN_HURT().", TRUE, att->ch, NULL, NULL, TO_ROLLS);
+  }
   
   int damage_total = convert_damage(staged_damage);
   

@@ -1473,7 +1473,7 @@ SPECIAL(car_dealer)
     
   if (IS_NPC(ch)) {
     send_to_char("You're having a hard time getting the dealer's attention.\r\n", ch);
-    return TRUE;
+    return FALSE;
   }
 
   int car_room = real_room(ch->in_room->number) - 1;
@@ -3835,7 +3835,7 @@ SPECIAL(painter)
     return FALSE;
   if (IS_NPC(ch)) {
     send_to_char("You're having a hard time getting the painter's attention.\r\n", ch);
-    return TRUE;
+    return FALSE;
   }
   skip_spaces(&argument);
   if (!*argument) {
@@ -4254,8 +4254,6 @@ SPECIAL(trideo)
        (trid->restring && isname(argument, trid->restring)))) {
       if (IS_ASTRAL(ch))
         send_to_char("You just can't seem to activate it.\r\n", ch);
-      if (trid->in_room)
-        send_to_char("You have to plug it in to turn it on.\r\n", ch);
       else if (!(CAN_WEAR(trid, ITEM_WEAR_TAKE)))
         send_to_char("You don't have control over that unit.\r\n", ch);
       else if (GET_OBJ_VAL(trid, 0)) {

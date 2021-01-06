@@ -3989,6 +3989,7 @@ ACMD(do_set)
                { "tke", LVL_VICEPRES, PC, NUMBER }, //70
                { "sysp", LVL_VICEPRES, PC, NUMBER },
                { "esshole", LVL_ADMIN, PC, NUMBER },
+               { "socializationbonus", LVL_ADMIN, PC, NUMBER },
                { "\n", 0, BOTH, MISC }
              };
 
@@ -4518,6 +4519,10 @@ ACMD(do_set)
   case 71:
     RANGE(-10000, 10000);
     GET_SYSTEM_POINTS(vict) = value;
+  case 72:
+    RANGE(0, MAX_CONGREGATION_BONUS);
+    GET_CONGREGATION_BONUS(vict) = value;
+    break;
   default:
     snprintf(buf, sizeof(buf), "Can't set that!");
     break;
@@ -4551,7 +4556,7 @@ ACMD(do_logwatch)
   one_argument(argument, buf);
 
   if (!*buf) {
-    snprintf(buf, sizeof(buf), "You are currently watching the following:\r\n%s%s%s%s%s%s%s%s%s%s%s%s%s",
+    snprintf(buf, sizeof(buf), "You are currently watching the following:\r\n%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
             (PRF_FLAGGED(ch, PRF_CONNLOG) ? "  ConnLog\r\n" : ""),
             (PRF_FLAGGED(ch, PRF_DEATHLOG) ? "  DeathLog\r\n" : ""),
             (PRF_FLAGGED(ch, PRF_MISCLOG) ? "  MiscLog\r\n" : ""),
@@ -4564,7 +4569,8 @@ ACMD(do_logwatch)
             (PRF_FLAGGED(ch, PRF_WRECKLOG) ? "  WreckLog\r\n" : ""),
             (PRF_FLAGGED(ch, PRF_PGROUPLOG) ? "  PGroupLog\r\n" : ""),
             (PRF_FLAGGED(ch, PRF_HELPLOG) ? "  HelpLog\r\n" : ""),
-            (PRF_FLAGGED(ch, PRF_PURGELOG) ? "  PurgeLog\r\n" : ""));
+            (PRF_FLAGGED(ch, PRF_PURGELOG) ? "  PurgeLog\r\n" : ""),
+            (PRF_FLAGGED(ch, PRF_FUCKUPLOG) ? "  FuckupLog\r\n" : ""));
 
     send_to_char(buf, ch);
     return;
@@ -4692,6 +4698,16 @@ ACMD(do_logwatch)
     } else {
       send_to_char("You aren't permitted to view that log at your level.\r\n", ch);
     }
+  } else if (is_abbrev(buf, "fuckuplog")) {
+    if (PRF_FLAGGED(ch, PRF_FUCKUPLOG)) {
+      send_to_char("You no longer watch the FuckupLog.\r\n", ch);
+      PRF_FLAGS(ch).RemoveBit(PRF_FUCKUPLOG);
+    } else if (access_level(ch, LVL_ARCHITECT)) {
+      send_to_char("You will now see the FuckupLog.\r\n", ch);
+      PRF_FLAGS(ch).SetBit(PRF_FUCKUPLOG);
+    } else {
+      send_to_char("You aren't permitted to view that log at your level.\r\n", ch);
+    }
   } else if (is_abbrev(buf, "all")) {
     if (!PRF_FLAGGED(ch, PRF_CONNLOG))
       PRF_FLAGS(ch).SetBit(PRF_CONNLOG);
@@ -4719,11 +4735,13 @@ ACMD(do_logwatch)
       PRF_FLAGS(ch).SetBit(PRF_HELPLOG);
     if (!PRF_FLAGGED(ch, PRF_PURGELOG) && access_level(ch, LVL_ARCHITECT))
       PRF_FLAGS(ch).SetBit(PRF_PURGELOG);
+    if (!PRF_FLAGGED(ch, PRF_FUCKUPLOG) && access_level(ch, LVL_ARCHITECT))
+      PRF_FLAGS(ch).SetBit(PRF_FUCKUPLOG);
     send_to_char("All available logs have been activated.\r\n", ch);
   } else if (is_abbrev(buf, "none")) {
     PRF_FLAGS(ch).RemoveBits(PRF_CONNLOG, PRF_DEATHLOG, PRF_MISCLOG, PRF_WIZLOG,
                              PRF_SYSLOG, PRF_ZONELOG, PRF_CHEATLOG, PRF_BANLOG, PRF_GRIDLOG,
-                             PRF_WRECKLOG, PRF_PGROUPLOG, PRF_HELPLOG, PRF_PURGELOG, ENDBIT);
+                             PRF_WRECKLOG, PRF_PGROUPLOG, PRF_HELPLOG, PRF_PURGELOG, PRF_FUCKUPLOG, ENDBIT);
     send_to_char("All logs have been disabled.\r\n", ch);
   } else
     send_to_char("Watch what log?\r\n", ch);
