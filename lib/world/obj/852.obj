@@ -2967,8 +2967,8 @@ LookDesc:$
 These 2.5-centimeter, chromed steel or carbon fiber blades replace the user's 
 fingernails and are anchored to the user's bones. Retractable versions slide 
 out of sight under synthetic nail replacements. Hand razors do (STR)L damage. 
-An improved version with compressed carbide blades does more damage, but is 
-Cost:	0
+An improved version with compressed carbide blades does more damage, but is
+costlier. Improved razors do (STR+2)L damage.~
 Type:	Cyberware
 WearFlags:	1
 ExtraFlags:	0
@@ -2998,8 +2998,8 @@ LookDesc:$
 These 2.5-centimeter, chromed steel or carbon fiber blades replace the user's 
 fingernails and are anchored to the user's bones. Retractable versions slide 
 out of sight under synthetic nail replacements. Hand razors do (STR)L damage. 
-An improved version with compressed carbide blades does more damage, but is 
-Cost:	0
+An improved version with compressed carbide blades does more damage, but is
+costlier. Improved razors do (STR+2)L damage.~
 Type:	Cyberware
 WearFlags:	1
 ExtraFlags:	0
@@ -3030,8 +3030,8 @@ LookDesc:$
 These 2.5-centimeter, chromed steel or carbon fiber blades replace the user's 
 fingernails and are anchored to the user's bones. Retractable versions slide 
 out of sight under synthetic nail replacements. Hand razors do (STR)L damage. 
-An improved version with compressed carbide blades does more damage, but is 
-Cost:	0
+An improved version with compressed carbide blades does more damage, but is
+costlier. Improved razors do (STR+2)L damage.~
 Type:	Cyberware
 WearFlags:	1
 ExtraFlags:	0
@@ -3062,8 +3062,8 @@ LookDesc:$
 These 2.5-centimeter, chromed steel or carbon fiber blades replace the user's 
 fingernails and are anchored to the user's bones. Retractable versions slide 
 out of sight under synthetic nail replacements. Hand razors do (STR)L damage. 
-An improved version with compressed carbide blades does more damage, but is 
-Cost:	0
+An improved version with compressed carbide blades does more damage, but is
+costlier. Improved razors do (STR+2)L damage.~
 Type:	Cyberware
 WearFlags:	1
 ExtraFlags:	0
